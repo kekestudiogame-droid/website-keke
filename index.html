@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cari Kerjaku ID - platform pencarian lowongan kerja dan rekrutmen.">
+  <title>Cari Kerjaku ID — Temukan Pekerjaanmu</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Cari Kerjaku ID">Cari<span>Kerjaku</span> ID</a>
+      <nav>
+        <a href="#jobs">Lowongan</a>
+        <a href="#how">Cara Kerja</a>
+        <a href="#about">Tentang</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" id="loginBtn">Masuk</button>
+        <button class="btn btn-primary" id="registerBtn">Daftar</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">PLATFORM KARIER INDONESIA</p>
+          <h1>Temukan pekerjaan yang <span>tepat untukmu.</span></h1>
+          <p class="hero-copy">Cari lowongan, temukan perusahaan, dan kirim lamaran dari satu tempat.</p>
+          <form class="search-box" id="searchForm">
+            <input id="keyword" type="search" placeholder="Jabatan atau kata kunci" aria-label="Jabatan atau kata kunci">
+            <input id="location" type="text" placeholder="Kota / lokasi" aria-label="Kota atau lokasi">
+            <button class="btn btn-primary" type="submit">Cari Lowongan</button>
+          </form>
+          <div class="quick-tags">
+            <button data-keyword="Frontend Developer">Frontend Developer</button>
+            <button data-keyword="Marketing">Marketing</button>
+            <button data-keyword="Admin">Admin</button>
+            <button data-keyword="UI/UX Designer">UI/UX Designer</button>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="stat-card">
+            <strong id="jobCount">0</strong>
+            <span>lowongan tersedia</span>
+          </div>
+          <div class="mini-job">
+            <span class="pill">Full-time</span>
+            <h3>Frontend Developer</h3>
+            <p>Teknologi Nusantara · Jakarta</p>
+            <strong>Rp 8–12 juta / bulan</strong>
+          </div>
+          <div class="mini-job">
+            <span class="pill">Remote</span>
+            <h3>UI/UX Designer</h3>
+            <p>Karya Digital · Indonesia</p>
+            <strong>Rp 7–10 juta / bulan</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="jobs">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LOWONGAN TERBARU</p>
+            <h2>Peluang kerja untukmu</h2>
+          </div>
+          <select id="categoryFilter" aria-label="Filter kategori">
+            <option value="all">Semua kategori</option>
+            <option value="Teknologi">Teknologi</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Administrasi">Administrasi</option>
+            <option value="Desain">Desain</option>
+          </select>
+        </div>
+        <div id="jobsGrid" class="jobs-grid"></div>
+        <div id="emptyState" class="empty hidden">
+          <h3>Lowongan tidak ditemukan</h3>
+          <p>Coba kata kunci atau lokasi lain.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted" id="how">
+      <div class="container">
+        <div class="section-heading centered">
+          <p class="eyebrow">CARA KERJA</p>
+          <h2>Mulai mencari kerja dalam 3 langkah</h2>
+        </div>
+        <div class="steps">
+          <article><span>01</span><h3>Buat profil</h3><p>Lengkapi profil dan keahlian agar perusahaan mengenalmu.</p></article>
+          <article><span>02</span><h3>Cari lowongan</h3><p>Gunakan kata kunci, lokasi, dan kategori untuk menemukan pekerjaan.</p></article>
+          <article><span>03</span><h3>Kirim lamaran</h3><p>Pilih pekerjaan yang sesuai dan pantau status lamaranmu.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-card">
+        <div>
+          <p class="eyebrow">CARI KERJAKU ID</p>
+          <h2>Satu tempat untuk pencari kerja dan perusahaan.</h2>
+        </div>
+        <p>Versi ini adalah prototype web publik. Fitur akun, database, lamaran, dan dashboard akan dihubungkan pada tahap backend berikutnya.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer">
+      <strong>CariKerjaku ID</strong>
+      <span>© <span id="year"></span> CariKerjaku ID</span>
+    </div>
+  </footer>
+
+  <div class="modal hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal" aria-label="Tutup">×</button>
+      <p class="eyebrow">CARI KERJAKU ID</p>
+      <h2 id="modalTitle">Masuk</h2>
+      <p id="modalText">Prototype akun. Backend akan dihubungkan pada tahap berikutnya.</p>
+      <form id="authForm">
+        <label>Email<input type="email" required placeholder="nama@email.com"></label>
+        <label>Password<input type="password" required minlength="6" placeholder="Minimal 6 karakter"></label>
+        <button class="btn btn-primary full" type="submit">Lanjut</button>
+      </form>
+      <p class="switch-auth">Belum punya akun? <button id="switchAuth" type="button">Daftar</button></p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
