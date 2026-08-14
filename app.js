@@ -1,3 +1,13 @@
+const SUPABASE_URL ="https://ksqrimmecpriyepsuclc.supabase.co/rest/v1/'
+const SUPABASE_KEY = "sb_publishable_xvPQL9oniSRwZoqmSc5W4A_NS9ldWIL'
+
+const supabaseHeaders = {
+  apikey: SUPABASE_KEY,
+  Authorization: `Bearer ${SUPABASE_KEY}`,
+  "Content-Type": "application/json"
+};
+
+const SUPABASE_JOBS_URL = `${SUPABASE_URL}jobs`;
 const jobs = [
   {title:"Frontend Developer", company:"Teknologi Nusantara", location:"Jakarta", category:"Teknologi", type:"Full-time", salary:"Rp 8–12 juta / bulan", initials:"TN"},
   {title:"Backend Developer", company:"Solusi Digital Indonesia", location:"Bandung", category:"Teknologi", type:"Full-time", salary:"Rp 9–14 juta / bulan", initials:"SD"},
