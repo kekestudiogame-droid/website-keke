@@ -109,10 +109,43 @@ document.querySelector("#switchAuth").addEventListener("click", () => {
 });
 document.querySelector("#closeModal").addEventListener("click", () => modal.classList.add("hidden"));
 modal.addEventListener("click", e => { if(e.target === modal) modal.classList.add("hidden"); });
-authForm.addEventListener("submit", e => {
+authForm.addEventListener("submit", async e => {
   e.preventDefault();
-  alert(isRegister ? "Pendaftaran demo berhasil. Backend belum terhubung." : "Login demo berhasil. Backend belum terhubung.");
-  modal.classList.add("hidden");
+
+  const email = document.querySelector("#email").value.trim();
+  const password = document.querySelector("#password").value;
+
+  const authUrl = SUPABASE_URL.replace("/rest/v1/", "/auth/v1/");
+
+  try {
+    const response = await fetch(
+      isRegister
+        ? `${authUrl}signup`
+        : `${authUrl}token?grant_type=password`,
+      {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.msg || data.error_description || data.message || "Gagal"
+      );
+    }
+
+    alert(isRegister ? "Pendaftaran berhasil!" : "Login berhasil!");
+    modal.classList.add("hidden");
+
+  } catch (error) {
+    alert("Gagal: " + error.message);
+  }
 });
 document.querySelector("#year").textContent = new Date().getFullYear();
 renderJobs();
