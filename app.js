@@ -112,8 +112,11 @@ modal.addEventListener("click", e => { if(e.target === modal) modal.classList.ad
 authForm.addEventListener("submit", async e => {
   e.preventDefault();
 
-  const email = document.querySelector("#email").value.trim();
-  const password = document.querySelector("#password").value;
+  const emailInput = document.querySelector('input[type="email"]');
+const passwordInput = document.querySelector('input[type="password"]');
+
+const email = emailInput.value.trim();
+const password = passwordInput.value;
   const authUrl = SUPABASE_URL.replace("/rest/v1/", "/auth/v1/");
 
 try {
