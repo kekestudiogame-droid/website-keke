@@ -114,38 +114,34 @@ authForm.addEventListener("submit", async e => {
 
   const email = document.querySelector("#email").value.trim();
   const password = document.querySelector("#password").value;
-
   const authUrl = SUPABASE_URL.replace("/rest/v1/", "/auth/v1/");
 
-  try {
-    const response = await fetch(
-      isRegister
-        ? `${authUrl}signup`
-        : `${authUrl}token?grant_type=password`,
-      {
-        method: "POST",
-        headers: {
-          apikey: SUPABASE_KEY,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.msg || data.error_description || data.message || "Gagal"
-      );
+try {
+  const response = await fetch(
+    isRegister
+      ? `${authUrl}/signup`
+      : `${authUrl}/token?grant_type=password`,
+    {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
     }
+  );
+  const data = await response.json();
 
-    alert(isRegister ? "Pendaftaran berhasil!" : "Login berhasil!");
-    modal.classList.add("hidden");
-
-  } catch (error) {
-    alert("Gagal: " + error.message);
+  if (!response.ok) {
+    throw new Error(
+      data.msg || data.error_description || data.message || "Gagal"
+    );
   }
+
+  alert(isRegister ? "Pendaftaran berhasil!" : "Login berhasil!");
+  modal.classList.add("hidden");
+
+} catch (error) {
+  alert("Gagal: " + error.message);
+}
 });
-document.querySelector("#year").textContent = new Date().getFullYear();
-renderJobs();
