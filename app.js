@@ -1,5 +1,5 @@
-const SUPABASE_URL ="https://ksqrimmecpriyepsuclc.supabase.co/rest/v1/'
-const SUPABASE_KEY = "sb_publishable_xvPQL9oniSRwZoqmSc5W4A_NS9ldWIL'
+const SUPABASE_URL ="https://ksqrimmecpriyepsuclc.supabase.co/rest/v1/"
+const SUPABASE_KEY = "sb_publishable_xvPQL9oniSRwZoqmSc5W4A_NS9ldWIL"
 
 const supabaseHeaders = {
   apikey: SUPABASE_KEY,
