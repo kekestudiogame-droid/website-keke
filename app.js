@@ -141,9 +141,18 @@ try {
     );
   }
 
-  alert(isRegister ? "Pendaftaran berhasil!" : "Login berhasil!");
+ if (isRegister) {
+  alert("Pendaftaran berhasil! Silakan masuk menggunakan email dan password tadi.");
+  isRegister = false;
+  modalTitle.textContent = "Masuk";
+  modalText.textContent = "Masukkan email dan password untuk masuk.";
+  document.querySelector("#switchAuth").textContent = "Daftar";
+} else {
+  localStorage.setItem("cariKerjakuAccessToken", data.access_token || "");
+  localStorage.setItem("cariKerjakuUser", JSON.stringify(data.user || {}));
+  alert("Login berhasil!");
   modal.classList.add("hidden");
-
+}
 } catch (error) {
   alert("Gagal: " + error.message);
 }
