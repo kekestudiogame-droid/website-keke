@@ -11,12 +11,42 @@ const SUPABASE_JOBS_URL = `${SUPABASE_URL}jobs`;
 const SUPABASE_APPLICATIONS_URL = `${SUPABASE_URL}applications`;
 
 const jobs = [
-  {id:1, title:"Frontend Developer", company:"Teknologi Nusantara", location:"Jakarta", category:"Teknologi", type:"Full-time", salary:"Rp 8–12 juta / bulan", initials:"TN"},
-  {id:2, title:"Backend Developer", company:"Solusi Digital Indonesia", location:"Bandung", category:"Teknologi", type:"Full-time", salary:"Rp 9–14 juta / bulan", initials:"SD"},
-  {id:3, title:"Digital Marketing Specialist", company:"Maju Bersama", location:"Jakarta", category:"Marketing", type:"Full-time", salary:"Rp 6–9 juta / bulan", initials:"MB"},
-  {id:4, title:"Staff Administrasi", company:"Prima Nusantara", location:"Surabaya", category:"Administrasi", type:"Full-time", salary:"Rp 4–6 juta / bulan", initials:"PN"},
-  {id:5, title:"UI/UX Designer", company:"Karya Digital", location:"Remote", category:"Desain", type:"Remote", salary:"Rp 7–10 juta / bulan", initials:"KD"},
-  {id:6, title:"Social Media Specialist", company:"Ruang Kreatif", location:"Yogyakarta", category:"Marketing", type:"Full-time", salary:"Rp 5–8 juta / bulan", initials:"RK"}
+  {id:1, title:"Frontend Developer", company:"Teknologi Nusantara", location:"Jakarta", category:"Teknologi", type:"Full-time", salary:"Rp 8–12 juta / bulan"},
+  {id:2, title:"Backend Developer", company:"Solusi Digital Indonesia", location:"Bandung", category:"Teknologi", type:"Full-time", salary:"Rp 9–14 juta / bulan"},
+  {id:3, title:"Digital Marketing Specialist", company:"Maju Bersama", location:"Jakarta", category:"Marketing", type:"Full-time", salary:"Rp 6–9 juta / bulan"},
+  {id:4, title:"Staff Administrasi", company:"Prima Nusantara", location:"Surabaya", category:"Administrasi", type:"Full-time", salary:"Rp 4–6 juta / bulan"},
+  {id:5, title:"UI/UX Designer", company:"Karya Digital", location:"Remote", category:"Desain", type:"Remote", salary:"Rp 7–10 juta / bulan"},
+  {id:6, title:"Social Media Specialist", company:"Ruang Kreatif", location:"Yogyakarta", category:"Marketing", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:7, title:"Accounting Staff", company:"Cahaya Finance", location:"Jakarta", category:"Accounting", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:8, title:"Finance Staff", company:"Mitra Finansial", location:"Jakarta", category:"Finance", type:"Full-time", salary:"Rp 6–10 juta / bulan"},
+  {id:9, title:"Sales Executive", company:"Sukses Makmur", location:"Bekasi", category:"Sales", type:"Full-time", salary:"Rp 5–9 juta / bulan"},
+  {id:10, title:"Customer Service", company:"Layanan Prima", location:"Jakarta", category:"Customer Service", type:"Full-time", salary:"Rp 4–7 juta / bulan"},
+  {id:11, title:"HRD Staff", company:"Indonesia Jaya", location:"Tangerang", category:"HRD", type:"Full-time", salary:"Rp 6–9 juta / bulan"},
+  {id:12, title:"Recruitment Staff", company:"Talent Indonesia", location:"Jakarta", category:"HRD", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:13, title:"Purchasing Staff", company:"Prima Industri", location:"Jakarta", category:"Purchasing", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:14, title:"Warehouse Staff", company:"Logistik Cepat", location:"Bekasi", category:"Warehouse", type:"Full-time", salary:"Rp 4–7 juta / bulan"},
+  {id:15, title:"Logistic Staff", company:"Nusantara Logistik", location:"Surabaya", category:"Logistic", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:16, title:"Operator Produksi", company:"Industri Sejahtera", location:"Karawang", category:"Produksi", type:"Full-time", salary:"Rp 4–7 juta / bulan"},
+  {id:17, title:"Quality Control", company:"Manufaktur Indonesia", location:"Karawang", category:"Quality Control", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:18, title:"Mechanical Engineer", company:"Teknik Mandiri", location:"Jakarta", category:"Engineering", type:"Full-time", salary:"Rp 7–12 juta / bulan"},
+  {id:19, title:"Teknisi", company:"Tekno Service", location:"Depok", category:"Teknisi", type:"Full-time", salary:"Rp 4–8 juta / bulan"},
+  {id:20, title:"Project Manager", company:"Proyek Digital", location:"Jakarta", category:"Management", type:"Full-time", salary:"Rp 12–20 juta / bulan"},
+  {id:21, title:"Product Manager", company:"Startup Indonesia", location:"Jakarta", category:"Management", type:"Full-time", salary:"Rp 12–20 juta / bulan"},
+  {id:22, title:"Data Analyst", company:"Data Solusi", location:"Jakarta", category:"Data", type:"Full-time", salary:"Rp 8–14 juta / bulan"},
+  {id:23, title:"Data Scientist", company:"AI Nusantara", location:"Bandung", category:"Data", type:"Full-time", salary:"Rp 10–18 juta / bulan"},
+  {id:24, title:"Mobile Developer", company:"Aplikasi Kita", location:"Jakarta", category:"Teknologi", type:"Remote", salary:"Rp 8–15 juta / bulan"},
+  {id:25, title:"IT Support", company:"Digital Support", location:"Tangerang", category:"IT", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:26, title:"Network Engineer", company:"Network Indonesia", location:"Jakarta", category:"IT", type:"Full-time", salary:"Rp 7–12 juta / bulan"},
+  {id:27, title:"Cyber Security Specialist", company:"Secure Digital", location:"Jakarta", category:"IT", type:"Full-time", salary:"Rp 10–18 juta / bulan"},
+  {id:28, title:"Content Writer", company:"Media Kreatif", location:"Remote", category:"Content", type:"Remote", salary:"Rp 5–9 juta / bulan"},
+  {id:29, title:"Copywriter", company:"Kreatif Media", location:"Jakarta", category:"Content", type:"Full-time", salary:"Rp 5–9 juta / bulan"},
+  {id:30, title:"Graphic Designer", company:"Visual Kreatif", location:"Bandung", category:"Desain", type:"Full-time", salary:"Rp 5–9 juta / bulan"},
+  {id:31, title:"Photographer", company:"Studio Nusantara", location:"Jakarta", category:"Creative", type:"Full-time", salary:"Rp 5–10 juta / bulan"},
+  {id:32, title:"Video Editor", company:"Media Visual", location:"Remote", category:"Creative", type:"Remote", salary:"Rp 5–10 juta / bulan"},
+  {id:33, title:"Public Relations", company:"Komunikasi Indonesia", location:"Jakarta", category:"Public Relations", type:"Full-time", salary:"Rp 6–10 juta / bulan"},
+  {id:34, title:"Legal Staff", company:"Konsultan Hukum", location:"Jakarta", category:"Legal", type:"Full-time", salary:"Rp 6–10 juta / bulan"},
+  {id:35, title:"Secretary", company:"Perusahaan Nasional", location:"Jakarta", category:"Administrasi", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
+  {id:36, title:"Receptionist", company:"Hospitality Indonesia", location:"Bali", category:"Administrasi", type:"Full-time", salary:"Rp 4–7 juta / bulan"}
 ];
 
 const jobsGrid = document.querySelector("#jobsGrid");
