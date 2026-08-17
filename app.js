@@ -166,14 +166,17 @@ let isRegister = false;
 let isCompany = false;
 const companyAccountBtn = document.querySelector("#companyAccount");
 const jobseekerAccountBtn = document.querySelector("#jobseekerAccount");
+const companyFields = document.querySelector("#companyFields");
 companyAccountBtn.addEventListener("click", () => {
   isCompany = true;
+  companyFields.style.display = "block";
   modalTitle.textContent = "Daftar Perusahaan";
   modalText.textContent = "Buat akun perusahaan untuk memasang lowongan.";
 });
 
 jobseekerAccountBtn.addEventListener("click", () => {
   isCompany = false;
+  companyFields.style.display = "none";
   modalTitle.textContent = "Daftar";
   modalText.textContent = "Buat akun untuk mulai melamar pekerjaan.";
 });
