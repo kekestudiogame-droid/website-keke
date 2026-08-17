@@ -348,7 +348,11 @@ authForm.addEventListener("submit", async e => {
 
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-
+const companyName = document.querySelector("#companyName")?.value.trim() || "";
+const companyPhone = document.querySelector("#companyPhone")?.value.trim() || "";
+const companyWebsite = document.querySelector("#companyWebsite")?.value.trim() || "";
+const companyCity = document.querySelector("#companyCity")?.value.trim() || "";
+const companyAddress = document.querySelector("#companyAddress")?.value.trim() || "";
   const authUrl = SUPABASE_URL.replace(
     "/rest/v1/",
     "/auth/v1/"
