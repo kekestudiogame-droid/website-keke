@@ -46,7 +46,7 @@ const jobs = [
   {id:33, title:"Public Relations", company:"Komunikasi Indonesia", location:"Jakarta", category:"Public Relations", type:"Full-time", salary:"Rp 6–10 juta / bulan"},
   {id:34, title:"Legal Staff", company:"Konsultan Hukum", location:"Jakarta", category:"Legal", type:"Full-time", salary:"Rp 6–10 juta / bulan"},
   {id:35, title:"Secretary", company:"Perusahaan Nasional", location:"Jakarta", category:"Administrasi", type:"Full-time", salary:"Rp 5–8 juta / bulan"},
-  {id:36, title:"Receptionist", company:"Hospitality Indonesia", location:"Bali", category:"Administrasi", type:"Full-time", salary:"Rp 4–7 juta / bulan"}
+  {id:36, title:"Receptionist", company:"Hospitality Indonesia", location:"Bali", category:"Administrasi", type:"Full-time", salary:"Rp 4–7 juta / bulan"},
 {id:37, title:"Marketing Executive", company:"Nusantara Media", location:"Jakarta", category:"Marketing", type:"Full-time", salary:"Rp 7-10 juta / bulan"},
 {id:38, title:"Accounting Staff", company:"Prima Finance", location:"Bandung", category:"Accounting", type:"Full-time", salary:"Rp 5-8 juta / bulan"},
 {id:39, title:"HR Staff", company:"Mitra Indonesia", location:"Surabaya", category:"HRD", type:"Full-time", salary:"Rp 6-9 juta / bulan"},
