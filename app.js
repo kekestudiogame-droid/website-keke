@@ -163,7 +163,20 @@ const modalText = document.querySelector("#modalText");
 const authForm = document.querySelector("#authForm");
 
 let isRegister = false;
+let isCompany = false;
+const companyAccountBtn = document.querySelector("#companyAccount");
+const jobseekerAccountBtn = document.querySelector("#jobseekerAccount");
+companyAccountBtn.addEventListener("click", () => {
+  isCompany = true;
+  modalTitle.textContent = "Daftar Perusahaan";
+  modalText.textContent = "Buat akun perusahaan untuk memasang lowongan.";
+});
 
+jobseekerAccountBtn.addEventListener("click", () => {
+  isCompany = false;
+  modalTitle.textContent = "Daftar";
+  modalText.textContent = "Buat akun untuk mulai melamar pekerjaan.";
+});
 function openModal(title, text){
   modalTitle.textContent = title;
   modalText.textContent = text;
