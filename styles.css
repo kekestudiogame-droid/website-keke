@@ -13,3 +13,7 @@ footer{border-top:1px solid var(--line)}.footer{min-height:80px;display:flex;ali
 .modal{position:fixed;inset:0;background:rgba(10,20,40,.55);z-index:50;display:grid;place-items:center;padding:20px}.modal-card{background:#fff;border-radius:20px;padding:30px;width:min(420px,100%);position:relative;box-shadow:var(--shadow)}.modal-card h2{margin:0 0 8px}.modal-card>p{color:var(--muted);font-size:14px}.modal-close{position:absolute;right:16px;top:12px;border:0;background:none;font-size:28px;cursor:pointer;color:var(--muted)}label{display:block;font-size:13px;font-weight:700;margin:15px 0}label input{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:14px}.switch-auth{text-align:center;font-size:13px}.switch-auth button{border:0;background:none;color:var(--accent);font-weight:800;cursor:pointer}
 @media(max-width:850px){nav{display:none}.hero-grid{grid-template-columns:1fr}.jobs-grid{grid-template-columns:1fr 1fr}.about-card{grid-template-columns:1fr}.search-box{grid-template-columns:1fr}.steps{grid-template-columns:1fr}}
 @media(max-width:560px){.jobs-grid{grid-template-columns:1fr}.nav-actions .btn-ghost{display:none}.hero{padding-top:55px}.hero h1{letter-spacing:-2px}.section{padding:60px 0}}
+.modal-card{
+  max-height:90vh;
+  overflow-y:auto;
+}
