@@ -130,6 +130,13 @@
   <button type="button" id="companyAccount">Perusahaan</button>
 </div>
       <form id="authForm">
+    <div id="companyFields" class="company-fields" style="display:none;">
+  <label>Nama Perusahaan<input id="companyName" type="text" placeholder="Nama perusahaan"></label>
+  <label>No. HP<input id="companyPhone" type="tel" placeholder="08xxxxxxxxxx"></label>
+  <label>Website<input id="companyWebsite" type="url" placeholder="https://contoh.com"></label>
+  <label>Kota<input id="companyCity" type="text" placeholder="Jakarta"></label>
+  <label>Alamat<input id="companyAddress" type="text" placeholder="Alamat perusahaan"></label>
+</div>
         <label>Email<input id="email" type="email" required placeholder="nama@email.com"></label>
         <label>Password<input id="password" type="password" required minlength="6" placeholder="Minimal 6 karakter"></label>
         <button class="btn btn-primary full" type="submit">Lanjut</button>
