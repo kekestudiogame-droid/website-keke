@@ -410,6 +410,30 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
         JSON.stringify(data.user || {})
       );
 
+     if (isCompany) {
+  const companyResponse = await fetch(`${SUPABASE_URL}companies`, {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${data.access_token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id: data.user?.id,
+      company_name: companyName,
+      email: email,
+      phone: companyPhone,
+      website: companyWebsite,
+      city: companyCity,
+      address: companyAddress
+    })
+  });
+
+  if (!companyResponse.ok) {
+    const companyError = await companyResponse.text();
+    throw new Error("Gagal menyimpan profil perusahaan: " + companyError);
+  }
+}
       alert("Login berhasil!");
       modal.classList.add("hidden");
     }
