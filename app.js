@@ -444,3 +444,63 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
 });
 
 renderJobs();
+
+// ================= DASHBOARD PERUSAHAAN =================
+
+function showCompanyDashboard() {
+  const dashboard = document.createElement("div");
+
+  dashboard.id = "companyDashboard";
+
+  dashboard.innerHTML = `
+    <div style="
+      max-width:900px;
+      margin:30px auto;
+      padding:25px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 2px 10px rgba(0,0,0,.1);
+      font-family:Arial,sans-serif;
+    ">
+      <h2>Dashboard Perusahaan</h2>
+      <p>Selamat datang di dashboard perusahaan.</p>
+
+      <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+        gap:15px;
+        margin-top:25px;
+      ">
+        <button onclick="alert('Profil Perusahaan')">
+          Profil Perusahaan
+        </button>
+
+        <button onclick="alert('Fitur Pasang Lowongan segera tersedia')">
+          Pasang Lowongan
+        </button>
+
+        <button onclick="alert('Belum ada lowongan perusahaan')">
+          Lowongan Saya
+        </button>
+
+        <button onclick="alert('Belum ada lamaran masuk')">
+          Lamaran Masuk
+        </button>
+
+        <button onclick="companyLogout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.innerHTML = "";
+  document.body.appendChild(dashboard);
+}
+
+function companyLogout() {
+  localStorage.removeItem("cariKerjakuUser");
+  localStorage.removeItem("cariKerjakuAccessToken");
+  location.reload();
+}
+
