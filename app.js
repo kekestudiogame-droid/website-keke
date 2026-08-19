@@ -420,7 +420,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
     },
     body: JSON.stringify({
       id: data.user?.id,
-      users_id: data.user?.id,
+      user_id: data.user?.id,
       company_name: companyName,
       email: email,
       phone: companyPhone,
