@@ -419,7 +419,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      id: crypto.randomUUID(),
+      id: data.user?.id,
       user_id: data.user?.id,
       company_name: companyName,
       email: email,
