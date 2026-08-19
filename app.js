@@ -418,16 +418,15 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
       Authorization: `Bearer ${data.access_token}`,
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      id: data.user?.id,
-      user_id: data.user?.id,
-      company_name: companyName,
-      email: email,
-      phone: companyPhone,
-      website: companyWebsite,
-      city: companyCity,
-      address: companyAddress
-    })
+  body: JSON.stringify({
+  user_id: data.user?.id,
+  company_name: companyName,
+  email: email,
+  phone: companyPhone,
+  website: companyWebsite,
+  kota: companyCity,
+  alamat: companyAddress
+}) 
   });
 
   if (!companyResponse.ok) {
