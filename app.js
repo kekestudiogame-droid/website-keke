@@ -431,7 +431,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
 
   if (!companyResponse.ok) {
     const companyError = await companyResponse.text();
-    throw new Error("Gagal menyimpan profil perusahaan: " + companyError);
+    throw new Error(companyError);
   }
        showCompanyDashboard();
 return;
