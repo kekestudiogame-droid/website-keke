@@ -479,7 +479,7 @@ function showCompanyDashboard() {
           Profil Perusahaan
         </button>
 
-        <button onclick="alert('Fitur Pasang Lowongan segera tersedia')">
+       <button onclick="showPostJobForm()">
           Pasang Lowongan
         </button>
 
