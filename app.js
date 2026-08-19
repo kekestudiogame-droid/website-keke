@@ -433,7 +433,11 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
     const companyError = await companyResponse.text();
     throw new Error("Gagal menyimpan profil perusahaan: " + companyError);
   }
+       showCompanyDashboard();
+return;
+       
 }
+      
       alert("Login berhasil!");
       modal.classList.add("hidden");
     }
