@@ -425,7 +425,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
       phone: companyPhone,
       website: companyWebsite,
       city: companyCity,
-      alamat: companyAddress
+      address: companyAddress
     })
   });
 
