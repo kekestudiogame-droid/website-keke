@@ -613,3 +613,37 @@ function companyLogout() {
   location.reload();
 }
 
+function showPostJobForm() {
+  const form = document.createElement("div");
+
+  form.innerHTML = `
+    <div style="
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    ">
+      <div style="
+        background:white;
+        padding:25px;
+        border-radius:12px;
+        width:90%;
+        max-width:500px;
+      ">
+        <h2>Pasang Lowongan</h2>
+
+        <input id="jobTitle" placeholder="Judul Lowongan" style="width:100%;margin:8px 0;padding:10px;">
+        <input id="jobCity" placeholder="Kota" style="width:100%;margin:8px 0;padding:10px;">
+        <textarea id="jobDescription" placeholder="Deskripsi Lowongan" style="width:100%;margin:8px 0;padding:10px;"></textarea>
+
+        <button onclick="submitJobPost()">Simpan Lowongan</button>
+        <button onclick="this.closest('div[style*=fixed]').remove()">Batal</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(form);
+}
