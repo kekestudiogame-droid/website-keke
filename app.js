@@ -82,7 +82,7 @@ const jobs = [
 {id:69, title:"Business Development", company:"Bisnis Digital", location:"Semarang", category:"Business Development", type:"Full-time", salary:"Rp 7-12 juta / bulan"},
 {id:70, title:"Project Coordinator", company:"Proyek Indonesia", location:"Bekasi", category:"Project Management", type:"Full-time", salary:"Rp 7-11 juta / bulan"},
 {id:71, title:"Video Editor", company:"Visual Media", location:"Bali", category:"Desain", type:"Remote", salary:"Rp 6-10 juta / bulan"},
-{id:72, title:"Copywriter", company:"Kreatif Indonesia", location:"Jakarta", category:"Content", type:"Remote", salary:"Rp 5-9 juta / bulan"},
+{id:102, title:"Copywriter", company:"Kreatif Indonesia", location:"Jakarta", category:"Content", type:"Remote", salary:"Rp 5-9 juta / bulan"},
 ];
 
 const jobsGrid = document.querySelector("#jobsGrid");
