@@ -647,3 +647,55 @@ function showPostJobForm() {
 
   document.body.appendChild(form);
 }
+
+async function submitJobPost() {
+  const title = document.getElementById("jobTitle").value.trim();
+  const city = document.getElementById("jobCity").value.trim();
+  const description = document.getElementById("jobDescription").value.trim();
+
+  if (!title || !city || !description) {
+    alert("Judul lowongan, kota, dan deskripsi wajib diisi.");
+    return;
+  }
+
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  const user = JSON.parse(userData);
+
+  try {
+    const response = await fetch(SUPABASE_JOBS_URL, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal"
+      },
+      body: JSON.stringify({
+        title: title,
+        city: city,
+        description: description,
+        user_id: user.id
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || "Gagal menyimpan lowongan.");
+    }
+
+    alert("Lowongan berhasil dipasang.");
+
+    const form = document.querySelector('div[style*="fixed"]');
+    if (form) form.remove();
+
+  } catch (error) {
+    alert("Gagal memasang lowongan: " + error.message);
+  }
+}
