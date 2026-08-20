@@ -426,6 +426,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
   website: companyWebsite,
   city: companyCity,
   address: companyAddress
+  })
   });
 
   if (!companyResponse.ok) {
