@@ -298,7 +298,8 @@ function openModal(title, text){
 }
 
 async function submitApplication(job){
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  const { data: { session } } = await supabase.auth.getSession();
+const accessToken = session?.access_token;
   const userData = localStorage.getItem("cariKerjakuUser");
 
   if (!accessToken || !userData) {
