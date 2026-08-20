@@ -298,8 +298,12 @@ function openModal(title, text){
 }
 
 async function submitApplication(job){
-  const { data: { session } } = await supabase.auth.getSession();
-const accessToken = session?.access_token;
+  const { data: { session }, error: sessionError } = await supabase.auth.refreshSession();
+if (sessionError || !session) {
+  throw new Error("Sesi login sudah kedaluwarsa. Silakan login kembali.");
+}
+const accessToken = session.access_token;
+
   const userData = localStorage.getItem("cariKerjakuUser");
 
   if (!accessToken || !userData) {
