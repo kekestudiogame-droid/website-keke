@@ -549,7 +549,122 @@ return;
 });
 
 renderJobs();
+// ================= DASHBOARD PENCARI KERJA =================
 
+function showJobseekerDashboard() {
+  const dashboard = document.createElement("div");
+
+  dashboard.id = "jobseekerDashboard";
+
+  dashboard.innerHTML = `
+    <div style="
+      max-width:900px;
+      margin:30px auto;
+      padding:25px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 2px 10px rgba(0,0,0,.1);
+      font-family:Arial,sans-serif;
+    ">
+      <h2>Profil Pencari Kerja</h2>
+
+      <p>Kelola CV kamu di sini.</p>
+
+      <label style="display:block;margin:20px 0 8px;">
+        Upload CV (PDF)
+      </label>
+
+      <input
+        type="file"
+        id="cvFileInput"
+        accept=".pdf,application/pdf"
+      >
+
+      <button
+        id="uploadCvBtn"
+        style="
+          margin-top:15px;
+          padding:10px 18px;
+          cursor:pointer;
+        "
+      >
+        Upload CV
+      </button>
+
+      <p id="cvStatus" style="margin-top:15px;"></p>
+    </div>
+  `;
+
+  document.body.prepend(dashboard);
+
+  const uploadBtn = document.querySelector("#uploadCvBtn");
+  const fileInput = document.querySelector("#cvFileInput");
+  const status = document.querySelector("#cvStatus");
+
+  uploadBtn.addEventListener("click", async () => {
+    const file = fileInput.files[0];
+
+    if (!file) {
+      status.textContent = "Pilih file CV terlebih dahulu.";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      status.textContent = "CV harus berupa file PDF.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      status.textContent = "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      status.textContent = "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      status.textContent = "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+      status.textContent = "Mengupload CV...";
+
+      const filePath = `${user.id}/${Date.now()}_${file.name}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/cv/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      status.textContent = "CV berhasil diupload.";
+    } catch (error) {
+      status.textContent = "Gagal upload CV: " + error.message;
+    }
+  });
+}
 // ================= DASHBOARD PERUSAHAAN =================
 
 function showCompanyDashboard() {
