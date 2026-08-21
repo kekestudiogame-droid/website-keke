@@ -279,6 +279,7 @@ jobseekerAccountBtn.addEventListener("click", () => {
   companyFields.style.display = "none";
   modalTitle.textContent = "Daftar";
   modalText.textContent = "Buat akun untuk mulai melamar pekerjaan.";
+  modal.classList.remove("hidden");
 });
 function openModal(title, text){
   modalTitle.textContent = title;
