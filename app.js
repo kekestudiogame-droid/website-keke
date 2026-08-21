@@ -538,7 +538,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
 return;
        
 }
-      
+      showJobseekerDashboard();      
       alert("Login berhasil!");
       modal.classList.add("hidden");
     }
