@@ -664,7 +664,7 @@ function showJobseekerDashboard() {
   });
 }
 // ================= DASHBOARD PERUSAHAAN =================
-
+window.submitJobPost = submitJobPost;
 function showCompanyDashboard() {
   const dashboard = document.createElement("div");
 
