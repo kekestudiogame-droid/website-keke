@@ -757,8 +757,7 @@ function showPostJobForm() {
   document.body.appendChild(form);
 }
 
-async function submitJobPost()
-{alert("submitJobPost berjalan");
+async function submitJobPost() {
   const title = document.getElementById("jobTitle").value.trim();
   const city = document.getElementById("jobCity").value.trim();
   const description = document.getElementById("jobDescription").value.trim();
@@ -777,84 +776,94 @@ async function submitJobPost()
   }
 
   const user = JSON.parse(userData);
- alert("Menghubungi Midtrans...");
- const paymentResponse = await fetch(
-    "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/create-midtrans-transaction",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`,
-        "apikey": SUPABASE_KEY
-      },
-      body: JSON.stringify({
-        order_id: "JOB-" + Date.now(),
-        gross_amount: 10000,
-        job_title: title
-      })
-    }
-  );
 
-  const paymentData = await paymentResponse.json();
-   alert("Token Midtrans diterima: " + (paymentData.token ? "YA" : "TIDAK"));
-  if (!paymentResponse.ok || !paymentData.token) {
-    throw new Error(
-      paymentData.error || "Gagal membuat pembayaran Midtrans."
+  try {
+    // 1. Buat transaksi pembayaran Midtrans
+    const paymentResponse = await fetch(
+      "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/create-midtrans-transaction",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`,
+          "apikey": SUPABASE_KEY
+        },
+        body: JSON.stringify({
+          order_id: "JOB-" + Date.now(),
+          gross_amount: 10000,
+          job_title: title
+        })
+      }
     );
-  }
 
-  const paymentSuccess = await new Promise((resolve) => {
+    const paymentData = await paymentResponse.json();
+
+    if (!paymentResponse.ok || !paymentData.token) {
+      throw new Error(
+        paymentData.error || "Gagal membuat pembayaran Midtrans."
+      );
+    }
+
+    // 2. Tampilkan popup pembayaran Midtrans
     window.snap.pay(paymentData.token, {
-      onSuccess: function () {
-        alert("Pembayaran berhasil. Lowongan akan dipasang.");
-        resolve(true);
+      onSuccess: async function () {
+        try {
+          // 3. Simpan lowongan setelah pembayaran berhasil
+          const response = await fetch(SUPABASE_JOBS_URL, {
+            method: "POST",
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+              Prefer: "return=minimal"
+            },
+            body: JSON.stringify({
+              title: title,
+              city: city,
+              description: description,
+              user_id: user.id
+            })
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(
+              errorText || "Gagal menyimpan lowongan."
+            );
+          }
+
+          alert("Pembayaran berhasil. Lowongan berhasil dipasang.");
+
+          const form = document.querySelector(
+            'div[style*="fixed"]'
+          );
+
+          if (form) {
+            form.remove();
+          }
+
+        } catch (error) {
+          alert(
+            "Pembayaran berhasil, tetapi lowongan gagal disimpan: " +
+            error.message
+          );
+        }
       },
+
       onPending: function () {
         alert("Pembayaran masih menunggu.");
-        resolve(false);
       },
+
       onError: function () {
         alert("Pembayaran gagal.");
-        resolve(false);
       },
+
       onClose: function () {
         alert("Pembayaran dibatalkan.");
-        resolve(false);
       }
     });
-  });
-
-  if (!paymentSuccess) {
-    return;
-  }
-  try {
-    const response = await fetch(SUPABASE_JOBS_URL, {
-      method: "POST",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-        Prefer: "return=minimal"
-      },
-      body: JSON.stringify({
-        title: title,
-        city: city,
-        description: description,
-        user_id: user.id
-      })
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText || "Gagal menyimpan lowongan.");
-    }
-
-    alert("Lowongan berhasil dipasang.");
-
-    const form = document.querySelector('div[style*="fixed"]');
-    if (form) form.remove();
 
   } catch (error) {
-    alert("Gagal memasang lowongan: " + error.message);
+    alert("Gagal memproses pembayaran: " + error.message);
   }
 }
