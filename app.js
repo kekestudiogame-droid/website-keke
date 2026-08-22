@@ -540,9 +540,9 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
 return;
        
 }
-      showJobseekerDashboard();      
-      alert("Login berhasil!");
-      modal.classList.add("hidden");
+     modal.classList.add("hidden");
+     showJobseekerDashboard();
+     alert("Login berhasil!");
     }
 
   } catch (error) {
