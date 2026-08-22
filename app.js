@@ -805,6 +805,9 @@ async function submitJobPost() {
     }
 
     // 2. Tampilkan popup pembayaran Midtrans
+   if (!window.snap) {
+  throw new Error("Midtrans Snap belum siap.");
+}
     window.snap.pay(paymentData.token, {
       onSuccess: async function () {
         try {
