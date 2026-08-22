@@ -777,7 +777,8 @@ async function submitJobPost()
   }
 
   const user = JSON.parse(userData);
-  const paymentResponse = await fetch(
+ alert("Menghubungi Midtrans...");
+ const paymentResponse = await fetch(
     "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/create-midtrans-transaction",
     {
       method: "POST",
