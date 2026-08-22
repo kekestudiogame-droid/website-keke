@@ -597,7 +597,7 @@ function showJobseekerDashboard() {
     </div>
   `;
 
-  document.querySelector("main")?.prepend(dashboard) || document.body.appendChild(dashboard);
+  document.body.prepend(dashboard);
 
   const uploadBtn = document.querySelector("#uploadCvBtn");
   const fileInput = document.querySelector("#cvFileInput");
