@@ -776,7 +776,47 @@ async function submitJobPost() {
   }
 
   const user = JSON.parse(userData);
+  const paymentResponse = await fetch(
+    "https://YOUR_PROJECT_REF.supabase.co/functions/v1/create-midtrans-transaction",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${accessToken}`,
+        "apikey": SUPABASE_KEY
+      },
+      body: JSON.stringify({
+        order_id: "JOB-" + Date.now(),
+        gross_amount: 10000,
+        job_title: title
+      })
+    }
+  );
 
+  const paymentData = await paymentResponse.json();
+
+  if (!paymentResponse.ok || !paymentData.token) {
+    throw new Error(
+      paymentData.error || "Gagal membuat pembayaran Midtrans."
+    );
+  }
+
+  window.snap.pay(paymentData.token, {
+    onSuccess: function () {
+      alert("Pembayaran berhasil. Lowongan akan dipasang.");
+    },
+    onPending: function () {
+      alert("Pembayaran masih menunggu.");
+    },
+    onError: function () {
+      alert("Pembayaran gagal.");
+    },
+    onClose: function () {
+      alert("Pembayaran dibatalkan.");
+    }
+  });
+
+  return;
   try {
     const response = await fetch(SUPABASE_JOBS_URL, {
       method: "POST",
