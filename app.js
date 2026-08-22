@@ -777,7 +777,7 @@ async function submitJobPost() {
 
   const user = JSON.parse(userData);
   const paymentResponse = await fetch(
-    "https://YOUR_PROJECT_REF.supabase.co/functions/v1/create-midtrans-transaction",
+    "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/create-midtrans-transaction",
     {
       method: "POST",
       headers: {
@@ -801,22 +801,30 @@ async function submitJobPost() {
     );
   }
 
-  window.snap.pay(paymentData.token, {
-    onSuccess: function () {
-      alert("Pembayaran berhasil. Lowongan akan dipasang.");
-    },
-    onPending: function () {
-      alert("Pembayaran masih menunggu.");
-    },
-    onError: function () {
-      alert("Pembayaran gagal.");
-    },
-    onClose: function () {
-      alert("Pembayaran dibatalkan.");
-    }
+  const paymentSuccess = await new Promise((resolve) => {
+    window.snap.pay(paymentData.token, {
+      onSuccess: function () {
+        alert("Pembayaran berhasil. Lowongan akan dipasang.");
+        resolve(true);
+      },
+      onPending: function () {
+        alert("Pembayaran masih menunggu.");
+        resolve(false);
+      },
+      onError: function () {
+        alert("Pembayaran gagal.");
+        resolve(false);
+      },
+      onClose: function () {
+        alert("Pembayaran dibatalkan.");
+        resolve(false);
+      }
+    });
   });
 
-  return;
+  if (!paymentSuccess) {
+    return;
+  }
   try {
     const response = await fetch(SUPABASE_JOBS_URL, {
       method: "POST",
