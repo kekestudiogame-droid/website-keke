@@ -757,7 +757,8 @@ function showPostJobForm() {
   document.body.appendChild(form);
 }
 
-async function submitJobPost() {
+async function submitJobPost()
+{alert("submitJobPost berjalan");
   const title = document.getElementById("jobTitle").value.trim();
   const city = document.getElementById("jobCity").value.trim();
   const description = document.getElementById("jobDescription").value.trim();
