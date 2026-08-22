@@ -794,7 +794,7 @@ async function submitJobPost() {
   );
 
   const paymentData = await paymentResponse.json();
-
+   alert("Token Midtrans diterima: " + (paymentData.token ? "YA" : "TIDAK"));
   if (!paymentResponse.ok || !paymentData.token) {
     throw new Error(
       paymentData.error || "Gagal membuat pembayaran Midtrans."
