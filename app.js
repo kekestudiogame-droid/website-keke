@@ -277,10 +277,6 @@ companyAccountBtn.addEventListener("click", () => {
 jobseekerAccountBtn.addEventListener("click", () => {
   isCompany = false;
   companyFields.style.display = "none";
-  openModal(
-    "Daftar",
-    "Buat akun untuk mulai melamar pekerjaan."
-  );
 });
 function openModal(title, text){
   modalTitle.textContent = title;
