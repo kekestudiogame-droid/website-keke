@@ -805,68 +805,18 @@ async function submitJobPost() {
     }
 
     // 2. Tampilkan popup pembayaran Midtrans
-   if (!window.snap) {
+  
+ if (!window.snap) {
   throw new Error("Midtrans Snap belum siap.");
 }
-    window.snap.pay(paymentData.token, {
-      onSuccess: async function () {
-        try {
-          // 3. Simpan lowongan setelah pembayaran berhasil
-          const response = await fetch(SUPABASE_JOBS_URL, {
-            method: "POST",
-            headers: {
-              apikey: SUPABASE_KEY,
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-              Prefer: "return=minimal"
-            },
-            body: JSON.stringify({
-              title: title,
-              city: city,
-              description: description,
-              user_id: user.id
-            })
-          });
 
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(
-              errorText || "Gagal menyimpan lowongan."
-            );
-          }
+window.location.href = paymentData.redirect_url;
+return;
 
-          alert("Pembayaran berhasil. Lowongan berhasil dipasang.");
-
-          const form = document.querySelector(
-            'div[style*="fixed"]'
-          );
-
-          if (form) {
-            form.remove();
-          }
-
-        } catch (error) {
-          alert(
-            "Pembayaran berhasil, tetapi lowongan gagal disimpan: " +
-            error.message
-          );
-        }
-      },
-
-      onPending: function () {
-        alert("Pembayaran masih menunggu.");
-      },
-
-      onError: function () {
-        alert("Pembayaran gagal.");
-      },
-
-      onClose: function () {
-        alert("Pembayaran dibatalkan.");
-      }
-    });
-
-  } catch (error) {
-    alert("Gagal memproses pembayaran: " + error.message);
-  }
+} catch (error) {
+  alert("Gagal memproses pembayaran: " + error.message);
 }
+}  
+
+         
+
