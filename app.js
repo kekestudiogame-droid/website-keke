@@ -804,14 +804,11 @@ async function submitJobPost() {
       );
     }
 
-    // 2. Tampilkan popup pembayaran Midtrans
-  
- if (!window.snap) {
-  throw new Error("Midtrans Snap belum siap.");
-}
-
+   // 2. Buka halaman pembayaran Midtrans
 window.location.href = paymentData.redirect_url;
 return;
+
+
 
 } catch (error) {
   alert("Gagal memproses pembayaran: " + error.message);
