@@ -625,9 +625,11 @@ function showJobseekerDashboard() {
           margin-bottom:30px;
         ">
 
-          <div
+         <div
             onclick="showMyApplications()"
-            style="
+            style=" 
+          
+            
             background:white;
             padding:22px;
             border-radius:14px;
@@ -828,7 +830,64 @@ function showJobseekerDashboard() {
       status.textContent = "Pilih file CV terlebih dahulu.";
       return;
     }
-    // ================= LAMARAN SAYA =================
+   
+    if (file.type !== "application/pdf") {
+      status.textContent = "CV harus berupa file PDF.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      status.textContent = "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      status.textContent = "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      status.textContent = "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+      status.textContent = "Mengupload CV...";
+
+      const filePath = `${user.id}/${Date.now()}_${file.name}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/cv/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      status.textContent = "CV berhasil diupload.";
+    } catch (error) {
+      status.textContent = "Gagal upload CV: " + error.message;
+    }
+  });
+}
+// ================= LAMARAN SAYA =================
 
 async function showMyApplications() {
   const userData = localStorage.getItem("cariKerjakuUser");
@@ -981,63 +1040,6 @@ async function showMyApplications() {
   } catch (error) {
     alert("Gagal mengambil lamaran: " + error.message);
   }
-}
-
-    if (file.type !== "application/pdf") {
-      status.textContent = "CV harus berupa file PDF.";
-      return;
-    }
-
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
-
-    if (!token || !userData) {
-      status.textContent = "Silakan login terlebih dahulu.";
-      return;
-    }
-
-    let user;
-
-    try {
-      user = JSON.parse(userData);
-    } catch {
-      status.textContent = "Data akun tidak valid. Silakan login kembali.";
-      return;
-    }
-
-    if (!user.id) {
-      status.textContent = "ID pengguna tidak ditemukan.";
-      return;
-    }
-
-    try {
-      status.textContent = "Mengupload CV...";
-
-      const filePath = `${user.id}/${Date.now()}_${file.name}`;
-
-      const uploadResponse = await fetch(
-        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/cv/")}${filePath}`,
-        {
-          method: "POST",
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${token}`,
-            "Content-Type": file.type
-          },
-          body: file
-        }
-      );
-
-      if (!uploadResponse.ok) {
-        const errorText = await uploadResponse.text();
-        throw new Error(errorText);
-      }
-
-      status.textContent = "CV berhasil diupload.";
-    } catch (error) {
-      status.textContent = "Gagal upload CV: " + error.message;
-    }
-  });
 }
 // ================= DASHBOARD PERUSAHAAN =================
 window.submitJobPost = submitJobPost;
