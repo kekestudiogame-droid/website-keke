@@ -672,42 +672,269 @@ function showCompanyDashboard() {
 
   dashboard.innerHTML = `
     <div style="
-      max-width:900px;
-      margin:30px auto;
-      padding:25px;
-      background:#fff;
-      border-radius:12px;
-      box-shadow:0 2px 10px rgba(0,0,0,.1);
+      min-height:100vh;
+      background:#f4f7fb;
       font-family:Arial,sans-serif;
+      color:#1f2937;
     ">
-      <h2>Dashboard Perusahaan</h2>
-      <p>Selamat datang di dashboard perusahaan.</p>
 
+      <!-- HEADER -->
       <div style="
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-        gap:15px;
-        margin-top:25px;
+        background:#123b6d;
+        color:white;
+        padding:20px 30px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 3px 12px rgba(0,0,0,.15);
       ">
-        <button onclick="alert('Profil Perusahaan')">
-          Profil Perusahaan
-        </button>
+        <div>
+          <div style="
+            font-size:24px;
+            font-weight:bold;
+          ">
+            Cari Kerjaku
+          </div>
 
-       <button onclick="showPostJobForm()">
-          Pasang Lowongan
-        </button>
+          <div style="
+            font-size:13px;
+            opacity:.85;
+            margin-top:4px;
+          ">
+            Dashboard Perusahaan
+          </div>
+        </div>
 
-        <button onclick="alert('Belum ada lowongan perusahaan')">
-          Lowongan Saya
-        </button>
-
-        <button onclick="alert('Belum ada lamaran masuk')">
-          Lamaran Masuk
-        </button>
-
-        <button onclick="companyLogout()">
+        <button onclick="companyLogout()" style="
+          background:rgba(255,255,255,.12);
+          color:white;
+          border:1px solid rgba(255,255,255,.3);
+          padding:10px 18px;
+          border-radius:8px;
+          cursor:pointer;
+          font-weight:bold;
+        ">
           Logout
         </button>
+      </div>
+
+      <!-- CONTENT -->
+      <div style="
+        max-width:1100px;
+        margin:auto;
+        padding:35px 25px;
+      ">
+
+        <div style="margin-bottom:30px;">
+          <h1 style="
+            margin:0;
+            font-size:30px;
+            color:#172b4d;
+          ">
+            Selamat Datang 👋
+          </h1>
+
+          <p style="
+            margin-top:8px;
+            color:#64748b;
+            font-size:16px;
+          ">
+            Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.
+          </p>
+        </div>
+
+        <!-- STATISTIK -->
+        <div style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+          gap:18px;
+          margin-bottom:30px;
+        ">
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              Total Lowongan
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#123b6d;
+            ">
+              0
+            </div>
+          </div>
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              Lowongan Aktif
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#16805c;
+            ">
+              0
+            </div>
+          </div>
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              Total Pelamar
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#7c3aed;
+            ">
+              0
+            </div>
+          </div>
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              Lamaran Baru
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#ea580c;
+            ">
+              0
+            </div>
+          </div>
+
+        </div>
+
+        <!-- MENU -->
+        <div style="
+          background:white;
+          padding:25px;
+          border-radius:16px;
+          box-shadow:0 3px 15px rgba(15,23,42,.07);
+          border:1px solid #e5eaf1;
+        ">
+
+          <h2 style="
+            margin-top:0;
+            color:#172b4d;
+            font-size:21px;
+          ">
+            Kelola Perusahaan
+          </h2>
+
+          <p style="
+            color:#64748b;
+            margin-bottom:22px;
+          ">
+            Pilih menu yang ingin Anda kelola.
+          </p>
+
+          <div style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+            gap:16px;
+          ">
+
+            <button onclick="alert('Profil Perusahaan')" style="
+              padding:20px;
+              background:#f8fafc;
+              border:1px solid #dbe3ec;
+              border-radius:12px;
+              cursor:pointer;
+              font-size:15px;
+              font-weight:bold;
+              color:#172b4d;
+            ">
+              🏢<br>
+              <span style="display:inline-block;margin-top:8px;">
+                Profil Perusahaan
+              </span>
+            </button>
+
+            <button onclick="showPostJobForm()" style="
+              padding:20px;
+              background:#123b6d;
+              border:none;
+              border-radius:12px;
+              cursor:pointer;
+              font-size:15px;
+              font-weight:bold;
+              color:white;
+              box-shadow:0 4px 10px rgba(18,59,109,.25);
+            ">
+              ➕<br>
+              <span style="display:inline-block;margin-top:8px;">
+                Pasang Lowongan
+              </span>
+            </button>
+
+            <button onclick="alert('Belum ada lowongan perusahaan')" style="
+              padding:20px;
+              background:#f8fafc;
+              border:1px solid #dbe3ec;
+              border-radius:12px;
+              cursor:pointer;
+              font-size:15px;
+              font-weight:bold;
+              color:#172b4d;
+            ">
+              📋<br>
+              <span style="display:inline-block;margin-top:8px;">
+                Lowongan Saya
+              </span>
+            </button>
+
+            <button onclick="alert('Belum ada lamaran masuk')" style="
+              padding:20px;
+              background:#f8fafc;
+              border:1px solid #dbe3ec;
+              border-radius:12px;
+              cursor:pointer;
+              font-size:15px;
+              font-weight:bold;
+              color:#172b4d;
+            ">
+              👥<br>
+              <span style="display:inline-block;margin-top:8px;">
+                Lamaran Masuk
+              </span>
+            </button>
+
+          </div>
+        </div>
+
       </div>
     </div>
   `;
@@ -715,7 +942,6 @@ function showCompanyDashboard() {
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
 }
-
 function companyLogout() {
   localStorage.removeItem("cariKerjakuUser");
   localStorage.removeItem("cariKerjakuAccessToken");
