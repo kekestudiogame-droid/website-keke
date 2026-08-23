@@ -626,7 +626,7 @@ function showJobseekerDashboard() {
         ">
 
          <div
-            onclick="alert('Tombol Lamaran Saya berhasil diklik')"
+            onclick="alert('TES LAMARAN')"
             style=" 
           
             
