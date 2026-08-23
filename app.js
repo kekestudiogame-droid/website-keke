@@ -625,10 +625,13 @@ function showJobseekerDashboard() {
           margin-bottom:30px;
         ">
 
-          <div style="
+          <div
+            onclick="showMyApplications()"
+            style="
             background:white;
             padding:22px;
             border-radius:14px;
+            cursor:pointer;
             box-shadow:0 3px 12px rgba(15,23,42,.07);
             border:1px solid #e5eaf1;
           ">
@@ -825,6 +828,160 @@ function showJobseekerDashboard() {
       status.textContent = "Pilih file CV terlebih dahulu.";
       return;
     }
+    // ================= LAMARAN SAYA =================
+
+async function showMyApplications() {
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    alert("Silakan login terlebih dahulu.");
+    return;
+  }
+
+  let user;
+
+  try {
+    user = JSON.parse(userData);
+  } catch {
+    alert("Data akun tidak valid. Silakan login kembali.");
+    return;
+  }
+
+  if (!user.id) {
+    alert("ID pengguna tidak ditemukan.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}application?user_id=eq.${user.id}&select=*`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    const applications = await response.json();
+
+    const page = document.createElement("div");
+
+    page.innerHTML = `
+      <div style="
+        min-height:100vh;
+        background:#f4f7fb;
+        font-family:Arial,sans-serif;
+        color:#1f2937;
+      ">
+
+        <div style="
+          background:#123b6d;
+          color:white;
+          padding:20px 30px;
+        ">
+          <div style="font-size:24px;font-weight:bold;">
+            Cari Kerjaku
+          </div>
+
+          <div style="font-size:13px;margin-top:4px;opacity:.85;">
+            Lamaran Saya
+          </div>
+        </div>
+
+        <div style="
+          max-width:1000px;
+          margin:auto;
+          padding:35px 25px;
+        ">
+
+          <button
+            onclick="showJobseekerDashboard()"
+            style="
+              padding:10px 18px;
+              margin-bottom:25px;
+              background:#123b6d;
+              color:white;
+              border:none;
+              border-radius:8px;
+              cursor:pointer;
+            "
+          >
+            ← Dashboard
+          </button>
+
+          <h1 style="color:#172b4d;">
+            📄 Lamaran Saya
+          </h1>
+
+          ${
+            applications.length === 0
+              ? `
+                <div style="
+                  background:white;
+                  padding:40px;
+                  border-radius:14px;
+                  text-align:center;
+                  border:1px solid #e5eaf1;
+                ">
+                  <div style="font-size:45px;">📄</div>
+
+                  <h2 style="color:#172b4d;">
+                    Belum Ada Lamaran
+                  </h2>
+
+                  <p style="color:#64748b;">
+                    Lamaran pekerjaan yang kamu kirim akan muncul di sini.
+                  </p>
+                </div>
+              `
+              : applications.map(application => `
+                <div style="
+                  background:white;
+                  padding:20px;
+                  margin-bottom:15px;
+                  border-radius:14px;
+                  border:1px solid #e5eaf1;
+                ">
+
+                  <h3 style="margin:0;color:#123b6d;">
+                    Lamaran #${application.id}
+                  </h3>
+
+                  <p style="color:#64748b;">
+                    Status:
+                    <strong>
+                      ${application.status || "Menunggu"}
+                    </strong>
+                  </p>
+
+                  <p style="color:#64748b;">
+                    Tanggal:
+                    ${application.created_at || "-"}
+                  </p>
+
+                </div>
+              `).join("")
+          }
+
+        </div>
+      </div>
+    `;
+
+    document.body.innerHTML = "";
+    document.body.appendChild(page);
+
+  } catch (error) {
+    alert("Gagal mengambil lamaran: " + error.message);
+  }
+}
 
     if (file.type !== "application/pdf") {
       status.textContent = "CV harus berupa file PDF.";
