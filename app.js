@@ -1086,7 +1086,7 @@ function showCompanyDashboard() {
             gap:16px;
           ">
 
-            <button onclick="alert('Profil Perusahaan')" style="
+            <button onclick="showCompanyProfile()" style="
               padding:20px;
               background:#f8fafc;
               border:1px solid #dbe3ec;
@@ -1160,6 +1160,237 @@ function showCompanyDashboard() {
 
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
+}
+// ================= PROFIL PERUSAHAAN =================
+
+async function showCompanyProfile() {
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  let user;
+
+  try {
+    user = JSON.parse(userData);
+  } catch {
+    alert("Data akun tidak valid. Silakan login kembali.");
+    return;
+  }
+
+  if (!user.id) {
+    alert("ID pengguna tidak ditemukan.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}companies?user_id=eq.${user.id}&select=*`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    const companies = await response.json();
+
+    if (!companies.length) {
+      alert("Profil perusahaan belum ditemukan.");
+      return;
+    }
+
+    const company = companies[0];
+
+    const profile = document.createElement("div");
+
+    profile.id = "companyProfile";
+
+    profile.innerHTML = `
+      <div style="
+        min-height:100vh;
+        background:#f4f7fb;
+        font-family:Arial,sans-serif;
+        color:#1f2937;
+      ">
+
+        <!-- HEADER -->
+        <div style="
+          background:#123b6d;
+          color:white;
+          padding:20px 30px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          box-shadow:0 3px 12px rgba(0,0,0,.15);
+        ">
+          <div>
+            <div style="
+              font-size:24px;
+              font-weight:bold;
+            ">
+              Cari Kerjaku
+            </div>
+
+            <div style="
+              font-size:13px;
+              opacity:.85;
+              margin-top:4px;
+            ">
+              Profil Perusahaan
+            </div>
+          </div>
+
+          <button
+            onclick="showCompanyDashboard()"
+            style="
+              background:rgba(255,255,255,.12);
+              color:white;
+              border:1px solid rgba(255,255,255,.3);
+              padding:10px 18px;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            ← Dashboard
+          </button>
+        </div>
+
+        <!-- CONTENT -->
+        <div style="
+          max-width:900px;
+          margin:auto;
+          padding:35px 25px;
+        ">
+
+          <div style="
+            background:white;
+            padding:30px;
+            border-radius:16px;
+            box-shadow:0 3px 15px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+
+            <div style="
+              width:80px;
+              height:80px;
+              border-radius:50%;
+              background:#eaf1f8;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:38px;
+              margin-bottom:20px;
+            ">
+              🏢
+            </div>
+
+            <h1 style="
+              margin:0;
+              color:#172b4d;
+              font-size:28px;
+            ">
+              ${company.company_name || "Nama Perusahaan"}
+            </h1>
+
+            <p style="
+              color:#64748b;
+              margin-top:8px;
+            ">
+              Profil perusahaan Anda
+            </p>
+
+            <div style="
+              display:grid;
+              gap:14px;
+              margin-top:25px;
+            ">
+
+              <div style="
+                padding:16px;
+                background:#f8fafc;
+                border-radius:10px;
+                border:1px solid #e5eaf1;
+              ">
+                <strong>📧 Email</strong>
+                <div style="margin-top:5px;color:#64748b;">
+                  ${company.email || "-"}
+                </div>
+              </div>
+
+              <div style="
+                padding:16px;
+                background:#f8fafc;
+                border-radius:10px;
+                border:1px solid #e5eaf1;
+              ">
+                <strong>📞 Telepon</strong>
+                <div style="margin-top:5px;color:#64748b;">
+                  ${company.phone || "-"}
+                </div>
+              </div>
+
+              <div style="
+                padding:16px;
+                background:#f8fafc;
+                border-radius:10px;
+                border:1px solid #e5eaf1;
+              ">
+                <strong>🌐 Website</strong>
+                <div style="margin-top:5px;color:#64748b;">
+                  ${company.website || "-"}
+                </div>
+              </div>
+
+              <div style="
+                padding:16px;
+                background:#f8fafc;
+                border-radius:10px;
+                border:1px solid #e5eaf1;
+              ">
+                <strong>📍 Kota</strong>
+                <div style="margin-top:5px;color:#64748b;">
+                  ${company.city || "-"}
+                </div>
+              </div>
+
+              <div style="
+                padding:16px;
+                background:#f8fafc;
+                border-radius:10px;
+                border:1px solid #e5eaf1;
+              ">
+                <strong>🏠 Alamat</strong>
+                <div style="margin-top:5px;color:#64748b;">
+                  ${company.address || "-"}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    document.body.innerHTML = "";
+    document.body.appendChild(profile);
+
+  } catch (error) {
+    alert("Gagal mengambil profil perusahaan: " + error.message);
+  }
 }
 function companyLogout() {
   localStorage.removeItem("cariKerjakuUser");
