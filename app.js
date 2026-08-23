@@ -556,44 +556,263 @@ function showJobseekerDashboard() {
 
   dashboard.innerHTML = `
     <div style="
-      max-width:900px;
-      margin:30px auto;
-      padding:25px;
-      background:#fff;
-      border-radius:12px;
-      box-shadow:0 2px 10px rgba(0,0,0,.1);
+      min-height:100vh;
+      background:#f4f7fb;
       font-family:Arial,sans-serif;
+      color:#1f2937;
     ">
-      <h2>Profil Pencari Kerja</h2>
 
-      <p>Kelola CV kamu di sini.</p>
+      <!-- HEADER -->
+      <div style="
+        background:#123b6d;
+        color:white;
+        padding:20px 30px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 3px 12px rgba(0,0,0,.15);
+      ">
+        <div>
+          <div style="
+            font-size:24px;
+            font-weight:bold;
+          ">
+            Cari Kerjaku
+          </div>
 
-      <label style="display:block;margin:20px 0 8px;">
-        Upload CV (PDF)
-      </label>
+          <div style="
+            font-size:13px;
+            opacity:.85;
+            margin-top:4px;
+          ">
+            Dashboard Pencari Kerja
+          </div>
+        </div>
+      </div>
 
-      <input
-        type="file"
-        id="cvFileInput"
-        accept=".pdf,application/pdf"
-      >
+      <!-- CONTENT -->
+      <div style="
+        max-width:1100px;
+        margin:auto;
+        padding:35px 25px;
+      ">
 
-      <button
-        id="uploadCvBtn"
-        style="
-          margin-top:15px;
-          padding:10px 18px;
-          cursor:pointer;
-        "
-      >
-        Upload CV
-      </button>
+        <div style="
+          margin-bottom:30px;
+        ">
+          <h1 style="
+            margin:0;
+            font-size:30px;
+            color:#172b4d;
+          ">
+            Selamat Datang 👋
+          </h1>
 
-      <p id="cvStatus" style="margin-top:15px;"></p>
+          <p style="
+            margin-top:8px;
+            color:#64748b;
+            font-size:16px;
+          ">
+            Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.
+          </p>
+        </div>
+
+        <!-- STATISTIK -->
+        <div style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+          gap:18px;
+          margin-bottom:30px;
+        ">
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              CV Saya
+            </div>
+
+            <div style="
+              font-size:24px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#123b6d;
+            ">
+              Belum Upload
+            </div>
+          </div>
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              Lamaran Saya
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#16805c;
+            ">
+              0
+            </div>
+          </div>
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              Pekerjaan Tersimpan
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#7c3aed;
+            ">
+              0
+            </div>
+          </div>
+
+          <div style="
+            background:white;
+            padding:22px;
+            border-radius:14px;
+            box-shadow:0 3px 12px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+            <div style="font-size:13px;color:#64748b;">
+              Notifikasi
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:bold;
+              margin-top:8px;
+              color:#ea580c;
+            ">
+              0
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CV -->
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:16px;
+          box-shadow:0 3px 15px rgba(15,23,42,.07);
+          border:1px solid #e5eaf1;
+        ">
+
+          <h2 style="
+            margin-top:0;
+            color:#172b4d;
+            font-size:22px;
+          ">
+            📄 CV Saya
+          </h2>
+
+          <p style="
+            color:#64748b;
+            margin-bottom:22px;
+          ">
+            Upload CV dalam format PDF agar perusahaan dapat melihat
+            profil dan pengalaman kerja kamu.
+          </p>
+
+          <div style="
+            background:#f8fafc;
+            border:2px dashed #cbd5e1;
+            border-radius:14px;
+            padding:30px;
+            text-align:center;
+          ">
+
+            <div style="
+              font-size:42px;
+              margin-bottom:10px;
+            ">
+              📄
+            </div>
+
+            <div style="
+              font-weight:bold;
+              color:#172b4d;
+              margin-bottom:8px;
+            ">
+              Upload CV kamu
+            </div>
+
+            <div style="
+              color:#64748b;
+              font-size:14px;
+              margin-bottom:20px;
+            ">
+              Format yang diperbolehkan: PDF
+            </div>
+
+            <input
+              type="file"
+              id="cvFileInput"
+              accept=".pdf,application/pdf"
+              style="
+                display:block;
+                margin:0 auto;
+                max-width:100%;
+              "
+            >
+
+            <button
+              id="uploadCvBtn"
+              style="
+                margin-top:20px;
+                padding:12px 24px;
+                background:#123b6d;
+                color:white;
+                border:none;
+                border-radius:9px;
+                cursor:pointer;
+                font-size:15px;
+                font-weight:bold;
+                box-shadow:0 4px 10px rgba(18,59,109,.25);
+              "
+            >
+              Upload CV
+            </button>
+
+            <p
+              id="cvStatus"
+              style="
+                margin-top:18px;
+                font-weight:bold;
+              "
+            ></p>
+
+          </div>
+        </div>
+
+      </div>
     </div>
   `;
 
-  document.body.prepend(dashboard);
+  document.body.innerHTML = "";
+  document.body.appendChild(dashboard);
 
   const uploadBtn = document.querySelector("#uploadCvBtn");
   const fileInput = document.querySelector("#cvFileInput");
