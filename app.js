@@ -1119,7 +1119,7 @@ function showCompanyDashboard() {
               </span>
             </button>
 
-            <button onclick="alert('Belum ada lowongan perusahaan')" style="
+           <button onclick="showMyJobs()" style=" 
               padding:20px;
               background:#f8fafc;
               border:1px solid #dbe3ec;
@@ -1390,6 +1390,190 @@ async function showCompanyProfile() {
 
   } catch (error) {
     alert("Gagal mengambil profil perusahaan: " + error.message);
+  }
+}
+
+// ================= LOWONGAN SAYA =================
+
+async function showMyJobs() {
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  let user;
+
+  try {
+    user = JSON.parse(userData);
+  } catch {
+    alert("Data akun tidak valid. Silakan login kembali.");
+    return;
+  }
+
+  if (!user.id) {
+    alert("ID pengguna tidak ditemukan.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}jobs?user_id=eq.${user.id}&select=*`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    const jobs = await response.json();
+
+    const page = document.createElement("div");
+
+    page.innerHTML = `
+      <div style="
+        min-height:100vh;
+        background:#f4f7fb;
+        font-family:Arial,sans-serif;
+        color:#1f2937;
+      ">
+
+        <div style="
+          background:#123b6d;
+          color:white;
+          padding:20px 30px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+        ">
+          <div>
+            <div style="
+              font-size:24px;
+              font-weight:bold;
+            ">
+              Cari Kerjaku
+            </div>
+
+            <div style="
+              font-size:13px;
+              opacity:.85;
+              margin-top:4px;
+            ">
+              Lowongan Saya
+            </div>
+          </div>
+
+          <button
+            onclick="showCompanyDashboard()"
+            style="
+              background:rgba(255,255,255,.12);
+              color:white;
+              border:1px solid rgba(255,255,255,.3);
+              padding:10px 18px;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            ← Dashboard
+          </button>
+        </div>
+
+        <div style="
+          max-width:1000px;
+          margin:auto;
+          padding:35px 25px;
+        ">
+
+          <h1 style="
+            margin:0;
+            color:#172b4d;
+            font-size:30px;
+          ">
+            📋 Lowongan Saya
+          </h1>
+
+          <p style="
+            color:#64748b;
+            margin-top:8px;
+            margin-bottom:25px;
+          ">
+            Daftar lowongan perusahaan Anda.
+          </p>
+
+          ${
+            jobs.length === 0
+              ? `
+                <div style="
+                  background:white;
+                  padding:45px 25px;
+                  border-radius:16px;
+                  text-align:center;
+                  border:1px solid #e5eaf1;
+                ">
+                  <div style="font-size:50px;">📋</div>
+
+                  <h2 style="color:#172b4d;">
+                    Belum Ada Lowongan
+                  </h2>
+
+                  <p style="color:#64748b;">
+                    Lowongan perusahaan akan muncul di sini.
+                  </p>
+                </div>
+              `
+              : jobs.map(job => `
+                <div style="
+                  background:white;
+                  padding:22px;
+                  margin-bottom:16px;
+                  border-radius:14px;
+                  border:1px solid #e5eaf1;
+                ">
+
+                  <h2 style="
+                    margin:0;
+                    color:#123b6d;
+                  ">
+                    ${job.title || "Tanpa Judul"}
+                  </h2>
+
+                  <div style="
+                    margin-top:10px;
+                    color:#64748b;
+                  ">
+                    📍 ${job.city || "-"}
+                  </div>
+
+                  <p style="
+                    margin-top:14px;
+                    color:#475569;
+                  ">
+                    ${job.description || "-"}
+                  </p>
+
+                </div>
+              `).join("")
+          }
+
+        </div>
+      </div>
+    `;
+
+    document.body.innerHTML = "";
+    document.body.appendChild(page);
+
+  } catch (error) {
+    alert("Gagal mengambil lowongan: " + error.message);
   }
 }
 function companyLogout() {
