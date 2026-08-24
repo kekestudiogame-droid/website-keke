@@ -145,7 +145,43 @@
       <p class="switch-auth">Belum punya akun? <button id="switchAuth" type="button">Daftar</button></p>
     </div>
   </div>
+  <div class="modal hidden" id="jobDetailModal" role="dialog" aria-modal="true">
+    <div class="job-detail-card">
 
+      <button class="modal-close" id="closeJobDetail" aria-label="Tutup">×</button>
+
+      <div class="job-detail-header">
+        <p class="eyebrow">DETAIL LOWONGAN</p>
+        <h2 id="jobDetailTitle">Nama Lowongan</h2>
+        <p id="jobDetailCompany">Nama Perusahaan</p>
+
+        <div class="job-detail-info">
+          <span id="jobDetailLocation">📍 Lokasi</span>
+          <span id="jobDetailType">💼 Tipe Pekerjaan</span>
+          <span id="jobDetailSalary">💰 Gaji</span>
+        </div>
+      </div>
+
+      <div class="job-detail-section">
+        <h3>Deskripsi Pekerjaan</h3>
+        <p id="jobDetailDescription">
+          Deskripsi pekerjaan akan tampil di sini.
+        </p>
+      </div>
+
+      <div class="job-detail-section">
+        <h3>Persyaratan</h3>
+        <p id="jobDetailRequirements">
+          Persyaratan pekerjaan akan tampil di sini.
+        </p>
+      </div>
+
+      <button class="btn btn-primary full" id="jobDetailApply">
+        Lamar Sekarang
+      </button>
+
+    </div>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
