@@ -563,8 +563,7 @@ function showJobseekerDashboard() {
       color:#1f2937;
     ">
 
-      <!-- HEADER -->
-      <div style="
+          <div style="
         background:#123b6d;
         color:white;
         padding:20px 30px;
@@ -589,8 +588,24 @@ function showJobseekerDashboard() {
             Dashboard Pencari Kerja
           </div>
         </div>
+
+        <button
+          onclick="location.reload()"
+          style="
+            background:white;
+            color:#123b6d;
+            border:none;
+            padding:10px 18px;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+          "
+        >
+          🔎 Cari Lowongan
+        </button>
       </div>
 
+      <!-- CONTENT --> 
       <!-- CONTENT -->
       <div style="
         max-width:1100px;
