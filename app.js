@@ -654,7 +654,7 @@ function showJobseekerDashboard() {
           <div
             onclick="alert('LAMARAN BERHASIL DIKLIK')"
             style="
-          
+            cursor:pointer;
             background:white;
             padding:22px;
             border-radius:14px;
