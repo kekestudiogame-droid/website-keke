@@ -1029,9 +1029,7 @@ async function showMyApplications() {
                   border:1px solid #e5eaf1;
                 ">
 
-                 <h3 style="margin:0;color:#123b6d;">
-                   ${application.jobs?.title || "Nama pekerjaan tidak tersedia"}
-                   </h3>
+                select=*`${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*`,
 
                    <p style="color:#475569;margin:8px 0;">
                     🏢 ${application.jobs?.company || "Perusahaan tidak tersedia"}
