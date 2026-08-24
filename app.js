@@ -626,7 +626,7 @@ function showJobseekerDashboard() {
         ">
 
          <div
-            onclick="alert('TES LAMARAN')"
+            onclick="showMyApplications()"
             style=" 
           
             
