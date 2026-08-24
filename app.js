@@ -626,7 +626,7 @@ function showJobseekerDashboard() {
         ">
 
          <div
-            onclick="showMyApplications()"
+          
             style=" 
           
             
@@ -651,7 +651,10 @@ function showJobseekerDashboard() {
             </div>
           </div>
 
-          <div style="
+          <div
+            onclick="showMyApplications()"
+            style="
+          
             background:white;
             padding:22px;
             border-radius:14px;
