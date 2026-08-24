@@ -933,7 +933,7 @@ async function showMyApplications() {
 
   try {
     const response = await fetch(
-      `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*`,
+      `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*,jobs(title,company,location)`,
       {
         method: "GET",
         headers: {
