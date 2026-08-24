@@ -907,7 +907,6 @@ function showJobseekerDashboard() {
   });
 }
 // ================= LAMARAN SAYA =================
-
 async function showMyApplications() {
   const userData = localStorage.getItem("cariKerjakuUser");
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
@@ -933,7 +932,7 @@ async function showMyApplications() {
 
   try {
     const response = await fetch(
-      `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*,jobs(title,company,location)`,
+      `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*`,
       {
         method: "GET",
         headers: {
@@ -1029,15 +1028,9 @@ async function showMyApplications() {
                   border:1px solid #e5eaf1;
                 ">
 
-                select=*`${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*`,
-
-                   <p style="color:#475569;margin:8px 0;">
-                    🏢 ${application.jobs?.company || "Perusahaan tidak tersedia"}
-                   </p>
-
-                   <p style="color:#64748b;margin:8px 0;">
-                   📍 ${application.jobs?.location || "Lokasi tidak tersedia"}
-                   </p>
+                  <h3 style="margin:0;color:#123b6d;">
+                    Lamaran #${application.id}
+                  </h3>
 
                   <p style="color:#64748b;">
                     Status:
@@ -1066,7 +1059,7 @@ async function showMyApplications() {
     alert("Gagal mengambil lamaran: " + error.message);
   }
 }
-// ================= DASHBOARD PERUSAHAAN =================
+ // ================= DASHBOARD PERUSAHAAN =================
 window.submitJobPost = submitJobPost;
 function showCompanyDashboard() {
   const dashboard = document.createElement("div");
