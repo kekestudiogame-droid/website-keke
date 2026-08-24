@@ -1029,9 +1029,17 @@ async function showMyApplications() {
                   border:1px solid #e5eaf1;
                 ">
 
-                  <h3 style="margin:0;color:#123b6d;">
-                    Lamaran #${application.id}
-                  </h3>
+                 <h3 style="margin:0;color:#123b6d;">
+                   ${application.jobs?.title || "Nama pekerjaan tidak tersedia"}
+                   </h3>
+
+                   <p style="color:#475569;margin:8px 0;">
+                    🏢 ${application.jobs?.company || "Perusahaan tidak tersedia"}
+                   </p>
+
+                   <p style="color:#64748b;margin:8px 0;">
+                   📍 ${application.jobs?.location || "Lokasi tidak tersedia"}
+                   </p>
 
                   <p style="color:#64748b;">
                     Status:
