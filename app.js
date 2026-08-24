@@ -384,16 +384,25 @@ jobsGrid.addEventListener("click", e => {
   if (apply) {
     submitApplication(job);
   } else {
-    openModal(
-      job.title,
-      `${job.company} · ${job.location}
+    document.getElementById("jobDetailTitle").textContent = job.title;
+    document.getElementById("jobDetailCompany").textContent = job.company;
+    document.getElementById("jobDetailLocation").textContent = `📍 ${job.location}`;
+    document.getElementById("jobDetailType").textContent = `💼 ${job.type}`;
+    document.getElementById("jobDetailSalary").textContent = `💰 ${job.salary}`;
 
-Kategori: ${job.category}
-Tipe: ${job.type}
-Gaji: ${job.salary}`
-    );
+    document.getElementById("jobDetailDescription").textContent =
+      job.description || "Deskripsi pekerjaan belum tersedia.";
+
+    document.getElementById("jobDetailRequirements").textContent =
+      job.requirements || "Persyaratan belum tersedia.";
+
+    document.getElementById("jobDetailApply").onclick = () => {
+      submitApplication(job);
+      document.getElementById("jobDetailModal").classList.add("hidden");
+    };
+
+    document.getElementById("jobDetailModal").classList.remove("hidden");
   }
-});
 
 document.querySelector("#loginBtn").addEventListener("click", () => {
   isRegister = false;
@@ -439,7 +448,17 @@ modal.addEventListener("click", e => {
     modal.classList.add("hidden");
   }
 });
+document.querySelector("#closeJobDetail").addEventListener("click", () => {
+  document.querySelector("#jobDetailModal").classList.add("hidden");
+});
 
+document.querySelector("#jobDetailModal").addEventListener("click", e => {
+  const jobDetailModal = document.querySelector("#jobDetailModal");
+
+  if (e.target === jobDetailModal) {
+    jobDetailModal.classList.add("hidden");
+  }
+});
 authForm.addEventListener("submit", async e => {
   e.preventDefault();
 
