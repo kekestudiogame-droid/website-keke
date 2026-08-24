@@ -403,7 +403,7 @@ jobsGrid.addEventListener("click", e => {
 
     document.getElementById("jobDetailModal").classList.remove("hidden");
   }
-
+  });
 document.querySelector("#loginBtn").addEventListener("click", () => {
   isRegister = false;
 
