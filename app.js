@@ -652,7 +652,7 @@ function showJobseekerDashboard() {
           </div>
 
           <div
-            onclick="alert('LAMARAN BERHASIL DIKLIK')"
+            onclick="showMyApplications()"
             style="
             cursor:pointer;
             background:white;
