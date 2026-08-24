@@ -331,7 +331,7 @@ const accessToken = localStorage.getItem("cariKerjakuAccessToken");
   }
 
   try {
-    alert("DEBUG job.id = " + job.id + "\nuser.id = " + user.id);
+    
     const response = await fetch(SUPABASE_APPLICATIONS_URL, {
       method: "POST",
       headers: {
