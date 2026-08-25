@@ -2102,6 +2102,19 @@ body: JSON.stringify({
     }
 
    // 2. Buka halaman pembayaran Midtrans
+    localStorage.setItem("pendingJobPost", JSON.stringify({
+  title,
+  city,
+  description,
+  category,
+  job_type: jobType,
+  salary,
+  experience,
+  education,
+  application_deadline: applicationDeadline,
+  requirements,
+  user_id: user.id
+}));
 window.location.href = paymentData.redirect_url;
 return;
 
