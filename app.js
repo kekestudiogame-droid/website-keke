@@ -2078,13 +2078,20 @@ const requirements = document.getElementById("jobRequirements").value.trim();
           "Authorization": `Bearer ${accessToken}`,
           "apikey": SUPABASE_KEY
         },
-        body: JSON.stringify({
-          order_id: "JOB-" + Date.now(),
-          gross_amount: 10000,
-          job_title: title
-        })
-      }
-    );
+body: JSON.stringify({
+  order_id: "JOB-" + Date.now(),
+  gross_amount: 10000,
+  job_title: title,
+  city: city,
+  description: description,
+  category: category,
+  job_type: jobType,
+  salary: salary,
+  experience: experience,
+  education: education,
+  application_deadline: applicationDeadline,
+  requirements: requirements
+})
 
     const paymentData = await paymentResponse.json();
     console.log("MIDTRANS RESPONSE:", paymentData);
