@@ -2092,7 +2092,9 @@ body: JSON.stringify({
   application_deadline: applicationDeadline,
   requirements: requirements
 })
-
+      }
+    );
+  
     const paymentData = await paymentResponse.json();
     console.log("MIDTRANS RESPONSE:", paymentData);
     if (!paymentResponse.ok || !paymentData.token) {
