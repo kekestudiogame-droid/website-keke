@@ -1894,38 +1894,163 @@ function showPostJobForm() {
     <div style="
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.6);
+      background:rgba(15,23,42,.65);
       display:flex;
       align-items:center;
       justify-content:center;
       z-index:9999;
+      padding:20px;
+      overflow-y:auto;
     ">
       <div style="
-        background:white;
-        padding:25px;
-        border-radius:12px;
-        width:90%;
-        max-width:500px;
+        background:#fff;
+        padding:28px;
+        border-radius:18px;
+        width:100%;
+        max-width:620px;
+        box-shadow:0 20px 50px rgba(0,0,0,.2);
+        margin:auto;
       ">
-        <h2>Pasang Lowongan</h2>
 
-        <input id="jobTitle" placeholder="Judul Lowongan" style="width:100%;margin:8px 0;padding:10px;">
-        <input id="jobCity" placeholder="Kota" style="width:100%;margin:8px 0;padding:10px;">
-        <textarea id="jobDescription" placeholder="Deskripsi Lowongan" style="width:100%;margin:8px 0;padding:10px;"></textarea>
+        <h2 style="
+          margin:0 0 6px;
+          font-size:26px;
+          color:#123b6d;
+        ">Pasang Lowongan</h2>
 
-        <button onclick="submitJobPost()">Simpan Lowongan</button>
-        <button onclick="this.closest('div[style*=fixed]').remove()">Batal</button>
+        <p style="
+          margin:0 0 22px;
+          color:#64748b;
+          font-size:14px;
+        ">
+          Lengkapi informasi pekerjaan yang ingin Anda tawarkan.
+        </p>
+
+        <label>Judul / Posisi Pekerjaan</label>
+        <input
+          id="jobTitle"
+          placeholder="Contoh: Staff Administrasi"
+          style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+        >
+
+        <label>Kategori Pekerjaan</label>
+        <select
+          id="jobCategory"
+          style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;background:white;"
+        >
+          <option value="">Pilih kategori</option>
+          <option>Administrasi</option>
+          <option>Accounting</option>
+          <option>Finance</option>
+          <option>Marketing</option>
+          <option>Sales</option>
+          <option>IT</option>
+          <option>Teknologi</option>
+          <option>HRD</option>
+          <option>Desain</option>
+          <option>Customer Service</option>
+          <option>Logistik</option>
+          <option>Produksi</option>
+          <option>Kesehatan</option>
+          <option>Pendidikan</option>
+          <option>Kuliner</option>
+          <option>Retail</option>
+          <option>Lainnya</option>
+        </select>
+
+        <label>Lokasi / Kota</label>
+        <input
+          id="jobCity"
+          placeholder="Contoh: Jakarta"
+          style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+        >
+
+        <label>Jenis Pekerjaan</label>
+        <select
+          id="jobType"
+          style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;background:white;"
+        >
+          <option value="">Pilih jenis pekerjaan</option>
+          <option value="Full-time">Full-time</option>
+          <option value="Part-time">Part-time</option>
+          <option value="Remote">Remote</option>
+        </select>
+
+        <label>Gaji</label>
+        <input
+          id="jobSalary"
+          placeholder="Contoh: Rp 5.000.000 - Rp 7.000.000 / bulan"
+          style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+        >
+
+        <label>Pengalaman Kerja</label>
+        <input
+          id="jobExperience"
+          placeholder="Contoh: Minimal 1 tahun"
+          style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+        >
+
+        <label>Pendidikan Minimal</label>
+        <input
+          id="jobEducation"
+          placeholder="Contoh: SMA / SMK / D3 / S1"
+          style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+        >
+
+        <label>Deskripsi Pekerjaan</label>
+        <textarea
+          id="jobDescription"
+          placeholder="Jelaskan pekerjaan dan tanggung jawabnya..."
+          style="width:100%;box-sizing:border-box;height:100px;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;resize:vertical;"
+        ></textarea>
+
+        <label>Syarat / Kualifikasi</label>
+        <textarea
+          id="jobRequirements"
+          placeholder="Tuliskan persyaratan kandidat..."
+          style="width:100%;box-sizing:border-box;height:100px;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;resize:vertical;"
+        ></textarea>
+
+        <label>Batas Lamaran</label>
+        <input
+          id="jobDeadline"
+          type="date"
+          style="width:100%;box-sizing:border-box;margin:7px 0 20px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+        >
+
+        <div style="display:flex;gap:10px;">
+          <button
+            onclick="submitJobPost()"
+            style="flex:1;padding:13px;border:0;border-radius:10px;background:#123b6d;color:white;font-weight:bold;cursor:pointer;"
+          >
+            Simpan Lowongan
+          </button>
+
+          <button
+            onclick="this.closest('div[style*=fixed]').remove()"
+            style="padding:13px 20px;border:1px solid #dbe2ea;border-radius:10px;background:white;cursor:pointer;"
+          >
+            Batal
+          </button>
+        </div>
+
       </div>
     </div>
   `;
 
   document.body.appendChild(form);
 }
-
 async function submitJobPost() {
-  const title = document.getElementById("jobTitle").value.trim();
-  const city = document.getElementById("jobCity").value.trim();
-  const description = document.getElementById("jobDescription").value.trim();
+const title = document.getElementById("jobTitle").value.trim();
+const city = document.getElementById("jobCity").value.trim();
+const description = document.getElementById("jobDescription").value.trim();
+const category = document.getElementById("jobCategory").value;
+const jobType = document.getElementById("jobType").value;
+const salary = document.getElementById("jobSalary").value.trim();
+const experience = document.getElementById("jobExperience").value.trim();
+const education = document.getElementById("jobEducation").value.trim();
+const applicationDeadline = document.getElementById("jobDeadline").value;
+const requirements = document.getElementById("jobRequirements").value.trim();
 
   if (!title || !city || !description) {
     alert("Judul lowongan, kota, dan deskripsi wajib diisi.");
