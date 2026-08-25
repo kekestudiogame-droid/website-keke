@@ -33,7 +33,15 @@
           <p class="hero-copy">Cari lowongan, temukan perusahaan, dan kirim lamaran dari satu tempat.</p>
           <form class="search-box" id="searchForm">
             <input id="keyword" type="search" placeholder="Jabatan atau kata kunci" aria-label="Jabatan atau kata kunci">
-            <input id="location" type="text" placeholder="Kota / lokasi" aria-label="Kota atau lokasi">
+            <select id="location" aria-label="Kota atau lokasi">
+  <option value="">Semua kota / lokasi</option>
+  <option value="Jakarta">Jakarta</option>
+  <option value="Jakarta Pusat">Jakarta Pusat</option>
+  <option value="Jakarta Barat">Jakarta Barat</option>
+  <option value="Jakarta Timur">Jakarta Timur</option>
+  <option value="Jakarta Selatan">Jakarta Selatan</option>
+  <option value="Jakarta Utara">Jakarta Utara</option>
+</select>
             <button class="btn btn-primary" type="submit">Cari Lowongan</button>
           </form>
           <div class="quick-tags">
