@@ -182,7 +182,7 @@ const jobs = [
 {id:199, title:"Telemarketing Staff", company:"Telemarketing Indonesia", location:"Jakarta", category:"Sales", type:"Full-time", salary:"Rp 4-8 juta / bulan", initials:"TI"},
 {id:200, title:"Call Center Staff", company:"Call Center Indonesia", location:"Bandung", category:"Customer Service", type:"Full-time", salary:"Rp 4-7 juta / bulan", initials:"CI"},
 {id:201, title:"Training Specialist", company:"Training Indonesia", location:"Jakarta", category:"HRD", type:"Full-time", salary:"Rp 6-10 juta / bulan", initials:"TI"},
-{id:202, title:"Compensation Analyst", company:"Human Capital Indonesia", location:"Jakarta", category:"HRD", type:"Full-time", salary:"Rp 7-11 juta / bulan", initials:"HC"}  
+{id:202, title:"Compensation Analyst", company:"Human Capital Indonesia", location:"Jakarta", category:"HRD", type:"Full-time", salary:"Rp 7-11 juta / bulan", initials:"HC"},
 {id:203, title:"Dokter Umum", company:"Sehat Sentosa", location:"Jakarta Selatan", category:"Kesehatan", type:"Full-time", salary:"Rp 10-18 juta / bulan"},
 {id:204, title:"Perawat", company:"Rumah Sehat Indonesia", location:"Jakarta Timur", category:"Kesehatan", type:"Full-time", salary:"Rp 5-9 juta / bulan"},
 {id:205, title:"Bidan", company:"Klinik Bunda Nusantara", location:"Bogor", category:"Kesehatan", type:"Full-time", salary:"Rp 5-8 juta / bulan"},
