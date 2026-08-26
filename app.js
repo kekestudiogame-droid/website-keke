@@ -699,6 +699,7 @@ function filterJobs(){
   `;
   jobCount.textContent = "0";
 } 
+  }
 
   // Jika pencarian adalah jenis pekerjaan yang valid
   // tetapi belum ada lowongan nyata
