@@ -613,22 +613,22 @@ function renderJobs(list = jobs, isSearch = false){
   jobsGrid.innerHTML = "";
   jobCount.textContent = list.length;
 
-  if (list.length === 0 && isSearch) {
-    emptyState.classList.remove("hidden");
+ if (list.length === 0 && isSearch) {
+  jobsGrid.innerHTML = `
+    <div style="text-align:center;padding:30px;grid-column:1/-1;">
+      <h3>Lowongan Belum Tersedia</h3>
+      <p>
+        Belum ada lowongan nyata yang tersedia untuk pencarian ini.
+      </p>
+      <p>
+        Silakan coba jenis pekerjaan atau kota lainnya.
+      </p>
+    </div>
+  `;
 
-    emptyState.innerHTML = `
-      <div style="text-align:center;padding:30px;">
-        <h3>Lowongan Belum Tersedia</h3>
-        <p>
-          Belum ada lowongan nyata yang tersedia untuk pencarian ini.
-        </p>
-        <p>
-          Silakan coba jenis pekerjaan atau kota lainnya.
-        </p>
-      </div>
-    `;
-
-    return;
+  emptyState.classList.add("hidden");
+  return;
+}
   }
 
   emptyState.classList.add("hidden");
