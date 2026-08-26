@@ -629,7 +629,7 @@ function renderJobs(list = jobs, isSearch = false){
   emptyState.classList.add("hidden");
   return;
 }
-  }
+  
 
   emptyState.classList.add("hidden");
 
