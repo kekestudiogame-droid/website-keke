@@ -667,34 +667,29 @@ function filterJobs(){
   const loc = locationInput.value.trim().toLowerCase();
   const cat = categoryFilter.value;
 
-  const filtered = jobs.filter(j =>
-    (cat === "all" || j.category === cat) &&
-    (!q || `${j.title} ${j.company} ${j.category}`.toLowerCase().includes(q)) &&
-    (!loc || j.location.toLowerCase().includes(loc) ||
-      (loc === "indonesia" && j.location === "Remote"))
-  );
+  const filtered = jobs.filter(j => {
+    const text = `${j.title} ${j.company} ${j.category}`.toLowerCase();
+    const matchKeyword = !q || text.includes(q);
+    const matchCategory = cat === "all" || j.category === cat;
+    const matchLocation =
+      !loc ||
+      j.location.toLowerCase().includes(loc) ||
+      (loc === "indonesia" && j.location.toLowerCase() === "remote");
+
+    return matchKeyword && matchCategory && matchLocation;
+  });
 
   renderJobs(filtered);
-  document.querySelector("#jobs").scrollIntoView({behavior:"smooth"});
+
+  document.querySelector("#jobs").scrollIntoView({
+    behavior: "smooth"
+  });
 }
 
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
   filterJobs();
 });
-
-categoryFilter.addEventListener("change", filterJobs);
-
-keyword.addEventListener("input", filterJobs);
-locationInput.addEventListener("input", filterJobs);
-
-document.querySelectorAll(".quick-tags button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    keyword.value = btn.dataset.keyword;
-    filterJobs();
-  });
-});
-
 const modal = document.querySelector("#authModal");
 const modalTitle = document.querySelector("#modalTitle");
 const modalText = document.querySelector("#modalText");
