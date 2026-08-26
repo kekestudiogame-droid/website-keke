@@ -609,11 +609,11 @@ const categoryFilter = document.querySelector("#categoryFilter");
 const keyword = document.querySelector("#keyword");
 const locationInput = document.querySelector("#location");
 
-function renderJobs(list = jobs){
+function renderJobs(list = jobs, isSearch = false){
   jobsGrid.innerHTML = "";
   jobCount.textContent = list.length;
 
-  if (list.length === 0) {
+  if (list.length === 0 && isSearch) {
     emptyState.classList.remove("hidden");
 
     emptyState.innerHTML = `
@@ -684,7 +684,7 @@ function filterJobs(){
     return matchKeyword && matchCategory && matchLocation;
   });
 
-  renderJobs(filtered);
+ renderJobs(filtered, true);
 
   // Jika pencarian adalah jenis pekerjaan yang valid
   // tetapi belum ada lowongan nyata
