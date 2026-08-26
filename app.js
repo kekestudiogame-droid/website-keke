@@ -714,9 +714,7 @@ function filterJobs(){
     }
   }
 
-  document.querySelector("#jobs").scrollIntoView({
-    behavior:"smooth"
-  });
+ 
 }
 
 document.querySelector("#searchForm").addEventListener("submit", e => {
