@@ -302,46 +302,270 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!langID || !langEN) return;
 
   const translations = {
-    "Tentang": "About",
-    "Kontak": "Contact",
-    "Masuk": "Login",
-    "Daftar": "Register",
-    "Cari Kerja": "Find a Job",
-    "Perusahaan": "Company",
-    "Pencari Kerja": "Job Seeker",
-    "Lowongan": "Jobs",
-    "Cari": "Search",
-    "Lokasi": "Location"
+    id: {
+      navJobs: "Lowongan",
+      navHow: "Cara Kerja",
+      navAbout: "Tentang",
+      navContact: "Kontak",
+      login: "Masuk",
+      register: "Daftar",
+
+      eyebrow: "PLATFORM KARIER INDONESIA",
+      heroTitle: 'Temukan pekerjaan yang <span>tepat untukmu.</span>',
+      heroCopy: "Cari lowongan, temukan perusahaan, dan kirim lamaran dari satu tempat.",
+      keywordPlaceholder: "Jabatan atau kata kunci",
+      locationLabel: "Kota atau lokasi",
+      allLocations: "Semua kota / lokasi",
+      searchJobs: "Cari Lowongan",
+
+      availableJobs: "lowongan tersedia",
+
+      latestJobs: "LOWONGAN TERBARU",
+      opportunities: "Peluang kerja untukmu",
+      allCategories: "Semua kategori",
+
+      jobSeekerTitle: "Cari Kerja di Sini!",
+      jobSeekerText: "Temukan lowongan yang sesuai dengan keahlian dan impianmu.",
+      companyTitle: "Butuh Karyawan?",
+      companyText: "Pasang lowongan dan temukan kandidat terbaik untuk perusahaanmu.",
+      postJob: "Pasang Lowongan",
+
+      howEyebrow: "CARA KERJA",
+      howTitle: "Mulai mencari kerja dalam 3 langkah",
+      step1Title: "Buat profil",
+      step1Text: "Lengkapi profil dan keahlian agar perusahaan mengenalmu.",
+      step2Title: "Cari lowongan",
+      step2Text: "Gunakan kata kunci, lokasi, dan kategori untuk menemukan pekerjaan.",
+      step3Title: "Kirim lamaran",
+      step3Text: "Pilih pekerjaan yang sesuai dan pantau status lamaranmu.",
+
+      aboutEyebrow: "CARI KERJAKU ID",
+      aboutTitle: "Satu tempat untuk pencari kerja dan perusahaan.",
+      aboutText: "Temukan lowongan kerja dan peluang karier dari berbagai bidang di Indonesia.",
+
+      close: "Tutup",
+      accountRegister: "Daftar sebagai:",
+      jobSeeker: "Pencari Kerja",
+      company: "Perusahaan",
+      companyName: "Nama Perusahaan",
+      companyPhone: "No. HP",
+      website: "Website",
+      city: "Kota",
+      address: "Alamat",
+      email: "Email",
+      password: "Password",
+      continue: "Lanjut",
+      switchAccount: "Belum punya akun? ",
+      detailJob: "DETAIL LOWONGAN",
+      jobDescription: "Deskripsi Pekerjaan",
+      requirements: "Persyaratan",
+      applyNow: "Lamar Sekarang",
+
+      help: "Bantuan"
+    },
+
+    en: {
+      navJobs: "Jobs",
+      navHow: "How It Works",
+      navAbout: "About",
+      navContact: "Contact",
+      login: "Login",
+      register: "Register",
+
+      eyebrow: "INDONESIAN CAREER PLATFORM",
+      heroTitle: 'Find the right <span>job for you.</span>',
+      heroCopy: "Find jobs, discover companies, and submit applications in one place.",
+      keywordPlaceholder: "Job title or keyword",
+      locationLabel: "City or location",
+      allLocations: "All cities / locations",
+      searchJobs: "Search Jobs",
+
+      availableJobs: "jobs available",
+
+      latestJobs: "LATEST JOBS",
+      opportunities: "Job opportunities for you",
+      allCategories: "All categories",
+
+      jobSeekerTitle: "Find Your Next Job!",
+      jobSeekerText: "Find job opportunities that match your skills and career goals.",
+      companyTitle: "Looking for Employees?",
+      companyText: "Post a job and find the best candidates for your company.",
+      postJob: "Post a Job",
+
+      howEyebrow: "HOW IT WORKS",
+      howTitle: "Start your job search in 3 steps",
+      step1Title: "Create a profile",
+      step1Text: "Complete your profile and skills so companies can get to know you.",
+      step2Title: "Find a job",
+      step2Text: "Use keywords, location, and category to find the right job.",
+      step3Title: "Apply",
+      step3Text: "Choose a suitable job and track your application status.",
+
+      aboutEyebrow: "CARI KERJAKU ID",
+      aboutTitle: "One place for job seekers and companies.",
+      aboutText: "Find job openings and career opportunities from various fields across Indonesia.",
+
+      close: "Close",
+      accountRegister: "Register as:",
+      jobSeeker: "Job Seeker",
+      company: "Company",
+      companyName: "Company Name",
+      companyPhone: "Phone Number",
+      website: "Website",
+      city: "City",
+      address: "Address",
+      email: "Email",
+      password: "Password",
+      continue: "Continue",
+      switchAccount: "Don't have an account? ",
+      detailJob: "JOB DETAILS",
+      jobDescription: "Job Description",
+      requirements: "Requirements",
+      applyNow: "Apply Now",
+
+      help: "Help"
+    }
   };
 
-  const originalTexts = new Map();
+  function setText(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) element.innerHTML = value;
+  }
 
-  function saveOriginalText(element) {
-    if (!originalTexts.has(element)) {
-      originalTexts.set(element, element.textContent);
-    }
+  function setValue(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) element.value = value;
+  }
+
+  function setPlaceholder(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) element.placeholder = value;
+  }
+
+  function setAriaLabel(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) element.setAttribute("aria-label", value);
   }
 
   function setLanguage(language) {
-    document.querySelectorAll("body *").forEach(function (element) {
-      if (element.children.length > 0) return;
+    const t = translations[language];
+    if (!t) return;
 
-      saveOriginalText(element);
+    setText('nav a[href="#jobs"]', t.navJobs);
+    setText('nav a[href="#how"]', t.navHow);
+    setText('nav a[href="#about"]', t.navAbout);
+    setText('nav a[href="kontak.html"]', t.navContact);
 
-      const original = originalTexts.get(element);
-      const cleanText = original.trim();
+    setText("#loginBtn", t.login);
+    setText("#registerBtn", t.register);
 
-      if (!cleanText) return;
+    setText(".hero .eyebrow", t.eyebrow);
+    setText(".hero h1", t.heroTitle);
+    setText(".hero-copy", t.heroCopy);
 
-      if (language === "en" && translations[cleanText]) {
-        element.textContent = original.replace(
-          cleanText,
-          translations[cleanText]
-        );
-      } else if (language === "id") {
-        element.textContent = original;
-      }
-    });
+    setPlaceholder("#keyword", t.keywordPlaceholder);
+    setAriaLabel("#keyword", t.keywordPlaceholder);
+    setAriaLabel("#location", t.locationLabel);
+
+    const location = document.getElementById("location");
+    if (location && location.options.length > 0) {
+      location.options[0].textContent = t.allLocations;
+    }
+
+    setText('#searchForm button[type="submit"]', t.searchJobs);
+    setText(".stat-card span", t.availableJobs);
+
+    setText("#jobs .section-heading .eyebrow", t.latestJobs);
+    setText("#jobs .section-heading h2", t.opportunities);
+
+    const categoryFilter = document.getElementById("categoryFilter");
+    if (categoryFilter && categoryFilter.options.length > 0) {
+      categoryFilter.options[0].textContent = t.allCategories;
+    }
+
+    const promoCards = document.querySelectorAll("#jobs > .container > div[style]");
+    if (promoCards.length >= 2) {
+      const seeker = promoCards[0];
+      const company = promoCards[1];
+
+      const seekerTitle = seeker.querySelector("h3");
+      const seekerText = seeker.querySelector("p");
+      const seekerButton = seeker.querySelector("button");
+
+      const companyTitle = company.querySelector("h3");
+      const companyText = company.querySelector("p");
+      const companyButton = company.querySelector("button");
+
+      if (seekerTitle) seekerTitle.textContent = t.jobSeekerTitle;
+      if (seekerText) seekerText.textContent = t.jobSeekerText;
+      if (seekerButton) seekerButton.textContent = t.searchJobs;
+
+      if (companyTitle) companyTitle.textContent = t.companyTitle;
+      if (companyText) companyText.textContent = t.companyText;
+      if (companyButton) companyButton.textContent = t.postJob;
+    }
+
+    setText("#how .eyebrow", t.howEyebrow);
+    setText("#how h2", t.howTitle);
+
+    const steps = document.querySelectorAll("#how .steps article");
+
+    if (steps.length >= 3) {
+      steps[0].querySelector("h3").textContent = t.step1Title;
+      steps[0].querySelector("p").textContent = t.step1Text;
+
+      steps[1].querySelector("h3").textContent = t.step2Title;
+      steps[1].querySelector("p").textContent = t.step2Text;
+
+      steps[2].querySelector("h3").textContent = t.step3Title;
+      steps[2].querySelector("p").textContent = t.step3Text;
+    }
+
+    setText("#about .eyebrow", t.aboutEyebrow);
+    setText("#about h2", t.aboutTitle);
+    setText("#about .about-card > p", t.aboutText);
+
+    setText("#closeModal", "×");
+    setText("#authModal .account-type > p", t.accountRegister);
+    setText("#jobseekerAccount", t.jobSeeker);
+    setText("#companyAccount", t.company);
+
+    const labels = document.querySelectorAll("#companyFields label");
+
+    if (labels.length >= 5) {
+      labels[0].childNodes[0].textContent = t.companyName;
+      labels[1].childNodes[0].textContent = t.companyPhone;
+      labels[2].childNodes[0].textContent = t.website;
+      labels[3].childNodes[0].textContent = t.city;
+      labels[4].childNodes[0].textContent = t.address;
+    }
+
+    setPlaceholder("#companyName", language === "en" ? "Company name" : "Nama perusahaan");
+    setPlaceholder("#companyPhone", "08xxxxxxxxxx");
+    setPlaceholder("#companyWebsite", "https://example.com");
+    setPlaceholder("#companyCity", language === "en" ? "Jakarta" : "Jakarta");
+    setPlaceholder("#companyAddress", language === "en" ? "Company address" : "Alamat perusahaan");
+
+    setPlaceholder("#email", language === "en" ? "name@email.com" : "nama@email.com");
+    setPlaceholder("#password", language === "en" ? "Minimum 6 characters" : "Minimal 6 karakter");
+
+    setText('#authForm button[type="submit"]', t.continue);
+
+    const switchAuth = document.getElementById("switchAuth");
+    if (switchAuth && switchAuth.parentElement) {
+      switchAuth.parentElement.childNodes[0].textContent = t.switchAccount;
+      switchAuth.textContent = t.register;
+    }
+
+    setText("#jobDetailModal .eyebrow", t.detailJob);
+    setText("#jobDetailModal .job-detail-section:nth-of-type(1) h3", t.jobDescription);
+    setText("#jobDetailModal .job-detail-section:nth-of-type(2) h3", t.requirements);
+    setText("#jobDetailApply", t.applyNow);
+
+    const helpLink = document.querySelector('a[href="bantuan.html"]');
+    if (helpLink) helpLink.textContent = t.help;
+
+    document.documentElement.lang = language;
 
     localStorage.setItem("siteLanguage", language);
   }
@@ -354,10 +578,12 @@ document.addEventListener("DOMContentLoaded", function () {
     setLanguage("en");
   });
 
-  const savedLanguage = localStorage.getItem("siteLanguage") || "id";
+  const savedLanguage = localStorage.getItem("siteLanguage");
 
   if (savedLanguage === "en") {
     setLanguage("en");
+  } else {
+    setLanguage("id");
   }
 });
 </script>
