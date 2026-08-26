@@ -694,29 +694,11 @@ function filterJobs(){
     );
 
     if (jobTypeExists && filtered.length === 0) {
-      emptyState.classList.remove("hidden");
+      
 
-      emptyState.innerHTML = `
-        <div style="text-align:center;padding:30px;">
-          <h3>Lowongan Belum Tersedia</h3>
-          <p>
-            Jenis pekerjaan <strong>${keyword.value}</strong>
-            tersedia di Cari Kerjaku,
-            tetapi belum ada lowongan nyata yang tersedia saat ini.
-          </p>
-          <p>
-            Silakan coba kota atau jenis pekerjaan lainnya.
-          </p>
-        </div>
-      `;
-
-      jobCount.textContent = "0";
-    }
+  jobCount.textContent = "0";
+} 
   }
-
- 
-}
-
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
   filterJobs();
