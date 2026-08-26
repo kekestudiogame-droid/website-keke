@@ -601,6 +601,7 @@ const locations = [
   "Tambrauw",
   "Maybrat"
 ];
+const jobs = [];
 const jobsGrid = document.querySelector("#jobsGrid");
 const emptyState = document.querySelector("#emptyState");
 const jobCount = document.querySelector("#jobCount");
@@ -669,8 +670,12 @@ function filterJobs(){
 
   const filtered = jobs.filter(j => {
     const text = `${j.title} ${j.company} ${j.category}`.toLowerCase();
+
     const matchKeyword = !q || text.includes(q);
-    const matchCategory = cat === "all" || j.category === cat;
+
+    const matchCategory =
+      cat === "all" || j.category === cat;
+
     const matchLocation =
       !loc ||
       j.location.toLowerCase().includes(loc) ||
@@ -681,8 +686,36 @@ function filterJobs(){
 
   renderJobs(filtered);
 
+  // Jika pencarian adalah jenis pekerjaan yang valid
+  // tetapi belum ada lowongan nyata
+  if (q) {
+    const jobTypeExists = jobTypes.some(type =>
+      type.toLowerCase().includes(q)
+    );
+
+    if (jobTypeExists && filtered.length === 0) {
+      emptyState.classList.remove("hidden");
+
+      emptyState.innerHTML = `
+        <div style="text-align:center;padding:30px;">
+          <h3>Lowongan Belum Tersedia</h3>
+          <p>
+            Jenis pekerjaan <strong>${keyword.value}</strong>
+            tersedia di Cari Kerjaku,
+            tetapi belum ada lowongan nyata yang tersedia saat ini.
+          </p>
+          <p>
+            Silakan coba kota atau jenis pekerjaan lainnya.
+          </p>
+        </div>
+      `;
+
+      jobCount.textContent = "0";
+    }
+  }
+
   document.querySelector("#jobs").scrollIntoView({
-    behavior: "smooth"
+    behavior:"smooth"
   });
 }
 
