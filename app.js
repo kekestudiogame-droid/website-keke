@@ -611,7 +611,26 @@ const locationInput = document.querySelector("#location");
 function renderJobs(list = jobs){
   jobsGrid.innerHTML = "";
   jobCount.textContent = list.length;
-  emptyState.classList.toggle("hidden", list.length !== 0);
+
+  if (list.length === 0) {
+    emptyState.classList.remove("hidden");
+
+    emptyState.innerHTML = `
+      <div style="text-align:center;padding:30px;">
+        <h3>Lowongan Belum Tersedia</h3>
+        <p>
+          Belum ada lowongan nyata yang tersedia untuk pencarian ini.
+        </p>
+        <p>
+          Silakan coba jenis pekerjaan atau kota lainnya.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+  emptyState.classList.add("hidden");
 
   list.forEach((job, i) => {
     const card = document.createElement("article");
@@ -619,7 +638,7 @@ function renderJobs(list = jobs){
 
     card.innerHTML = `
       <div class="job-top">
-        <div class="company-logo">${job.initials}</div>
+        <div class="company-logo">${job.initials || job.company.substring(0,2).toUpperCase()}</div>
         <span class="pill">${job.type}</span>
       </div>
 
