@@ -685,20 +685,7 @@ function filterJobs(){
   });
 
  renderJobs(filtered, true);
- if (filtered.length === 0) {
-  jobsGrid.innerHTML = `
-    <div style="text-align:center;padding:30px;grid-column:1/-1;">
-      <h3>Lowongan Belum Tersedia</h3>
-      <p>
-        Belum ada lowongan nyata yang tersedia untuk pencarian ini.
-      </p>
-      <p>
-        Silakan coba kota atau jenis pekerjaan lainnya.
-      </p>
-    </div>
-  `;
-  jobCount.textContent = "0";
-} 
+ 
   }
 
   // Jika pencarian adalah jenis pekerjaan yang valid
