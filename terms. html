@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions - Cari Kerjaku</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background: #f4f7fb;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      color: #123b6d;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #123b6d;
+      margin-top: 30px;
+    }
+
+    .updated {
+      text-align: center;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    a {
+      color: #123b6d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Terms & Conditions</h1>
+
+    <div class="updated">
+      Ketentuan Penggunaan Cari Kerjaku
+    </div>
+
+    <p>
+      Selamat datang di Cari Kerjaku. Dengan mengakses atau menggunakan
+      website dan aplikasi Cari Kerjaku, Anda menyetujui ketentuan yang
+      tercantum dalam Terms & Conditions ini.
+    </p>
+
+    <h2>1. Penggunaan Layanan</h2>
+
+    <p>
+      Cari Kerjaku menyediakan platform untuk membantu pencari kerja
+      menemukan informasi lowongan pekerjaan dan membantu perusahaan
+      mempublikasikan lowongan pekerjaan.
+    </p>
+
+    <p>
+      Pengguna wajib menggunakan layanan Cari Kerjaku secara sah,
+      bertanggung jawab, dan tidak melakukan tindakan yang dapat
+      mengganggu atau merusak layanan.
+    </p>
+
+    <h2>2. Akun Pengguna</h2>
+
+    <p>
+      Pengguna bertanggung jawab menjaga keamanan informasi akun,
+      termasuk email dan kata sandi.
+    </p>
+
+    <p>
+      Informasi yang diberikan saat membuat akun harus benar dan tidak
+      boleh digunakan untuk menipu, menyamar sebagai pihak lain, atau
+      melakukan tindakan yang melanggar hukum.
+    </p>
+
+    <h2>3. Lowongan Pekerjaan</h2>
+
+    <p>
+      Perusahaan bertanggung jawab atas kebenaran, kelengkapan, dan
+      keabsahan informasi lowongan pekerjaan yang dipublikasikan.
+    </p>
+
+    <p>
+      Cari Kerjaku tidak menjamin bahwa setiap lowongan akan menghasilkan
+      pekerjaan atau penerimaan kerja.
+    </p>
+
+    <h2>4. Lamaran dan CV</h2>
+
+    <p>
+      Pencari kerja bertanggung jawab atas informasi dan dokumen yang
+      mereka kirimkan kepada perusahaan, termasuk CV dan data lainnya.
+    </p>
+
+    <p>
+      Pengguna tidak diperbolehkan mengunggah dokumen atau informasi yang
+      melanggar hukum atau hak pihak lain.
+    </p>
+
+    <h2>5. Pembayaran dan Pemasangan Lowongan</h2>
+
+    <p>
+      Perusahaan dapat dikenakan biaya untuk layanan pemasangan lowongan
+      sesuai dengan harga dan ketentuan pembayaran yang berlaku pada
+      Cari Kerjaku.
+    </p>
+
+    <p>
+      Pembayaran yang telah dilakukan mengikuti ketentuan layanan dan
+      kebijakan pembayaran yang berlaku.
+    </p>
+
+    <h2>6. Larangan Penggunaan</h2>
+
+    <p>Pengguna dilarang:</p>
+
+    <ul>
+      <li>Memasang lowongan pekerjaan palsu atau menyesatkan.</li>
+      <li>Memberikan informasi palsu atau menggunakan identitas orang lain.</li>
+      <li>Menggunakan platform untuk penipuan atau tindakan ilegal.</li>
+      <li>Mengunggah konten yang melanggar hak pihak lain.</li>
+      <li>Mengganggu atau mencoba merusak sistem Cari Kerjaku.</li>
+    </ul>
+
+    <h2>7. Penghapusan Konten atau Akun</h2>
+
+    <p>
+      Cari Kerjaku berhak meninjau, membatasi, menghapus konten, atau
+      menonaktifkan akun yang dianggap melanggar Terms & Conditions
+      atau ketentuan hukum yang berlaku.
+    </p>
+
+    <h2>8. Batas Tanggung Jawab</h2>
+
+    <p>
+      Cari Kerjaku bertindak sebagai platform penghubung antara pencari
+      kerja dan perusahaan. Keputusan untuk melamar, merekrut, menerima
+      pekerjaan, atau melakukan komunikasi dengan pihak lain merupakan
+      tanggung jawab masing-masing pengguna.
+    </p>
+
+    <p>
+      Cari Kerjaku tidak bertanggung jawab atas tindakan atau keputusan
+      yang dilakukan oleh pengguna maupun perusahaan di luar kendali
+      platform.
+    </p>
+
+    <h2>9. Perubahan Ketentuan</h2>
+
+    <p>
+      Cari Kerjaku dapat memperbarui Terms & Conditions ini apabila
+      diperlukan untuk menyesuaikan dengan perkembangan layanan,
+      keamanan, atau ketentuan hukum yang berlaku.
+    </p>
+
+    <h2>10. Hubungi Kami</h2>
+
+    <p>
+      Jika Anda memiliki pertanyaan mengenai Terms & Conditions ini,
+      silakan menghubungi Cari Kerjaku melalui informasi kontak yang
+      tersedia pada platform.
+    </p>
+
+    <h2>11. Persetujuan</h2>
+
+    <p>
+      Dengan menggunakan Cari Kerjaku, Anda menyatakan telah membaca,
+      memahami, dan menyetujui Terms & Conditions ini.
+    </p>
+
+    <p style="margin-top:40px; text-align:center;">
+      © Cari Kerjaku
+    </p>
+
+  </div>
+
+</body>
+</html>
