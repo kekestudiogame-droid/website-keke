@@ -294,6 +294,73 @@
     </div>
   </div>
   <script src="app.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const langID = document.getElementById("langID");
+  const langEN = document.getElementById("langEN");
+
+  if (!langID || !langEN) return;
+
+  const translations = {
+    "Tentang": "About",
+    "Kontak": "Contact",
+    "Masuk": "Login",
+    "Daftar": "Register",
+    "Cari Kerja": "Find a Job",
+    "Perusahaan": "Company",
+    "Pencari Kerja": "Job Seeker",
+    "Lowongan": "Jobs",
+    "Cari": "Search",
+    "Lokasi": "Location"
+  };
+
+  const originalTexts = new Map();
+
+  function saveOriginalText(element) {
+    if (!originalTexts.has(element)) {
+      originalTexts.set(element, element.textContent);
+    }
+  }
+
+  function setLanguage(language) {
+    document.querySelectorAll("body *").forEach(function (element) {
+      if (element.children.length > 0) return;
+
+      saveOriginalText(element);
+
+      const original = originalTexts.get(element);
+      const cleanText = original.trim();
+
+      if (!cleanText) return;
+
+      if (language === "en" && translations[cleanText]) {
+        element.textContent = original.replace(
+          cleanText,
+          translations[cleanText]
+        );
+      } else if (language === "id") {
+        element.textContent = original;
+      }
+    });
+
+    localStorage.setItem("siteLanguage", language);
+  }
+
+  langID.addEventListener("click", function () {
+    setLanguage("id");
+  });
+
+  langEN.addEventListener("click", function () {
+    setLanguage("en");
+  });
+
+  const savedLanguage = localStorage.getItem("siteLanguage") || "id";
+
+  if (savedLanguage === "en") {
+    setLanguage("en");
+  }
+});
+</script>
 <div style="text-align:center; padding:20px;">
   <a href="bantuan.html">Bantuan</a>
   &nbsp; | &nbsp;
