@@ -688,17 +688,7 @@ function filterJobs(){
 
   // Jika pencarian adalah jenis pekerjaan yang valid
   // tetapi belum ada lowongan nyata
-  if (q) {
-    const jobTypeExists = jobTypes.some(type =>
-      type.toLowerCase().includes(q)
-    );
-
-    if (jobTypeExists && filtered.length === 0) {
-      
-
-  jobCount.textContent = "0";
-} 
-  }
+ 
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
   filterJobs();
