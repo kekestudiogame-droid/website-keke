@@ -2468,5 +2468,42 @@ return;
 }
 }  
 
+  // ====================
+// MULTI LANGUAGE
+// ====================
+
+const translations = {
+  id: {
+    login: "Masuk",
+    register: "Daftar"
+  },
+  en: {
+    login: "Login",
+    register: "Register"
+  }
+};
+
+function setLanguage(lang) {
+  document.querySelector("#loginBtn").textContent =
+    translations[lang].login;
+
+  document.querySelector("#registerBtn").textContent =
+    translations[lang].register;
+
+  localStorage.setItem("cariKerjakuLanguage", lang);
+}
+
+document.querySelector("#langID").addEventListener("click", () => {
+  setLanguage("id");
+});
+
+document.querySelector("#langEN").addEventListener("click", () => {
+  setLanguage("en");
+});
+
+const savedLanguage =
+  localStorage.getItem("cariKerjakuLanguage") || "id";
+
+setLanguage(savedLanguage);
          
 
