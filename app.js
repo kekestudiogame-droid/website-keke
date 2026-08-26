@@ -685,6 +685,9 @@ document.querySelector("#searchForm").addEventListener("submit", e => {
 
 categoryFilter.addEventListener("change", filterJobs);
 
+keyword.addEventListener("input", filterJobs);
+locationInput.addEventListener("input", filterJobs);
+
 document.querySelectorAll(".quick-tags button").forEach(btn => {
   btn.addEventListener("click", () => {
     keyword.value = btn.dataset.keyword;
