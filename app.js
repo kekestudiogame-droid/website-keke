@@ -777,7 +777,8 @@ function showJobseekerDashboard() {
 
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
-
+  translateJobseekerDashboard(dashboard);
+  
   const uploadBtn = document.querySelector("#uploadCvBtn");
   const fileInput = document.querySelector("#cvFileInput");
   const status = document.querySelector("#cvStatus");
@@ -843,6 +844,46 @@ function showJobseekerDashboard() {
       status.textContent = "CV berhasil diupload.";
     } catch (error) {
       status.textContent = "Gagal upload CV: " + error.message;
+    }
+  });
+}
+function translateJobseekerDashboard(page) {
+  if (!page) return;
+
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translations = {
+    "Dashboard Pencari Kerja": "Job Seeker Dashboard",
+    "Cari Lowongan": "Find Jobs",
+    "Selamat Datang 👋": "Welcome 👋",
+    "Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.": "Manage your CV and prepare yourself for your next job.",
+    "CV Saya": "My CV",
+    "Belum Upload": "Not Uploaded",
+    "Lamaran Saya": "My Applications",
+    "Pekerjaan Tersimpan": "Saved Jobs",
+    "Notifikasi": "Notifications",
+    "📄 CV Saya": "📄 My CV",
+    "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu.": "Upload your CV in PDF format so companies can view your profile and work experience.",
+    "Upload CV kamu": "Upload your CV",
+    "Format yang diperbolehkan: PDF": "Allowed format: PDF",
+    "Upload CV": "Upload CV",
+    "Pilih file CV terlebih dahulu.": "Please select a CV file first.",
+    "CV harus berupa file PDF.": "CV must be a PDF file.",
+    "Silakan login terlebih dahulu.": "Please log in first.",
+    "Data akun tidak valid. Silakan login kembali.": "Invalid account data. Please log in again.",
+    "ID pengguna tidak ditemukan.": "User ID not found.",
+    "Mengupload CV...": "Uploading CV...",
+    "CV berhasil diupload.": "CV uploaded successfully.",
+    "Gagal upload CV:": "CV upload failed:"
+  };
+
+  page.querySelectorAll("*").forEach(element => {
+    if (element.children.length === 0) {
+      const text = element.textContent.trim();
+
+      if (language === "en" && translations[text]) {
+        element.textContent = translations[text];
+      }
     }
   });
 }
