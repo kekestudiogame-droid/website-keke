@@ -2014,16 +2014,19 @@ function translateCompanyProfile(profile) {
 
   const language = localStorage.getItem("siteLanguage") || "id";
 
-  const translations = {
-    "Profil Perusahaan": "Company Profile",
-    "Nama Perusahaan": "Company Name",
-    "Telepon": "Phone",
-    "Alamat": "Address",
-    "Kota": "City",
-    "Deskripsi": "Description",
-    "Simpan Profil": "Save Profile",
-    "Kembali": "Back"
-  };
+ const translations = {
+  "Profil Perusahaan": "Company Profile",
+  "Profil perusahaan Anda": "Your company profile",
+  "Nama Perusahaan": "Company Name",
+  "Email": "Email",
+  "Telepon": "Phone",
+  "Website": "Website",
+  "Kota": "City",
+  "Alamat": "Address",
+  "Deskripsi": "Description",
+  "Simpan Profil": "Save Profile",
+  "Kembali": "Back"
+};
 
   profile.querySelectorAll("*").forEach(element => {
     if (element.children.length === 0) {
