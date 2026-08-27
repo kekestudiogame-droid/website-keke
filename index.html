@@ -101,47 +101,48 @@
   margin:0 0 30px;
 ">
 
- <!-- PENCARI KERJA -->
+<!-- PENCARI KERJA -->
 <div style="
-    background:linear-gradient(135deg,#123b6d,#1d5fa7);
+  background:linear-gradient(135deg,#123b6d,#1d5fa7);
+  color:white;
+  padding:28px;
+  border-radius:18px;
+  box-shadow:0 8px 25px rgba(18,59,109,.18);
+">
+  <div style="font-size:38px;margin-bottom:12px;">🔎</div>
+
+  <h3 id="jobSeekerTitle" style="
+    margin:0 0 8px;
+    font-size:24px;
     color:white;
-    padding:28px;
-    border-radius:18px;
-    box-shadow:0 8px 25px rgba(18,59,109,.18);
   ">
-    <div style="font-size:38px;margin-bottom:12px;">🔎</div>
+    Cari Kerja di Sini!
+  </h3>
 
-    <h3 style="
-      margin:0 0 8px;
-      font-size:24px;
-      color:white;
-    ">
-      Cari Kerja di Sini!
-    </h3>
+  <p id="jobSeekerText" style="
+    margin:0 0 20px;
+    line-height:1.6;
+    color:rgba(255,255,255,.9);
+  ">
+    Temukan lowongan yang sesuai dengan keahlian dan impianmu.
+  </p>
 
-    <p style="
-      margin:0 0 20px;
-      line-height:1.6;
-      color:rgba(255,255,255,.9);
-    ">
-      Temukan lowongan yang sesuai dengan keahlian dan impianmu.
-    </p>
-
-    <button
-      onclick="document.getElementById('keyword').focus(); window.scrollTo({top:document.getElementById('keyword').offsetTop-100,behavior:'smooth'});"
-      style="
-        background:white;
-        color:#123b6d;
-        border:none;
-        padding:11px 20px;
-        border-radius:9px;
-        font-weight:bold;
-        cursor:pointer;
-      "
-    >
-      Cari Lowongan
-    </button>
-  </div>
+  <button
+    id="jobSeekerButton"
+    onclick="document.getElementById('keyword').focus(); window.scrollTo({top:document.getElementById('keyword').offsetTop-100,behavior:'smooth'});"
+    style="
+      background:white;
+      color:#123b6d;
+      border:none;
+      padding:11px 20px;
+      border-radius:9px;
+      font-weight:bold;
+      cursor:pointer;
+    "
+  >
+    Cari Lowongan
+  </button>
+</div>
 
   <!-- PERUSAHAAN -->
   <div class="promo-card" style="
