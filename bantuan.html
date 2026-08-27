@@ -128,6 +128,57 @@
     </p>
 
   </div>
+  <script>
+function translateHelp() {
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  if (language === "en") {
+    document.documentElement.lang = "en";
+
+    const h1 = document.querySelector("h1");
+    const h2 = document.querySelectorAll("h2");
+    const p = document.querySelectorAll(".container > p");
+
+    h1.textContent = "Cari Kerjaku Help";
+
+    h2[0].textContent = "1. How to Register";
+    h2[1].textContent = "2. How to Login";
+    h2[2].textContent = "3. How to Search for Jobs";
+    h2[3].textContent = "4. How to Apply for a Job";
+    h2[4].textContent = "5. Upload CV";
+    h2[5].textContent = "6. For Companies";
+    h2[6].textContent = "7. Payment";
+    h2[7].textContent = "8. If You Experience a Problem";
+    h2[8].textContent = "9. Security";
+
+    p[0].textContent = "Welcome to the Cari Kerjaku Help page. This page helps users understand how to use Cari Kerjaku services.";
+
+    p[1].textContent = "Select the register or sign-up menu, then enter the required information and follow the available instructions.";
+
+    p[2].textContent = "Enter the email address and password used during registration, then select the Login button.";
+
+    p[3].textContent = "Use the job listings and search feature to find jobs based on a suitable position or location.";
+
+    p[4].innerHTML = "Open the desired job listing, review the job information, then select the <strong>Apply Now</strong> button.";
+
+    p[5].textContent = "Job seekers can upload their CV through their account if this feature is available. Make sure the uploaded CV is the correct and appropriate document.";
+
+    p[6].textContent = "Companies can create a company account, complete their profile, and use the job posting feature according to the available services.";
+
+    p[7].textContent = "If posting a job requires payment, follow the payment instructions available on the platform.";
+
+    p[8].textContent = "If you experience any issues while using Cari Kerjaku, check the information you entered and try using the service again. If the problem persists, contact Cari Kerjaku through the contact information available on the platform.";
+
+    p[9].textContent = "Do not share your password or account security information with others. Use Cari Kerjaku only for legitimate purposes.";
+
+    p[10].innerHTML = '<a href="index.html">← Back to Cari Kerjaku</a>';
+
+    p[11].textContent = "© Cari Kerjaku";
+  }
+}
+
+translateHelp();
+</script>
 
 </body>
 </html>
