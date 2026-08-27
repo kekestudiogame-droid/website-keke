@@ -168,7 +168,8 @@ function translatePrivacy() {
 
     const h1 = document.querySelector("h1");
     const h2 = document.querySelectorAll("h2");
-    const p = document.querySelectorAll(".container > p");
+    const p = document.querySelectorAll(".container > p:not(.date)");
+    const li = document.querySelectorAll(".container li");
 
     h1.textContent = "Cari Kerjaku Privacy Policy";
 
@@ -182,31 +183,58 @@ function translatePrivacy() {
     h2[7].textContent = "8. Changes to Privacy Policy";
     h2[8].textContent = "9. Contact Us";
 
-    p[0].textContent = "Last updated: August 25, 2026";
+    document.querySelector(".date").textContent =
+      "Last updated: August 25, 2026";
 
-    p[1].textContent = "Cari Kerjaku respects the privacy of every user. This Privacy Policy explains how we collect, use, store, and protect user information when using the Cari Kerjaku website and application.";
+    p[0].textContent =
+      "Cari Kerjaku respects the privacy of every user. This Privacy Policy explains how we collect, use, store, and protect user information when using the Cari Kerjaku website and application.";
 
-    p[2].textContent = "When users use Cari Kerjaku, we may collect information provided directly by users, including:";
+    p[1].textContent =
+      "When users use Cari Kerjaku, we may collect information provided directly by users, including:";
 
-    p[3].textContent = "User information is used to provide and improve Cari Kerjaku services, including:";
+    p[2].textContent =
+      "User information is used to provide and improve Cari Kerjaku services, including:";
 
-    p[4].textContent = "CVs and uploaded documents are used for the job application process. Users are responsible for ensuring that uploaded documents do not violate the rights or privacy of others.";
+    p[3].textContent =
+      "CVs and uploaded documents are used for the job application process. Users are responsible for ensuring that uploaded documents do not violate the rights or privacy of others.";
 
-    p[5].textContent = "We strive to protect user information by using appropriate technical and security measures. However, no data storage or transmission system over the internet can be guaranteed to be 100% secure.";
+    p[4].textContent =
+      "We strive to protect user information by using appropriate technical and security measures. However, no data storage or transmission system over the internet can be guaranteed to be 100% secure.";
 
-    p[6].textContent = "User data may be stored using third-party services that support the operation of Cari Kerjaku. Data is only used for purposes related to providing the services.";
+    p[5].textContent =
+      "User data may be stored using third-party services that support the operation of Cari Kerjaku. Data is only used for purposes related to providing the services.";
 
-    p[7].textContent = "We do not sell users' personal information. Information may be processed or shared on a limited basis when necessary to provide services, process job applications, comply with legal obligations, or protect service security.";
+    p[6].textContent =
+      "We do not sell users' personal information. Information may be processed or shared on a limited basis when necessary to provide services, process job applications, comply with legal obligations, or protect service security.";
 
-    p[8].textContent = "Users may request deletion of their account or personal data by contacting the Cari Kerjaku administrator. Deletion requests will be processed in accordance with operational needs and applicable legal obligations.";
+    p[7].textContent =
+      "Users may request deletion of their account or personal data by contacting the Cari Kerjaku administrator. Deletion requests will be processed in accordance with operational needs and applicable legal obligations.";
 
-    p[9].textContent = "This Privacy Policy may be updated from time to time. Changes will be displayed on this page with the latest update date.";
+    p[8].textContent =
+      "This Privacy Policy may be updated from time to time. Changes will be displayed on this page with the latest update date.";
 
-    p[10].textContent = "If you have any questions regarding the Cari Kerjaku Privacy Policy, you may contact the Cari Kerjaku administrator through the official contact information available on the Cari Kerjaku service.";
+    p[9].textContent =
+      "If you have any questions regarding the Cari Kerjaku Privacy Policy, you may contact the Cari Kerjaku administrator through the official contact information available on the Cari Kerjaku service.";
 
-    p[11].innerHTML = '<a href="index.html">← Back to Cari Kerjaku</a>';
+    li[0].textContent = "User name";
+    li[1].textContent = "Email address";
+    li[2].textContent = "Phone number, if provided";
+    li[3].textContent = "User profile information";
+    li[4].textContent = "Uploaded CV or application documents";
+    li[5].textContent = "Job application information";
+    li[6].textContent = "Company information for company users";
 
-    p[12].textContent = "© Cari Kerjaku";
+    li[7].textContent = "Creating and managing user accounts";
+    li[8].textContent = "Displaying job vacancies";
+    li[9].textContent = "Helping users submit job applications";
+    li[10].textContent = "Managing CVs and application documents";
+    li[11].textContent = "Managing company accounts and job vacancies";
+    li[12].textContent = "Improving service security and quality";
+
+    p[10].innerHTML =
+      '<a href="index.html">← Back to Cari Kerjaku</a>';
+
+    p[11].textContent = "© Cari Kerjaku";
   }
 }
 
