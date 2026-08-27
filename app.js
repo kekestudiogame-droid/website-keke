@@ -1505,7 +1505,7 @@ async function showCompanyProfile() {
 
     document.body.innerHTML = "";
     document.body.appendChild(profile);
-
+    translateCompanyProfile(profile);
   } catch (error) {
     alert("Gagal mengambil profil perusahaan: " + error.message);
   }
@@ -1979,3 +1979,37 @@ function translateCompanyDashboard() {
     }
   });
 }         
+
+function translateCompanyProfile(profile) {
+  if (!profile) return;
+
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translations = {
+    "Profil Perusahaan": "Company Profile",
+    "Nama Perusahaan": "Company Name",
+    "Telepon": "Phone",
+    "Alamat": "Address",
+    "Kota": "City",
+    "Deskripsi": "Description",
+    "Simpan Profil": "Save Profile",
+    "Kembali": "Back"
+  };
+
+  profile.querySelectorAll("*").forEach(element => {
+    if (element.children.length === 0) {
+      const text = element.textContent.trim();
+
+      if (language === "en" && translations[text]) {
+        element.textContent = translations[text];
+      }
+
+      if (language === "id") {
+        const original = Object.keys(translations).find(
+          key => translations[key] === text
+        );
+        if (original) element.textContent = original;
+      }
+    }
+  });
+}
