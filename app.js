@@ -1005,7 +1005,7 @@ function showCompanyDashboard() {
   const dashboard = document.createElement("div");
 
   dashboard.id = "companyDashboard";
-
+  const currentLanguage = localStorage.getItem("siteLanguage") || "id";
   dashboard.innerHTML = `
     <div style="
       min-height:100vh;
@@ -1037,7 +1037,7 @@ function showCompanyDashboard() {
             opacity:.85;
             margin-top:4px;
           ">
-            Dashboard Perusahaan
+            ${currentLanguage === "en" ? "Company Dashboard" : "Dashboard Perusahaan"}
           </div>
         </div>
 
@@ -1067,7 +1067,7 @@ function showCompanyDashboard() {
             font-size:30px;
             color:#172b4d;
           ">
-            Selamat Datang 👋
+           ${currentLanguage === "en" ? "Welcome 👋" : "Selamat Datang 👋"} 
           </h1>
 
           <p style="
