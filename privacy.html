@@ -160,22 +160,57 @@
 
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.body.innerHTML = document.body.innerHTML
-    .replace(/Kebijakan Privasi/g, "Privacy Policy")
-    .replace(/Terakhir diperbarui/g, "Last updated")
-    .replace(/Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi informasi pengguna ketika menggunakan website dan aplikasi Cari Kerjaku\./g, "This Privacy Policy explains how we collect, use, store, and protect user information when using the Cari Kerjaku website and application.")
-    .replace(/Saat pengguna menggunakan Cari Kerjaku, kami dapat mengumpulkan informasi yang diberikan secara langsung oleh pengguna, termasuk:/g, "When users use Cari Kerjaku, we may collect information provided directly by users, including:")
-    .replace(/Informasi pengguna digunakan untuk menyediakan dan meningkatkan layanan Cari Kerjaku, termasuk:/g, "User information is used to provide and improve Cari Kerjaku services, including:")
-    .replace(/CV dan dokumen yang diunggah pengguna digunakan untuk keperluan proses lamaran pekerjaan\. Pengguna bertanggung jawab memastikan bahwa dokumen yang diunggah tidak melanggar hak atau privasi pihak lain\./g, "CVs and uploaded documents are used for the job application process. Users are responsible for ensuring that uploaded documents do not violate the rights or privacy of others.")
-    .replace(/Kami berupaya menjaga keamanan informasi pengguna dengan menggunakan langkah-langkah teknis dan pengamanan yang sesuai\. Namun, tidak ada sistem penyimpanan atau transmisi data melalui internet yang dapat dijamin 100% aman\./g, "We strive to protect user information by using appropriate technical and security measures. However, no data storage or transmission system over the internet can be guaranteed to be 100% secure.")
-    .replace(/Data pengguna dapat disimpan menggunakan layanan pihak ketiga yang mendukung operasional Cari Kerjaku\. Data hanya digunakan untuk tujuan yang berkaitan dengan penyediaan layanan\./g, "User data may be stored using third-party services that support the operation of Cari Kerjaku. Data is only used for purposes related to providing the services.")
-    .replace(/Kami tidak menjual informasi pribadi pengguna\. Informasi dapat diproses atau dibagikan secara terbatas apabila diperlukan untuk menyediakan layanan, menjalankan proses lamaran, memenuhi kewajiban hukum, atau melindungi keamanan layanan\./g, "We do not sell users' personal information. Information may be processed or shared on a limited basis when necessary to provide services, process job applications, comply with legal obligations, or protect service security.")
-    .replace(/Pengguna dapat meminta penghapusan akun atau data pribadi dengan menghubungi pengelola Cari Kerjaku\. Permintaan penghapusan akan diproses sesuai dengan kebutuhan operasional dan kewajiban hukum yang berlaku\./g, "Users may request deletion of their account or personal data by contacting the Cari Kerjaku administrator. Deletion requests will be processed in accordance with operational needs and applicable legal obligations.")
-    .replace(/Perubahan Privacy Policy/g, "Changes to Privacy Policy")
-    .replace(/Privacy Policy ini dapat diperbarui dari waktu ke waktu\. Perubahan akan ditampilkan pada halaman ini dengan tanggal pembaruan terbaru\./g, "This Privacy Policy may be updated from time to time. Changes will be displayed on this page with the latest update date.")
-    .replace(/Jika memiliki pertanyaan mengenai Privacy Policy Cari Kerjaku, pengguna dapat menghubungi pengelola Cari Kerjaku melalui kontak resmi yang tersedia pada layanan Cari Kerjaku\./g, "If you have any questions regarding the Cari Kerjaku Privacy Policy, you may contact the Cari Kerjaku administrator through the official contact information available on the Cari Kerjaku service.");
-});
+function translatePrivacy() {
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  if (language === "en") {
+    document.documentElement.lang = "en";
+
+    const h1 = document.querySelector("h1");
+    const h2 = document.querySelectorAll("h2");
+    const p = document.querySelectorAll(".container > p");
+
+    h1.textContent = "Cari Kerjaku Privacy Policy";
+
+    h2[0].textContent = "1. Information We Collect";
+    h2[1].textContent = "2. Use of Information";
+    h2[2].textContent = "3. CV and Application Documents";
+    h2[3].textContent = "4. Data Security";
+    h2[4].textContent = "5. Data Storage";
+    h2[5].textContent = "6. Information Sharing";
+    h2[6].textContent = "7. Data Deletion";
+    h2[7].textContent = "8. Changes to Privacy Policy";
+    h2[8].textContent = "9. Contact Us";
+
+    p[0].textContent = "Last updated: August 25, 2026";
+
+    p[1].textContent = "Cari Kerjaku respects the privacy of every user. This Privacy Policy explains how we collect, use, store, and protect user information when using the Cari Kerjaku website and application.";
+
+    p[2].textContent = "When users use Cari Kerjaku, we may collect information provided directly by users, including:";
+
+    p[3].textContent = "User information is used to provide and improve Cari Kerjaku services, including:";
+
+    p[4].textContent = "CVs and uploaded documents are used for the job application process. Users are responsible for ensuring that uploaded documents do not violate the rights or privacy of others.";
+
+    p[5].textContent = "We strive to protect user information by using appropriate technical and security measures. However, no data storage or transmission system over the internet can be guaranteed to be 100% secure.";
+
+    p[6].textContent = "User data may be stored using third-party services that support the operation of Cari Kerjaku. Data is only used for purposes related to providing the services.";
+
+    p[7].textContent = "We do not sell users' personal information. Information may be processed or shared on a limited basis when necessary to provide services, process job applications, comply with legal obligations, or protect service security.";
+
+    p[8].textContent = "Users may request deletion of their account or personal data by contacting the Cari Kerjaku administrator. Deletion requests will be processed in accordance with operational needs and applicable legal obligations.";
+
+    p[9].textContent = "This Privacy Policy may be updated from time to time. Changes will be displayed on this page with the latest update date.";
+
+    p[10].textContent = "If you have any questions regarding the Cari Kerjaku Privacy Policy, you may contact the Cari Kerjaku administrator through the official contact information available on the Cari Kerjaku service.";
+
+    p[11].innerHTML = '<a href="index.html">← Back to Cari Kerjaku</a>';
+
+    p[12].textContent = "© Cari Kerjaku";
+  }
+}
+
+translatePrivacy();
 </script>
 </body>
 </html>
