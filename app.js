@@ -1277,6 +1277,7 @@ function showCompanyDashboard() {
 
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
+  translateCompanyDashboard();
 }
 // ================= PROFIL PERUSAHAAN =================
 
@@ -1939,4 +1940,42 @@ return;
 }
 }  
 
-         
+function translateCompanyDashboard() {
+  const dashboard = document.getElementById("companyDashboard");
+  if (!dashboard) return;
+
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translations = {
+    "Dashboard Perusahaan": "Company Dashboard",
+    "Selamat Datang 👋": "Welcome 👋",
+    "Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.": "Manage your job openings and recruitment needs.",
+    "Total Lowongan": "Total Jobs",
+    "Lowongan Aktif": "Active Jobs",
+    "Total Pelamar": "Total Applicants",
+    "Lamaran Baru": "New Applications",
+    "Kelola Perusahaan": "Manage Company",
+    "Pilih menu yang ingin Anda kelola.": "Choose a menu to manage.",
+    "Profil Perusahaan": "Company Profile",
+    "Pasang Lowongan": "Post a Job",
+    "Lowongan Saya": "My Jobs",
+    "Lamaran Masuk": "Incoming Applications"
+  };
+
+  dashboard.querySelectorAll("*").forEach(element => {
+    if (element.children.length === 0) {
+      const text = element.textContent.trim();
+
+      if (language === "en" && translations[text]) {
+        element.textContent = translations[text];
+      }
+
+      if (language === "id") {
+        const original = Object.keys(translations).find(
+          key => translations[key] === text
+        );
+        if (original) element.textContent = original;
+      }
+    }
+  });
+}         
