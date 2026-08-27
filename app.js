@@ -1724,10 +1724,32 @@ async function showMyJobs() {
 
     document.body.innerHTML = "";
     document.body.appendChild(page);
-
+    translateMyJobs(page);
   } catch (error) {
     alert("Gagal mengambil lowongan: " + error.message);
   }
+}
+function translateMyJobs(page) {
+  if (!page) return;
+
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translations = {
+    "📋 Lowongan Saya": "📋 My Jobs",
+    "Daftar lowongan perusahaan Anda.": "Your company's job listings.",
+    "Belum Ada Lowongan": "No Jobs Available",
+    "Lowongan perusahaan akan muncul di sini.": "Your company's jobs will appear here."
+  };
+
+  page.querySelectorAll("*").forEach(element => {
+    if (element.children.length === 0) {
+      const text = element.textContent.trim();
+
+      if (language === "en" && translations[text]) {
+        element.textContent = translations[text];
+      }
+    }
+  });
 }
 function companyLogout() {
   localStorage.removeItem("cariKerjakuUser");
