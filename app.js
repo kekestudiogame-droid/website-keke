@@ -2014,15 +2014,15 @@ function translateCompanyProfile(profile) {
 
   const language = localStorage.getItem("siteLanguage") || "id";
 
- const translations = {
+const translations = {
   "Profil Perusahaan": "Company Profile",
   "Profil perusahaan Anda": "Your company profile",
   "Nama Perusahaan": "Company Name",
-  "Email": "Email",
-  "Telepon": "Phone",
-  "Website": "Website",
-  "Kota": "City",
-  "Alamat": "Address",
+  "📧 Email": "📧 Email",
+  "📞 Telepon": "📞 Phone",
+  "🌐 Website": "🌐 Website",
+  "📍 Kota": "📍 City",
+  "🏠 Alamat": "🏠 Address",
   "Deskripsi": "Description",
   "Simpan Profil": "Save Profile",
   "Kembali": "Back"
