@@ -1033,15 +1033,39 @@ async function showMyApplications() {
       </div>
     `;
 
-    document.body.innerHTML = "";
-    document.body.appendChild(page);
-    translateMyJobs(page);
+   document.body.innerHTML = "";
+   document.body.appendChild(page);
+   translateMyApplications(page);
 
   } catch (error) {
     alert("Gagal mengambil lowongan: " + error.message);
   }
 }
+function translateMyApplications(page) {
+  if (!page) return;
 
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translations = {
+    "Lamaran Saya": "My Applications",
+    "← Dashboard": "← Dashboard",
+    "Belum Ada Lamaran": "No Applications Yet",
+    "Lamaran pekerjaan yang kamu kirim akan muncul di sini.": "The jobs you apply for will appear here.",
+    "Status:": "Status:",
+    "Tanggal:": "Date:",
+    "Menunggu": "Pending"
+  };
+
+  page.querySelectorAll("*").forEach(element => {
+    if (element.children.length === 0) {
+      const text = element.textContent.trim();
+
+      if (language === "en" && translations[text]) {
+        element.textContent = translations[text];
+      }
+    }
+  });
+}
 function translateMyJobs(page) {
   if (!page) return;
 
