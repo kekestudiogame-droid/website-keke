@@ -1947,21 +1947,49 @@ function translateCompanyDashboard() {
 
   const language = localStorage.getItem("siteLanguage") || "id";
 
-  const translations = {
-    "Dashboard Perusahaan": "Company Dashboard",
-    "Selamat Datang 👋": "Welcome 👋",
-    "Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.": "Manage your job openings and recruitment needs.",
-    "Total Lowongan": "Total Jobs",
-    "Lowongan Aktif": "Active Jobs",
-    "Total Pelamar": "Total Applicants",
-    "Lamaran Baru": "New Applications",
-    "Kelola Perusahaan": "Manage Company",
-    "Pilih menu yang ingin Anda kelola.": "Choose a menu to manage.",
-    "Profil Perusahaan": "Company Profile",
-    "Pasang Lowongan": "Post a Job",
-    "Lowongan Saya": "My Jobs",
-    "Lamaran Masuk": "Incoming Applications"
-  };
+ const translations = {
+  "Tentang": "About",
+  "Kontak": "Contact",
+  "Masuk": "Login",
+  "Daftar": "Register",
+  "Cari Kerja": "Find a Job",
+  "Cari": "Search",
+  "Lowongan": "Jobs",
+  "Perusahaan": "Companies",
+  "Profil": "Profile",
+  "Keluar": "Logout",
+
+  "Dashboard Perusahaan": "Company Dashboard",
+  "Selamat Datang 👋": "Welcome 👋",
+  "Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.": "Manage your job openings and recruitment needs.",
+  "Total Lowongan": "Total Jobs",
+  "Lowongan Aktif": "Active Jobs",
+  "Total Pelamar": "Total Applicants",
+  "Lamaran Baru": "New Applications",
+  "Kelola Perusahaan": "Manage Company",
+  "Pilih menu yang ingin Anda kelola.": "Choose a menu to manage.",
+  "Profil Perusahaan": "Company Profile",
+  "Pasang Lowongan": "Post a Job",
+  "Lowongan Saya": "My Jobs",
+  "Lamaran Masuk": "Incoming Applications",
+
+  "Belum Ada Lowongan": "No Jobs Available",
+  "Belum ada lowongan nyata yang tersedia untuk pencarian ini.": "There are no real job openings available for this search.",
+  "Silakan coba jenis pekerjaan atau kota lainnya.": "Please try another job type or city.",
+
+  "Kembali": "Back",
+  "Simpan": "Save",
+  "Batal": "Cancel",
+  "Edit": "Edit",
+  "Hapus": "Delete",
+  "Lihat": "View",
+  "Lamar": "Apply",
+  "Cari Lowongan": "Search Jobs",
+  "Jenis Pekerjaan": "Job Type",
+  "Kota": "City",
+  "Semua Kota": "All Cities",
+  "Semua Jenis Pekerjaan": "All Job Types"
+};
 
   dashboard.querySelectorAll("*").forEach(element => {
     if (element.children.length === 0) {
