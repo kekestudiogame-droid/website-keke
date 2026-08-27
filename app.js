@@ -1287,7 +1287,7 @@ function showCompanyDashboard() {
               </span>
             </button>
 
-            <button onclick="alert('Belum ada lamaran masuk')" style="
+            <button onclick="alert(localStorage.getItem('siteLanguage') === 'en' ? 'No incoming applications yet.' : 'Belum ada lamaran masuk')" style="
               padding:20px;
               background:#f8fafc;
               border:1px solid #dbe3ec;
