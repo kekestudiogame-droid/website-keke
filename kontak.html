@@ -86,6 +86,33 @@
     </p>
 
   </div>
+  <script>
+function translateContact() {
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  if (language === "en") {
+    document.documentElement.lang = "en";
+
+    const h1 = document.querySelector("h1");
+    const p = document.querySelectorAll(".container > p");
+
+    h1.textContent = "Contact Cari Kerjaku";
+
+    p[0].textContent =
+      "If you need assistance or have questions about Cari Kerjaku, please contact us through the contact information below.";
+
+    p[1].innerHTML =
+      "📞 <strong>087780181152</strong>";
+
+    p[2].innerHTML =
+      '<a href="index.html">← Back to Cari Kerjaku</a>';
+
+    p[3].textContent = "© Cari Kerjaku";
+  }
+}
+
+translateContact();
+</script>  
 
 </body>
 </html>
