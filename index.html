@@ -361,8 +361,11 @@ document.addEventListener("DOMContentLoaded", function () {
       requirements: "Persyaratan",
       applyNow: "Lamar Sekarang",
 
-      help: "Bantuan"
-    },
+      help: "Bantuan",
+      privacy: "Kebijakan Privasi",
+      terms: "Syarat & Ketentuan"
+      },
+    
 
     en: {
       navJobs: "Jobs",
@@ -423,7 +426,9 @@ document.addEventListener("DOMContentLoaded", function () {
       requirements: "Requirements",
       applyNow: "Apply Now",
 
-      help: "Help"
+      help: "Help",
+      privacy: "Privacy Policy",
+      terms: "Terms & Conditions"
     }
   };
 
@@ -564,7 +569,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const helpLink = document.querySelector('a[href="bantuan.html"]');
     if (helpLink) helpLink.textContent = t.help;
+    const privacyLink = document.querySelector('a[href="privacy.html"]');
+    if (privacyLink) privacyLink.textContent = t.privacy;
 
+    const termsLink = document.querySelector('a[href="terms.html"]');
+    if (termsLink) termsLink.textContent = t.terms;
     document.documentElement.lang = language;
 
     localStorage.setItem("siteLanguage", language);
