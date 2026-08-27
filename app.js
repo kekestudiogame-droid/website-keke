@@ -1007,6 +1007,7 @@ function translateMyJobs(page) {
   const language = localStorage.getItem("siteLanguage") || "id";
 
   const translations = {
+   "📋 Lowongan Saya": "📋 My Jobs",
     "Lowongan Saya": "My Jobs",
     "Daftar lowongan perusahaan Anda.": "Your company's job listings.",
     "Belum Ada Lowongan": "No Jobs Available",
