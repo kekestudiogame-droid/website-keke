@@ -161,6 +161,34 @@ function filterJobs(){
   );
 
   renderJobs(filtered);
+const featuredJob = document.querySelector("#featuredJob");
+
+if (featuredJob) {
+  if (filtered.length > 0) {
+    const job = filtered[0];
+
+    featuredJob.innerHTML = `
+      <div style="font-size:42px;margin-bottom:10px;">💼</div>
+      <h3 style="margin:0 0 8px;">${job.title}</h3>
+      <p style="margin:0;color:#64748b;">
+        ${job.company} · ${job.location}
+      </p>
+    `;
+  } else {
+    const searchName = keyword.value.trim();
+
+    featuredJob.innerHTML = `
+      <div style="font-size:42px;margin-bottom:10px;">🔎</div>
+      <h3 style="margin:0 0 8px;">
+        ${searchName ? `Belum Ada Lowongan ${searchName}` : "Belum Ada Lowongan"}
+      </h3>
+      <p style="margin:0;color:#64748b;">
+        Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.
+      </p>
+    `;
+  }
+}
+  
   document.querySelector("#jobs").scrollIntoView({behavior:"smooth"});
 }
 
