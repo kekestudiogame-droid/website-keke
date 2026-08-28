@@ -159,9 +159,14 @@ const locationInput = document.querySelector("#location");
 
 function renderJobs(list = jobs){
   jobsGrid.innerHTML = "";
-  jobCount.textContent = list.length;
-  emptyState.classList.toggle("hidden", list.length !== 0);
 
+  if (jobCount) {
+    jobCount.textContent = list.length;
+  }
+
+  if (emptyState) {
+    emptyState.classList.toggle("hidden", list.length !== 0);
+  }
   list.forEach((job, i) => {
     const card = document.createElement("article");
     card.className = "job-card";
