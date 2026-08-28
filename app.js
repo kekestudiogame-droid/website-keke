@@ -9,6 +9,50 @@ const supabaseHeaders = {
 
 const SUPABASE_JOBS_URL = `${SUPABASE_URL}jobs`;
 const SUPABASE_APPLICATIONS_URL = `${SUPABASE_URL}applications`;
+let jobs = [];
+
+async function loadJobsFromDatabase() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_JOBS_URL}?select=*`,
+      {
+        method: "GET",
+        headers: supabaseHeaders
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    const data = await response.json();
+
+    jobs = data.map(job => ({
+      ...job,
+
+      // Sesuaikan nama field database dengan yang dipakai tampilan website
+      title: job.title || "",
+      company: job.company || job.company_name || "Perusahaan",
+      location: job.location || job.city || "",
+      category: job.category || "",
+      type: job.type || job.job_type || "",
+      salary: job.salary || "",
+      initials: (job.company || job.company_name || "P")
+        .substring(0, 2)
+        .toUpperCase()
+    }));
+
+    renderJobs(jobs);
+
+    console.log("LOWONGAN DARI DATABASE:", jobs);
+
+  } catch (error) {
+    console.error("Gagal mengambil lowongan:", error);
+    jobs = [];
+    renderJobs([]);
+  }
+}
 
 const jobTypes = [
   "Staff Administrasi",
@@ -515,7 +559,7 @@ return;
   }
 });
 
-renderJobs();
+loadJobsFromDatabase();
 // ================= DASHBOARD PENCARI KERJA =================
 
 function showJobseekerDashboard() {
