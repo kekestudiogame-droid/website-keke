@@ -199,7 +199,7 @@ function filterJobs(){
 
   const filtered = jobs.filter(j =>
     (cat === "all" || j.category === cat) &&
-    (!q || `${j.title} ${j.company} ${j.category}`.toLowerCase().includes(q)) &&
+    (!q || `${j.title} ${j.company} ${j.category} ${j.description || ""}`.toLowerCase().includes(q)) &&
     (!loc || j.location.toLowerCase().includes(loc) ||
       (loc === "indonesia" && j.location === "Remote"))
   );
