@@ -1535,6 +1535,10 @@ function showJobseekerDashboard() {
       return;
     }
 
+    if (file.size > 5 * 1024 * 1024) {
+  status.textContent = "Ukuran CV maksimal 5 MB.";
+  return;
+    }
     const token = localStorage.getItem("cariKerjakuAccessToken");
     const userData = localStorage.getItem("cariKerjakuUser");
 
