@@ -806,6 +806,14 @@ const jobCount = document.querySelector("#jobCount");
 const categoryFilter = document.querySelector("#categoryFilter");
 const keyword = document.querySelector("#keyword");
 const locationInput = document.querySelector("#location");
+if (locationInput) {
+  cities.forEach(city => {
+    const option = document.createElement("option");
+    option.value = city;
+    option.textContent = city;
+    locationInput.appendChild(option);
+  });
+}
 
 function renderJobs(list = jobs){
   jobsGrid.innerHTML = "";
