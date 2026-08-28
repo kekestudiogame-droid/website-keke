@@ -44,7 +44,7 @@ async function loadJobsFromDatabase() {
     }));
 
     renderJobs(jobs);
-
+    filterJobs();
     console.log("LOWONGAN DARI DATABASE:", jobs);
 
   } catch (error) {
