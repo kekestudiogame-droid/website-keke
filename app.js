@@ -2345,3 +2345,4 @@ function translatePostJobForm(form) {
     }
   });
 }
+loadJobsFromDatabase();
