@@ -3094,3 +3094,29 @@ menuBtn.addEventListener("click", (e) => {
   mainMenu.style.display =
     mainMenu.style.display === "none" ? "block" : "none";
 });
+
+// FIX TOMBOL LOGIN & DAFTAR
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.querySelector("#loginBtn");
+  const registerBtn = document.querySelector("#registerBtn");
+
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      if (typeof showLogin === "function") {
+        showLogin();
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  }
+
+  if (registerBtn) {
+    registerBtn.addEventListener("click", () => {
+      if (typeof showRegister === "function") {
+        showRegister();
+      } else {
+        window.location.href = "register.html";
+      }
+    });
+  }
+});
