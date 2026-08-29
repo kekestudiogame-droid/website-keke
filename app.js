@@ -3112,3 +3112,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+document.getElementById("loginBtn")?.addEventListener("click", () => {
+  document.getElementById("authModal")?.classList.remove("hidden");
+});
+
+document.getElementById("registerBtn")?.addEventListener("click", () => {
+  document.getElementById("authModal")?.classList.remove("hidden");
+});
