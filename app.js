@@ -1130,16 +1130,7 @@ if (registerBtn) {
     }
   });
 }
-document.querySelector("#registerBtn").addEventListener("click", () => {
-  isRegister = true;
 
-  modalTitle.textContent = "Daftar";
-  modalText.textContent = "Buat akun untuk mulai melamar pekerjaan.";
-
-  authForm.classList.remove("hidden");
-  document.querySelector(".switch-auth").classList.remove("hidden");
-  modal.classList.remove("hidden");
-});
 
 document.querySelector("#switchAuth").addEventListener("click", () => {
   isRegister = !isRegister;
@@ -1154,15 +1145,7 @@ document.querySelector("#switchAuth").addEventListener("click", () => {
     isRegister ? "Masuk" : "Daftar";
 });
 
-document.querySelector("#closeModal").addEventListener("click", () => {
-  modal.classList.add("hidden");
-});
 
-modal.addEventListener("click", e => {
-  if (e.target === modal) {
-    modal.classList.add("hidden");
-  }
-});
 document.querySelector("#closeJobDetail").addEventListener("click", () => {
   document.querySelector("#jobDetailModal").classList.add("hidden");
 });
