@@ -3032,8 +3032,10 @@ document.addEventListener("click", (e) => {
 });
 
 if (menuBtn && mainMenu) {
-  menuBtn.addEventListener("click", () => {
-    mainMenu.style.display =
-      mainMenu.style.display === "none" ? "block" : "none";
-  });
-}
+
+menuBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+
+  mainMenu.style.display =
+    mainMenu.style.display === "none" ? "block" : "none";
+});
