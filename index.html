@@ -468,10 +468,11 @@ document.addEventListener("DOMContentLoaded", function () {
     setAriaLabel("#keyword", t.keywordPlaceholder);
     setAriaLabel("#location", t.locationLabel);
 
-    const location = document.getElementById("location");
-    if (location && location.options.length > 0) {
-      location.options[0].textContent = t.allLocations;
-    }
+   const location = document.getElementById("location");
+if (location && location.options.length > 0) {
+  location.options[0].textContent =
+    t.allLocations || (currentLang === "en" ? "All Locations" : "Semua Lokasi");
+}
 
     setText('#searchForm button[type="submit"]', t.searchJobs);
     setText(".stat-card span", t.availableJobs);
