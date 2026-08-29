@@ -616,6 +616,132 @@ document.addEventListener("DOMContentLoaded", function () {
   const termsLink = document.querySelector('a[href="terms.html"]');
   if (termsLink) termsLink.textContent = t.terms;
 
+     // GLOBAL TRANSLATION: MENU & KATEGORI
+  const globalTranslations = {
+    "Beranda": "Home",
+    "Lowongan": "Jobs",
+    "Cari Lowongan": "Find Jobs",
+    "Cara Kerja": "How It Works",
+    "Tentang": "About",
+    "Tentang Kami": "About Us",
+    "Kontak": "Contact",
+    "Profil": "Profile",
+    "Dashboard": "Dashboard",
+    "Keluar": "Logout",
+    "Masuk": "Login",
+    "Daftar": "Register",
+    "Pencari Kerja": "Job Seeker",
+    "Perusahaan": "Company",
+
+    "Semua kategori": "All categories",
+    "Teknologi": "Technology",
+    "Teknologi & IT": "Technology & IT",
+    "Marketing": "Marketing",
+    "Pemasaran": "Marketing",
+    "Akuntansi": "Accounting",
+    "Keuangan": "Finance",
+    "Administrasi": "Administration",
+    "Desain": "Design",
+    "Penjualan": "Sales",
+    "Sumber Daya Manusia": "Human Resources",
+    "HR": "HR",
+    "Customer Service": "Customer Service",
+    "Operasional": "Operations",
+    "Logistik": "Logistics",
+    "Hukum": "Legal",
+    "Pendidikan": "Education",
+    "Kesehatan": "Healthcare",
+    "Manufaktur": "Manufacturing",
+    "Teknik": "Engineering",
+    "Media": "Media",
+    "Kreatif": "Creative",
+    "Perhotelan": "Hospitality",
+    "Restoran": "Restaurant",
+    "Transportasi": "Transportation"
+  };
+
+  // Terjemahkan menu dropdown
+  const mainMenu = document.querySelector("#mainMenu");
+
+  if (mainMenu) {
+    mainMenu.querySelectorAll("*").forEach(element => {
+      if (element.children.length === 0) {
+        const original = element.textContent.trim();
+
+        if (language === "en" && globalTranslations[original]) {
+          element.textContent = globalTranslations[original];
+        } else if (language === "id") {
+          const indonesia = Object.keys(globalTranslations)
+            .find(key => globalTranslations[key] === original);
+
+          if (indonesia) {
+            element.textContent = indonesia;
+          }
+        }
+      }
+    });
+  }
+
+  // Terjemahkan semua kategori pada dropdown
+  const categoryFilterGlobal =
+    document.querySelector("#categoryFilter");
+
+  if (categoryFilterGlobal) {
+    Array.from(categoryFilterGlobal.options).forEach(option => {
+      const original = option.textContent.trim();
+
+      if (language === "en" && globalTranslations[original]) {
+        option.textContent = globalTranslations[original];
+      } else if (language === "id") {
+        const indonesia = Object.keys(globalTranslations)
+          .find(key => globalTranslations[key] === original);
+
+        if (indonesia) {
+          option.textContent = indonesia;
+        }
+      }
+    });
+  }
+
+  // Pastikan kotak lowongan dinamis mengikuti bahasa
+  const featuredJobGlobal = document.querySelector("#featuredJob");
+
+  if (featuredJobGlobal) {
+    const titleElement = featuredJobGlobal.querySelector("h3");
+
+    if (titleElement) {
+      const currentTitle = titleElement.textContent.trim();
+
+      if (
+        currentTitle.startsWith("Belum Ada Lowongan") ||
+        currentTitle.startsWith("No ") ||
+        currentTitle === "Belum Ada Lowongan" ||
+        currentTitle === "No Jobs Available"
+      ) {
+        const searchName =
+          document.querySelector("#keyword")?.value.trim() || "";
+
+        const noJobTitle = language === "en"
+          ? (searchName
+              ? `No ${searchName} Jobs Available`
+              : "No Jobs Available")
+          : (searchName
+              ? `Belum Ada Lowongan ${searchName}`
+              : "Belum Ada Lowongan");
+
+        titleElement.textContent = noJobTitle;
+
+        const description =
+          featuredJobGlobal.querySelector("p");
+
+        if (description) {
+          description.textContent = language === "en"
+            ? "There are no jobs matching your current search."
+            : "Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.";
+        }
+      }
+    }
+  }
   document.documentElement.lang = language;
   localStorage.setItem("siteLanguage", language);
 }
