@@ -110,3 +110,34 @@ footer{border-top:1px solid var(--line)}.footer{min-height:80px;display:flex;ali
     width: 100%;
   }
 }
+
+#mainMenu {
+  position: fixed;
+  right: 20px;
+  top: 75px;
+  width: 230px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  padding: 8px;
+  z-index: 99999;
+}
+.nav-actions {
+  position: relative;
+}
+
+#mainMenu button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+#mainMenu button:hover {
+  background: #f1f5f9;
+}
