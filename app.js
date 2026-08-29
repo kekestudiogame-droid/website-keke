@@ -3095,28 +3095,36 @@ menuBtn.addEventListener("click", (e) => {
     mainMenu.style.display === "none" ? "block" : "none";
 });
 
-// FIX TOMBOL LOGIN & DAFTAR
 document.addEventListener("DOMContentLoaded", () => {
-  const loginBtn = document.querySelector("#loginBtn");
-  const registerBtn = document.querySelector("#registerBtn");
+  const loginBtn = document.getElementById("loginBtn");
+  const registerBtn = document.getElementById("registerBtn");
+  const closeModal = document.getElementById("closeModal");
+  const authModal = document.getElementById("authModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalText = document.getElementById("modalText");
+  const authForm = document.getElementById("authForm");
 
   if (loginBtn) {
     loginBtn.addEventListener("click", () => {
-      if (typeof showLogin === "function") {
-        showLogin();
-      } else {
-        window.location.href = "login.html";
-      }
+      authModal.classList.remove("hidden");
+      modalTitle.textContent = "Masuk";
+      modalText.textContent = "Masuk ke akun Anda";
+      authForm.dataset.mode = "login";
     });
   }
 
   if (registerBtn) {
     registerBtn.addEventListener("click", () => {
-      if (typeof showRegister === "function") {
-        showRegister();
-      } else {
-        window.location.href = "register.html";
-      }
+      authModal.classList.remove("hidden");
+      modalTitle.textContent = "Daftar";
+      modalText.textContent = "Buat akun baru";
+      authForm.dataset.mode = "register";
+    });
+  }
+
+  if (closeModal) {
+    closeModal.addEventListener("click", () => {
+      authModal.classList.add("hidden");
     });
   }
 });
