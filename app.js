@@ -858,7 +858,7 @@ function renderJobs(list = jobs){
     jobsGrid.appendChild(card);
   });
 }
-
+let hasSearched = false;
 function filterJobs(){
   const q = keyword.value.trim().toLowerCase();
   const loc = locationInput.value.trim().toLowerCase();
@@ -873,8 +873,9 @@ function filterJobs(){
 
   renderJobs(filtered);
 const featuredJob = document.querySelector("#featuredJob");
-
+hasSearched = true;
 if (featuredJob) {
+  if (!hasSearched) return;
   if (filtered.length > 0) {
     const job = filtered[0];
 
