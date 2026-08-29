@@ -873,7 +873,7 @@ function filterJobs(){
 
   renderJobs(filtered);
 const featuredJob = document.querySelector("#featuredJob");
-hasSearched = true;
+
 if (featuredJob) {
   if (!hasSearched) return;
   if (filtered.length > 0) {
@@ -919,6 +919,7 @@ if (featuredJob) {
 
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
+  hasSearched = true;
   filterJobs();
 });
 
