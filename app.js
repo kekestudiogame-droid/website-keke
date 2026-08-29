@@ -1072,16 +1072,34 @@ jobsGrid.addEventListener("click", e => {
     document.getElementById("jobDetailModal").classList.remove("hidden");
   }
   });
-document.querySelector("#loginBtn").addEventListener("click", () => {
-  isRegister = false;
+const loginBtn = document.querySelector("#loginBtn");
 
-  modalTitle.textContent = "Masuk";
-  modalText.textContent = "Masukkan email dan password untuk masuk.";
+if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    isRegister = false;
 
-  authForm.classList.remove("hidden");
-  document.querySelector(".switch-auth").classList.remove("hidden");
-  modal.classList.remove("hidden");
-});
+    if (modalTitle) {
+      modalTitle.textContent = "Masuk";
+    }
+
+    if (modalText) {
+      modalText.textContent = "Masukkan email dan password untuk masuk.";
+    }
+
+    if (authForm) {
+      authForm.classList.remove("hidden");
+    }
+
+    const switchAuth = document.querySelector(".switch-auth");
+    if (switchAuth) {
+      switchAuth.classList.remove("hidden");
+    }
+
+    if (modal) {
+      modal.classList.remove("hidden");
+    }
+  });
+}
 
 document.querySelector("#registerBtn").addEventListener("click", () => {
   isRegister = true;
