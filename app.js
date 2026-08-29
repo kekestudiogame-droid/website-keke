@@ -3077,6 +3077,7 @@ menuBtn.addEventListener("click", (e) => {
   mainMenu.style.display =
     mainMenu.style.display === "none" ? "block" : "none";
 });
+  }
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("loginBtn");
