@@ -3017,3 +3017,13 @@ function translatePostJobForm(form) {
   });
 }
 loadJobsFromDatabase();
+
+const menuBtn = document.querySelector("#menuBtn");
+const mainMenu = document.querySelector("#mainMenu");
+
+if (menuBtn && mainMenu) {
+  menuBtn.addEventListener("click", () => {
+    mainMenu.style.display =
+      mainMenu.style.display === "none" ? "block" : "none";
+  });
+}
