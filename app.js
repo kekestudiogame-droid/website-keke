@@ -3020,6 +3020,16 @@ loadJobsFromDatabase();
 
 const menuBtn = document.querySelector("#menuBtn");
 const mainMenu = document.querySelector("#mainMenu");
+document.addEventListener("click", (e) => {
+  if (
+    mainMenu &&
+    menuBtn &&
+    !mainMenu.contains(e.target) &&
+    !menuBtn.contains(e.target)
+  ) {
+    mainMenu.style.display = "none";
+  }
+});
 
 if (menuBtn && mainMenu) {
   menuBtn.addEventListener("click", () => {
