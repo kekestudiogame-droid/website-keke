@@ -448,140 +448,177 @@ document.addEventListener("DOMContentLoaded", function () {
     if (element) element.setAttribute("aria-label", value);
   }
 
-  function setLanguage(language) {
-    const t = translations[language];
-    if (!t) return;
+ function setLanguage(language) {
+  const t = translations[language];
+  if (!t) return;
 
-    setText('nav a[href="#jobs"]', t.navJobs);
-    setText('nav a[href="#how"]', t.navHow);
-    setText('nav a[href="#about"]', t.navAbout);
-    setText('nav a[href="kontak.html"]', t.navContact);
+  setText('nav a[href="#jobs"]', t.navJobs);
+  setText('nav a[href="#how"]', t.navHow);
+  setText('nav a[href="#about"]', t.navAbout);
+  setText('nav a[href="kontak.html"]', t.navContact);
 
-    setText("#loginBtn", t.login);
-    setText("#registerBtn", t.register);
+  setText("#loginBtn", t.login);
+  setText("#registerBtn", t.register);
 
-    setText(".hero .eyebrow", t.eyebrow);
-    setText(".hero h1", t.heroTitle);
-    setText(".hero-copy", t.heroCopy);
+  setText(".hero .eyebrow", t.eyebrow);
+  setText(".hero h1", t.heroTitle);
+  setText(".hero-copy", t.heroCopy);
 
-    setPlaceholder("#keyword", t.keywordPlaceholder);
-    setAriaLabel("#keyword", t.keywordPlaceholder);
-    setAriaLabel("#location", t.locationLabel);
+  setPlaceholder("#keyword", t.keywordPlaceholder);
+  setAriaLabel("#keyword", t.keywordPlaceholder);
+  setAriaLabel("#location", t.locationLabel);
 
- const location = document.getElementById("location");
-if (location && location.options && location.options.length > 0) {
-  location.options[0].textContent =
-    t.allLocations || (currentLang === "en" ? "All Locations" : "Semua Lokasi");
-}
+  const location = document.getElementById("location");
+  if (location && location.options && location.options.length > 0) {
+    location.options[0].textContent = t.allLocations;
+  }
 
-    setText('#searchForm button[type="submit"]', t.searchJobs);
-    setText(".stat-card span", t.availableJobs);
+  setText('#searchForm button[type="submit"]', t.searchJobs);
+  setText(".stat-card span", t.availableJobs);
 
-    setText("#jobs .section-heading .eyebrow", t.latestJobs);
-    setText("#jobs .section-heading h2", t.opportunities);
+  setText("#jobs .section-heading .eyebrow", t.latestJobs);
+  setText("#jobs .section-heading h2", t.opportunities);
 
   const categoryFilter = document.getElementById("categoryFilter");
-if (categoryFilter && categoryFilter.options && categoryFilter.options.length > 0) {
-  categoryFilter.options[0].textContent = t.allCategories;
-}
-
-    const promoCards = document.querySelectorAll("#jobs > .container > div[style]");
-    if (promoCards.length >= 2) {
-      const seeker = promoCards[0];
-      const company = promoCards[1];
-
-      const seekerTitle = seeker.querySelector("h3");
-      const seekerText = seeker.querySelector("p");
-      const seekerButton = seeker.querySelector("button");
-
-      const companyTitle = company.querySelector("h3");
-      const companyText = company.querySelector("p");
-      const companyButton = company.querySelector("button");
-
-      if (seekerTitle) seekerTitle.textContent = t.jobSeekerTitle;
-      if (seekerText) seekerText.textContent = t.jobSeekerText;
-      if (seekerButton) seekerButton.textContent = t.searchJobs;
-
-      if (companyTitle) companyTitle.textContent = t.companyTitle;
-      if (companyText) companyText.textContent = t.companyText;
-      if (companyButton) companyButton.textContent = t.postJob;
-    }
-setText("#jobSeekerTitle", t.jobSeekerTitle);
-setText("#jobSeekerText", t.jobSeekerText);
-setText("#jobSeekerButton", t.searchJobs);
-    
-setText("#companyTitle", t.companyTitle);
-setText("#companyText", t.companyText);
-setText("#companyButton", t.postJob);
-
-    setText("#how .eyebrow", t.howEyebrow);
-    setText("#how h2", t.howTitle);
-
-    const steps = document.querySelectorAll("#how .steps article");
-
-    if (steps.length >= 3) {
-      steps[0].querySelector("h3").textContent = t.step1Title;
-      steps[0].querySelector("p").textContent = t.step1Text;
-
-      steps[1].querySelector("h3").textContent = t.step2Title;
-      steps[1].querySelector("p").textContent = t.step2Text;
-
-      steps[2].querySelector("h3").textContent = t.step3Title;
-      steps[2].querySelector("p").textContent = t.step3Text;
-    }
-
-    setText("#about .eyebrow", t.aboutEyebrow);
-    setText("#about h2", t.aboutTitle);
-    setText("#about .about-card > p", t.aboutText);
-
-    setText("#closeModal", "×");
-    setText("#authModal .account-type > p", t.accountRegister);
-    setText("#jobseekerAccount", t.jobSeeker);
-    setText("#companyAccount", t.company);
-
-    const labels = document.querySelectorAll("#companyFields label");
-
-    if (labels.length >= 5) {
-      labels[0].childNodes[0].textContent = t.companyName;
-      labels[1].childNodes[0].textContent = t.companyPhone;
-      labels[2].childNodes[0].textContent = t.website;
-      labels[3].childNodes[0].textContent = t.city;
-      labels[4].childNodes[0].textContent = t.address;
-    }
-
-    setPlaceholder("#companyName", language === "en" ? "Company name" : "Nama perusahaan");
-    setPlaceholder("#companyPhone", "08xxxxxxxxxx");
-    setPlaceholder("#companyWebsite", "https://example.com");
-    setPlaceholder("#companyCity", language === "en" ? "Jakarta" : "Jakarta");
-    setPlaceholder("#companyAddress", language === "en" ? "Company address" : "Alamat perusahaan");
-
-    setPlaceholder("#email", language === "en" ? "name@email.com" : "nama@email.com");
-    setPlaceholder("#password", language === "en" ? "Minimum 6 characters" : "Minimal 6 karakter");
-
-    setText('#authForm button[type="submit"]', t.continue);
-
-    const switchAuth = document.getElementById("switchAuth");
-    if (switchAuth && switchAuth.parentElement) {
-      switchAuth.parentElement.childNodes[0].textContent = t.switchAccount;
-      switchAuth.textContent = t.register;
-    }
-
-    setText("#jobDetailModal .eyebrow", t.detailJob);
-    setText("#jobDetailModal .job-detail-section:nth-of-type(1) h3", t.jobDescription);
-    setText("#jobDetailModal .job-detail-section:nth-of-type(2) h3", t.requirements);
-    setText("#jobDetailApply", t.applyNow);
-
-    const helpLink = document.querySelector('a[href="bantuan.html"]');
-    if (helpLink) helpLink.textContent = t.help;
-    const privacyLink = document.querySelector('a[href="privacy.html"]');
-    if (privacyLink) privacyLink.textContent = t.privacy;
-
-    const termsLink = document.querySelector('a[href="terms.html"]');
-    if (termsLink) termsLink.textContent = t.terms;
-    document.documentElement.lang = language;
-
-    localStorage.setItem("siteLanguage", language);
+  if (
+    categoryFilter &&
+    categoryFilter.options &&
+    categoryFilter.options.length > 0
+  ) {
+    categoryFilter.options[0].textContent = t.allCategories;
   }
+
+  const promoCards = document.querySelectorAll(
+    "#jobs > .container > div[style]"
+  );
+
+  if (promoCards.length >= 2) {
+    const seeker = promoCards[0];
+    const company = promoCards[1];
+
+    const seekerTitle = seeker.querySelector("h3");
+    const seekerText = seeker.querySelector("p");
+    const seekerButton = seeker.querySelector("button");
+
+    const companyTitle = company.querySelector("h3");
+    const companyText = company.querySelector("p");
+    const companyButton = company.querySelector("button");
+
+    if (seekerTitle) seekerTitle.textContent = t.jobSeekerTitle;
+    if (seekerText) seekerText.textContent = t.jobSeekerText;
+    if (seekerButton) seekerButton.textContent = t.searchJobs;
+
+    if (companyTitle) companyTitle.textContent = t.companyTitle;
+    if (companyText) companyText.textContent = t.companyText;
+    if (companyButton) companyButton.textContent = t.postJob;
+  }
+
+  setText("#jobSeekerTitle", t.jobSeekerTitle);
+  setText("#jobSeekerText", t.jobSeekerText);
+  setText("#jobSeekerButton", t.searchJobs);
+
+  setText("#companyTitle", t.companyTitle);
+  setText("#companyText", t.companyText);
+  setText("#companyButton", t.postJob);
+
+  setText("#how .eyebrow", t.howEyebrow);
+  setText("#how h2", t.howTitle);
+
+  const steps = document.querySelectorAll("#how .steps article");
+
+  if (steps.length >= 3) {
+    const step1Title = steps[0].querySelector("h3");
+    const step1Text = steps[0].querySelector("p");
+    const step2Title = steps[1].querySelector("h3");
+    const step2Text = steps[1].querySelector("p");
+    const step3Title = steps[2].querySelector("h3");
+    const step3Text = steps[2].querySelector("p");
+
+    if (step1Title) step1Title.textContent = t.step1Title;
+    if (step1Text) step1Text.textContent = t.step1Text;
+    if (step2Title) step2Title.textContent = t.step2Title;
+    if (step2Text) step2Text.textContent = t.step2Text;
+    if (step3Title) step3Title.textContent = t.step3Title;
+    if (step3Text) step3Text.textContent = t.step3Text;
+  }
+
+  setText("#about .eyebrow", t.aboutEyebrow);
+  setText("#about h2", t.aboutTitle);
+  setText("#about .about-card > p", t.aboutText);
+
+  setText("#closeModal", "×");
+  setText("#authModal .account-type > p", t.accountRegister);
+  setText("#jobseekerAccount", t.jobSeeker);
+  setText("#companyAccount", t.company);
+
+  const labels = document.querySelectorAll("#companyFields label");
+
+  if (labels.length >= 5) {
+    labels[0].childNodes[0].textContent = t.companyName;
+    labels[1].childNodes[0].textContent = t.companyPhone;
+    labels[2].childNodes[0].textContent = t.website;
+    labels[3].childNodes[0].textContent = t.city;
+    labels[4].childNodes[0].textContent = t.address;
+  }
+
+  setPlaceholder(
+    "#companyName",
+    language === "en" ? "Company name" : "Nama perusahaan"
+  );
+
+  setPlaceholder("#companyPhone", "08xxxxxxxxxx");
+
+  setPlaceholder("#companyWebsite", "https://example.com");
+
+  setPlaceholder("#companyCity", "Jakarta");
+
+  setPlaceholder(
+    "#companyAddress",
+    language === "en" ? "Company address" : "Alamat perusahaan"
+  );
+
+  setPlaceholder(
+    "#email",
+    language === "en" ? "name@email.com" : "nama@email.com"
+  );
+
+  setPlaceholder(
+    "#password",
+    language === "en" ? "Minimum 6 characters" : "Minimal 6 karakter"
+  );
+
+  setText('#authForm button[type="submit"]', t.continue);
+
+  const switchAuth = document.getElementById("switchAuth");
+
+  if (switchAuth && switchAuth.parentElement) {
+    switchAuth.parentElement.childNodes[0].textContent = t.switchAccount;
+    switchAuth.textContent = t.register;
+  }
+
+  setText("#jobDetailModal .eyebrow", t.detailJob);
+  setText(
+    "#jobDetailModal .job-detail-section:nth-of-type(1) h3",
+    t.jobDescription
+  );
+  setText(
+    "#jobDetailModal .job-detail-section:nth-of-type(2) h3",
+    t.requirements
+  );
+  setText("#jobDetailApply", t.applyNow);
+
+  const helpLink = document.querySelector('a[href="bantuan.html"]');
+  if (helpLink) helpLink.textContent = t.help;
+
+  const privacyLink = document.querySelector('a[href="privacy.html"]');
+  if (privacyLink) privacyLink.textContent = t.privacy;
+
+  const termsLink = document.querySelector('a[href="terms.html"]');
+  if (termsLink) termsLink.textContent = t.terms;
+
+  document.documentElement.lang = language;
+  localStorage.setItem("siteLanguage", language);
+}
 
   langID.addEventListener("click", function () {
     setLanguage("id");
