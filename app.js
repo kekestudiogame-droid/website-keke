@@ -887,14 +887,27 @@ if (featuredJob) {
     `;
   } else {
     const searchName = keyword.value.trim();
+    const language = localStorage.getItem("siteLanguage") || "id";
+
+    const noJobTitle = language === "en"
+      ? (searchName
+          ? `No ${searchName} Jobs Available`
+          : "No Jobs Available")
+      : (searchName
+          ? `Belum Ada Lowongan ${searchName}`
+          : "Belum Ada Lowongan");
+
+    const noJobText = language === "en"
+      ? "There are no jobs matching your current search."
+      : "Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.";
 
     featuredJob.innerHTML = `
       <div style="font-size:42px;margin-bottom:10px;">🔎</div>
       <h3 style="margin:0 0 8px;">
-        ${searchName ? `Belum Ada Lowongan ${searchName}` : "Belum Ada Lowongan"}
+        ${noJobTitle}
       </h3>
       <p style="margin:0;color:#64748b;">
-        Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.
+        ${noJobText}
       </p>
     `;
   }
