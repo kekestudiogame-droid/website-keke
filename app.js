@@ -924,15 +924,23 @@ const authForm = document.querySelector("#authForm");
 
 let isRegister = false;
 let isCompany = false;
+
 const companyAccountBtn = document.querySelector("#companyAccount");
 const jobseekerAccountBtn = document.querySelector("#jobseekerAccount");
 const companyFields = document.querySelector("#companyFields");
-companyAccountBtn.addEventListener("click", () => {
-  isCompany = true;
-  companyFields.style.display = "block";
-  modalTitle.textContent = "Daftar Perusahaan";
-  modalText.textContent = "Buat akun perusahaan untuk memasang lowongan.";
-});
+
+if (companyAccountBtn) {
+  companyAccountBtn.addEventListener("click", () => {
+    isCompany = true;
+
+    if (companyFields) {
+      companyFields.style.display = "block";
+    }
+
+    modalTitle.textContent = "Daftar Perusahaan";
+    modalText.textContent = "Buat akun perusahaan untuk memasang lowongan.";
+  });
+}
 
 jobseekerAccountBtn.addEventListener("click", () => {
   isCompany = false;
