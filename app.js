@@ -1073,6 +1073,7 @@ jobsGrid.addEventListener("click", e => {
   }
   });
 const loginBtn = document.querySelector("#loginBtn");
+const registerBtn = document.querySelector("#registerBtn");
 
 if (loginBtn) {
   loginBtn.addEventListener("click", () => {
@@ -1091,6 +1092,7 @@ if (loginBtn) {
     }
 
     const switchAuth = document.querySelector(".switch-auth");
+
     if (switchAuth) {
       switchAuth.classList.remove("hidden");
     }
@@ -1101,6 +1103,33 @@ if (loginBtn) {
   });
 }
 
+if (registerBtn) {
+  registerBtn.addEventListener("click", () => {
+    isRegister = true;
+
+    if (modalTitle) {
+      modalTitle.textContent = "Daftar";
+    }
+
+    if (modalText) {
+      modalText.textContent = "Buat akun untuk mulai melamar pekerjaan.";
+    }
+
+    if (authForm) {
+      authForm.classList.remove("hidden");
+    }
+
+    const switchAuth = document.querySelector(".switch-auth");
+
+    if (switchAuth) {
+      switchAuth.classList.remove("hidden");
+    }
+
+    if (modal) {
+      modal.classList.remove("hidden");
+    }
+  });
+}
 document.querySelector("#registerBtn").addEventListener("click", () => {
   isRegister = true;
 
