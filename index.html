@@ -319,6 +319,8 @@ document.addEventListener("DOMContentLoaded", function () {
       latestJobs: "LOWONGAN TERBARU",
       opportunities: "Peluang kerja untukmu",
       allCategories: "Semua kategori",
+      featuredLaunchingTitle: "Baru Launching!",
+      featuredLaunchingText: "Temukan peluang kerja terbaik di Cari Kerjaku.",
 
       jobSeekerTitle: "Cari Kerja di Sini!",
       jobSeekerText: "Temukan lowongan yang sesuai dengan keahlian dan impianmu.",
@@ -384,6 +386,8 @@ document.addEventListener("DOMContentLoaded", function () {
       latestJobs: "LATEST JOBS",
       opportunities: "Job opportunities for you",
       allCategories: "All categories",
+      featuredLaunchingTitle: "Just Launched!",
+      featuredLaunchingText: "Discover the best job opportunities at Cari Kerjaku.",
 
       jobSeekerTitle: "Find Your Next Job!",
       jobSeekerText: "Find job opportunities that match your skills and career goals.",
@@ -615,7 +619,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const termsLink = document.querySelector('a[href="terms.html"]');
   if (termsLink) termsLink.textContent = t.terms;
-
+   
+  if (!hasSearched) {
+  setText("#featuredJob h3", t.featuredLaunchingTitle);
+  setText("#featuredJob p", t.featuredLaunchingText);
+   }
+   
      // GLOBAL TRANSLATION: MENU & KATEGORI
   const globalTranslations = {
     "Beranda": "Home",
