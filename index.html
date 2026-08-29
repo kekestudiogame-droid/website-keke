@@ -468,8 +468,8 @@ document.addEventListener("DOMContentLoaded", function () {
     setAriaLabel("#keyword", t.keywordPlaceholder);
     setAriaLabel("#location", t.locationLabel);
 
-   const location = document.getElementById("location");
-if (location && location.options.length > 0) {
+ const location = document.getElementById("location");
+if (location && location.options && location.options.length > 0) {
   location.options[0].textContent =
     t.allLocations || (currentLang === "en" ? "All Locations" : "Semua Lokasi");
 }
@@ -480,10 +480,10 @@ if (location && location.options.length > 0) {
     setText("#jobs .section-heading .eyebrow", t.latestJobs);
     setText("#jobs .section-heading h2", t.opportunities);
 
-    const categoryFilter = document.getElementById("categoryFilter");
-    if (categoryFilter && categoryFilter.options.length > 0) {
-      categoryFilter.options[0].textContent = t.allCategories;
-    }
+   const categoryFilter = document.getElementById("categoryFilter");
+if (categoryFilter && categoryFilter.options && categoryFilter.options.length > 0) {
+  categoryFilter.options[0].textContent = t.allCategories;
+}
 
     const promoCards = document.querySelectorAll("#jobs > .container > div[style]");
     if (promoCards.length >= 2) {
