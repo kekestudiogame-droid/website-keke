@@ -14,7 +14,7 @@ let jobs = [];
 async function loadJobsFromDatabase() {
   try {
     const response = await fetch(
-      `${SUPABASE_JOBS_URL}?select=*`,
+      `${SUPABASE_JOBS_URL}?select=*&order=created_at.desc`
       {
         method: "GET",
         headers: supabaseHeaders
