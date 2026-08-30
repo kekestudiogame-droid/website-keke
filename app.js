@@ -2677,21 +2677,21 @@ function showCompanyDashboard() {
               </span>
             </button>
 
-            <button onclick="alert(localStorage.getItem('siteLanguage') === 'en' ? 'No incoming applications yet.' : 'Belum ada lamaran masuk')" style="
-              padding:20px;
-              background:#f8fafc;
-              border:1px solid #dbe3ec;
-              border-radius:12px;
-              cursor:pointer;
-              font-size:15px;
-              font-weight:bold;
-              color:#172b4d;
-            ">
-              👥<br>
-              <span style="display:inline-block;margin-top:8px;">
-                Lamaran Masuk
-              </span>
-            </button>
+            <button onclick="showIncomingApplications()" style="
+  padding:20px;
+  background:#f8fafc;
+  border:1px solid #dbe3ec;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+  color:#172b4d;
+">
+  👥<br>
+  <span style="display:inline-block;margin-top:8px;">
+    Lamaran Masuk
+  </span>
+</button>
 
           </div>
         </div>
