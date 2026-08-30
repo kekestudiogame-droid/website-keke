@@ -1224,8 +1224,14 @@ const accessToken = localStorage.getItem("cariKerjakuAccessToken");
     errorText.includes("already exists") ||
     errorText.includes("unique constraint")
   ) {
-    alert("Anda sudah melamar lowongan ini.");
-    return;
+   const language = localStorage.getItem("siteLanguage") || "id";
+
+alert(
+  language === "en"
+    ? "You have already applied for this job."
+    : "Anda sudah melamar lowongan ini."
+);
+return;
   }
 
   throw new Error(
