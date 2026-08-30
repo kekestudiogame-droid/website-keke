@@ -50,7 +50,11 @@ if (!hasSearched && jobs.length > 0) {
   const featuredJob = document.querySelector("#featuredJob");
 
   if (featuredJob) {
-    const latestJob = jobs[0];
+    const latestJob = [...jobs].sort((a, b) => {
+  const dateA = new Date(a.created_at || a.createdAt || 0);
+  const dateB = new Date(b.created_at || b.createdAt || 0);
+  return dateB - dateA;
+})[0];
 
     featuredJob.innerHTML = `
       <div class="featured-job-card" style="
