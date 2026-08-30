@@ -3852,16 +3852,22 @@ const currentUser = JSON.parse(userData);
           cursor:pointer;
           font-weight:bold;
           margin-bottom:25px;
-        ">
-          ← Kembali
-        </button>
+       ">
+  ← ${localStorage.getItem("siteLanguage") === "en" ? "Back" : "Kembali"}
+</button>
 
-        <h1>Lamaran Masuk</h1>
+<h1>
+  ${localStorage.getItem("siteLanguage") === "en"
+    ? "Incoming Applications"
+    : "Lamaran Masuk"}
+</h1>
 
-        <p style="color:#64748b;">
-          ${myApplications.length} lamaran masuk
-        </p>
-
+<p style="color:#64748b;">
+  ${myApplications.length}
+  ${localStorage.getItem("siteLanguage") === "en"
+    ? "incoming applications"
+    : "lamaran masuk"}
+</p>
         ${
           myApplications.length === 0
             ? `
