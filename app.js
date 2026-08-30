@@ -2786,16 +2786,16 @@ function showPostJobForm() {
   translatePostJobForm(form);
 }
 async function submitJobPost() {
-const title = document.getElementById("jobTitle").value.trim();
-const city = document.getElementById("jobCity").value.trim();
-const description = document.getElementById("jobDescription").value.trim();
-const category = document.getElementById("jobCategory").value;
-const jobType = document.getElementById("jobType").value;
-const salary = document.getElementById("jobSalary").value.trim();
-const experience = document.getElementById("jobExperience").value.trim();
-const education = document.getElementById("jobEducation").value.trim();
-const applicationDeadline = document.getElementById("jobDeadline").value;
-const requirements = document.getElementById("jobRequirements").value.trim();
+  const title = document.getElementById("jobTitle").value.trim();
+  const city = document.getElementById("jobCity").value.trim();
+  const description = document.getElementById("jobDescription").value.trim();
+  const category = document.getElementById("jobCategory").value;
+  const jobType = document.getElementById("jobType").value;
+  const salary = document.getElementById("jobSalary").value.trim();
+  const experience = document.getElementById("jobExperience").value.trim();
+  const education = document.getElementById("jobEducation").value.trim();
+  const applicationDeadline = document.getElementById("jobDeadline").value;
+  const requirements = document.getElementById("jobRequirements").value.trim();
 
   if (!title || !city || !description) {
     alert("Judul lowongan, kota, dan deskripsi wajib diisi.");
@@ -2813,65 +2813,46 @@ const requirements = document.getElementById("jobRequirements").value.trim();
   const user = JSON.parse(userData);
 
   try {
-    // 1. Buat transaksi pembayaran Midtrans
-    const paymentResponse = await fetch(
-      "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/create-midtrans-transaction",
+    const response = await fetch(
+      "https://ksqrimmecpriyepsuclc.supabase.co/rest/v1/jobs",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${accessToken}`,
-          "apikey": SUPABASE_KEY
+          "apikey": SUPABASE_KEY,
+          "Prefer": "return=representation"
         },
-body: JSON.stringify({
-  order_id: "JOB-" + Date.now(),
-  gross_amount: 10000,
-  job_title: title,
-  city: city,
-  description: description,
-  category: category,
-  job_type: jobType,
-  salary: salary,
-  experience: experience,
-  education: education,
-  application_deadline: applicationDeadline,
-  requirements: requirements
-})
+        body: JSON.stringify({
+          title,
+          city,
+          description,
+          user_id: user.id,
+          category,
+          job_type: jobType,
+          salary,
+          experience,
+          education,
+          application_deadline: applicationDeadline || null,
+          requirements
+        })
       }
     );
-  
-    const paymentData = await paymentResponse.json();
-    console.log("MIDTRANS RESPONSE:", paymentData);
-    if (!paymentResponse.ok || !paymentData.token) {
+
+    const result = await response.json();
+
+    if (!response.ok) {
       throw new Error(
-        paymentData.error || "Gagal membuat pembayaran Midtrans."
+        result.message || result.error || "Gagal menyimpan lowongan."
       );
     }
 
-   // 2. Buka halaman pembayaran Midtrans
-    localStorage.setItem("pendingJobPost", JSON.stringify({
-  title,
-  city,
-  description,
-  category,
-  job_type: jobType,
-  salary,
-  experience,
-  education,
-  application_deadline: applicationDeadline,
-  requirements,
-  user_id: user.id
-}));
-window.location.href = paymentData.redirect_url;
-return;
+    alert("✅ Lowongan berhasil dipasang dan sudah tampil di CariKerjaku.id.");
 
-
-
-} catch (error) {
-  alert("Gagal memproses pembayaran: " + error.message);
+  } catch (error) {
+    alert("Gagal menyimpan lowongan: " + error.message);
+  }
 }
-}  
-
 function translateCompanyDashboard() {
   const dashboard = document.getElementById("companyDashboard");
   if (!dashboard) return;
