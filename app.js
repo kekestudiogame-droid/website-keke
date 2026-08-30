@@ -2587,7 +2587,41 @@ async function showMyJobs() {
                   ">
                     ${job.description || "-"}
                   </p>
+                  <div style="
+                    display:flex;
+                    gap:10px;
+                    margin-top:18px;
+                  ">
+                   <button
+                   onclick="editMyJob('${job.id}')"
+                   style="
+                   padding:10px 18px;
+                   background:#123b6d;
+                   color:white;
+                   border:none;
+                   border-radius:8px;
+                   cursor:pointer;
+                   font-weight:bold;
+                    "
+                  >
+                  ✏️ Edit
+                  </button>
 
+                  <button
+                    onclick="deleteMyJob('${job.id}')"
+                    style="
+                    padding:10px 18px;
+                    background:#dc2626;
+                    color:white;
+                   border:none;
+                   border-radius:8px;
+                   cursor:pointer;
+                   font-weight:bold;
+                   "
+                    >
+                   🗑️ Hapus
+                    </button>
+                </div>
                 </div>
               `).join("")
           }
@@ -2603,6 +2637,138 @@ async function showMyJobs() {
     alert("Gagal mengambil lowongan: " + error.message);
   }
 }
+async function deleteMyJob(jobId) {
+  const confirmDelete = confirm(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Are you sure you want to delete this job?"
+      : "Yakin ingin menghapus lowongan ini?"
+  );
+
+  if (!confirmDelete) return;
+
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}jobs?id=eq.${jobId}`,
+      {
+        method: "DELETE",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    alert(
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Job deleted successfully."
+        : "Lowongan berhasil dihapus."
+    );
+
+    showMyJobs();
+
+  } catch (error) {
+    alert("Gagal menghapus lowongan: " + error.message);
+  }
+}
+
+window.deleteMyJob = deleteMyJob;
+
+async function editMyJob(jobId) {
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}jobs?id=eq.${jobId}&select=*`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    const jobs = await response.json();
+
+    if (!jobs.length) {
+      alert("Lowongan tidak ditemukan.");
+      return;
+    }
+
+    const job = jobs[0];
+
+    const title = prompt("Judul Lowongan:", job.title || "");
+    if (title === null) return;
+
+    const city = prompt("Kota:", job.city || "");
+    if (city === null) return;
+
+    const description = prompt(
+      "Deskripsi Lowongan:",
+      job.description || ""
+    );
+    if (description === null) return;
+
+    const updateResponse = await fetch(
+      `${SUPABASE_URL}jobs?id=eq.${jobId}`,
+      {
+        method: "PATCH",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal"
+        },
+        body: JSON.stringify({
+          title: title.trim(),
+          city: city.trim(),
+          description: description.trim()
+        })
+      }
+    );
+
+    if (!updateResponse.ok) {
+      const errorText = await updateResponse.text();
+      throw new Error(errorText);
+    }
+
+    alert(
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Job updated successfully."
+        : "Lowongan berhasil diperbarui."
+    );
+
+    showMyJobs();
+
+  } catch (error) {
+    alert("Gagal mengedit lowongan: " + error.message);
+  }
+}
+
+window.editMyJob = editMyJob;
+
 function translateMyJobs(page) {
   if (!page) return;
 
