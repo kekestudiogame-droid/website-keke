@@ -1084,8 +1084,16 @@ function filterJobs(){
 const featuredJob = document.querySelector("#featuredJob");
 
 if (featuredJob) {
-  if (filtered.length > 0) {
-    const job = filtered[0];
+ const featuredJobs = hasSearched
+  ? filtered
+  : [...jobs].sort((a, b) => {
+      const dateA = new Date(a.created_at || a.createdAt || 0);
+      const dateB = new Date(b.created_at || b.createdAt || 0);
+      return dateB - dateA;
+    });
+
+if (featuredJobs.length > 0) {
+    const job = featuredJobs[0];
 
  featuredJob.innerHTML = `
   <div class="featured-job-card" style="
