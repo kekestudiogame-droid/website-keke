@@ -3945,9 +3945,10 @@ const currentUser = JSON.parse(userData);
 
 // ================= PROFIL DIRI PENCARI KERJA =================
 
-function showJobseekerProfile() {
+async function showJobseekerProfile() {
   const userData = localStorage.getItem("cariKerjakuUser");
   const language = localStorage.getItem("siteLanguage") || "id";
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData) {
     alert(
@@ -4224,6 +4225,47 @@ function showJobseekerProfile() {
 
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}jobseeker_profiles?id=eq.${user.id}&select=*`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (response.ok) {
+      const profiles = await response.json();
+
+      if (profiles.length > 0) {
+        const profile = profiles[0];
+
+        document.getElementById("jobseekerFullName").value =
+          profile.full_name || "";
+
+        document.getElementById("jobseekerPhone").value =
+          profile.phone || "";
+
+        document.getElementById("jobseekerCity").value =
+          profile.city || "";
+
+        document.getElementById("jobseekerEducation").value =
+          profile.education || "";
+
+        document.getElementById("jobseekerExperience").value =
+          profile.experience || "";
+
+        document.getElementById("jobseekerSkills").value =
+          profile.skills || "";
+      }
+    }
+  } catch (error) {
+    console.error("Gagal mengambil profil:", error);
+  }
+  
 
   const saveButton = document.getElementById("saveJobseekerProfileBtn");
 
