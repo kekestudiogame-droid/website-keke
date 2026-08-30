@@ -1314,6 +1314,59 @@ featuredJob.addEventListener("click", e => {
 });
 const loginBtn = document.querySelector("#loginBtn");
 const registerBtn = document.querySelector("#registerBtn");
+const menuJobseeker = document.querySelector("#menuJobseeker");
+const menuCompany = document.querySelector("#menuCompany");
+const menuHelp = document.querySelector("#menuHelp");
+const menuLogout = document.querySelector("#menuLogout");
+
+if (menuJobseeker) {
+  menuJobseeker.addEventListener("click", () => {
+    const dashboard = document.querySelector("#jobseekerDashboard");
+
+    if (dashboard) {
+      dashboard.style.display = "block";
+      document.querySelector("#mainMenu").style.display = "none";
+    } else if (typeof showJobseekerDashboard === "function") {
+      showJobseekerDashboard();
+    }
+  });
+}
+
+if (menuCompany) {
+  menuCompany.addEventListener("click", () => {
+    const dashboard = document.querySelector("#companyDashboard");
+
+    if (dashboard) {
+      dashboard.style.display = "block";
+      document.querySelector("#mainMenu").style.display = "none";
+    } else if (typeof showCompanyDashboard === "function") {
+      showCompanyDashboard();
+    }
+  });
+}
+
+if (menuHelp) {
+  menuHelp.addEventListener("click", () => {
+    window.location.href = "bantuan.html";
+  });
+}
+
+if (menuLogout) {
+  menuLogout.addEventListener("click", async () => {
+    try {
+      if (typeof supabase !== "undefined" && supabase.auth) {
+        await supabase.auth.signOut();
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+
+    localStorage.removeItem("cariKerjakuUser");
+    localStorage.removeItem("cariKerjakuAccessToken");
+
+    window.location.reload();
+  });
+}
 
 if (loginBtn) {
   loginBtn.addEventListener("click", () => {
