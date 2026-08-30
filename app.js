@@ -875,7 +875,6 @@ function filterJobs(){
 const featuredJob = document.querySelector("#featuredJob");
 
 if (featuredJob) {
-  if (!hasSearched) return;
   if (filtered.length > 0) {
     const job = filtered[0];
 
