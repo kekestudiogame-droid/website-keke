@@ -14,7 +14,7 @@ let jobs = [];
 async function loadJobsFromDatabase() {
   try {
     const response = await fetch(
-      `${SUPABASE_JOBS_URL}?select=*`
+`${SUPABASE_JOBS_URL}?select=*`,
       {
         method: "GET",
         headers: supabaseHeaders
