@@ -2936,6 +2936,7 @@ async function showCompanyProfile() {
   }
 }
 
+
 // ================= LOWONGAN SAYA =================
 
 async function showMyJobs() {
@@ -3800,3 +3801,114 @@ document.getElementById("loginBtn")?.addEventListener("click", () => {
 document.getElementById("registerBtn")?.addEventListener("click", () => {
   document.getElementById("authModal")?.classList.remove("hidden");
 });
+
+async function showIncomingApplications() {
+ const userData = localStorage.getItem("cariKerjakuUser");
+const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+if (!userData || !accessToken) {
+  alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+  return;
+}
+
+const currentUser = JSON.parse(userData);
+  try {
+    const response = await fetch(
+      `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id)&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: supabaseHeaders
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    const applications = await response.json();
+
+    const myApplications = applications.filter(
+      app => app.jobs && app.jobs.user_id === currentUser.id
+    );
+
+    const dashboard = document.createElement("div");
+
+    dashboard.style.cssText = `
+      min-height:100vh;
+      background:#f4f7fb;
+      font-family:Arial,sans-serif;
+      padding:30px;
+      color:#172b4d;
+    `;
+
+    dashboard.innerHTML = `
+      <div style="max-width:1100px;margin:auto;">
+        <button onclick="showCompanyDashboard()" style="
+          padding:10px 18px;
+          border:none;
+          border-radius:8px;
+          background:#123b6d;
+          color:white;
+          cursor:pointer;
+          font-weight:bold;
+          margin-bottom:25px;
+        ">
+          ← Kembali
+        </button>
+
+        <h1>Lamaran Masuk</h1>
+
+        <p style="color:#64748b;">
+          ${myApplications.length} lamaran masuk
+        </p>
+
+        ${
+          myApplications.length === 0
+            ? `
+              <div style="
+                background:white;
+                padding:30px;
+                border-radius:14px;
+                border:1px solid #e5eaf1;
+              ">
+                Belum ada lamaran masuk.
+              </div>
+            `
+            : myApplications.map(app => `
+              <div style="
+                background:white;
+                padding:22px;
+                margin-bottom:15px;
+                border-radius:14px;
+                border:1px solid #e5eaf1;
+                box-shadow:0 3px 12px rgba(15,23,42,.07);
+              ">
+                <h3 style="margin-top:0;">
+                  ${app.jobs?.title || "Lowongan"}
+                </h3>
+
+                <p>
+                  <strong>Status:</strong> ${app.status || "submitted"}
+                </p>
+
+                <p style="color:#64748b;">
+                  Dikirim: ${
+                    app.created_at
+                      ? new Date(app.created_at).toLocaleString("id-ID")
+                      : "-"
+                  }
+                </p>
+              </div>
+            `).join("")
+        }
+      </div>
+    `;
+
+    document.body.innerHTML = "";
+    document.body.appendChild(dashboard);
+
+  } catch (error) {
+    console.error("Gagal mengambil lamaran:", error);
+    alert("Gagal mengambil data lamaran.");
+  }
+}
