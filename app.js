@@ -878,13 +878,52 @@ if (featuredJob) {
   if (filtered.length > 0) {
     const job = filtered[0];
 
-    featuredJob.innerHTML = `
-      <div style="font-size:42px;margin-bottom:10px;">💼</div>
-      <h3 style="margin:0 0 8px;">${job.title}</h3>
-      <p style="margin:0;color:#64748b;">
-        ${job.company} · ${job.location}
-      </p>
-    `;
+   featuredJob.innerHTML = `
+  <div style="
+    background:#123b6d;
+    color:white;
+    border-radius:16px;
+    padding:20px;
+    text-align:left;
+    box-shadow:0 8px 24px rgba(18,59,109,0.18);
+  ">
+    <div style="font-size:34px;margin-bottom:12px;">💼</div>
+
+    <div style="
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.5px;
+      opacity:.85;
+      margin-bottom:6px;
+    ">
+      LOWONGAN TERBARU
+    </div>
+
+    <h3 style="
+      margin:0 0 8px;
+      font-size:22px;
+      color:white;
+    ">
+      ${job.title}
+    </h3>
+
+    <p style="
+      margin:0 0 6px;
+      font-size:15px;
+      color:white;
+    ">
+      ${job.company}
+    </p>
+
+    <p style="
+      margin:0;
+      font-size:14px;
+      color:#dbeafe;
+    ">
+      📍 ${job.location}
+    </p>
+  </div>
+`;
   } else {
     const searchName = keyword.value.trim();
     const language = localStorage.getItem("siteLanguage") || "id";
