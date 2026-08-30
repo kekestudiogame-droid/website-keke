@@ -4318,12 +4318,13 @@ async function showJobseekerProfile() {
           throw new Error(errorText);
         }
 
-        alert(
-          language === "en"
-            ? "Profile saved successfully."
-            : "Profil berhasil disimpan."
+       alert(
+           language === "en"
+          ? "Profile saved successfully."
+          : "Profil berhasil disimpan."
         );
 
+        showJobseekerDashboard();
       } catch (error) {
 
         console.error("Gagal menyimpan profil:", error);
