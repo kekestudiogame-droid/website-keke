@@ -1213,16 +1213,28 @@ const accessToken = localStorage.getItem("cariKerjakuAccessToken");
       })
     });
 
-    if (!response.ok) {
-      const data = await response.json().catch(() => ({}));
+   if (!response.ok) {
+  const data = await response.json().catch(() => ({}));
 
-      throw new Error(
-        data.message ||
-        data.error_description ||
-        data.msg ||
-        "Lamaran gagal dikirim"
-      );
-    }
+  const errorText = JSON.stringify(data).toLowerCase();
+
+  if (
+    response.status === 409 ||
+    errorText.includes("duplicate") ||
+    errorText.includes("already exists") ||
+    errorText.includes("unique constraint")
+  ) {
+    alert("Anda sudah melamar lowongan ini.");
+    return;
+  }
+
+  throw new Error(
+    data.message ||
+    data.error_description ||
+    data.msg ||
+    "Lamaran gagal dikirim"
+  );
+}
 
     alert(
       `Lamaran berhasil dikirim!\n\n${job.title} - ${job.company}`
