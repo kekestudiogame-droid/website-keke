@@ -3943,3 +3943,361 @@ const currentUser = JSON.parse(userData);
   }
 }
 
+// ================= PROFIL DIRI PENCARI KERJA =================
+
+function showJobseekerProfile() {
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  if (!userData) {
+    alert(
+      language === "en"
+        ? "Please log in first."
+        : "Silakan login terlebih dahulu."
+    );
+    return;
+  }
+
+  let user;
+
+  try {
+    user = JSON.parse(userData);
+  } catch (error) {
+    alert(
+      language === "en"
+        ? "Invalid account data. Please log in again."
+        : "Data akun tidak valid. Silakan login kembali."
+    );
+    return;
+  }
+
+  const dashboard = document.createElement("div");
+
+  dashboard.id = "jobseekerProfile";
+
+  dashboard.innerHTML = `
+    <div style="
+      min-height:100vh;
+      background:#f4f7fb;
+      font-family:Arial,sans-serif;
+      color:#1f2937;
+    ">
+
+      <div style="
+        background:#123b6d;
+        color:white;
+        padding:20px 30px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 3px 12px rgba(0,0,0,.15);
+      ">
+
+        <div>
+          <div style="
+            font-size:24px;
+            font-weight:bold;
+          ">
+            Cari Kerjaku
+          </div>
+
+          <div style="
+            font-size:13px;
+            opacity:.85;
+            margin-top:4px;
+          ">
+            ${language === "en" ? "My Profile" : "Profil Diri"}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onclick="showJobseekerDashboard()"
+          style="
+            background:white;
+            color:#123b6d;
+            border:none;
+            padding:10px 18px;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+          "
+        >
+          ← ${language === "en" ? "Back" : "Kembali"}
+        </button>
+
+      </div>
+
+      <div style="
+        max-width:850px;
+        margin:auto;
+        padding:35px 25px;
+      ">
+
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:16px;
+          box-shadow:0 3px 15px rgba(15,23,42,.07);
+          border:1px solid #e5eaf1;
+        ">
+
+          <h1 style="
+            margin-top:0;
+            color:#172b4d;
+            font-size:26px;
+          ">
+            👤 ${language === "en" ? "My Profile" : "Profil Diri"}
+          </h1>
+
+          <div style="
+            text-align:center;
+            margin:25px 0 30px;
+          ">
+
+            <div style="
+              width:120px;
+              height:120px;
+              border-radius:50%;
+              background:#e8eef6;
+              margin:auto;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:55px;
+              border:4px solid #dbe3ec;
+            ">
+              👤
+            </div>
+
+            <button
+              type="button"
+              style="
+                margin-top:15px;
+                padding:10px 18px;
+                background:#123b6d;
+                color:white;
+                border:none;
+                border-radius:8px;
+                cursor:pointer;
+                font-weight:bold;
+              "
+            >
+              ${language === "en" ? "Upload Photo" : "Upload Foto"}
+            </button>
+
+          </div>
+
+          <label>
+            ${language === "en" ? "Full Name" : "Nama Lengkap"}
+          </label>
+
+          <input
+            id="jobseekerFullName"
+            type="text"
+            placeholder="${language === "en" ? "Enter your full name" : "Masukkan nama lengkap"}"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:12px;
+              margin:8px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+            "
+          >
+
+          <label>
+            ${language === "en" ? "Phone Number" : "Nomor Telepon"}
+          </label>
+
+          <input
+            id="jobseekerPhone"
+            type="text"
+            placeholder="${language === "en" ? "Enter phone number" : "Masukkan nomor telepon"}"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:12px;
+              margin:8px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+            "
+          >
+
+          <label>
+            ${language === "en" ? "City / Location" : "Kota / Domisili"}
+          </label>
+
+          <input
+            id="jobseekerCity"
+            type="text"
+            placeholder="${language === "en" ? "Enter your city" : "Masukkan kota domisili"}"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:12px;
+              margin:8px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+            "
+          >
+
+          <label>
+            ${language === "en" ? "Education" : "Pendidikan"}
+          </label>
+
+          <textarea
+            id="jobseekerEducation"
+            placeholder="${language === "en" ? "Your education" : "Pendidikan kamu"}"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              min-height:90px;
+              padding:12px;
+              margin:8px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              resize:vertical;
+            "
+          ></textarea>
+
+          <label>
+            ${language === "en" ? "Work Experience" : "Pengalaman Kerja"}
+          </label>
+
+          <textarea
+            id="jobseekerExperience"
+            placeholder="${language === "en" ? "Your work experience" : "Pengalaman kerja kamu"}"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              min-height:120px;
+              padding:12px;
+              margin:8px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              resize:vertical;
+            "
+          ></textarea>
+
+          <label>
+            ${language === "en" ? "Skills" : "Keahlian"}
+          </label>
+
+          <textarea
+            id="jobseekerSkills"
+            placeholder="${language === "en" ? "Your skills" : "Keahlian kamu"}"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              min-height:90px;
+              padding:12px;
+              margin:8px 0 25px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              resize:vertical;
+            "
+          ></textarea>
+
+          <button
+            id="saveJobseekerProfileBtn"
+            type="button"
+            style="
+              width:100%;
+              padding:14px;
+              background:#123b6d;
+              color:white;
+              border:none;
+              border-radius:9px;
+              cursor:pointer;
+              font-size:16px;
+              font-weight:bold;
+            "
+          >
+            ${language === "en" ? "Save Profile" : "Simpan Profil"}
+          </button>
+
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.innerHTML = "";
+  document.body.appendChild(dashboard);
+
+  const saveButton = document.getElementById("saveJobseekerProfileBtn");
+
+  if (saveButton) {
+    saveButton.addEventListener("click", async () => {
+
+      const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+      if (!accessToken) {
+        alert(
+          language === "en"
+            ? "Your session was not found. Please log in again."
+            : "Sesi Anda tidak ditemukan. Silakan login kembali."
+        );
+        return;
+      }
+
+      const profileData = {
+        id: user.id,
+        full_name: document.getElementById("jobseekerFullName")?.value.trim() || "",
+        phone: document.getElementById("jobseekerPhone")?.value.trim() || "",
+        city: document.getElementById("jobseekerCity")?.value.trim() || "",
+        education: document.getElementById("jobseekerEducation")?.value.trim() || "",
+        experience: document.getElementById("jobseekerExperience")?.value.trim() || "",
+        skills: document.getElementById("jobseekerSkills")?.value.trim() || "",
+        updated_at: new Date().toISOString()
+      };
+
+      saveButton.disabled = true;
+      saveButton.textContent =
+        language === "en" ? "Saving..." : "Menyimpan...";
+
+      try {
+        const response = await fetch(
+          `${SUPABASE_URL}jobseeker_profiles`,
+          {
+            method: "POST",
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+              Prefer: "resolution=merge-duplicates,return=minimal"
+            },
+            body: JSON.stringify(profileData)
+          }
+        );
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText);
+        }
+
+        alert(
+          language === "en"
+            ? "Profile saved successfully."
+            : "Profil berhasil disimpan."
+        );
+
+      } catch (error) {
+
+        console.error("Gagal menyimpan profil:", error);
+
+        alert(
+          language === "en"
+            ? "Failed to save profile."
+            : "Gagal menyimpan profil."
+        );
+
+      } finally {
+
+        saveButton.disabled = false;
+        saveButton.textContent =
+          language === "en" ? "Save Profile" : "Simpan Profil";
+      }
+    });
+  }
+}
