@@ -43,10 +43,215 @@ async function loadJobsFromDatabase() {
         .toUpperCase()
     }));
 
-    renderJobs(jobs);
-    filterJobs();
-    console.log("LOWONGAN DARI DATABASE:", jobs);
+renderJobs(jobs);
 
+// Tampilkan lowongan terbaru di kotak biru saat halaman pertama dibuka
+if (!hasSearched && jobs.length > 0) {
+  const featuredJob = document.querySelector("#featuredJob");
+
+  if (featuredJob) {
+    const latestJob = jobs[0];
+
+    featuredJob.innerHTML = `
+      <div class="featured-job-card" style="
+        background:linear-gradient(145deg,#123b6d 0%,#0b2b50 100%);
+        color:#fff;
+        border-radius:22px;
+        padding:24px;
+        text-align:left;
+        box-shadow:0 14px 35px rgba(18,59,109,.28);
+        border:1px solid rgba(255,255,255,.12);
+        position:relative;
+        overflow:hidden;
+      ">
+        <div style="
+          position:absolute;
+          width:150px;
+          height:150px;
+          border-radius:50%;
+          background:rgba(255,255,255,.06);
+          right:-65px;
+          top:-65px;
+        "></div>
+
+        <div style="
+          position:relative;
+          z-index:1;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:10px;
+          margin-bottom:20px;
+        ">
+          <span style="
+            background:rgba(255,255,255,.14);
+            padding:7px 11px;
+            border-radius:999px;
+            font-size:11px;
+            font-weight:700;
+            letter-spacing:.5px;
+          ">
+            ✦ ${localStorage.getItem("siteLanguage") === "en"
+              ? "LATEST JOB"
+              : "LOWONGAN TERBARU"}
+          </span>
+
+          <span style="
+            background:rgba(255,255,255,.09);
+            padding:7px 10px;
+            border-radius:999px;
+            font-size:11px;
+            color:#dbeafe;
+          ">
+            ${latestJob.type || "Full-time"}
+          </span>
+        </div>
+
+        <div style="
+          position:relative;
+          z-index:1;
+          width:56px;
+          height:56px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          border-radius:16px;
+          background:rgba(255,255,255,.13);
+          font-size:24px;
+          margin-bottom:15px;
+        ">
+          ${latestJob.initials || "💼"}
+        </div>
+
+        <div style="position:relative;z-index:1;">
+
+          <h3 style="
+            margin:0 0 6px;
+            font-size:23px;
+            line-height:1.25;
+            color:#fff;
+          ">
+            ${latestJob.title}
+          </h3>
+
+          <p style="
+            margin:0 0 16px;
+            font-size:14px;
+            font-weight:600;
+            color:rgba(255,255,255,.78);
+          ">
+            ${latestJob.company}
+          </p>
+
+          <div style="
+            display:flex;
+            flex-wrap:wrap;
+            gap:7px;
+            margin-bottom:14px;
+          ">
+            <span style="
+              background:rgba(255,255,255,.09);
+              padding:7px 9px;
+              border-radius:8px;
+              font-size:12px;
+              color:#e8f1fb;
+            ">
+              📍 ${latestJob.location}
+            </span>
+
+            <span style="
+              background:rgba(255,255,255,.09);
+              padding:7px 9px;
+              border-radius:8px;
+              font-size:12px;
+              color:#e8f1fb;
+            ">
+              ▣ ${latestJob.category}
+            </span>
+          </div>
+
+          <div style="
+            font-size:14px;
+            font-weight:700;
+            color:#fff;
+            margin-bottom:12px;
+          ">
+            💰 ${latestJob.salary ||
+              (localStorage.getItem("siteLanguage") === "en"
+                ? "Salary according to company policy"
+                : "Gaji sesuai ketentuan perusahaan")}
+          </div>
+
+          <p style="
+            margin:0 0 20px;
+            font-size:13px;
+            line-height:1.65;
+            color:rgba(255,255,255,.72);
+            display:-webkit-box;
+            -webkit-line-clamp:3;
+            -webkit-box-orient:vertical;
+            overflow:hidden;
+          ">
+            ${latestJob.description ||
+              (localStorage.getItem("siteLanguage") === "en"
+                ? "Discover this career opportunity and join this company."
+                : "Temukan peluang karier ini dan bergabung bersama perusahaan.")}
+          </p>
+
+          <div style="display:flex;gap:9px;">
+
+            <button
+              type="button"
+              class="featured-details-btn"
+              data-details="${jobs.indexOf(latestJob)}"
+              style="
+                flex:1;
+                min-height:44px;
+                border-radius:11px;
+                border:1px solid rgba(255,255,255,.22);
+                background:rgba(255,255,255,.10);
+                color:#fff;
+                font-size:13px;
+                font-weight:700;
+                cursor:pointer;
+              "
+            >
+              ${localStorage.getItem("siteLanguage") === "en"
+                ? "Details"
+                : "Detail"}
+            </button>
+
+            <button
+              type="button"
+              class="featured-apply-btn"
+              data-apply="${jobs.indexOf(latestJob)}"
+              style="
+                flex:1;
+                min-height:44px;
+                border-radius:11px;
+                border:1px solid #fff;
+                background:#fff;
+                color:#123b6d;
+                font-size:13px;
+                font-weight:700;
+                cursor:pointer;
+              "
+            >
+              ${localStorage.getItem("siteLanguage") === "en"
+                ? "Apply →"
+                : "Lamar →"}
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    `;
+  }
+}
+
+console.log("LOWONGAN DARI DATABASE:", jobs);
+    
   } catch (error) {
     console.error("Gagal mengambil lowongan:", error);
     jobs = [];
