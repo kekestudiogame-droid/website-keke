@@ -878,50 +878,65 @@ if (featuredJob) {
   if (filtered.length > 0) {
     const job = filtered[0];
 
-   featuredJob.innerHTML = `
-  <div style="
-    background:#123b6d;
-    color:white;
-    border-radius:16px;
-    padding:20px;
-    text-align:left;
-    box-shadow:0 8px 24px rgba(18,59,109,0.18);
-  ">
-    <div style="font-size:34px;margin-bottom:12px;">💼</div>
+  featuredJob.innerHTML = `
+  <div class="featured-job-card">
 
-    <div style="
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.5px;
-      opacity:.85;
-      margin-bottom:6px;
-    ">
-      LOWONGAN TERBARU
+    <div class="featured-header">
+      <span class="featured-badge">
+        ✦ ${localStorage.getItem("siteLanguage") === "en" ? "LATEST JOB" : "LOWONGAN TERBARU"}
+      </span>
+      <span class="featured-type">
+        ${job.type || "Full-time"}
+      </span>
     </div>
 
-    <h3 style="
-      margin:0 0 8px;
-      font-size:22px;
-      color:white;
-    ">
+    <div class="featured-icon">
+      ${job.initials || "💼"}
+    </div>
+
+    <h3 class="featured-title">
       ${job.title}
     </h3>
 
-    <p style="
-      margin:0 0 6px;
-      font-size:15px;
-      color:white;
-    ">
+    <p class="featured-company">
       ${job.company}
     </p>
 
-    <p style="
-      margin:0;
-      font-size:14px;
-      color:#dbeafe;
-    ">
-      📍 ${job.location}
+    <div class="featured-info">
+      <span>📍 ${job.location}</span>
+      <span>▣ ${job.category}</span>
+    </div>
+
+    <div class="featured-salary">
+      💰 ${job.salary || (localStorage.getItem("siteLanguage") === "en"
+        ? "Salary according to company policy"
+        : "Gaji sesuai ketentuan perusahaan")}
+    </div>
+
+    <p class="featured-description">
+      ${job.description || (localStorage.getItem("siteLanguage") === "en"
+        ? "Discover this career opportunity and join this company."
+        : "Temukan peluang karier ini dan bergabung bersama perusahaan.")}
     </p>
+
+    <div class="featured-actions">
+
+      <button
+        type="button"
+        class="featured-details-btn"
+        data-details="${jobs.indexOf(job)}">
+        ${localStorage.getItem("siteLanguage") === "en" ? "Details" : "Details"}
+      </button>
+
+      <button
+        type="button"
+        class="featured-apply-btn"
+        data-apply="${jobs.indexOf(job)}">
+        ${localStorage.getItem("siteLanguage") === "en" ? "Apply →" : "Lamar →"}
+      </button>
+
+    </div>
+
   </div>
 `;
   } else {
