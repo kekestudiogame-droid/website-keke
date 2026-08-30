@@ -3015,7 +3015,9 @@ async function submitJobPost() {
 
     alert("✅ Lowongan berhasil dipasang dan sudah tampil di CariKerjaku.id.");
 
-  } catch (error) {
+    showMyJobs();
+
+    } catch (error) {
     alert("Gagal menyimpan lowongan: " + error.message);
   }
 }
