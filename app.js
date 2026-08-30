@@ -4210,4 +4210,67 @@ async function showJobseekerProfile() {
 
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
+
+
+const saveJobseekerProfileBtn = document.getElementById("saveJobseekerProfileBtn");
+
+if (saveJobseekerProfileBtn) {
+  saveJobseekerProfileBtn.addEventListener("click", async () => {
+    const userData = localStorage.getItem("cariKerjakuUser");
+    const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+    if (!userData || !accessToken) {
+      alert(
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Your session was not found. Please log in again."
+          : "Sesi Anda tidak ditemukan. Silakan login kembali."
+      );
+      return;
+    }
+
+    const user = JSON.parse(userData);
+
+    const profileData = {
+      id: user.id,
+      full_name: document.getElementById("jobseekerFullName")?.value || "",
+      phone: document.getElementById("jobseekerPhone")?.value || "",
+      city: document.getElementById("jobseekerCity")?.value || "",
+      education: document.getElementById("jobseekerEducation")?.value || "",
+      experience: document.getElementById("jobseekerExperience")?.value || "",
+      skills: document.getElementById("jobseekerSkills")?.value || "",
+      updated_at: new Date().toISOString()
+    };
+
+    try {
+      const response = await fetch(SUPABASE_URL + "jobseeker_profiles", {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          Prefer: "resolution=merge-duplicates,return=minimal"
+        },
+        body: JSON.stringify(profileData)
+      });
+
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+
+      alert(
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Profile saved successfully."
+          : "Profil berhasil disimpan."
+      );
+
+    } catch (error) {
+      console.error("Gagal menyimpan profil:", error);
+
+      alert(
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Failed to save profile."
+          : "Gagal menyimpan profil."
+      );
+    }
+  });
 }
