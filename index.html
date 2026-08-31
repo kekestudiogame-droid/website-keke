@@ -770,6 +770,31 @@ if (cityList) {
       }
     }
   }
+
+   const chatbotGreeting = document.querySelector("#chatbot-messages .chatbot-message.bot");
+   const chatbotInput = document.getElementById("chatbot-input");
+   const chatbotButton = document.querySelector("#chatbot-input-area button");
+
+if (chatbotGreeting) {
+  chatbotGreeting.textContent =
+    language === "en"
+      ? "Hello! 👋 How can I help you?"
+      : "Halo! 👋 Ada yang bisa saya bantu?";
+}
+
+if (chatbotInput) {
+  chatbotInput.placeholder =
+    language === "en"
+      ? "Type your question..."
+      : "Tulis pertanyaan...";
+}
+
+if (chatbotButton) {
+  chatbotButton.textContent =
+    language === "en"
+      ? "Send"
+      : "Kirim";
+}
   document.documentElement.lang = language;
   localStorage.setItem("siteLanguage", language);
 }
