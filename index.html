@@ -911,9 +911,12 @@ async function sendChatbotMessage() {
         Maaf, terjadi kesalahan. Silakan coba lagi.
       </div>
     `;
-  }
+   }
 }
-  
+
+const currentLanguage = localStorage.getItem("siteLanguage") || "id";
+setLanguage(currentLanguage);
+
 </script>
 
   
