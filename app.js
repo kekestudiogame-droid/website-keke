@@ -1909,7 +1909,7 @@ function showJobseekerDashboard() {
     margin-top:8px;
     color:#123b6d;
   ">
-    👤 ${language === "en" ? "Complete Profile" : "Lengkapi Profil"}
+    👤 ${localStorage.getItem("siteLanguage") === "en" ? "Complete Profile" : "Lengkapi Profil"}
   </div>
 </div>
 
