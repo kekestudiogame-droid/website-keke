@@ -1909,7 +1909,7 @@ function showJobseekerDashboard() {
     margin-top:8px;
     color:#123b6d;
   ">
-    👤 Lengkapi Profil
+    👤 ${language === "en" ? "Complete Profile" : "Lengkapi Profil"}
   </div>
 </div>
 
