@@ -847,6 +847,7 @@ async function sendChatbotMessage() {
     );
 
     const data = await response.json();
+    console.log("CHATBOT RESPONSE:", data);
 
     messages.innerHTML += `
       <div class="chatbot-message bot">
