@@ -1016,13 +1016,24 @@ const categoryFilter = document.querySelector("#categoryFilter");
 const keyword = document.querySelector("#keyword");
 const locationInput = document.querySelector("#location");
 
- if (locationInput) {
+if (locationInput) {
   const cityList = document.querySelector("#cityList");
 
   if (cityList) {
     cities.forEach(city => {
       const option = document.createElement("option");
+
       option.value = city;
+
+      const language = localStorage.getItem("siteLanguage") || "id";
+
+      option.textContent = language === "en"
+        ? city
+            .replace("Kabupaten ", "Regency ")
+            .replace("Kota Administrasi ", "Administrative City of ")
+            .replace("Kota ", "City of ")
+        : city;
+
       cityList.appendChild(option);
     });
   }
