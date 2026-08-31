@@ -470,8 +470,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setPlaceholder("#keyword", t.keywordPlaceholder);
   setAriaLabel("#keyword", t.keywordPlaceholder);
-  setAriaLabel("#location", t.locationLabel);
 
+  setPlaceholder("#location", t.locationLabel);
+  setAriaLabel("#location", t.locationLabel);
  const cityList = document.getElementById("cityList");
 
 if (cityList) {
