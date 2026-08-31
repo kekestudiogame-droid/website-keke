@@ -779,6 +779,46 @@ document.addEventListener("DOMContentLoaded", function () {
   &nbsp; | &nbsp;
   <a href="terms.html">Terms & Conditions</a>
 </div>
+<!-- CHATBOT CARI KERJAKU -->
+<div id="chatbot-button" onclick="toggleChatbot()">
+  💬
+</div>
 
+<div id="chatbot-box">
+  <div id="chatbot-header">
+    <span>🤖 Cari Kerjaku Assistant</span>
+    <button onclick="toggleChatbot()">✕</button>
+  </div>
+
+  <div id="chatbot-messages">
+    <div class="chatbot-message bot">
+      Halo! 👋 Ada yang bisa saya bantu?
+    </div>
+  </div>
+
+  <div id="chatbot-input-area">
+    <input
+      type="text"
+      id="chatbot-input"
+      placeholder="Tulis pertanyaan..."
+      onkeydown="if(event.key==='Enter') sendChatbotMessage()"
+    >
+    <button onclick="sendChatbotMessage()">Kirim</button>
+  </div>
+</div>
+
+<script>
+function toggleChatbot() {
+  const box = document.getElementById("chatbot-box");
+
+  if (box.style.display === "flex") {
+    box.style.display = "none";
+  } else {
+    box.style.display = "flex";
+  }
+}
+</script>
+
+  
 </body>
 </html>
