@@ -3036,7 +3036,9 @@ async function showMyJobs() {
               opacity:.85;
               margin-top:4px;
             ">
-              Lowongan Saya
+              ${localStorage.getItem("siteLanguage") === "en"
+             ? "My Jobs"
+             : "Lowongan Saya"}
             </div>
           </div>
 
