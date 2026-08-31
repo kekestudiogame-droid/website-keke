@@ -141,3 +141,128 @@ footer{border-top:1px solid var(--line)}.footer{min-height:80px;display:flex;ali
 #mainMenu button:hover {
   background: #f1f5f9;
 }
+/* =========================
+   CHATBOT CARI KERJAKU
+   ========================= */
+
+#chatbot-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #123b6d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+#chatbot-button:hover {
+  transform: scale(1.05);
+}
+
+#chatbot-box {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  width: 350px;
+  height: 470px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+#chatbot-header {
+  background: #123b6d;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+#chatbot-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#chatbot-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #f4f7fb;
+}
+
+.chatbot-message {
+  max-width: 80%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.chatbot-message.bot {
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+#chatbot-input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e2e8f0;
+  background: white;
+  gap: 8px;
+}
+
+#chatbot-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+}
+
+#chatbot-input-area button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #123b6d;
+  color: white;
+  cursor: pointer;
+}
+
+#chatbot-input-area button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 480px) {
+  #chatbot-box {
+    right: 10px;
+    left: 10px;
+    bottom: 80px;
+    width: auto;
+    height: 450px;
+  }
+
+  #chatbot-button {
+    right: 15px;
+    bottom: 15px;
+  }
+}
+
