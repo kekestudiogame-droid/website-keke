@@ -1247,6 +1247,31 @@ if (featuredJobs.length > 0) {
       ">
         ${job.company}
       </p>
+      <div style="
+  font-size:12px;
+  color:rgba(255,255,255,.65);
+  margin-bottom:14px;
+">
+  ${job.created_at
+    ? (
+        localStorage.getItem("siteLanguage") === "en"
+          ? `Posted ${new Date(job.created_at).toLocaleString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+          : `Diposting ${new Date(job.created_at).toLocaleString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+      )
+    : ""}
+</div>
 
       <div style="
         display:flex;
