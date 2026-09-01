@@ -3586,6 +3586,7 @@ function translateCompanyDashboard() {
   "Tentang": "About",
   "Kontak": "Contact",
   "Masuk": "Login",
+  "MASUK": "LOGIN", 
   "Masuk akun Anda": "Log in to your account",
   "Login berhasil": "Login successful",
    
