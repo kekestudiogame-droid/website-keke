@@ -4086,21 +4086,29 @@ async function showJobseekerProfile() {
               👤
             </div>
 
-            <button
-              type="button"
-              style="
-                margin-top:15px;
-                padding:10px 18px;
-                background:#123b6d;
-                color:white;
-                border:none;
-                border-radius:8px;
-                cursor:pointer;
-                font-weight:bold;
-              "
-            >
-              ${language === "en" ? "Upload Photo" : "Upload Foto"}
-            </button>
+           <input
+  id="jobseekerPhotoInput"
+  type="file"
+  accept="image/*"
+  style="display:none;"
+>
+
+<button
+  type="button"
+  onclick="document.getElementById('jobseekerPhotoInput').click()"
+  style="
+    margin-top:15px;
+    padding:10px 18px;
+    background:#123b6d;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+  "
+>
+  ${language === "en" ? "Upload Photo" : "Upload Foto"}
+</button>
 
           </div>
 
