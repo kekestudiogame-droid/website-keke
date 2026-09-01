@@ -1792,7 +1792,10 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
     const companyError = await companyResponse.text();
     throw new Error(companyError);
   }
-       showCompanyDashboard();
+      const language = localStorage.getItem("siteLanguage") || "id";
+alert(language === "en" ? "Login successful!" : "Login berhasil!");
+
+showCompanyDashboard();
 return;
        
 }
