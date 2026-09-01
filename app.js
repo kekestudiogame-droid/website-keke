@@ -1796,9 +1796,11 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
 return;
        
 }
-     modal.classList.add("hidden");
-     showJobseekerDashboard();
-     alert("Login berhasil!");
+   modal.classList.add("hidden");
+showJobseekerDashboard();
+
+const language = localStorage.getItem("siteLanguage") || "id";
+alert(language === "en" ? "Login successful!" : "Login berhasil!"); 
     }
 
   } catch (error) {
