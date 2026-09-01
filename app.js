@@ -4595,3 +4595,140 @@ async function showJobseekerProfile() {
     });
   }
 }
+
+// ================= GLOBAL TRANSLATION ENGINE =================
+
+let globalTranslationRunning = false;
+
+async function translateGlobalPage() {
+  if (globalTranslationRunning) return;
+
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  // Bahasa Indonesia = tidak perlu panggil Gemini
+  if (language === "id") return;
+
+  const elements = [];
+
+  document.querySelectorAll("body *").forEach((element) => {
+    // Hanya elemen yang benar-benar berisi teks langsung
+    if (
+      element.children.length === 0 &&
+      element.textContent.trim()
+    ) {
+      const text = element.textContent.trim();
+
+      // Abaikan angka, URL, email, script, style, dll.
+      if (
+        text.length > 0 &&
+        !/^https?:\/\//i.test(text) &&
+        !/^[\d\s.,:%/+-]+$/.test(text)
+      ) {
+        elements.push({
+          element,
+          text
+        });
+      }
+    }
+  });
+
+  if (elements.length === 0) return;
+
+  // Hindari menerjemahkan teks yang sama berkali-kali
+  const uniqueTexts = [...new Set(
+    elements.map(item => item.text)
+  )];
+
+  try {
+    globalTranslationRunning = true;
+
+    const response = await fetch(
+      `${SUPABASE_URL}functions/v1/translate-global`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_KEY
+        },
+        body: JSON.stringify({
+          texts: uniqueTexts,
+          targetLanguage: "en"
+        })
+      }
+    );
+
+    if (!response.ok) {
+      console.error(
+        "Global translation failed:",
+        await response.text()
+      );
+      return;
+    }
+
+    const data = await response.json();
+
+    if (
+      !data.translations ||
+      !Array.isArray(data.translations)
+    ) {
+      return;
+    }
+
+    const translationMap = {};
+
+    uniqueTexts.forEach((original, index) => {
+      translationMap[original] =
+        data.translations[index];
+    });
+
+    elements.forEach(({ element, text }) => {
+      if (translationMap[text]) {
+        element.textContent =
+          translationMap[text];
+      }
+    });
+
+  } catch (error) {
+    console.error(
+      "Global translation error:",
+      error
+    );
+  } finally {
+    globalTranslationRunning = false;
+  }
+}
+
+
+// Jalankan setelah halaman selesai
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    translateGlobalPage();
+  }, 1000);
+});
+
+
+// Pantau konten baru yang dibuat oleh app.js
+const globalTranslationObserver =
+  new MutationObserver(() => {
+
+    const language =
+      localStorage.getItem("siteLanguage") || "id";
+
+    if (language !== "en") return;
+
+    clearTimeout(window.globalTranslationTimer);
+
+    window.globalTranslationTimer =
+      setTimeout(() => {
+        translateGlobalPage();
+      }, 800);
+  });
+
+globalTranslationObserver.observe(
+  document.body,
+  {
+    childList: true,
+    subtree: true
+  }
+);
