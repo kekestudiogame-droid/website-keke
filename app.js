@@ -146,6 +146,31 @@ if (!hasSearched && jobs.length > 0) {
           ">
             ${latestJob.company}
           </p>
+          <div style="
+  font-size:12px;
+  color:rgba(255,255,255,.65);
+  margin-bottom:14px;
+">
+  ${latestJob.created_at
+    ? (
+        localStorage.getItem("siteLanguage") === "en"
+          ? `Posted ${new Date(latestJob.created_at).toLocaleString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+          : `Diposting ${new Date(latestJob.created_at).toLocaleString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+      )
+    : ""}
+</div>
 
           <div style="
             display:flex;
