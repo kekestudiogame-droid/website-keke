@@ -4596,63 +4596,66 @@ async function showJobseekerProfile() {
   }
 }
 
-// ================= GLOBAL TRANSLATION ENGINE =================
+// ================= GLOBAL TRANSLATION ENGINE v2 =================
 
-let globalTranslationRunning = false;
+let globalTranslationCache = {};
 
 async function translateGlobalPage() {
-  if (globalTranslationRunning) return;
-
   const language =
     localStorage.getItem("siteLanguage") || "id";
 
-  // Bahasa Indonesia = tidak perlu panggil Gemini
-  if (language === "id") return;
+  if (language !== "en") return;
 
   const elements = [];
 
-  document.querySelectorAll("body *").forEach((element) => {
-    // Hanya elemen yang benar-benar berisi teks langsung
-    if (
-      element.children.length === 0 &&
-      element.textContent.trim()
-    ) {
-      const text = element.textContent.trim();
+  document.querySelectorAll("body *").forEach((el) => {
+    if (el.children.length !== 0) return;
 
-      // Abaikan angka, URL, email, script, style, dll.
-      if (
-        text.length > 0 &&
-        !/^https?:\/\//i.test(text) &&
-        !/^[\d\s.,:%/+-]+$/.test(text)
-      ) {
-        elements.push({
-          element,
-          text
-        });
-      }
-    }
+    const text = el.textContent.trim();
+
+    if (!text) return;
+
+    // Jangan kirim angka / simbol saja
+    if (/^[\d\s.,:%/+\-–—]+$/.test(text)) return;
+
+    elements.push({
+      el,
+      text
+    });
   });
 
-  if (elements.length === 0) return;
+  if (!elements.length) return;
 
-  // Hindari menerjemahkan teks yang sama berkali-kali
-  const uniqueTexts = [...new Set(
-    elements.map(item => item.text)
-  )];
+  // Ambil hanya teks yang belum pernah diterjemahkan
+  const texts = [
+    ...new Set(
+      elements
+        .map(item => item.text)
+        .filter(text => !globalTranslationCache[text])
+    )
+  ];
+
+  if (!texts.length) {
+    // Terapkan cache yang sudah ada
+    elements.forEach(({ el, text }) => {
+      if (globalTranslationCache[text]) {
+        el.textContent = globalTranslationCache[text];
+      }
+    });
+    return;
+  }
 
   try {
-    globalTranslationRunning = true;
-
     const response = await fetch(
       `${SUPABASE_URL}functions/v1/translate-global`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          apikey: SUPABASE_KEY
+          "apikey": SUPABASE_KEY
         },
         body: JSON.stringify({
-          texts: uniqueTexts,
+          texts,
           targetLanguage: "en"
         })
       }
@@ -4660,7 +4663,7 @@ async function translateGlobalPage() {
 
     if (!response.ok) {
       console.error(
-        "Global translation failed:",
+        "Global translation error:",
         await response.text()
       );
       return;
@@ -4672,63 +4675,99 @@ async function translateGlobalPage() {
       !data.translations ||
       !Array.isArray(data.translations)
     ) {
+      console.error("Invalid translation response:", data);
       return;
     }
 
-    const translationMap = {};
-
-    uniqueTexts.forEach((original, index) => {
-      translationMap[original] =
-        data.translations[index];
+    texts.forEach((original, index) => {
+      if (data.translations[index]) {
+        globalTranslationCache[original] =
+          data.translations[index];
+      }
     });
 
-    elements.forEach(({ element, text }) => {
-      if (translationMap[text]) {
-        element.textContent =
-          translationMap[text];
+    // Terapkan HASIL LENGKAP sekaligus
+    elements.forEach(({ el, text }) => {
+      const translated =
+        globalTranslationCache[text];
+
+      if (translated) {
+        el.textContent = translated;
       }
     });
 
   } catch (error) {
     console.error(
-      "Global translation error:",
+      "Global translation failed:",
       error
     );
-  } finally {
-    globalTranslationRunning = false;
   }
 }
 
 
-// Jalankan setelah halaman selesai
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    translateGlobalPage();
-  }, 1000);
+// Jalankan setelah halaman selesai dibuat
+async function runGlobalTranslation() {
+  if (
+    (localStorage.getItem("siteLanguage") || "id") === "en"
+  ) {
+    await new Promise(resolve =>
+      setTimeout(resolve, 500)
+    );
+
+    await translateGlobalPage();
+  }
+}
+
+
+// Pantau perubahan halaman,
+// tetapi TIDAK langsung memanggil Gemini setiap perubahan.
+let globalTranslationTimer = null;
+
+const globalObserver =
+  new MutationObserver(() => {
+
+    if (
+      localStorage.getItem("siteLanguage") !== "en"
+    ) {
+      return;
+    }
+
+    clearTimeout(globalTranslationTimer);
+
+    globalTranslationTimer = setTimeout(() => {
+      translateGlobalPage();
+    }, 1500);
+  });
+
+if (document.body) {
+  globalObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
+
+
+// Saat bahasa EN dipilih
+document.addEventListener("click", (event) => {
+  const target = event.target;
+
+  if (
+    target &&
+    (
+      target.id === "langEN" ||
+      target.closest("#langEN")
+    )
+  ) {
+    globalTranslationCache = {};
+
+    setTimeout(() => {
+      runGlobalTranslation();
+    }, 1000);
+  }
 });
 
 
-// Pantau konten baru yang dibuat oleh app.js
-const globalTranslationObserver =
-  new MutationObserver(() => {
-
-    const language =
-      localStorage.getItem("siteLanguage") || "id";
-
-    if (language !== "en") return;
-
-    clearTimeout(window.globalTranslationTimer);
-
-    window.globalTranslationTimer =
-      setTimeout(() => {
-        translateGlobalPage();
-      }, 800);
-  });
-
-globalTranslationObserver.observe(
-  document.body,
-  {
-    childList: true,
-    subtree: true
-  }
-);
+// Saat halaman pertama kali dibuka
+window.addEventListener("load", () => {
+  runGlobalTranslation();
+});
