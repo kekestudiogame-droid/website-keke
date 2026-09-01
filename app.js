@@ -1095,6 +1095,27 @@ function renderJobs(list = jobs){
       </div>
 
       <div class="salary">${job.salary}</div>
+      <div class="job-posted-date">
+  ${job.created_at
+    ? (
+        localStorage.getItem("siteLanguage") === "en"
+          ? `Posted ${new Date(job.created_at).toLocaleString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+          : `Diposting ${new Date(job.created_at).toLocaleString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+      )
+    : ""}
+</div>
 
     <div class="job-actions">
   <button data-details="${i}">
