@@ -3811,14 +3811,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalText = document.getElementById("modalText");
   const authForm = document.getElementById("authForm");
 
-  if (loginBtn) {
-    loginBtn.addEventListener("click", () => {
-      authModal.classList.remove("hidden");
-      modalTitle.textContent = "Masuk";
-      modalText.textContent = "Masuk ke akun Anda";
-      authForm.dataset.mode = "login";
-    });
-  }
+ if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    authModal.classList.remove("hidden");
+
+    const language = localStorage.getItem("siteLanguage") || "id";
+
+    modalTitle.textContent = language === "en" ? "Login" : "Masuk";
+    modalText.textContent = language === "en"
+      ? "Log in to your account"
+      : "Masuk ke akun Anda";
+
+    authForm.dataset.mode = "login";
+  });
+}
 
   if (registerBtn) {
     registerBtn.addEventListener("click", () => {
