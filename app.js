@@ -220,9 +220,9 @@ if (!hasSearched && jobs.length > 0) {
                 cursor:pointer;
               "
             >
-              ${localStorage.getItem("siteLanguage") === "en"
-                ? "Details"
-                : "Detail"}
+            ${localStorage.getItem("siteLanguage") === "en"
+                ? "View Details"
+                : "Lihat Detail"} 
             </button>
 
             <button
