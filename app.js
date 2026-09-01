@@ -50,11 +50,42 @@ if (!hasSearched && jobs.length > 0) {
   const featuredJob = document.querySelector("#featuredJob");
 
   if (featuredJob) {
-    const latestJob = [...jobs].sort((a, b) => {
-  const dateA = new Date(a.created_at || a.createdAt || 0);
-  const dateB = new Date(b.created_at || b.createdAt || 0);
+const now = new Date();
+
+const recentJobs = jobs.filter(job => {
+  const postedDate = new Date(job.created_at || job.createdAt || 0);
+
+  if (!job.created_at && !job.createdAt) return false;
+
+  const oneMonthAgo = new Date(now);
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+  return postedDate >= oneMonthAgo;
+});
+
+const latestJob = [...recentJobs].sort((a, b) => {
+  const dateA = new Date(a.created_at || a.createdAt);
+  const dateB = new Date(b.created_at || b.createdAt);
   return dateB - dateA;
 })[0];
+    if (!latestJob) {
+  featuredJob.innerHTML = `
+    <div style="text-align:center;padding:30px 15px;">
+      <div style="font-size:42px;margin-bottom:10px;">🔎</div>
+      <h3 style="margin:0 0 8px;">
+        ${localStorage.getItem("siteLanguage") === "en"
+          ? "No Recent Jobs"
+          : "Belum Ada Lowongan Terbaru"}
+      </h3>
+      <p style="margin:0;color:#64748b;">
+        ${localStorage.getItem("siteLanguage") === "en"
+          ? "There are no jobs posted within the last month."
+          : "Belum ada lowongan yang dipasang dalam 1 bulan terakhir."}
+      </p>
+    </div>
+  `;
+  return;
+}
 
     featuredJob.innerHTML = `
       <div class="featured-job-card" style="
