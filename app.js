@@ -1603,11 +1603,19 @@ jobsGrid.addEventListener("click", e => {
     document.getElementById("jobDetailType").textContent = `💼 ${job.type}`;
     document.getElementById("jobDetailSalary").textContent = `💰 ${job.salary}`;
 
-    document.getElementById("jobDetailDescription").textContent =
-      job.description || "Deskripsi pekerjaan belum tersedia.";
+   document.getElementById("jobDetailDescription").textContent =
+  job.description || (
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Job description is not available."
+      : "Deskripsi pekerjaan belum tersedia."
+  );
 
-    document.getElementById("jobDetailRequirements").textContent =
-      job.requirements || "Persyaratan belum tersedia.";
+   document.getElementById("jobDetailRequirements").textContent =
+  job.requirements || (
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Requirements are not available."
+      : "Persyaratan belum tersedia."
+  );
 
     document.getElementById("jobDetailApply").onclick = () => {
       submitApplication(job);
