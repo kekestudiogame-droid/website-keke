@@ -3586,6 +3586,9 @@ function translateCompanyDashboard() {
   "Tentang": "About",
   "Kontak": "Contact",
   "Masuk": "Login",
+  "Masuk akun Anda": "Log in to your account",
+  "Login berhasil": "Login successful",
+   
   "Daftar": "Register",
   "Cari Kerja": "Find a Job",
   "Cari": "Search",
