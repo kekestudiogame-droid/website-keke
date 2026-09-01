@@ -492,6 +492,7 @@ async function translateDisplayedJobs() {
       } else {
         translatedJobs.push(job);
       }
+
     } catch (error) {
       console.error("Job translation error:", error);
       translatedJobs.push(job);
@@ -504,7 +505,6 @@ async function translateDisplayedJobs() {
     renderJobs(jobs);
   }
 }
-  
   function setText(selector, value) {
     const element = document.querySelector(selector);
     if (element) element.innerHTML = value;
