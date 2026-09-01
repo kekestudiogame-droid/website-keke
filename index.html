@@ -445,7 +445,66 @@ document.addEventListener("DOMContentLoaded", function () {
       terms: "Terms & Conditions"
     }
   };
+async function translateDisplayedJobs() {
+  if (typeof jobs === "undefined" || !jobs.length) return;
 
+  const translatedJobs = [];
+
+  for (const job of jobs) {
+    try {
+      const response = await fetch(
+        "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/translate-job",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY
+          },
+          body: JSON.stringify({
+            job: {
+              title: job.title || "",
+              company: job.company || "",
+              location: job.location || "",
+              type: job.type || job.job_type || "",
+              category: job.category || "",
+              salary: job.salary || "",
+              description: job.description || "",
+              requirements: job.requirements || ""
+            }
+          })
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.success && result.job) {
+        translatedJobs.push({
+          ...job,
+          title: result.job.title || job.title,
+          company: result.job.company || job.company,
+          location: result.job.location || job.location,
+          type: result.job.type || job.type,
+          category: result.job.category || job.category,
+          salary: result.job.salary || job.salary,
+          description: result.job.description || job.description,
+          requirements: result.job.requirements || job.requirements
+        });
+      } else {
+        translatedJobs.push(job);
+      }
+    } catch (error) {
+      console.error("Job translation error:", error);
+      translatedJobs.push(job);
+    }
+  }
+
+  jobs = translatedJobs;
+
+  if (typeof renderJobs === "function") {
+    renderJobs(jobs);
+  }
+}
+  
   function setText(selector, value) {
     const element = document.querySelector(selector);
     if (element) element.innerHTML = value;
@@ -837,7 +896,9 @@ if (chatbotButton) {
       : "Kirim";
 }
 
-    
+    if (language === "en") {
+  translateDisplayedJobs();
+}
    
   document.documentElement.lang = language;
   localStorage.setItem("siteLanguage", language);
