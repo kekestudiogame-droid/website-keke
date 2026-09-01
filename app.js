@@ -2202,7 +2202,7 @@ function translateJobseekerDashboard(page) {
 
   const translations = {
     "Dashboard Pencari Kerja": "Job Seeker Dashboard",
-    "Cari Lowongan": "Find Jobs",
+    "🔎 Cari Lowongan": "🔎 Find Jobs",
     "Selamat Datang 👋": "Welcome 👋",
     "Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.": "Manage your CV and prepare yourself for your next job.",
     "CV Saya": "My CV",
