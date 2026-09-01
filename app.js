@@ -1810,6 +1810,7 @@ loadJobsFromDatabase();
 // ================= DASHBOARD PENCARI KERJA =================
 
 function showJobseekerDashboard() {
+  const language = localStorage.getItem("siteLanguage") || "id";
   const dashboard = document.createElement("div");
 
   dashboard.id = "jobseekerDashboard";
