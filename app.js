@@ -1646,7 +1646,11 @@ featuredJob.addEventListener("click", e => {
       `💰 ${job.salary}`;
 
     document.getElementById("jobDetailDescription").textContent =
-      job.description || "Deskripsi pekerjaan belum tersedia.";
+      job.description || (
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Job description is not available."
+    : "Deskripsi pekerjaan belum tersedia."
+);
 
     document.getElementById("jobDetailRequirements").textContent =
       job.requirements || "Persyaratan belum tersedia.";
