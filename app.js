@@ -1041,6 +1041,33 @@ if (locationInput) {
 
 function renderJobs(list = jobs){
   jobsGrid.innerHTML = "";
+    const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translateCategory = (category) => {
+    if (language !== "en") return category;
+
+    const map = {
+      "Administrasi": "Administration",
+      "Accounting": "Accounting",
+      "Finance": "Finance",
+      "Marketing": "Marketing",
+      "Sales": "Sales",
+      "IT": "IT",
+      "Teknologi": "Technology",
+      "HRD": "HR",
+      "Desain": "Design",
+      "Customer Service": "Customer Service",
+      "Logistik": "Logistics",
+      "Produksi": "Production",
+      "Kesehatan": "Healthcare",
+      "Pendidikan": "Education",
+      "Kuliner": "Culinary",
+      "Retail": "Retail",
+      "Lainnya": "Other"
+    };
+
+    return map[category] || category;
+  };
 
   if (jobCount) {
     jobCount.textContent = list.length;
@@ -1064,15 +1091,19 @@ function renderJobs(list = jobs){
 
       <div class="job-meta">
         <span>📍 ${job.location}</span>
-        <span>▣ ${job.category}</span>
+        <span>▣ ${translateCategory(job.category)}</span>
       </div>
 
       <div class="salary">${job.salary}</div>
 
-      <div class="job-actions">
-        <button data-details="${i}">Lihat detail</button>
-        <button data-apply="${i}">Lamar →</button>
-      </div>
+    <div class="job-actions">
+  <button data-details="${i}">
+    ${localStorage.getItem("siteLanguage") === "en" ? "View Details" : "Lihat Detail"}
+  </button>
+  <button data-apply="${i}">
+    ${localStorage.getItem("siteLanguage") === "en" ? "Apply →" : "Lamar →"}
+  </button>
+</div>
     `;
 
     jobsGrid.appendChild(card);
