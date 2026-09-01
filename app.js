@@ -1860,7 +1860,7 @@ function showJobseekerDashboard() {
             font-weight:bold;
           "
         >
-          🔎 ${language === "en" ? "Find Jobs" : "Cari Lowongan"}
+          🔎 Cari Lowongan
         </button>
       </div>
 
