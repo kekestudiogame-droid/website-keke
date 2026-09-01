@@ -1342,6 +1342,73 @@ document.querySelectorAll(".quick-tags button").forEach(btn => {
     filterJobs();
   });
 });
+function updateJobSuggestions() {
+  if (!keyword || !jobSuggestions) return;
+
+  const query = keyword.value.trim().toLowerCase();
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  if (!query) {
+    jobSuggestions.innerHTML = "";
+    jobSuggestions.classList.add("hidden");
+    return;
+  }
+
+  const matchingJobs = jobs.filter(job =>
+    `${job.title || ""} ${job.category || ""}`
+      .toLowerCase()
+      .includes(query)
+  );
+
+  const jobMap = {};
+
+  matchingJobs.forEach(job => {
+    const title = (job.title || "").trim();
+    if (!title) return;
+
+    if (!jobMap[title]) {
+      jobMap[title] = 0;
+    }
+
+    jobMap[title]++;
+  });
+
+  const suggestions = Object.entries(jobMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8);
+
+  if (suggestions.length === 0) {
+    jobSuggestions.innerHTML = "";
+    jobSuggestions.classList.add("hidden");
+    return;
+  }
+
+  jobSuggestions.innerHTML = `
+    <div class="suggestion-header">
+      ${language === "en" ? "Job Categories" : "Kategori Pekerjaan"}
+    </div>
+
+    ${suggestions.map(([title, count]) => `
+      <button type="button" class="job-suggestion-item">
+        <span>${title}</span>
+        <span>(${count})</span>
+      </button>
+    `).join("")}
+  `;
+
+  jobSuggestions.classList.remove("hidden");
+
+  jobSuggestions.querySelectorAll(".job-suggestion-item").forEach(button => {
+    button.addEventListener("click", () => {
+      keyword.value = button.querySelector("span").textContent;
+      jobSuggestions.classList.add("hidden");
+      hasSearched = true;
+      filterJobs();
+    });
+  });
+}
+
+keyword.addEventListener("input", updateJobSuggestions);
 
 const modal = document.querySelector("#authModal");
 const modalTitle = document.querySelector("#modalTitle");
