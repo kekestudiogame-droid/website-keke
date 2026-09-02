@@ -86,54 +86,7 @@
     </p>
 
   </div>
- <script>
-function translateContact() {
-  const language = localStorage.getItem("siteLanguage") || "id";
 
-  if (language === "en") {
-    document.documentElement.lang = "en";
 
-    const h1 = document.querySelector("h1");
-    const h2 = document.querySelectorAll("h2");
-    const p = document.querySelectorAll("p");
-
-    h1.textContent = "Contact Cari Kerjaku";
-
-    if (h2[0]) {
-      h2[0].textContent = "Contact";
-    }
-
-    if (p[0]) {
-      p[0].textContent =
-        "If you need assistance or have questions about Cari Kerjaku, please contact us through the contact information below.";
-    }
-
-    if (p[1]) {
-      p[1].textContent =
-        "For now, Cari Kerjaku services can be contacted through the official phone number shown on this page.";
-    }
-
-    if (p[2]) {
-      p[2].textContent =
-        "For information and assistance, please contact Cari Kerjaku through the official phone number below:";
-    }
-
-    if (p[3]) {
-      p[3].innerHTML = "📞 <strong>087780181152</strong>";
-    }
-
-    if (p[4]) {
-      p[4].innerHTML =
-        '<a href="index.html">← Back to Cari Kerjaku</a>';
-    }
-
-    if (p[5]) {
-      p[5].textContent = "© Cari Kerjaku";
-    }
-  }
-}
-
-translateContact();
-</script>
 </body>
 </html>
