@@ -663,11 +663,13 @@ if (categoryFilter) {
   setText("#about h2", t.aboutTitle);
   setText("#about .about-card > p", t.aboutText);
 
-  setText("#closeModal", "×");
-  setText("#authModal .account-type > p", t.accountRegister);
-  setText("#jobseekerAccount", t.jobSeeker);
-  setText("#companyAccount", t.company);
-
+ setText("#closeModal", "×");
+ setText("#authModal .account-type > p", "Daftar sebagai:");
+ setText("#jobseekerAccount", "Pencari Kerja");
+ setText("#companyAccount", "Perusahaan");
+ setText("#modalTitle", "Masuk");
+ setText("#modalText", "Prototype akun. Backend akan dihubungkan pada tahap berikutnya.");
+   
   const labels = document.querySelectorAll("#companyFields label");
 
   if (labels.length >= 5) {
