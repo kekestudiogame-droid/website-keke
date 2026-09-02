@@ -4988,6 +4988,7 @@ window.addEventListener("load", () => {
       apply(document.body);
     },
 
+    
     set: function (language) {
       const lang = language === "en" ? "en" : "id";
 
