@@ -1120,6 +1120,8 @@ async function renderJobs(list = jobs) {
 // =====================================================
 if (language === "en" && list.length > 0) {
 
+  const batchSize = 5;
+
   const uncachedJobs = list.filter((job) => {
     const cacheKey =
       job.id || `${job.title}-${job.company}-${job.location}`;
@@ -1127,37 +1129,45 @@ if (language === "en" && list.length > 0) {
     return !window.jobTranslationCache.has(cacheKey);
   });
 
-  // Kirim SEMUA job yang belum ada di cache
-  // dalam SATU request ke Edge Function
-  if (uncachedJobs.length > 0) {
+  // Terjemahkan job dalam batch kecil agar request Gemini aman
+  for (let i = 0; i < uncachedJobs.length; i += batchSize) {
+
+    const batch = uncachedJobs.slice(i, i + batchSize);
+
     try {
-      const { data, error } = await supabase.functions.invoke(
-        "translate-job",
-        {
-          body: {
-            jobs: uncachedJobs.map((job) => ({
-              title: job.title || "",
-              company: job.company || "",
-              location: job.location || "",
-              type: job.type || "",
-              category: job.category || "",
-              salary: job.salary || "",
-              description: job.description || "",
-              requirements: job.requirements || ""
-            }))
+
+      const { data, error } =
+        await supabase.functions.invoke(
+          "translate-job",
+          {
+            body: {
+              jobs: batch.map((job) => ({
+                title: job.title || "",
+                company: job.company || "",
+                location: job.location || "",
+                type: job.type || "",
+                category: job.category || "",
+                salary: job.salary || "",
+                description: job.description || "",
+                requirements: job.requirements || ""
+              }))
+            }
           }
-        }
-      );
+        );
 
       if (error) {
         console.error("Batch translation error:", error);
-      } else if (
+        continue;
+      }
+
+      if (
         data?.success &&
         Array.isArray(data.jobs)
       ) {
 
         data.jobs.forEach((translatedJob, index) => {
-          const originalJob = uncachedJobs[index];
+
+          const originalJob = batch[index];
 
           if (!originalJob || !translatedJob) return;
 
@@ -1169,6 +1179,7 @@ if (language === "en" && list.length > 0) {
             cacheKey,
             translatedJob
           );
+
         });
 
       } else {
@@ -1179,10 +1190,12 @@ if (language === "en" && list.length > 0) {
       }
 
     } catch (error) {
+
       console.error(
         "Batch translation failed:",
         error
       );
+
     }
   }
 
@@ -1196,16 +1209,9 @@ if (language === "en" && list.length > 0) {
     const translatedJob =
       window.jobTranslationCache.get(cacheKey);
 
-    if (translatedJob) {
-      return {
-        ...job,
-        ...translatedJob
-      };
-    }
-
-    // Kalau belum berhasil diterjemahkan,
-    // tetap tampilkan data asli
-    return job;
+    return translatedJob
+      ? { ...job, ...translatedJob }
+      : job;
   });
 }
   // =====================================================
