@@ -1804,39 +1804,81 @@ jobsGrid.addEventListener("click", e => {
 
   if (!Number.isInteger(idx)) return;
 
-  const job = jobs[idx];
+  const originalJob = jobs[idx];
 
-  if (apply) {
-    submitApplication(job);
-  } else {
-    document.getElementById("jobDetailTitle").textContent = job.title;
-    document.getElementById("jobDetailCompany").textContent = job.company;
-    document.getElementById("jobDetailLocation").textContent = `📍 ${job.location}`;
-    document.getElementById("jobDetailType").textContent = `💼 ${job.type}`;
-    document.getElementById("jobDetailSalary").textContent = `💰 ${job.salary}`;
+  if (!originalJob) return;
 
-   document.getElementById("jobDetailDescription").textContent =
-  job.description || (
-    localStorage.getItem("siteLanguage") === "en"
-      ? "Job description is not available."
-      : "Deskripsi pekerjaan belum tersedia."
-  );
+  // Gunakan hasil terjemahan untuk tampilan Detail
+  const language = localStorage.getItem("siteLanguage") || "id";
 
-   document.getElementById("jobDetailRequirements").textContent =
-  job.requirements || (
-    localStorage.getItem("siteLanguage") === "en"
-      ? "Requirements are not available."
-      : "Persyaratan belum tersedia."
-  );
+  let displayJob = originalJob;
 
-    document.getElementById("jobDetailApply").onclick = () => {
-      submitApplication(job);
-      document.getElementById("jobDetailModal").classList.add("hidden");
-    };
+  if (language === "en") {
+    const cacheKey =
+      originalJob.id ||
+      `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
 
-    document.getElementById("jobDetailModal").classList.remove("hidden");
+    const translatedJob =
+      window.jobTranslationCache?.get(cacheKey);
+
+    if (translatedJob) {
+      displayJob = {
+        ...originalJob,
+        ...translatedJob,
+
+        // Tetap gunakan data asli
+        company: originalJob.company,
+        location: originalJob.location,
+        salary: originalJob.salary
+      };
+    }
   }
-  });
+
+  // Lamar tetap menggunakan data asli dari database
+  if (apply) {
+    submitApplication(originalJob);
+    return;
+  }
+
+  // Detail menggunakan data sesuai bahasa yang sedang aktif
+  document.getElementById("jobDetailTitle").textContent =
+    displayJob.title || "";
+
+  document.getElementById("jobDetailCompany").textContent =
+    displayJob.company || "";
+
+  document.getElementById("jobDetailLocation").textContent =
+    `📍 ${displayJob.location || ""}`;
+
+  document.getElementById("jobDetailType").textContent =
+    `💼 ${displayJob.type || ""}`;
+
+  document.getElementById("jobDetailSalary").textContent =
+    `💰 ${displayJob.salary || ""}`;
+
+  document.getElementById("jobDetailDescription").textContent =
+    displayJob.description ||
+    (
+      language === "en"
+        ? "Job description is not available."
+        : "Deskripsi pekerjaan belum tersedia."
+    );
+
+  document.getElementById("jobDetailRequirements").textContent =
+    displayJob.requirements ||
+    (
+      language === "en"
+        ? "Requirements are not available."
+        : "Persyaratan belum tersedia."
+    );
+
+  document.getElementById("jobDetailApply").onclick = () => {
+    submitApplication(originalJob);
+    document.getElementById("jobDetailModal").classList.add("hidden");
+  };
+
+  document.getElementById("jobDetailModal").classList.remove("hidden");
+});
 featuredJob.addEventListener("click", e => {
   const details = e.target.closest("[data-details]");
   const apply = e.target.closest("[data-apply]");
