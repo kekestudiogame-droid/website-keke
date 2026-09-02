@@ -3995,23 +3995,21 @@ const translations = {
   "Kembali": "Back"
 };
 
-  profile.querySelectorAll("*").forEach(element => {
-    if (element.children.length === 0) {
-      const text = element.textContent.trim();
+ profile.querySelectorAll("*").forEach(element => {
+  if (element.children.length === 0) {
+    const text = element.textContent.trim();
 
-      if (language === "en" && translations[text]) {
-        element.textContent = translations[text];
-      }
+    if (language === "id") {
+      const original = Object.keys(translations).find(
+        key => translations[key] === text
+      );
 
-      if (language === "id") {
-        const original = Object.keys(translations).find(
-          key => translations[key] === text
-        );
-        if (original) element.textContent = original;
+      if (original) {
+        element.textContent = original;
       }
     }
-  });
-}
+  }
+});
 
 function translatePostJobForm(form) {
   if (!form) return;
