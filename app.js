@@ -1804,19 +1804,16 @@ jobsGrid.addEventListener("click", e => {
 
   if (!Number.isInteger(idx)) return;
 
-   const job = jobs[idx];
+  const job = jobs[idx];
 
   if (apply) {
     submitApplication(job);
   } else {
     document.getElementById("jobDetailTitle").textContent = job.title;
     document.getElementById("jobDetailCompany").textContent = job.company;
-    document.getElementById("jobDetailLocation").textContent =
-      `📍 ${job.location}`;
-    document.getElementById("jobDetailType").textContent =
-      `💼 ${job.type}`;
-    document.getElementById("jobDetailSalary").textContent =
-      `💰 ${job.salary}`;
+    document.getElementById("jobDetailLocation").textContent = `📍 ${job.location}`;
+    document.getElementById("jobDetailType").textContent = `💼 ${job.type}`;
+    document.getElementById("jobDetailSalary").textContent = `💰 ${job.salary}`;
 
     document.getElementById("jobDetailDescription").textContent =
       job.description || (
@@ -1840,6 +1837,7 @@ jobsGrid.addEventListener("click", e => {
     document.getElementById("jobDetailModal").classList.remove("hidden");
   }
 });
+
 featuredJob.addEventListener("click", e => {
   const details = e.target.closest("[data-details]");
   const apply = e.target.closest("[data-apply]");
@@ -1876,11 +1874,7 @@ featuredJob.addEventListener("click", e => {
       );
 
     document.getElementById("jobDetailRequirements").textContent =
-      job.requirements || (
-        localStorage.getItem("siteLanguage") === "en"
-          ? "Requirements are not available."
-          : "Persyaratan belum tersedia."
-      );
+      job.requirements || "Persyaratan belum tersedia.";
 
     document.getElementById("jobDetailApply").onclick = () => {
       submitApplication(job);
