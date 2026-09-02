@@ -4773,15 +4773,18 @@ window.addEventListener("load", () => {
 });
 
 /* =========================================================
-   GLOBAL LANGUAGE MANAGER
+   GLOBAL LANGUAGE MANAGER v2
    Layer di atas sistem translate lama
+   Sistem translate lama TIDAK dihapus
    ========================================================= */
 
 (function () {
+
   const LANGUAGE_KEY = "siteLanguage";
 
-  const globalTranslations = {
-    /* Navigation */
+  const translations = {
+
+    /* ===== NAVIGATION ===== */
     "Beranda": "Home",
     "Cari Kerja": "Find a Job",
     "Lowongan": "Jobs",
@@ -4792,18 +4795,24 @@ window.addEventListener("load", () => {
     "Keluar": "Logout",
     "Kontak": "Contact",
     "Bantuan": "Help",
+    "Dashboard": "Dashboard",
 
-    /* Search */
+    /* ===== SEARCH ===== */
     "Cari": "Search",
     "Cari Lowongan": "Search Jobs",
+    "Cari pekerjaan": "Search jobs",
+    "Cari pekerjaan...": "Search jobs...",
     "Semua Kota": "All Cities",
     "Semua Jenis Pekerjaan": "All Job Types",
     "Jenis Pekerjaan": "Job Type",
     "Kategori Pekerjaan": "Job Category",
     "Lokasi": "Location",
     "Kota": "City",
+    "Pilih Kota": "Select City",
+    "Pilih kategori": "Select category",
+    "Pilih jenis pekerjaan": "Select job type",
 
-    /* Jobs */
+    /* ===== JOBS ===== */
     "Lihat detail": "View details",
     "Lihat Detail": "View Details",
     "Lamar": "Apply",
@@ -4811,8 +4820,15 @@ window.addEventListener("load", () => {
     "Belum Ada Lowongan": "No Jobs Available",
     "Lowongan Belum Tersedia": "Jobs Not Available",
     "Tanpa Judul": "Untitled",
+    "Deskripsi": "Description",
+    "Deskripsi Pekerjaan": "Job Description",
+    "Persyaratan": "Requirements",
+    "Syarat / Kualifikasi": "Requirements / Qualifications",
+    "Detail Pekerjaan": "Job Details",
+    "Detail Lowongan": "Job Details",
+    "Informasi Pekerjaan": "Job Information",
 
-    /* Company */
+    /* ===== COMPANY ===== */
     "Dashboard Perusahaan": "Company Dashboard",
     "Profil Perusahaan": "Company Profile",
     "Pasang Lowongan": "Post a Job",
@@ -4824,15 +4840,47 @@ window.addEventListener("load", () => {
     "Batal": "Cancel",
     "Simpan": "Save",
     "Kembali": "Back",
+    "Perusahaan Anda": "Your Company",
+    "Nama Perusahaan": "Company Name",
+    "Alamat Perusahaan": "Company Address",
+    "Tentang Perusahaan": "About the Company",
+    "Website Perusahaan": "Company Website",
 
-    /* Jobseeker */
+    /* ===== JOBSEEKER ===== */
     "Dashboard Pencari Kerja": "Jobseeker Dashboard",
     "Pencari Kerja": "Jobseeker",
-    "CV": "Resume",
     "Profil Diri": "Personal Profile",
     "Lamaran Saya": "My Applications",
+    "CV": "Resume",
+    "Unggah CV": "Upload Resume",
+    "Upload CV": "Upload Resume",
+    "Hapus CV": "Delete Resume",
+    "Belum ada CV": "No resume uploaded",
+    "Pengalaman Kerja": "Work Experience",
+    "Pendidikan": "Education",
+    "Pendidikan Minimal": "Minimum Education",
 
-    /* Common messages */
+    /* ===== APPLICATION ===== */
+    "Lamaran": "Application",
+    "Lamaran Pekerjaan": "Job Application",
+    "Detail Lamaran": "Application Details",
+    "Posisi": "Position",
+    "Tanggal Lamaran": "Application Date",
+    "Status": "Status",
+    "Menunggu": "Pending",
+    "Diterima": "Accepted",
+    "Ditolak": "Rejected",
+    "Belum ada lamaran": "No applications yet",
+    "Belum Ada Lamaran": "No Applications Yet",
+
+    /* ===== POST JOB ===== */
+    "Judul / Posisi Pekerjaan": "Job Title / Position",
+    "Lokasi / Kota": "Location / City",
+    "Gaji": "Salary",
+    "Lengkapi informasi pekerjaan yang ingin Anda tawarkan.":
+      "Complete the job information you want to offer.",
+
+    /* ===== COMMON ===== */
     "Notifikasi": "Notifications",
     "Berhasil": "Success",
     "Gagal": "Failed",
@@ -4840,41 +4888,119 @@ window.addEventListener("load", () => {
     "Memuat...": "Loading...",
     "Silakan tunggu...": "Please wait...",
     "Terjadi kesalahan": "An error occurred",
+    "Tidak ada data": "No data available",
+    "Tidak ditemukan": "Not found",
+    "Ya": "Yes",
+    "Tidak": "No",
+    "Tutup": "Close",
+    "Konfirmasi": "Confirmation",
+    "Selanjutnya": "Next",
+    "Sebelumnya": "Previous",
+    "Kirim": "Send",
 
-    /* Post job */
-    "Judul / Posisi Pekerjaan": "Job Title / Position",
-    "Pilih kategori": "Select category",
-    "Lokasi / Kota": "Location / City",
-    "Pilih jenis pekerjaan": "Select job type",
-    "Gaji": "Salary",
-    "Pengalaman Kerja": "Work Experience",
-    "Pendidikan Minimal": "Minimum Education",
-    "Deskripsi Pekerjaan": "Job Description",
-    "Syarat / Kualifikasi": "Requirements / Qualifications",
-    "Batas Lamaran": "Application Deadline"
+    /* ===== HOME ===== */
+    "Temukan Pekerjaan Impianmu":
+      "Find Your Dream Job",
+    "Cari pekerjaan impianmu":
+      "Find your dream job",
+    "Mulai Cari": "Start Searching",
+    "Pelajari Lebih Lanjut": "Learn More"
   };
 
+
+  /* =========================================================
+     GET LANGUAGE
+     ========================================================= */
+
   function getLanguage() {
-    return localStorage.getItem(LANGUAGE_KEY) === "en" ? "en" : "id";
+
+    return localStorage.getItem(LANGUAGE_KEY) === "en"
+      ? "en"
+      : "id";
+
   }
 
+
+  /* =========================================================
+     TRANSLATE TEXT
+     ========================================================= */
+
   function translateText(text) {
-    const clean = text.trim();
 
-    if (!clean) return text;
+    if (!text) return text;
 
-    if (getLanguage() === "en" && globalTranslations[clean]) {
-      return text.replace(clean, globalTranslations[clean]);
+    const trimmed = text.trim();
+
+    if (!trimmed) return text;
+
+    if (translations[trimmed]) {
+
+      return text.replace(
+        trimmed,
+        translations[trimmed]
+      );
+
     }
 
     return text;
+
   }
 
-  function apply(root = document.body) {
-    if (!root || getLanguage() !== "en") return;
+
+  /* =========================================================
+     TRANSLATE TEXT NODE
+     ========================================================= */
+
+  function translateTextNode(node) {
+
+    if (!node || node.nodeType !== Node.TEXT_NODE) {
+      return;
+    }
+
+    const parent = node.parentElement;
+
+    if (!parent) return;
+
+    const tag = parent.tagName;
+
+    if (
+      tag === "SCRIPT" ||
+      tag === "STYLE" ||
+      tag === "NOSCRIPT"
+    ) {
+      return;
+    }
+
+    const original = node.nodeValue;
+
+    if (!original || !original.trim()) {
+      return;
+    }
+
+    const translated = translateText(original);
+
+    if (translated !== original) {
+      node.nodeValue = translated;
+    }
+
+  }
+
+
+  /* =========================================================
+     TRANSLATE ELEMENT
+     ========================================================= */
+
+  function translateElement(element) {
+
+    if (
+      !element ||
+      element.nodeType !== Node.ELEMENT_NODE
+    ) {
+      return;
+    }
 
     const walker = document.createTreeWalker(
-      root,
+      element,
       NodeFilter.SHOW_TEXT
     );
 
@@ -4884,154 +5010,318 @@ window.addEventListener("load", () => {
       nodes.push(walker.currentNode);
     }
 
-    nodes.forEach(node => {
-      const parent = node.parentElement;
-
-      if (!parent) return;
-
-      const tag = parent.tagName;
-
-      if (
-        tag === "SCRIPT" ||
-        tag === "STYLE" ||
-        tag === "NOSCRIPT"
-      ) {
-        return;
-      }
-
-      const translated = translateText(node.nodeValue);
-
-      if (translated !== node.nodeValue) {
-        node.nodeValue = translated;
-      }
+    nodes.forEach(function (node) {
+      translateTextNode(node);
     });
 
-    /* Placeholder */
-    root.querySelectorAll("[placeholder]").forEach(el => {
-      const value = el.getAttribute("placeholder");
 
-      if (globalTranslations[value]) {
-        el.setAttribute(
+    /* PLACEHOLDER */
+
+    if (element.hasAttribute("placeholder")) {
+
+      const value =
+        element.getAttribute("placeholder");
+
+      if (translations[value]) {
+
+        element.setAttribute(
           "placeholder",
-          globalTranslations[value]
+          translations[value]
         );
+
       }
-    });
 
-    /* Title */
-    root.querySelectorAll("[title]").forEach(el => {
-      const value = el.getAttribute("title");
+    }
 
-      if (globalTranslations[value]) {
-        el.setAttribute(
+
+    /* TITLE */
+
+    if (element.hasAttribute("title")) {
+
+      const value =
+        element.getAttribute("title");
+
+      if (translations[value]) {
+
+        element.setAttribute(
           "title",
-          globalTranslations[value]
+          translations[value]
         );
+
       }
-    });
 
-    /* Aria label */
-    root.querySelectorAll("[aria-label]").forEach(el => {
-      const value = el.getAttribute("aria-label");
+    }
 
-      if (globalTranslations[value]) {
-        el.setAttribute(
+
+    /* ARIA LABEL */
+
+    if (element.hasAttribute("aria-label")) {
+
+      const value =
+        element.getAttribute("aria-label");
+
+      if (translations[value]) {
+
+        element.setAttribute(
           "aria-label",
-          globalTranslations[value]
+          translations[value]
         );
+
       }
-    });
+
+    }
+
   }
+
+
+  /* =========================================================
+     APPLY GLOBAL TRANSLATION
+     ========================================================= */
+
+  function apply() {
+
+    if (getLanguage() !== "en") {
+      return;
+    }
+
+    if (!document.body) {
+      return;
+    }
+
+    translateElement(document.body);
+
+
+    /* SELECT OPTION */
+
+    document
+      .querySelectorAll("option")
+      .forEach(function (option) {
+
+        const text =
+          option.textContent.trim();
+
+        if (translations[text]) {
+
+          option.textContent =
+            translations[text];
+
+        }
+
+      });
+
+  }
+
+
+  /* =========================================================
+     MUTATION OBSERVER
+     Menangkap konten dinamis:
+     Job card
+     Dashboard
+     Modal
+     Form
+     dll.
+     ========================================================= */
 
   let observer = null;
+  let applying = false;
+
 
   function startObserver() {
-    if (observer) observer.disconnect();
 
-    observer = new MutationObserver(mutations => {
-      if (getLanguage() !== "en") return;
-
-      mutations.forEach(mutation => {
-        mutation.addedNodes.forEach(node => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            apply(node);
-          }
-
-          if (node.nodeType === Node.TEXT_NODE) {
-            const translated = translateText(node.nodeValue);
-
-            if (translated !== node.nodeValue) {
-              node.nodeValue = translated;
-            }
-          }
-        });
-      });
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  }
-
-  function stopObserver() {
     if (observer) {
       observer.disconnect();
-      observer = null;
     }
+
+    observer = new MutationObserver(
+      function (mutations) {
+
+        if (getLanguage() !== "en") {
+          return;
+        }
+
+        if (applying) {
+          return;
+        }
+
+        applying = true;
+
+        mutations.forEach(
+          function (mutation) {
+
+            mutation.addedNodes.forEach(
+              function (node) {
+
+                if (
+                  node.nodeType === Node.TEXT_NODE
+                ) {
+
+                  translateTextNode(node);
+
+                }
+
+                else if (
+                  node.nodeType === Node.ELEMENT_NODE
+                ) {
+
+                  translateElement(node);
+
+                }
+
+              }
+            );
+
+          }
+        );
+
+        applying = false;
+
+      }
+    );
+
+
+    observer.observe(document.body, {
+
+      childList: true,
+      subtree: true
+
+    });
+
   }
 
+
+  /* =========================================================
+     STOP OBSERVER
+     ========================================================= */
+
+  function stopObserver() {
+
+    if (observer) {
+
+      observer.disconnect();
+
+      observer = null;
+
+    }
+
+  }
+
+
+  /* =========================================================
+     PUBLIC LANGUAGE MANAGER
+     ========================================================= */
+
   window.LanguageManager = {
+
     get: getLanguage,
 
+
     apply: function () {
-      apply(document.body);
+
+      apply();
+
     },
 
-    
-    set: function (language) {
-      const lang = language === "en" ? "en" : "id";
 
-      localStorage.setItem(LANGUAGE_KEY, lang);
+    set: function (language) {
+
+      const lang =
+        language === "en"
+          ? "en"
+          : "id";
+
+
+      localStorage.setItem(
+        LANGUAGE_KEY,
+        lang
+      );
+
+
       document.documentElement.lang = lang;
 
+
       /*
-       * Jalankan sistem bahasa LAMA terlebih dahulu.
-       * Manager ini hanya melapisi hasil akhirnya.
+       * SISTEM TRANSLATE LAMA
+       * TETAP DIJALANKAN
        */
+
       if (
         typeof window.setLanguage === "function" &&
-        window.setLanguage !== this.set
+        window.setLanguage !== window.LanguageManager.set
       ) {
+
         try {
+
           window.setLanguage(lang);
-        } catch (error) {
+
+        }
+
+        catch (error) {
+
           console.warn(
             "Legacy language system error:",
             error
           );
+
         }
+
       }
+
+
+      /*
+       * GLOBAL MANAGER
+       */
 
       if (lang === "en") {
-        apply(document.body);
-        startObserver();
-      } else {
-        stopObserver();
+
+        setTimeout(
+          function () {
+
+            apply();
+
+            startObserver();
+
+          },
+          100
+        );
+
       }
+
+      else {
+
+        stopObserver();
+
+      }
+
     }
+
   };
 
-  /*
-   * Jalankan otomatis saat halaman selesai dimuat.
-   */
-  document.addEventListener("DOMContentLoaded", function () {
-    if (getLanguage() === "en") {
-      setTimeout(function () {
-        LanguageManager.apply();
-        startObserver();
-      }, 100);
+
+  /* =========================================================
+     AUTO LOAD
+     ========================================================= */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+      if (getLanguage() === "en") {
+
+        setTimeout(
+          function () {
+
+            apply();
+
+            startObserver();
+
+          },
+          300
+        );
+
+      }
+
     }
-  });
+  );
+
 
 })();
