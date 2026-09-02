@@ -4143,13 +4143,10 @@ document.addEventListener("DOMContentLoaded", () => {
   loginBtn.addEventListener("click", () => {
     authModal.classList.remove("hidden");
 
-    const language = localStorage.getItem("siteLanguage") || "id";
+  const language = "id";
 
-    modalTitle.textContent = language === "en" ? "Login" : "Masuk";
-    modalText.textContent = language === "en"
-      ? "Log in to your account"
-      : "Masuk ke akun Anda";
-
+modalTitle.textContent = "Masuk";
+modalText.textContent = "Masuk ke akun Anda";
     authForm.dataset.mode = "login";
   });
 }
