@@ -1115,67 +1115,99 @@ async function renderJobs(list = jobs) {
 
   let displayJobs = list;
 
-  // =====================================================
-  // AUTO TRANSLATION JOB LISTING SAAT MODE ENGLISH
-  // =====================================================
-  if (language === "en" && list.length > 0) {
-    displayJobs = await Promise.all(
-      list.map(async (job) => {
-        const cacheKey =
-          job.id || `${job.title}-${job.company}-${job.location}`;
+// =====================================================
+// AUTO TRANSLATION JOB LISTING SAAT MODE ENGLISH
+// =====================================================
+if (language === "en" && list.length > 0) {
 
-        // Gunakan hasil terjemahan yang sudah ada
-        if (window.jobTranslationCache.has(cacheKey)) {
-          return {
-            ...job,
-            ...window.jobTranslationCache.get(cacheKey)
-          };
+  const uncachedJobs = list.filter((job) => {
+    const cacheKey =
+      job.id || `${job.title}-${job.company}-${job.location}`;
+
+    return !window.jobTranslationCache.has(cacheKey);
+  });
+
+  // Kirim SEMUA job yang belum ada di cache
+  // dalam SATU request ke Edge Function
+  if (uncachedJobs.length > 0) {
+    try {
+      const { data, error } = await supabase.functions.invoke(
+        "translate-job",
+        {
+          body: {
+            jobs: uncachedJobs.map((job) => ({
+              title: job.title || "",
+              company: job.company || "",
+              location: job.location || "",
+              type: job.type || "",
+              category: job.category || "",
+              salary: job.salary || "",
+              description: job.description || "",
+              requirements: job.requirements || ""
+            }))
+          }
         }
+      );
 
-        try {
-          const { data, error } = await supabase.functions.invoke(
-            "translate-job",
-            {
-              body: {
-                job: {
-                  title: job.title || "",
-                  company: job.company || "",
-                  location: job.location || "",
-                  type: job.type || "",
-                  category: job.category || "",
-                  salary: job.salary || "",
-                  description: job.description || "",
-                  requirements: job.requirements || ""
-                }
-              }
-            }
+      if (error) {
+        console.error("Batch translation error:", error);
+      } else if (
+        data?.success &&
+        Array.isArray(data.jobs)
+      ) {
+
+        data.jobs.forEach((translatedJob, index) => {
+          const originalJob = uncachedJobs[index];
+
+          if (!originalJob || !translatedJob) return;
+
+          const cacheKey =
+            originalJob.id ||
+            `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
+
+          window.jobTranslationCache.set(
+            cacheKey,
+            translatedJob
           );
+        });
 
-          if (error) {
-            console.error("Translation error:", error);
-            return job;
-          }
+      } else {
+        console.error(
+          "Batch translation returned invalid data:",
+          data
+        );
+      }
 
-          if (!data?.success || !data?.job) {
-            console.error("Translation returned no job:", data);
-            return job;
-          }
-
-          window.jobTranslationCache.set(cacheKey, data.job);
-
-          return {
-            ...job,
-            ...data.job
-          };
-
-        } catch (error) {
-          console.error("Translate job failed:", error);
-          return job;
-        }
-      })
-    );
+    } catch (error) {
+      console.error(
+        "Batch translation failed:",
+        error
+      );
+    }
   }
 
+  // Gunakan hasil terjemahan dari cache
+  displayJobs = list.map((job) => {
+
+    const cacheKey =
+      job.id ||
+      `${job.title}-${job.company}-${job.location}`;
+
+    const translatedJob =
+      window.jobTranslationCache.get(cacheKey);
+
+    if (translatedJob) {
+      return {
+        ...job,
+        ...translatedJob
+      };
+    }
+
+    // Kalau belum berhasil diterjemahkan,
+    // tetap tampilkan data asli
+    return job;
+  });
+}
   // =====================================================
   // TAMPILKAN JOB
   // =====================================================
