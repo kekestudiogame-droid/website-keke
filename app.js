@@ -4855,24 +4855,6 @@ if (document.body) {
 }
 
 
-// Saat bahasa EN dipilih
-document.addEventListener("click", (event) => {
-  const target = event.target;
-
-  if (
-    target &&
-    (
-      target.id === "langEN" ||
-      target.closest("#langEN")
-    )
-  ) {
-    globalTranslationCache = {};
-
-    setTimeout(() => {
-      runGlobalTranslation();
-    }, 1000);
-  }
-});
 
 
 // Saat halaman pertama kali dibuka
