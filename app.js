@@ -4773,9 +4773,8 @@ window.addEventListener("load", () => {
 });
 
 /* =========================================================
-   GLOBAL LANGUAGE MANAGER v2
-   Layer di atas sistem translate lama
-   Sistem translate lama TIDAK dihapus
+   GLOBAL LANGUAGE MANAGER v3
+   Global layer di atas sistem translate lama
    ========================================================= */
 
 (function () {
@@ -4784,7 +4783,7 @@ window.addEventListener("load", () => {
 
   const translations = {
 
-    /* ===== NAVIGATION ===== */
+    /* NAVIGATION */
     "Beranda": "Home",
     "Cari Kerja": "Find a Job",
     "Lowongan": "Jobs",
@@ -4797,7 +4796,7 @@ window.addEventListener("load", () => {
     "Bantuan": "Help",
     "Dashboard": "Dashboard",
 
-    /* ===== SEARCH ===== */
+    /* SEARCH */
     "Cari": "Search",
     "Cari Lowongan": "Search Jobs",
     "Cari pekerjaan": "Search jobs",
@@ -4812,7 +4811,7 @@ window.addEventListener("load", () => {
     "Pilih kategori": "Select category",
     "Pilih jenis pekerjaan": "Select job type",
 
-    /* ===== JOBS ===== */
+    /* JOBS */
     "Lihat detail": "View details",
     "Lihat Detail": "View Details",
     "Lamar": "Apply",
@@ -4820,15 +4819,15 @@ window.addEventListener("load", () => {
     "Belum Ada Lowongan": "No Jobs Available",
     "Lowongan Belum Tersedia": "Jobs Not Available",
     "Tanpa Judul": "Untitled",
+    "Detail Pekerjaan": "Job Details",
+    "Detail Lowongan": "Job Details",
+    "Informasi Pekerjaan": "Job Information",
     "Deskripsi": "Description",
     "Deskripsi Pekerjaan": "Job Description",
     "Persyaratan": "Requirements",
     "Syarat / Kualifikasi": "Requirements / Qualifications",
-    "Detail Pekerjaan": "Job Details",
-    "Detail Lowongan": "Job Details",
-    "Informasi Pekerjaan": "Job Information",
 
-    /* ===== COMPANY ===== */
+    /* COMPANY */
     "Dashboard Perusahaan": "Company Dashboard",
     "Profil Perusahaan": "Company Profile",
     "Pasang Lowongan": "Post a Job",
@@ -4846,7 +4845,7 @@ window.addEventListener("load", () => {
     "Tentang Perusahaan": "About the Company",
     "Website Perusahaan": "Company Website",
 
-    /* ===== JOBSEEKER ===== */
+    /* JOBSEEKER */
     "Dashboard Pencari Kerja": "Jobseeker Dashboard",
     "Pencari Kerja": "Jobseeker",
     "Profil Diri": "Personal Profile",
@@ -4860,7 +4859,7 @@ window.addEventListener("load", () => {
     "Pendidikan": "Education",
     "Pendidikan Minimal": "Minimum Education",
 
-    /* ===== APPLICATION ===== */
+    /* APPLICATION */
     "Lamaran": "Application",
     "Lamaran Pekerjaan": "Job Application",
     "Detail Lamaran": "Application Details",
@@ -4873,14 +4872,14 @@ window.addEventListener("load", () => {
     "Belum ada lamaran": "No applications yet",
     "Belum Ada Lamaran": "No Applications Yet",
 
-    /* ===== POST JOB ===== */
+    /* POST JOB */
     "Judul / Posisi Pekerjaan": "Job Title / Position",
     "Lokasi / Kota": "Location / City",
     "Gaji": "Salary",
     "Lengkapi informasi pekerjaan yang ingin Anda tawarkan.":
       "Complete the job information you want to offer.",
 
-    /* ===== COMMON ===== */
+    /* COMMON */
     "Notifikasi": "Notifications",
     "Berhasil": "Success",
     "Gagal": "Failed",
@@ -4898,13 +4897,37 @@ window.addEventListener("load", () => {
     "Sebelumnya": "Previous",
     "Kirim": "Send",
 
-    /* ===== HOME ===== */
+    /* HOME */
     "Temukan Pekerjaan Impianmu":
       "Find Your Dream Job",
     "Cari pekerjaan impianmu":
       "Find your dream job",
     "Mulai Cari": "Start Searching",
-    "Pelajari Lebih Lanjut": "Learn More"
+    "Pelajari Lebih Lanjut": "Learn More",
+
+    /* EXTRA COMMON PHRASES */
+    "Daftar lowongan perusahaan Anda.":
+      "Your company's job listings.",
+    "Lowongan perusahaan akan muncul di sini.":
+      "Your company's job listings will appear here.",
+    "Lamaran pekerjaan yang kamu kirim akan muncul di sini.":
+      "The jobs you apply for will appear here.",
+    "← Dashboard":
+      "← Dashboard",
+    "Status: Menunggu":
+      "Status: Pending",
+    "Status: Diterima":
+      "Status: Accepted",
+    "Status: Ditolak":
+      "Status: Rejected",
+    "Tanggal:":
+      "Date:",
+    "Perusahaan:":
+      "Company:",
+    "Lokasi:":
+      "Location:",
+    "Posisi:":
+      "Position:"
   };
 
 
@@ -4913,37 +4936,43 @@ window.addEventListener("load", () => {
      ========================================================= */
 
   function getLanguage() {
-
     return localStorage.getItem(LANGUAGE_KEY) === "en"
       ? "en"
       : "id";
-
   }
 
 
   /* =========================================================
-     TRANSLATE TEXT
+     PARTIAL TRANSLATION
+     Bisa menerjemahkan bagian dari kalimat dinamis.
+     Contoh:
+     "Status: Menunggu" -> "Status: Pending"
+     "Belum Ada Lowongan Marketing"
+     -> "No Jobs Available Marketing"
      ========================================================= */
 
   function translateText(text) {
 
-    if (!text) return text;
-
-    const trimmed = text.trim();
-
-    if (!trimmed) return text;
-
-    if (translations[trimmed]) {
-
-      return text.replace(
-        trimmed,
-        translations[trimmed]
-      );
-
+    if (!text || getLanguage() !== "en") {
+      return text;
     }
 
-    return text;
+    let result = text;
 
+    const keys = Object.keys(translations)
+      .sort(function (a, b) {
+        return b.length - a.length;
+      });
+
+    keys.forEach(function (key) {
+
+      if (result.includes(key)) {
+        result = result.split(key).join(translations[key]);
+      }
+
+    });
+
+    return result;
   }
 
 
@@ -4959,7 +4988,9 @@ window.addEventListener("load", () => {
 
     const parent = node.parentElement;
 
-    if (!parent) return;
+    if (!parent) {
+      return;
+    }
 
     const tag = parent.tagName;
 
@@ -4982,7 +5013,6 @@ window.addEventListener("load", () => {
     if (translated !== original) {
       node.nodeValue = translated;
     }
-
   }
 
 
@@ -5022,15 +5052,15 @@ window.addEventListener("load", () => {
       const value =
         element.getAttribute("placeholder");
 
-      if (translations[value]) {
+      const translated =
+        translateText(value);
 
+      if (translated !== value) {
         element.setAttribute(
           "placeholder",
-          translations[value]
+          translated
         );
-
       }
-
     }
 
 
@@ -5041,15 +5071,15 @@ window.addEventListener("load", () => {
       const value =
         element.getAttribute("title");
 
-      if (translations[value]) {
+      const translated =
+        translateText(value);
 
+      if (translated !== value) {
         element.setAttribute(
           "title",
-          translations[value]
+          translated
         );
-
       }
-
     }
 
 
@@ -5060,22 +5090,22 @@ window.addEventListener("load", () => {
       const value =
         element.getAttribute("aria-label");
 
-      if (translations[value]) {
+      const translated =
+        translateText(value);
 
+      if (translated !== value) {
         element.setAttribute(
           "aria-label",
-          translations[value]
+          translated
         );
-
       }
-
     }
 
   }
 
 
   /* =========================================================
-     APPLY GLOBAL TRANSLATION
+     APPLY
      ========================================================= */
 
   function apply() {
@@ -5091,20 +5121,20 @@ window.addEventListener("load", () => {
     translateElement(document.body);
 
 
-    /* SELECT OPTION */
+    /* SELECT OPTIONS */
 
     document
       .querySelectorAll("option")
       .forEach(function (option) {
 
-        const text =
-          option.textContent.trim();
+        const original =
+          option.textContent;
 
-        if (translations[text]) {
+        const translated =
+          translateText(original);
 
-          option.textContent =
-            translations[text];
-
+        if (translated !== original) {
+          option.textContent = translated;
         }
 
       });
@@ -5114,17 +5144,11 @@ window.addEventListener("load", () => {
 
   /* =========================================================
      MUTATION OBSERVER
-     Menangkap konten dinamis:
-     Job card
-     Dashboard
-     Modal
-     Form
-     dll.
+     Menangkap konten yang dibuat setelah halaman dibuka
      ========================================================= */
 
   let observer = null;
-  let applying = false;
-
+  let timer = null;
 
   function startObserver() {
 
@@ -5133,94 +5157,59 @@ window.addEventListener("load", () => {
     }
 
     observer = new MutationObserver(
-      function (mutations) {
+      function () {
 
         if (getLanguage() !== "en") {
           return;
         }
 
-        if (applying) {
-          return;
-        }
+        clearTimeout(timer);
 
-        applying = true;
-
-        mutations.forEach(
-          function (mutation) {
-
-            mutation.addedNodes.forEach(
-              function (node) {
-
-                if (
-                  node.nodeType === Node.TEXT_NODE
-                ) {
-
-                  translateTextNode(node);
-
-                }
-
-                else if (
-                  node.nodeType === Node.ELEMENT_NODE
-                ) {
-
-                  translateElement(node);
-
-                }
-
-              }
-            );
-
-          }
-        );
-
-        applying = false;
+        timer = setTimeout(function () {
+          apply();
+        }, 30);
 
       }
     );
 
-
     observer.observe(document.body, {
-
       childList: true,
       subtree: true
-
     });
 
   }
 
 
   /* =========================================================
-     STOP OBSERVER
+     STOP
      ========================================================= */
 
   function stopObserver() {
 
     if (observer) {
-
       observer.disconnect();
-
       observer = null;
+    }
 
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
     }
 
   }
 
 
   /* =========================================================
-     PUBLIC LANGUAGE MANAGER
+     PUBLIC MANAGER
      ========================================================= */
 
   window.LanguageManager = {
 
     get: getLanguage,
 
-
     apply: function () {
-
       apply();
-
     },
-
 
     set: function (language) {
 
@@ -5229,19 +5218,16 @@ window.addEventListener("load", () => {
           ? "en"
           : "id";
 
-
       localStorage.setItem(
         LANGUAGE_KEY,
         lang
       );
 
-
       document.documentElement.lang = lang;
 
 
       /*
-       * SISTEM TRANSLATE LAMA
-       * TETAP DIJALANKAN
+       * SISTEM TRANSLATE LAMA TETAP BERJALAN
        */
 
       if (
@@ -5250,18 +5236,12 @@ window.addEventListener("load", () => {
       ) {
 
         try {
-
           window.setLanguage(lang);
-
-        }
-
-        catch (error) {
-
+        } catch (error) {
           console.warn(
             "Legacy language system error:",
             error
           );
-
         }
 
       }
@@ -5273,20 +5253,14 @@ window.addEventListener("load", () => {
 
       if (lang === "en") {
 
-        setTimeout(
-          function () {
+        setTimeout(function () {
 
-            apply();
+          apply();
+          startObserver();
 
-            startObserver();
+        }, 100);
 
-          },
-          100
-        );
-
-      }
-
-      else {
+      } else {
 
         stopObserver();
 
@@ -5298,7 +5272,7 @@ window.addEventListener("load", () => {
 
 
   /* =========================================================
-     AUTO LOAD
+     INITIAL LOAD
      ========================================================= */
 
   document.addEventListener(
@@ -5307,21 +5281,16 @@ window.addEventListener("load", () => {
 
       if (getLanguage() === "en") {
 
-        setTimeout(
-          function () {
+        setTimeout(function () {
 
-            apply();
+          apply();
+          startObserver();
 
-            startObserver();
-
-          },
-          300
-        );
+        }, 300);
 
       }
 
     }
   );
-
 
 })();
