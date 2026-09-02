@@ -798,8 +798,18 @@ if (categoryFilter) {
       if (element.children.length === 0) {
         const original = element.textContent.trim();
 
-        if (language === "en" && globalTranslations[original]) {
-          element.textContent = globalTranslations[original];
+       if (language === "en" && globalTranslations[original]) {
+  if (
+    original === "Dashboard Pencari Kerja" ||
+    original === "Dashboard Perusahaan" ||
+    original === "Bantuan" ||
+    original === "Logout"
+  ) {
+    element.textContent = original;
+  } else {
+    element.textContent = globalTranslations[original];
+  }
+}
         } else if (language === "id") {
           const indonesia = Object.keys(globalTranslations)
             .find(key => globalTranslations[key] === original);
