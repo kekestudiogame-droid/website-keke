@@ -1095,35 +1095,10 @@ if (locationInput) {
   }
 }
 
-function renderJobs(list = jobs){
+async function renderJobs(list = jobs) {
   jobsGrid.innerHTML = "";
-    const language = localStorage.getItem("siteLanguage") || "id";
 
-  const translateCategory = (category) => {
-    if (language !== "en") return category;
-
-    const map = {
-      "Administrasi": "Administration",
-      "Accounting": "Accounting",
-      "Finance": "Finance",
-      "Marketing": "Marketing",
-      "Sales": "Sales",
-      "IT": "IT",
-      "Teknologi": "Technology",
-      "HRD": "HR",
-      "Desain": "Design",
-      "Customer Service": "Customer Service",
-      "Logistik": "Logistics",
-      "Produksi": "Production",
-      "Kesehatan": "Healthcare",
-      "Pendidikan": "Education",
-      "Kuliner": "Culinary",
-      "Retail": "Retail",
-      "Lainnya": "Other"
-    };
-
-    return map[category] || category;
-  };
+  const language = localStorage.getItem("siteLanguage") || "id";
 
   if (jobCount) {
     jobCount.textContent = list.length;
@@ -1132,55 +1107,152 @@ function renderJobs(list = jobs){
   if (emptyState) {
     emptyState.classList.toggle("hidden", list.length !== 0);
   }
-  list.forEach((job, i) => {
+
+  // Cache terjemahan agar tidak meminta Gemini berulang kali
+  if (!window.jobTranslationCache) {
+    window.jobTranslationCache = new Map();
+  }
+
+  let displayJobs = list;
+
+  // =====================================================
+  // AUTO TRANSLATION JOB LISTING SAAT MODE ENGLISH
+  // =====================================================
+  if (language === "en" && list.length > 0) {
+    displayJobs = await Promise.all(
+      list.map(async (job) => {
+        const cacheKey =
+          job.id || `${job.title}-${job.company}-${job.location}`;
+
+        // Gunakan hasil terjemahan yang sudah ada
+        if (window.jobTranslationCache.has(cacheKey)) {
+          return {
+            ...job,
+            ...window.jobTranslationCache.get(cacheKey)
+          };
+        }
+
+        try {
+          const { data, error } = await supabase.functions.invoke(
+            "translate-job",
+            {
+              body: {
+                job: {
+                  title: job.title || "",
+                  company: job.company || "",
+                  location: job.location || "",
+                  type: job.type || "",
+                  category: job.category || "",
+                  salary: job.salary || "",
+                  description: job.description || "",
+                  requirements: job.requirements || ""
+                }
+              }
+            }
+          );
+
+          if (error) {
+            console.error("Translation error:", error);
+            return job;
+          }
+
+          if (!data?.success || !data?.job) {
+            console.error("Translation returned no job:", data);
+            return job;
+          }
+
+          window.jobTranslationCache.set(cacheKey, data.job);
+
+          return {
+            ...job,
+            ...data.job
+          };
+
+        } catch (error) {
+          console.error("Translate job failed:", error);
+          return job;
+        }
+      })
+    );
+  }
+
+  // =====================================================
+  // TAMPILKAN JOB
+  // =====================================================
+  displayJobs.forEach((job, i) => {
     const card = document.createElement("article");
     card.className = "job-card";
 
     card.innerHTML = `
       <div class="job-top">
-        <div class="company-logo">${job.initials}</div>
-        <span class="pill">${job.type}</span>
+        <div class="company-logo">${job.initials || ""}</div>
+
+        <span class="pill">
+          ${job.type || ""}
+        </span>
       </div>
 
-      <h3>${job.title}</h3>
-      <div class="company">${job.company}</div>
+      <h3>${job.title || ""}</h3>
+
+      <div class="company">
+        ${job.company || ""}
+      </div>
 
       <div class="job-meta">
-        <span>📍 ${job.location}</span>
-        <span>▣ ${translateCategory(job.category)}</span>
+        <span>📍 ${job.location || ""}</span>
+
+        <span>
+          ▣ ${job.category || ""}
+        </span>
       </div>
 
-      <div class="salary">${job.salary}</div>
-      <div class="job-posted-date">
-  ${job.created_at
-    ? (
-        localStorage.getItem("siteLanguage") === "en"
-          ? `Posted ${new Date(job.created_at).toLocaleString("en-US", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}`
-          : `Diposting ${new Date(job.created_at).toLocaleString("id-ID", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}`
-      )
-    : ""}
-</div>
+      <div class="salary">
+        ${job.salary || ""}
+      </div>
 
-    <div class="job-actions">
-  <button data-details="${i}">
-    ${localStorage.getItem("siteLanguage") === "en" ? "View Details" : "Lihat Detail"}
-  </button>
-  <button data-apply="${i}">
-    ${localStorage.getItem("siteLanguage") === "en" ? "Apply →" : "Lamar →"}
-  </button>
-</div>
+      <div class="job-posted-date">
+        ${
+          job.created_at
+            ? (
+                language === "en"
+                  ? `Posted ${new Date(job.created_at).toLocaleString("en-US", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    })}`
+                  : `Diposting ${new Date(job.created_at).toLocaleString("id-ID", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    })}`
+              )
+            : ""
+        }
+      </div>
+
+      <div class="job-actions">
+
+        <button data-details="${i}">
+          ${
+            language === "en"
+              ? "View Details"
+              : "Lihat Detail"
+          }
+        </button>
+
+        <button data-apply="${i}">
+          ${
+            language === "en"
+              ? "Apply →"
+              : "Lamar →"
+          }
+        </button>
+
+      </div>
     `;
 
     jobsGrid.appendChild(card);
