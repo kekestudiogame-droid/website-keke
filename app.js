@@ -4771,3 +4771,266 @@ document.addEventListener("click", (event) => {
 window.addEventListener("load", () => {
   runGlobalTranslation();
 });
+
+/* =========================================================
+   GLOBAL LANGUAGE MANAGER
+   Layer di atas sistem translate lama
+   ========================================================= */
+
+(function () {
+  const LANGUAGE_KEY = "siteLanguage";
+
+  const globalTranslations = {
+    /* Navigation */
+    "Beranda": "Home",
+    "Cari Kerja": "Find a Job",
+    "Lowongan": "Jobs",
+    "Perusahaan": "Companies",
+    "Profil": "Profile",
+    "Masuk": "Login",
+    "Daftar": "Register",
+    "Keluar": "Logout",
+    "Kontak": "Contact",
+    "Bantuan": "Help",
+
+    /* Search */
+    "Cari": "Search",
+    "Cari Lowongan": "Search Jobs",
+    "Semua Kota": "All Cities",
+    "Semua Jenis Pekerjaan": "All Job Types",
+    "Jenis Pekerjaan": "Job Type",
+    "Kategori Pekerjaan": "Job Category",
+    "Lokasi": "Location",
+    "Kota": "City",
+
+    /* Jobs */
+    "Lihat detail": "View details",
+    "Lihat Detail": "View Details",
+    "Lamar": "Apply",
+    "Lamar →": "Apply →",
+    "Belum Ada Lowongan": "No Jobs Available",
+    "Lowongan Belum Tersedia": "Jobs Not Available",
+    "Tanpa Judul": "Untitled",
+
+    /* Company */
+    "Dashboard Perusahaan": "Company Dashboard",
+    "Profil Perusahaan": "Company Profile",
+    "Pasang Lowongan": "Post a Job",
+    "Lowongan Saya": "My Jobs",
+    "Lamaran Masuk": "Incoming Applications",
+    "Simpan Lowongan": "Save Job",
+    "Edit": "Edit",
+    "Hapus": "Delete",
+    "Batal": "Cancel",
+    "Simpan": "Save",
+    "Kembali": "Back",
+
+    /* Jobseeker */
+    "Dashboard Pencari Kerja": "Jobseeker Dashboard",
+    "Pencari Kerja": "Jobseeker",
+    "CV": "Resume",
+    "Profil Diri": "Personal Profile",
+    "Lamaran Saya": "My Applications",
+
+    /* Common messages */
+    "Notifikasi": "Notifications",
+    "Berhasil": "Success",
+    "Gagal": "Failed",
+    "Loading": "Loading",
+    "Memuat...": "Loading...",
+    "Silakan tunggu...": "Please wait...",
+    "Terjadi kesalahan": "An error occurred",
+
+    /* Post job */
+    "Judul / Posisi Pekerjaan": "Job Title / Position",
+    "Pilih kategori": "Select category",
+    "Lokasi / Kota": "Location / City",
+    "Pilih jenis pekerjaan": "Select job type",
+    "Gaji": "Salary",
+    "Pengalaman Kerja": "Work Experience",
+    "Pendidikan Minimal": "Minimum Education",
+    "Deskripsi Pekerjaan": "Job Description",
+    "Syarat / Kualifikasi": "Requirements / Qualifications",
+    "Batas Lamaran": "Application Deadline"
+  };
+
+  function getLanguage() {
+    return localStorage.getItem(LANGUAGE_KEY) === "en" ? "en" : "id";
+  }
+
+  function translateText(text) {
+    const clean = text.trim();
+
+    if (!clean) return text;
+
+    if (getLanguage() === "en" && globalTranslations[clean]) {
+      return text.replace(clean, globalTranslations[clean]);
+    }
+
+    return text;
+  }
+
+  function apply(root = document.body) {
+    if (!root || getLanguage() !== "en") return;
+
+    const walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT
+    );
+
+    const nodes = [];
+
+    while (walker.nextNode()) {
+      nodes.push(walker.currentNode);
+    }
+
+    nodes.forEach(node => {
+      const parent = node.parentElement;
+
+      if (!parent) return;
+
+      const tag = parent.tagName;
+
+      if (
+        tag === "SCRIPT" ||
+        tag === "STYLE" ||
+        tag === "NOSCRIPT"
+      ) {
+        return;
+      }
+
+      const translated = translateText(node.nodeValue);
+
+      if (translated !== node.nodeValue) {
+        node.nodeValue = translated;
+      }
+    });
+
+    /* Placeholder */
+    root.querySelectorAll("[placeholder]").forEach(el => {
+      const value = el.getAttribute("placeholder");
+
+      if (globalTranslations[value]) {
+        el.setAttribute(
+          "placeholder",
+          globalTranslations[value]
+        );
+      }
+    });
+
+    /* Title */
+    root.querySelectorAll("[title]").forEach(el => {
+      const value = el.getAttribute("title");
+
+      if (globalTranslations[value]) {
+        el.setAttribute(
+          "title",
+          globalTranslations[value]
+        );
+      }
+    });
+
+    /* Aria label */
+    root.querySelectorAll("[aria-label]").forEach(el => {
+      const value = el.getAttribute("aria-label");
+
+      if (globalTranslations[value]) {
+        el.setAttribute(
+          "aria-label",
+          globalTranslations[value]
+        );
+      }
+    });
+  }
+
+  let observer = null;
+
+  function startObserver() {
+    if (observer) observer.disconnect();
+
+    observer = new MutationObserver(mutations => {
+      if (getLanguage() !== "en") return;
+
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            apply(node);
+          }
+
+          if (node.nodeType === Node.TEXT_NODE) {
+            const translated = translateText(node.nodeValue);
+
+            if (translated !== node.nodeValue) {
+              node.nodeValue = translated;
+            }
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  function stopObserver() {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+  }
+
+  window.LanguageManager = {
+    get: getLanguage,
+
+    apply: function () {
+      apply(document.body);
+    },
+
+    set: function (language) {
+      const lang = language === "en" ? "en" : "id";
+
+      localStorage.setItem(LANGUAGE_KEY, lang);
+      document.documentElement.lang = lang;
+
+      /*
+       * Jalankan sistem bahasa LAMA terlebih dahulu.
+       * Manager ini hanya melapisi hasil akhirnya.
+       */
+      if (
+        typeof window.setLanguage === "function" &&
+        window.setLanguage !== this.set
+      ) {
+        try {
+          window.setLanguage(lang);
+        } catch (error) {
+          console.warn(
+            "Legacy language system error:",
+            error
+          );
+        }
+      }
+
+      if (lang === "en") {
+        apply(document.body);
+        startObserver();
+      } else {
+        stopObserver();
+      }
+    }
+  };
+
+  /*
+   * Jalankan otomatis saat halaman selesai dimuat.
+   */
+  document.addEventListener("DOMContentLoaded", function () {
+    if (getLanguage() === "en") {
+      setTimeout(function () {
+        LanguageManager.apply();
+        startObserver();
+      }, 100);
+    }
+  });
+
+})();
