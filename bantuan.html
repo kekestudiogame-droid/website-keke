@@ -133,16 +133,18 @@
 
   </div>
   <script>
-function translateHelp() {
-  const language = localStorage.getItem("siteLanguage") || "id";
+<script>
+function setHelpLanguage(language) {
+  document.documentElement.lang = language;
+  localStorage.setItem("siteLanguage", language);
+
+  const title = document.querySelector("title");
+  const h1 = document.querySelector("h1");
+  const h2 = document.querySelectorAll("h2");
+  const p = document.querySelectorAll(".container > p");
 
   if (language === "en") {
-    document.documentElement.lang = "en";
-
-    const h1 = document.querySelector("h1");
-    const h2 = document.querySelectorAll("h2");
-    const p = document.querySelectorAll(".container > p");
-
+    title.textContent = "Help - Cari Kerjaku";
     h1.textContent = "Cari Kerjaku Help";
 
     h2[0].textContent = "1. How to Register";
@@ -178,11 +180,51 @@ function translateHelp() {
     p[10].innerHTML = '<a href="index.html">← Back to Cari Kerjaku</a>';
 
     p[11].textContent = "© Cari Kerjaku";
+
+  } else {
+    title.textContent = "Bantuan - Cari Kerjaku";
+    h1.textContent = "Bantuan Cari Kerjaku";
+
+    h2[0].textContent = "1. Cara Mendaftar";
+    h2[1].textContent = "2. Cara Login";
+    h2[2].textContent = "3. Cara Mencari Lowongan";
+    h2[3].textContent = "4. Cara Melamar Pekerjaan";
+    h2[4].textContent = "5. Upload CV";
+    h2[5].textContent = "6. Untuk Perusahaan";
+    h2[6].textContent = "7. Pembayaran";
+    h2[7].textContent = "8. Jika Mengalami Masalah";
+    h2[8].textContent = "9. Keamanan";
+
+    p[0].textContent = "Selamat datang di halaman Bantuan Cari Kerjaku. Halaman ini membantu pengguna memahami cara menggunakan layanan Cari Kerjaku.";
+
+    p[1].textContent = "Pilih menu daftar atau registrasi, kemudian masukkan informasi yang diperlukan dan ikuti petunjuk yang tersedia.";
+
+    p[2].textContent = "Masukkan email dan kata sandi yang telah digunakan saat pendaftaran, kemudian pilih tombol Login.";
+
+    p[3].textContent = "Gunakan daftar lowongan dan fitur pencarian untuk menemukan pekerjaan berdasarkan posisi atau lokasi yang sesuai.";
+
+    p[4].innerHTML = "Buka lowongan yang diinginkan, periksa informasi pekerjaan, kemudian pilih tombol <strong>Lamar Sekarang</strong>.";
+
+    p[5].textContent = "Pencari kerja dapat mengunggah CV melalui akun mereka apabila fitur tersebut tersedia. Pastikan CV yang diunggah merupakan dokumen yang benar dan sesuai.";
+
+    p[6].textContent = "Perusahaan dapat membuat akun perusahaan, melengkapi profil, kemudian menggunakan fitur pemasangan lowongan sesuai dengan layanan yang tersedia.";
+
+    p[7].textContent = "Jika pemasangan lowongan memerlukan pembayaran, ikuti petunjuk pembayaran yang tersedia pada platform.";
+
+    p[8].textContent = "Jika mengalami kendala saat menggunakan Cari Kerjaku, periksa kembali informasi yang dimasukkan dan coba gunakan layanan kembali. Jika masalah tetap terjadi, hubungi Cari Kerjaku melalui informasi kontak yang tersedia pada platform.";
+
+    p[9].textContent = "Jangan membagikan kata sandi atau informasi keamanan akun kepada orang lain. Gunakan Cari Kerjaku hanya untuk tujuan yang sah.";
+
+    p[10].innerHTML = '<a href="index.html">← Kembali ke Cari Kerjaku</a>';
+
+    p[11].textContent = "© Cari Kerjaku";
   }
 }
 
-translateHelp();
+const savedLanguage = localStorage.getItem("siteLanguage") || "id";
+setHelpLanguage(savedLanguage);
 </script>
+
 
 </body>
 </html>
