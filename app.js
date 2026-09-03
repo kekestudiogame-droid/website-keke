@@ -2299,7 +2299,7 @@ const language = "id";
               margin-top:8px;
               color:#16805c;
             ">
-              0
+              <span id="myApplicationsCount">0</span>
             </div>
           </div>
 
