@@ -4860,12 +4860,11 @@ window.addEventListener("load", () => {
    Global layer di atas sistem translate lama
    ========================================================= */
 
-(function () {
-
+if (false) {
+  (function () {
   const LANGUAGE_KEY = "siteLanguage";
-
   const translations = {
-
+    
     /* NAVIGATION */
     "Beranda": "Home",
     "Cari Kerja": "Find a Job",
@@ -5387,3 +5386,5 @@ window.addEventListener("load", () => {
   );
 
 })();
+}
+   
