@@ -2719,7 +2719,21 @@ async function showMyApplications() {
 function translateMyApplications(page) {
   if (!page) return;
 
-  const language = "id";
+  page.innerHTML = page.innerHTML
+    .replaceAll("Lamaran Saya", "My Applications")
+    .replaceAll("Belum ada lamaran", "No applications yet")
+    .replaceAll("Detail Lamaran", "Application Details")
+    .replaceAll("Posisi", "Position")
+    .replaceAll("Perusahaan", "Company")
+    .replaceAll("Lokasi", "Location")
+    .replaceAll("Tanggal Lamaran", "Application Date")
+    .replaceAll("Status", "Status")
+    .replaceAll("Menunggu", "Pending")
+    .replaceAll("Diterima", "Accepted")
+    .replaceAll("Ditolak", "Rejected")
+    .replaceAll("Lihat Detail", "View Details");
+
+  const language = localStorage.getItem("siteLanguage") || "id";
 
   const translations = {
     "Lamaran Saya": "My Applications",
