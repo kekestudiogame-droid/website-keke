@@ -5112,6 +5112,12 @@ window.addEventListener("load", () => {
       return;
     }
 
+      if (
+    element.id === "authModal" ||
+    element.closest("#authModal")
+    ) {
+    return;
+    }
     const walker = document.createTreeWalker(
       element,
       NodeFilter.SHOW_TEXT
