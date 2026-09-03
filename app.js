@@ -2710,8 +2710,7 @@ async function showMyApplications() {
 
    document.body.innerHTML = "";
    document.body.appendChild(page);
-   translateMyApplications(page);
-
+ 
   } catch (error) {
     alert("Gagal mengambil lowongan: " + error.message);
   }
