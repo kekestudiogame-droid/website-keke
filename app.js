@@ -4217,13 +4217,11 @@ const currentUser = JSON.parse(userData);
           font-weight:bold;
           margin-bottom:25px;
        ">
-  ← ${localStorage.getItem("siteLanguage") === "en" ? "Back" : "Kembali"}
+  ← Kembali
 </button>
 
 <h1>
-  ${localStorage.getItem("siteLanguage") === "en"
-    ? "Incoming Applications"
-    : "Lamaran Masuk"}
+ Belum ada lamaran masuk.
 </h1>
 
 <p style="color:#64748b;">
