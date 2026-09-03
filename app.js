@@ -5112,12 +5112,14 @@ window.addEventListener("load", () => {
       return;
     }
 
-      if (
-    element.id === "authModal" ||
-    element.closest("#authModal")
-    ) {
-    return;
-    }
+  if (
+  element.id === "authModal" ||
+  element.closest("#authModal") ||
+  element.id === "companyDashboard" ||
+  element.closest("#companyDashboard")
+) {
+  return;
+}
     const walker = document.createTreeWalker(
       element,
       NodeFilter.SHOW_TEXT
