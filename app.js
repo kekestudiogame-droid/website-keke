@@ -2718,8 +2718,7 @@ async function showMyApplications() {
 }
 function translateMyApplications(page) {
   if (!page) return;
-   function translateMyApplications(page) {
-  if (!page) return;
+  
 
   const language = "id";
 
