@@ -4239,9 +4239,7 @@ const currentUser = JSON.parse(userData);
                 border-radius:14px;
                 border:1px solid #e5eaf1;
               ">
-                ${localStorage.getItem("siteLanguage") === "en"
-               ? "No incoming applications yet."
-               : "Belum ada lamaran masuk."}
+               Belum ada lamaran masuk.
               </div>
             `
             : myApplications.map(app => `
