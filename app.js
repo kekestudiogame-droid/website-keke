@@ -2249,7 +2249,7 @@ const language = "id";
     margin-top:8px;
     color:#123b6d;
   ">
-    👤 ${localStorage.getItem("siteLanguage") === "en" ? "Complete Profile" : "Lengkapi Profil"}
+👤 Lengkapi Profil
   </div>
 </div>
 
