@@ -2450,6 +2450,31 @@ const language = "id";
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
   translateJobseekerDashboard(dashboard);
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+if (userData && accessToken) {
+  const user = JSON.parse(userData);
+
+  fetch(
+    `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=id`,
+    {
+      method: "GET",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${accessToken}`
+      }
+    }
+  )
+    .then(response => response.json())
+    .then(applications => {
+      const countElement = document.querySelector("#myApplicationsCount");
+
+      if (countElement) {
+        countElement.textContent = applications.length;
+      }
+    });
+}
   
   const uploadBtn = document.querySelector("#uploadCvBtn");
   const fileInput = document.querySelector("#cvFileInput");
