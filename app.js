@@ -2612,8 +2612,8 @@ async function showMyApplications() {
   }
 
   try {
-    const response = await fetch(
-      `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*`,
+   const response = await fetch(
+  `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=*,jobs(title,company_name)`,
       {
         method: "GET",
         headers: {
@@ -2712,6 +2712,10 @@ async function showMyApplications() {
                   <h3 style="margin:0;color:#123b6d;">
                     Lamaran #${application.id}
                   </h3>
+                  <p style="margin:6px 0;color:#334155;">
+                  Perusahaan:
+                  <strong>${application.jobs?.company_name || "Perusahaan"}</strong>
+                  </p>
 
                   <p style="color:#64748b;">
                     Status:
