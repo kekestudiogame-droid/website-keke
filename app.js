@@ -2138,7 +2138,7 @@ loadJobsFromDatabase();
 // ================= DASHBOARD PENCARI KERJA =================
 
 function showJobseekerDashboard() {
-  const language = localStorage.getItem("siteLanguage") || "id";
+const language = "id";
   const dashboard = document.createElement("div");
 
   dashboard.id = "jobseekerDashboard";
@@ -2523,12 +2523,11 @@ function showJobseekerDashboard() {
     }
   });
 }
-function translateJobseekerDashboard(page) {
-  if (!page) return;
+      function translateJobseekerDashboard(page) {
+      if (!page) return;
 
-  const language = localStorage.getItem("siteLanguage") || "id";
-
-  const translations = {
+     const language = "id";
+     const translations = {
     "Dashboard Pencari Kerja": "Job Seeker Dashboard",
     "🔎 Cari Lowongan": "🔎 Find Jobs",
     "Selamat Datang 👋": "Welcome 👋",
