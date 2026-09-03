@@ -4284,7 +4284,7 @@ const currentUser = JSON.parse(userData);
 
 async function showJobseekerProfile() {
   const userData = localStorage.getItem("cariKerjakuUser");
-  const language = localStorage.getItem("siteLanguage") || "id";
+  const language = "id";
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData) {
