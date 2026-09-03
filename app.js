@@ -3979,7 +3979,7 @@ function translateCompanyDashboard() {
 function translateCompanyProfile(profile) {
   if (!profile) return;
 
-  const language = localStorage.getItem("siteLanguage") || "id";
+  const language = "id";
 
 const translations = {
   "Profil Perusahaan": "Company Profile",
