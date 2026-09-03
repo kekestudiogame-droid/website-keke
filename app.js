@@ -4699,6 +4699,7 @@ async function showJobseekerProfile() {
 
 // ================= GLOBAL TRANSLATION ENGINE v2 =================
 
+if (false) {
 let globalTranslationCache = {};
 
 async function translateGlobalPage() {
@@ -4854,6 +4855,7 @@ if (document.body) {
 window.addEventListener("load", () => {
   runGlobalTranslation();
 });
+ } 
 
 /* =========================================================
    GLOBAL LANGUAGE MANAGER v3
