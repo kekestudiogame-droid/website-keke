@@ -2758,7 +2758,7 @@ function translateMyApplications(page) {
 function translateMyJobs(page) {
   if (!page) return;
 
-  const language = localStorage.getItem("siteLanguage") || "id";
+  const language = "id";
 
   const translations = {
    "📋 Lowongan Saya": "📋 My Jobs",
