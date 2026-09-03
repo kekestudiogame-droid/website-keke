@@ -4010,6 +4010,7 @@ const translations = {
     }
   }
 });
+}
 
 function translatePostJobForm(form) {
   if (!form) return;
