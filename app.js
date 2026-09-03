@@ -2311,7 +2311,7 @@ const language = "id";
             border:1px solid #e5eaf1;
           ">
             <div style="font-size:13px;color:#64748b;">
-              Pekerjaan Tersimpan
+             Perkembangan Lamaran
             </div>
 
             <div style="
@@ -2560,7 +2560,7 @@ if (userData && accessToken) {
     "CV Saya": "My CV",
     "Belum Upload": "Not Uploaded",
     "Lamaran Saya": "My Applications",
-    "Pekerjaan Tersimpan": "Saved Jobs",
+    "Perkembangan Lamaran": "Application Progress",
     "Notifikasi": "Notifications",
     "📄 CV Saya": "📄 My CV",
     "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu.": "Upload your CV in PDF format so companies can view your profile and work experience.",
