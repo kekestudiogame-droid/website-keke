@@ -3684,7 +3684,7 @@ function showPostJobForm() {
   const form = document.createElement("div");
 
   form.innerHTML = `
-    <div style="
+  <div id="postJobFormContainer" style="
       position:fixed;
       inset:0;
       background:rgba(15,23,42,.65);
@@ -5112,11 +5112,13 @@ window.addEventListener("load", () => {
       return;
     }
 
-  if (
+ if (
   element.id === "authModal" ||
   element.closest("#authModal") ||
   element.id === "companyDashboard" ||
-  element.closest("#companyDashboard")
+  element.closest("#companyDashboard") ||
+  element.id === "postJobFormContainer" ||
+  element.closest("#postJobFormContainer")
 ) {
   return;
 }
