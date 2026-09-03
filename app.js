@@ -2826,7 +2826,7 @@ function showCompanyDashboard() {
             opacity:.85;
             margin-top:4px;
           ">
-            ${currentLanguage === "en" ? "Company Dashboard" : "Dashboard Perusahaan"}
+            Dashboard Perusahaan
           </div>
         </div>
 
@@ -2856,7 +2856,7 @@ function showCompanyDashboard() {
             font-size:30px;
             color:#172b4d;
           ">
-           ${currentLanguage === "en" ? "Welcome 👋" : "Selamat Datang 👋"} 
+           Selamat Datang 👋
           </h1>
 
           <p style="
