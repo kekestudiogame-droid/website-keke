@@ -2649,6 +2649,9 @@ if (progressSelect && progressDetail) {
     });
   }
 }
+    });
+}
+      
   const uploadBtn = document.querySelector("#uploadCvBtn");
   const fileInput = document.querySelector("#cvFileInput");
   const status = document.querySelector("#cvStatus");
