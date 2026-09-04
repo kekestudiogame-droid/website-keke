@@ -4813,14 +4813,18 @@ if (!userData || !accessToken) {
 }
 
 const currentUser = JSON.parse(userData);
-  try {
-    const response = await fetch(
-      `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id)&order=created_at.desc`,
-      {
-        method: "GET",
-        headers: supabaseHeaders
-      }
-    );
+   try {
+   const response = await fetch(
+  `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id)&order=created_at.desc`,
+   {
+    method: "GET",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json"
+    }
+   }
+  );
 
     if (!response.ok) {
       throw new Error(await response.text());
