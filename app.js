@@ -2254,7 +2254,6 @@ const language = "id";
 </div>
 
          <div
-          
             style=" 
           
             
@@ -2303,26 +2302,41 @@ const language = "id";
             </div>
           </div>
 
-          <div style="
-            background:white;
-            padding:22px;
-            border-radius:14px;
-            box-shadow:0 3px 12px rgba(15,23,42,.07);
-            border:1px solid #e5eaf1;
-          ">
-            <div style="font-size:13px;color:#64748b;">
-             Perkembangan Lamaran
-            </div>
+         <div style="
+  background:linear-gradient(135deg,#ffffff 0%,#f5f3ff 100%);
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 3px 12px rgba(15,23,42,.07);
+  border:1px solid #e5eaf1;
+">
+  <div style="
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:#64748b;
+  ">
+    <span style="font-size:18px;">🔔</span>
+    Perkembangan Lamaran
+  </div>
 
-            <div style="
-              font-size:30px;
-              font-weight:bold;
-              margin-top:8px;
-              color:#7c3aed;
-            ">
-              0
-            </div>
-          </div>
+  <div style="
+    font-size:30px;
+    font-weight:bold;
+    margin-top:8px;
+    color:#7c3aed;
+  ">
+    <span id="applicationProgressCount">0</span>
+  </div>
+
+  <div style="
+    margin-top:4px;
+    font-size:12px;
+    color:#64748b;
+  ">
+    Lamaran terkirim
+  </div>
+</div>
 
           <div style="
             background:white;
@@ -2347,6 +2361,38 @@ const language = "id";
 
         </div>
 
+        <!-- PERKEMBANGAN LAMARAN -->
+<div
+  id="applicationProgressList"
+  style="
+    margin-top:20px;
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 3px 15px rgba(15,23,42,.07);
+    border:1px solid #e5eaf1;
+  "
+>
+  <h2 style="
+    margin:0 0 18px;
+    color:#172b4d;
+    font-size:20px;
+  ">
+    🔔 Perkembangan Lamaran
+  </h2>
+
+  <div id="applicationProgressContent">
+    <div style="
+      padding:18px;
+      border-radius:12px;
+      background:#f8fafc;
+      color:#64748b;
+      text-align:center;
+    ">
+      Memuat perkembangan lamaran...
+    </div>
+  </div>
+</div>
         <!-- CV -->
         <div style="
           background:white;
@@ -2450,29 +2496,110 @@ const language = "id";
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
   translateJobseekerDashboard(dashboard);
+  
   const userData = localStorage.getItem("cariKerjakuUser");
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
 if (userData && accessToken) {
   const user = JSON.parse(userData);
 
-  fetch(
-    `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=id`,
-    {
-      method: "GET",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${accessToken}`
-      }
+ fetch(
+  `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=id,status,created_at,jobs(title,company_name)&order=created_at.desc`,
+  {
+    method: "GET",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${accessToken}`
     }
-  )
+  }
+)
     .then(response => response.json())
     .then(applications => {
       const countElement = document.querySelector("#myApplicationsCount");
 
-      if (countElement) {
-        countElement.textContent = applications.length;
-      }
+if (countElement) {
+  countElement.textContent = applications.length;
+}
+
+const progressCount = document.querySelector("#applicationProgressCount");
+
+if (progressCount) {
+  progressCount.textContent = applications.length;
+}
+
+const progressContent = document.querySelector("#applicationProgressContent");
+
+if (progressContent) {
+  if (applications.length === 0) {
+    progressContent.innerHTML = `
+      <div style="
+        padding:18px;
+        border-radius:12px;
+        background:#f8fafc;
+        color:#64748b;
+        text-align:center;
+      ">
+        Belum ada perkembangan lamaran.
+      </div>
+    `;
+  } else {
+    progressContent.innerHTML = applications.map(application => `
+      <div style="
+        padding:18px;
+        margin-bottom:12px;
+        border-radius:12px;
+        background:#f8fafc;
+        border:1px solid #e5eaf1;
+      ">
+        <div style="
+          font-weight:bold;
+          color:#7c3aed;
+          margin-bottom:6px;
+        ">
+          📩 Lamaran #${application.id}
+        </div>
+
+        <div style="
+          font-size:16px;
+          font-weight:bold;
+          color:#172b4d;
+        ">
+          ${application.jobs?.title || "Lowongan"}
+        </div>
+
+        <div style="
+          margin-top:6px;
+          color:#334155;
+        ">
+          Lamaran Anda ke
+          <strong>${application.jobs?.company_name || "Perusahaan"}</strong>
+          telah berhasil terkirim.
+        </div>
+
+        <div style="
+          margin-top:5px;
+          font-size:13px;
+          color:#64748b;
+        ">
+          Perusahaan akan menerima dan meninjau lamaran Anda.
+        </div>
+
+        <div style="
+          margin-top:8px;
+          font-size:12px;
+          color:#94a3b8;
+        ">
+          ${application.created_at
+            ? new Date(application.created_at).toLocaleString("id-ID", {
+                dateStyle: "medium",
+                timeStyle: "short"
+              })
+            : "-"}
+        </div>
+      </div>
+    `).join("");
+  }
+}
     });
 }
   
