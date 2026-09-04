@@ -3460,14 +3460,17 @@ function showCompanyDashboard() {
               Total Lowongan
             </div>
 
-            <div style="
-              font-size:30px;
-              font-weight:bold;
-              margin-top:8px;
-              color:#123b6d;
-            ">
+          <div
+             id="companyTotalJobs"
+             style="
+             font-size:30px;
+             font-weight:bold;
+             margin-top:8px;
+             color:#123b6d;
+             "
+            >
               0
-            </div>
+          </div>
           </div>
 
           <div style="
