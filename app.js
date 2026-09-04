@@ -3670,27 +3670,27 @@ if (userData && accessToken) {
         const jobs = await response.json();
         const totalJobs = document.getElementById("companyTotalJobs");
         const totalApplicants = document.getElementById("companyTotalApplicants");
+        const myJobIds = jobs.map(job => job.id);
+
         const applicationsResponse = await fetch(
-          `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id)&order=created_at.desc`,
-       {
-        method: "GET",
-        headers: supabaseHeaders
-        }
-        );
+  `${SUPABASE_APPLICATIONS_URL}?select=id,job_id,status,created_at`,
+  {
+    method: "GET",
+    headers: supabaseHeaders
+  }
+);
 
-      if (applicationsResponse.ok) {
-         const applications = await applicationsResponse.json();
+if (applicationsResponse.ok) {
+  const applications = await applicationsResponse.json();
 
-         const myApplications = applications.filter(
-         app => app.jobs && app.jobs.user_id === user.id
-        );
+  const myApplications = applications.filter(
+    app => myJobIds.includes(app.job_id)
+  );
 
-        if (totalApplicants) {
-          totalApplicants.textContent = myApplications.length;
-        }
-        }
-      
-
+  if (totalApplicants) {
+    totalApplicants.textContent = myApplications.length;
+  }
+}
         if (totalJobs) {
           totalJobs.textContent = jobs.length;
         }
