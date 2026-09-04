@@ -3643,7 +3643,7 @@ function showCompanyDashboard() {
  document.body.innerHTML = "";
  document.body.appendChild(dashboard);
  translateCompanyDashboard();
-
+}
 
 // ================= PROFIL PERUSAHAAN =================
 
