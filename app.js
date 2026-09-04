@@ -4849,32 +4849,42 @@ async function showIncomingApplications() {
     // =====================================================
     // AMBIL PROFILE PENCARI KERJA
     // =====================================================
-    for (const app of myApplications) {
+  
+for (const app of myApplications) {
 
-      const profileResponse = await fetch(
-        `${SUPABASE_URL}jobseekers?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
-        {
-          method: "GET",
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
-
-      if (profileResponse.ok) {
-
-        const profiles = await profileResponse.json();
-
-        app.jobseeker = profiles[0] || null;
-
-      } else {
-
-        app.jobseeker = null;
-
+  const profileResponse = await fetch(
+    `${SUPABASE_URL}jobseekers?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
+    {
+      method: "GET",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"
       }
     }
+  );
+
+  console.log("USER ID PELAMAR:", app.user_id);
+
+  if (profileResponse.ok) {
+
+    const profiles = await profileResponse.json();
+
+    console.log("HASIL PROFILE:", profiles);
+
+    app.jobseeker = profiles[0] || null;
+
+  } else {
+
+    console.error(
+      "Gagal mengambil profile pelamar:",
+      await profileResponse.text()
+    );
+
+    app.jobseeker = null;
+  }
+}
+    
 
 
     // =====================================================
