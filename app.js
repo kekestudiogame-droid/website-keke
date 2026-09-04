@@ -4852,8 +4852,8 @@ async function showIncomingApplications() {
   
 for (const app of myApplications) {
 
-  const profileResponse = await fetch(
-    `${SUPABASE_URL}jobseekers?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
+ const profileResponse = await fetch(
+  `${SUPABASE_URL}jobseeker?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
     {
       method: "GET",
       headers: {
