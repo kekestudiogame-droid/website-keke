@@ -3640,9 +3640,42 @@ function showCompanyDashboard() {
     </div>
   `;
 
-  document.body.innerHTML = "";
-  document.body.appendChild(dashboard);
-  translateCompanyDashboard();
+ document.body.innerHTML = "";
+ document.body.appendChild(dashboard);
+ translateCompanyDashboard();
+
+const userData = localStorage.getItem("cariKerjakuUser");
+const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+if (userData && accessToken) {
+  try {
+    const user = JSON.parse(userData);
+
+    if (user.id) {
+      const response = await fetch(
+        `${SUPABASE_URL}jobs?user_id=eq.${user.id}&select=id`,
+        {
+          method: "GET",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      );
+
+      if (response.ok) {
+        const jobs = await response.json();
+        const totalJobs = document.getElementById("companyTotalJobs");
+
+        if (totalJobs) {
+          totalJobs.textContent = jobs.length;
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Gagal menghitung total lowongan:", error);
+  }
+}
 }
 // ================= PROFIL PERUSAHAAN =================
 
