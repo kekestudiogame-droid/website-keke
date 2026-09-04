@@ -2381,17 +2381,31 @@ const language = "id";
     🔔 Perkembangan Lamaran
   </h2>
 
-  <div id="applicationProgressContent">
-    <div style="
-      padding:18px;
-      border-radius:12px;
-      background:#f8fafc;
-      color:#64748b;
-      text-align:center;
-    ">
-      Memuat perkembangan lamaran...
-    </div>
-  </div>
+<div id="applicationProgressContent">
+
+  <select
+    id="applicationProgressSelect"
+    style="
+      width:100%;
+      padding:13px 15px;
+      border:1px solid #cbd5e1;
+      border-radius:10px;
+      background:white;
+      color:#172b4d;
+      font-size:14px;
+      cursor:pointer;
+      outline:none;
+    "
+  >
+    <option value="">Memuat perkembangan lamaran...</option>
+  </select>
+
+  <div
+    id="applicationProgressDetail"
+    style="margin-top:15px;"
+  ></div>
+
+</div>
 </div>
         <!-- CV -->
         <div style="
@@ -2527,11 +2541,18 @@ if (progressCount) {
   progressCount.textContent = applications.length;
 }
 
-const progressContent = document.querySelector("#applicationProgressContent");
+const progressSelect = document.querySelector("#applicationProgressSelect");
+const progressDetail = document.querySelector("#applicationProgressDetail");
 
-if (progressContent) {
+if (progressSelect && progressDetail) {
+
   if (applications.length === 0) {
-    progressContent.innerHTML = `
+
+    progressSelect.innerHTML = `
+      <option value="">Belum ada lamaran</option>
+    `;
+
+    progressDetail.innerHTML = `
       <div style="
         padding:18px;
         border-radius:12px;
@@ -2542,67 +2563,92 @@ if (progressContent) {
         Belum ada perkembangan lamaran.
       </div>
     `;
+
   } else {
-    progressContent.innerHTML = applications.map(application => `
-      <div style="
-        padding:18px;
-        margin-bottom:12px;
-        border-radius:12px;
-        background:#f8fafc;
-        border:1px solid #e5eaf1;
-      ">
-        <div style="
-          font-weight:bold;
-          color:#7c3aed;
-          margin-bottom:6px;
-        ">
-          📩 Lamaran #${application.id}
-        </div>
 
-        <div style="
-          font-size:16px;
-          font-weight:bold;
-          color:#172b4d;
-        ">
-          ${application.jobs?.title || "Lowongan"}
-        </div>
+    progressSelect.innerHTML = `
+      <option value="">Pilih lamaran...</option>
+      ${applications.map(application => `
+        <option value="${application.id}">
+          Lamaran #${application.id} — ${application.jobs?.title || "Lowongan"} — ${application.jobs?.company_name || "Perusahaan"}
+        </option>
+      `).join("")}
+    `;
 
-        <div style="
-          margin-top:6px;
-          color:#334155;
-        ">
-          Lamaran Anda ke
-          <strong>${application.jobs?.company_name || "Perusahaan"}</strong>
-          telah berhasil terkirim.
-        </div>
+    progressSelect.addEventListener("change", () => {
 
-        <div style="
-          margin-top:5px;
-          font-size:13px;
-          color:#64748b;
-        ">
-          Perusahaan akan menerima dan meninjau lamaran Anda.
-        </div>
+      const selectedId = progressSelect.value;
 
+      if (!selectedId) {
+        progressDetail.innerHTML = "";
+        return;
+      }
+
+      const application = applications.find(
+        item => String(item.id) === String(selectedId)
+      );
+
+      if (!application) return;
+
+      progressDetail.innerHTML = `
         <div style="
-          margin-top:8px;
-          font-size:12px;
-          color:#94a3b8;
+          padding:20px;
+          border-radius:12px;
+          background:#f8fafc;
+          border:1px solid #e5eaf1;
         ">
-          ${application.created_at
-            ? new Date(application.created_at).toLocaleString("id-ID", {
-                dateStyle: "medium",
-                timeStyle: "short"
-              })
-            : "-"}
+
+          <div style="
+            font-weight:bold;
+            color:#7c3aed;
+            margin-bottom:7px;
+          ">
+            📩 Lamaran #${application.id}
+          </div>
+
+          <div style="
+            font-size:17px;
+            font-weight:bold;
+            color:#172b4d;
+          ">
+            ${application.jobs?.title || "Lowongan"}
+          </div>
+
+          <div style="
+            margin-top:8px;
+            color:#334155;
+          ">
+            Lamaran Anda ke
+            <strong>${application.jobs?.company_name || "Perusahaan"}</strong>
+            telah berhasil terkirim.
+          </div>
+
+          <div style="
+            margin-top:6px;
+            font-size:13px;
+            color:#64748b;
+          ">
+            Perusahaan akan menerima dan meninjau lamaran Anda.
+          </div>
+
+          <div style="
+            margin-top:10px;
+            font-size:12px;
+            color:#94a3b8;
+          ">
+            ${application.created_at
+              ? new Date(application.created_at).toLocaleString("id-ID", {
+                  dateStyle: "medium",
+                  timeStyle: "short"
+                })
+              : "-"}
+          </div>
+
         </div>
-      </div>
-    `).join("");
+      `;
+    });
   }
 }
-    });
-}
-  
   const uploadBtn = document.querySelector("#uploadCvBtn");
   const fileInput = document.querySelector("#cvFileInput");
   const status = document.querySelector("#cvStatus");
