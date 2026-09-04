@@ -2485,7 +2485,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
     throw new Error(companyError);
   }
       const language = localStorage.getItem("siteLanguage") || "id";
-alert(language === "en" ? "Login successful!" : "Login berhasil!");
+      alert("Login berhasil!");
 
 showCompanyDashboard();
 return;
@@ -2495,7 +2495,7 @@ return;
 showJobseekerDashboard();
 
 const language = localStorage.getItem("siteLanguage") || "id";
-alert(language === "en" ? "Login successful!" : "Login berhasil!"); 
+alert("Login berhasil!");
     }
 
   } catch (error) {
