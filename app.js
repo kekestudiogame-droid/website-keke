@@ -4852,9 +4852,9 @@ async function showIncomingApplications() {
   
 for (const app of myApplications) {
 
-   const profileResponse = await fetch(
- `${SUPABASE_URL}jobseeker_profiles?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
-    {
+  const profileResponse = await fetch(
+  `${SUPABASE_URL}jobseeker_profiles?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skills,photo`,
+  {
       method: "GET",
       headers: {
         apikey: SUPABASE_KEY,
