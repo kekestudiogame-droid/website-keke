@@ -4835,6 +4835,24 @@ const currentUser = JSON.parse(userData);
     const myApplications = applications.filter(
       app => app.jobs && app.jobs.user_id === currentUser.id
     );
+     for (const app of myApplications) {
+     const profileResponse = await fetch(
+    `${SUPABASE_URL}jobseekers?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
+    {
+      method: "GET",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"
+      }
+    }
+  );
+
+  if (profileResponse.ok) {
+    const profiles = await profileResponse.json();
+    app.jobseeker = profiles[0] || null;
+  }
+}
 
     const dashboard = document.createElement("div");
 
