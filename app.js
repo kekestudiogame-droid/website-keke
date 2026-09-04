@@ -4804,27 +4804,32 @@ modalText.textContent = "Masuk ke akun Anda";
 
 
 async function showIncomingApplications() {
- const userData = localStorage.getItem("cariKerjakuUser");
-const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
-if (!userData || !accessToken) {
-  alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
-  return;
-}
+  if (!userData || !accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
 
-const currentUser = JSON.parse(userData);
-   try {
-   const response = await fetch(
- `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id)&order=created_at.desc`,
-   {
-    method: "GET",
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json"
-    }
-   }
-  );
+  const currentUser = JSON.parse(userData);
+
+  try {
+
+    // =====================================================
+    // AMBIL DATA LAMARAN
+    // =====================================================
+    const response = await fetch(
+      `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id)&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
     if (!response.ok) {
       throw new Error(await response.text());
@@ -4832,28 +4837,49 @@ const currentUser = JSON.parse(userData);
 
     const applications = await response.json();
 
+
+    // =====================================================
+    // FILTER HANYA LAMARAN UNTUK LOWONGAN PERUSAHAAN INI
+    // =====================================================
     const myApplications = applications.filter(
       app => app.jobs && app.jobs.user_id === currentUser.id
     );
-     for (const app of myApplications) {
-     const profileResponse = await fetch(
-    `${SUPABASE_URL}jobseekers?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
-    {
-      method: "GET",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json"
+
+
+    // =====================================================
+    // AMBIL PROFILE PENCARI KERJA
+    // =====================================================
+    for (const app of myApplications) {
+
+      const profileResponse = await fetch(
+        `${SUPABASE_URL}jobseekers?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skill,photo`,
+        {
+          method: "GET",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (profileResponse.ok) {
+
+        const profiles = await profileResponse.json();
+
+        app.jobseeker = profiles[0] || null;
+
+      } else {
+
+        app.jobseeker = null;
+
       }
     }
-  );
 
-  if (profileResponse.ok) {
-    const profiles = await profileResponse.json();
-    app.jobseeker = profiles[0] || null;
-  }
-}
 
+    // =====================================================
+    // BUAT HALAMAN LAMARAN MASUK
+    // =====================================================
     const dashboard = document.createElement("div");
 
     dashboard.style.cssText = `
@@ -4864,79 +4890,135 @@ const currentUser = JSON.parse(userData);
       color:#172b4d;
     `;
 
+
     dashboard.innerHTML = `
       <div style="max-width:1100px;margin:auto;">
-        <button onclick="showCompanyDashboard()" style="
-          padding:10px 18px;
-          border:none;
-          border-radius:8px;
-          background:#123b6d;
-          color:white;
-          cursor:pointer;
-          font-weight:bold;
-          margin-bottom:25px;
-       ">
-  ← Kembali
-</button>
 
-<h1>
-  ${myApplications.length === 0
-    ? "Belum ada lamaran masuk."
-    : "Lamaran Masuk"}
-</h1>
+        <button
+          onclick="showCompanyDashboard()"
+          style="
+            padding:10px 18px;
+            border:none;
+            border-radius:8px;
+            background:#123b6d;
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+            margin-bottom:25px;
+          "
+        >
+          ← Kembali
+        </button>
 
-<p style="color:#64748b;">
-        ${myApplications.length}
-       lamaran masuk
-</p>
+
+        <h1>
+          ${
+            myApplications.length === 0
+              ? "Belum ada lamaran masuk."
+              : "Lamaran Masuk"
+          }
+        </h1>
+
+
+        <p style="color:#64748b;">
+          ${myApplications.length} lamaran masuk
+        </p>
+
+
         ${
           myApplications.length === 0
+
             ? `
+
               <div style="
                 background:white;
                 padding:30px;
                 border-radius:14px;
                 border:1px solid #e5eaf1;
               ">
-               Belum ada lamaran masuk.
+
+                Belum ada lamaran masuk.
+
               </div>
+
             `
+
             : myApplications.map(app => `
-              <div style="
-                background:white;
-                padding:22px;
-                margin-bottom:15px;
-                border-radius:14px;
-                border:1px solid #e5eaf1;
-                box-shadow:0 3px 12px rgba(15,23,42,.07);
-              ">
+
+              <div
+                onclick="showApplicantDetail('${app.user_id}')"
+                style="
+                  background:white;
+                  padding:22px;
+                  margin-bottom:15px;
+                  border-radius:14px;
+                  border:1px solid #e5eaf1;
+                  box-shadow:0 3px 12px rgba(15,23,42,.07);
+                  cursor:pointer;
+                  transition:0.2s;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'"
+                onmouseout="this.style.transform='translateY(0)'"
+              >
+
                 <h3 style="margin-top:0;">
                   ${app.jobs?.title || "Lowongan"}
                 </h3>
 
+
                 <p>
-                  <strong>Status:</strong> ${app.status || "submitted"}
+                  <strong>Pelamar:</strong>
+                  ${
+                    app.jobseeker?.full_name ||
+                    "Nama pelamar belum tersedia"
+                  }
                 </p>
 
+
+                <p>
+                  <strong>Status:</strong>
+                  ${app.status || "submitted"}
+                </p>
+
+
                 <p style="color:#64748b;">
-                  Dikirim: ${
+                  Dikirim:
+                  ${
                     app.created_at
                       ? new Date(app.created_at).toLocaleString("id-ID")
                       : "-"
                   }
                 </p>
+
+
+                <div style="
+                  margin-top:15px;
+                  color:#123b6d;
+                  font-weight:bold;
+                ">
+                  Lihat Profil Pelamar →
+                </div>
+
               </div>
+
             `).join("")
         }
+
       </div>
     `;
 
+
     document.body.innerHTML = "";
+
     document.body.appendChild(dashboard);
 
+
   } catch (error) {
+
     console.error("Gagal mengambil lamaran:", error);
+
     alert("Gagal mengambil data lamaran.");
+
   }
 }
 
