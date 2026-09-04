@@ -3672,13 +3672,17 @@ if (userData && accessToken) {
         const totalApplicants = document.getElementById("companyTotalApplicants");
         const myJobIds = jobs.map(job => job.id);
 
-        const applicationsResponse = await fetch(
-  `${SUPABASE_APPLICATIONS_URL}?select=id,job_id,status,created_at`,
-  {
-    method: "GET",
-    headers: supabaseHeaders
-  }
-);
+       const applicationsResponse = await fetch(
+         `${SUPABASE_APPLICATIONS_URL}?select=id,job_id,status,created_at`,
+          {
+          method: "GET",
+          headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+          }
+          }
+          );
 
 if (applicationsResponse.ok) {
   const applications = await applicationsResponse.json();
