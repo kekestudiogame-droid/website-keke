@@ -3505,14 +3505,17 @@ async function showCompanyDashboard() {
               Total Pelamar
             </div>
 
-            <div style="
-              font-size:30px;
-              font-weight:bold;
-              margin-top:8px;
-              color:#7c3aed;
-            ">
-              0
-            </div>
+           <div
+               id="companyTotalApplicants"
+               style="
+               font-size:30px;
+               font-weight:bold;
+               margin-top:8px;
+               color:#7c3aed;
+             "
+             >
+             0
+          </div>
           </div>
 
           <div style="
@@ -3665,7 +3668,22 @@ if (userData && accessToken) {
 
       if (response.ok) {
         const jobs = await response.json();
-        const totalJobs = document.getElementById("companyTotalJobs");
+      const totalJobs = document.getElementById("companyTotalJobs");
+      const totalApplicants = document.getElementById("companyTotalApplicants");
+      const applicationsResponse = await fetch(
+        `${SUPABASE_APPLICATIONS_URL}?select=id,jobs!inner(user_id)&jobs.user_id=eq.${user.id}`,
+          {
+           method: "GET",
+           headers: supabaseHeaders
+          }
+          );
+        if (applicationsResponse.ok) {
+           const applications = await applicationsResponse.json();
+
+        if (totalApplicants) {
+            totalApplicants.textContent = applications.length;
+          }
+          }
 
         if (totalJobs) {
           totalJobs.textContent = jobs.length;
