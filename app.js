@@ -3683,10 +3683,9 @@ if (userData && accessToken) {
 if (applicationsResponse.ok) {
   const applications = await applicationsResponse.json();
 
-  const myApplications = applications.filter(
-    app => myJobIds.includes(app.job_id)
-  );
-
+ const myApplications = applications.filter(
+  app => myJobIds.includes(Number(app.job_id))
+);
   if (totalApplicants) {
     totalApplicants.textContent = myApplications.length;
   }
