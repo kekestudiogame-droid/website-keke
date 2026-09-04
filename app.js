@@ -4852,17 +4852,17 @@ async function showIncomingApplications() {
   
 for (const app of myApplications) {
 
-  const profileResponse = await fetch(
-  `${SUPABASE_URL}jobseeker_profiles?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skills,photo`,
+ const profileResponse = await fetch(
+  `${SUPABASE_URL}jobseeker_profiles?id=eq.${app.user_id}&select=id,full_name,phone,city,education,experience,skills,photo_url`,
   {
-      method: "GET",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json"
-      }
+    method: "GET",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json"
     }
-  );
+  }
+);
 
   console.log("USER ID PELAMAR:", app.user_id);
 
