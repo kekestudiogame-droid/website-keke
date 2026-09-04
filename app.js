@@ -1585,42 +1585,402 @@ document.querySelectorAll(".quick-tags button").forEach(btn => {
     filterJobs();
   });
 });
+
 function updateJobSuggestions() {
   if (!keyword || !jobSuggestions) return;
 
   const query = keyword.value.trim().toLowerCase();
   const language = localStorage.getItem("siteLanguage") || "id";
 
+  const jobCategories = {
+    "Administrasi": [
+      "Staff Administrasi",
+      "Admin Kantor",
+      "Admin Operasional",
+      "Admin Data",
+      "Data Entry",
+      "Sekretaris",
+      "Personal Assistant",
+      "Executive Assistant",
+      "Receptionist",
+      "Front Office Staff",
+      "Office Assistant",
+      "Office Manager",
+      "Document Controller",
+      "Staff Pengarsipan",
+      "Staff Administrasi Umum",
+      "Admin Penjualan",
+      "Admin Pembelian",
+      "Admin Gudang",
+      "Admin Proyek",
+      "Customer Service Admin"
+    ],
+
+    "Accounting & Finance": [
+      "Staff Akuntansi",
+      "Accounting Admin",
+      "Junior Accountant",
+      "Senior Accountant",
+      "Accounting Supervisor",
+      "Accounting Manager",
+      "Staff Keuangan",
+      "Finance Admin",
+      "Finance Officer",
+      "Finance Supervisor",
+      "Finance Manager",
+      "Financial Analyst",
+      "Payroll Staff",
+      "Payroll Officer",
+      "Tax Staff",
+      "Tax Accountant",
+      "Tax Consultant",
+      "Auditor Internal",
+      "Auditor Eksternal",
+      "Credit Analyst"
+    ],
+
+    "Marketing & Sales": [
+      "Marketing Staff",
+      "Marketing Officer",
+      "Marketing Executive",
+      "Marketing Supervisor",
+      "Marketing Manager",
+      "Digital Marketing Specialist",
+      "Digital Marketing Officer",
+      "Social Media Specialist",
+      "Social Media Officer",
+      "Content Marketing Specialist",
+      "SEO Specialist",
+      "SEM Specialist",
+      "Brand Specialist",
+      "Brand Manager",
+      "Product Marketing Specialist",
+      "Marketing Communication Staff",
+      "Public Relations Officer",
+      "Sales Staff",
+      "Sales Executive",
+      "Sales Representative",
+      "Sales Supervisor",
+      "Sales Manager",
+      "Account Executive",
+      "Account Manager",
+      "Business Development Executive"
+    ],
+
+    "Teknologi / IT": [
+      "IT Support",
+      "IT Staff",
+      "IT Administrator",
+      "System Administrator",
+      "Network Administrator",
+      "Network Engineer",
+      "Software Engineer",
+      "Software Developer",
+      "Web Developer",
+      "Frontend Developer",
+      "Backend Developer",
+      "Full Stack Developer",
+      "Mobile Developer",
+      "Android Developer",
+      "iOS Developer",
+      "DevOps Engineer",
+      "Cloud Engineer",
+      "Data Analyst",
+      "Data Scientist",
+      "Database Administrator",
+      "Cyber Security Specialist",
+      "Information Security Analyst",
+      "QA / Software Tester",
+      "UI/UX Designer",
+      "IT Project Manager"
+    ],
+
+    "Purchasing & Logistik": [
+      "Purchasing Staff",
+      "Purchasing Officer",
+      "Purchasing Supervisor",
+      "Purchasing Manager",
+      "Procurement Staff",
+      "Procurement Officer",
+      "Procurement Specialist",
+      "Procurement Supervisor",
+      "Procurement Manager",
+      "Buyer",
+      "Strategic Sourcing Specialist",
+      "Supply Chain Staff",
+      "Supply Chain Analyst",
+      "Supply Chain Coordinator",
+      "Supply Chain Supervisor",
+      "Supply Chain Manager",
+      "Logistics Staff",
+      "Logistics Coordinator",
+      "Logistics Officer",
+      "Logistics Supervisor",
+      "Logistics Manager",
+      "Warehouse Staff",
+      "Warehouse Operator",
+      "Warehouse Coordinator",
+      "Warehouse Supervisor",
+      "Warehouse Manager",
+      "Inventory Staff",
+      "Inventory Control Staff",
+      "Inventory Analyst",
+      "Inventory Supervisor"
+    ],
+
+    "Produksi & Manufaktur": [
+      "Production Staff",
+      "Production Operator",
+      "Production Technician",
+      "Production Supervisor",
+      "Production Manager",
+      "Manufacturing Staff",
+      "Manufacturing Engineer",
+      "Process Engineer",
+      "Industrial Engineer",
+      "Maintenance Technician",
+      "Maintenance Engineer",
+      "Maintenance Supervisor",
+      "Quality Control Staff",
+      "Quality Control Inspector",
+      "Quality Control Analyst",
+      "Quality Assurance Staff",
+      "Quality Assurance Specialist",
+      "Quality Assurance Manager",
+      "HSE Staff",
+      "HSE Officer",
+      "Safety Officer",
+      "Safety Supervisor",
+      "Health and Safety Manager",
+      "Machine Operator",
+      "CNC Operator",
+      "Production Planner",
+      "Production Planner Supervisor",
+      "Production Coordinator",
+      "Factory Supervisor",
+      "Factory Manager"
+    ],
+
+    "Human Resources": [
+      "Human Resources Staff",
+      "HR Administrator",
+      "HR Officer",
+      "HR Generalist",
+      "HR Specialist",
+      "HR Supervisor",
+      "HR Manager",
+      "Recruitment Staff",
+      "Recruitment Specialist",
+      "Recruitment Consultant",
+      "Recruitment Supervisor",
+      "Talent Acquisition Specialist",
+      "Talent Management Specialist",
+      "Training Officer",
+      "Learning and Development Specialist",
+      "Compensation and Benefits Specialist",
+      "Industrial Relations Officer",
+      "Employee Relations Officer",
+      "HR Business Partner",
+      "People Operations Specialist"
+    ],
+
+    "Legal & Compliance": [
+      "Legal Staff",
+      "Legal Officer",
+      "Legal Counsel",
+      "Corporate Lawyer",
+      "Legal Administrator",
+      "Compliance Officer",
+      "Compliance Specialist",
+      "Risk Management Officer",
+      "Risk Analyst",
+      "Risk Manager",
+      "Contract Administrator",
+      "Contract Specialist",
+      "Company Secretary",
+      "Government Relations Officer"
+    ],
+
+    "Desain & Kreatif": [
+      "Graphic Designer",
+      "Visual Designer",
+      "Creative Designer",
+      "Art Director",
+      "Illustrator",
+      "Photographer",
+      "Videographer",
+      "Video Editor",
+      "Motion Graphic Designer",
+      "Animator",
+      "3D Designer",
+      "Interior Designer",
+      "Fashion Designer",
+      "Copywriter",
+      "Content Writer",
+      "Technical Writer",
+      "Editor",
+      "Proofreader"
+    ],
+
+    "Engineering & Konstruksi": [
+      "Architect",
+      "Civil Engineer",
+      "Mechanical Engineer",
+      "Electrical Engineer",
+      "Electronics Engineer",
+      "Chemical Engineer",
+      "Environmental Engineer",
+      "Geotechnical Engineer",
+      "Structural Engineer",
+      "Project Engineer",
+      "Site Engineer",
+      "Quantity Surveyor",
+      "Surveyor",
+      "Construction Supervisor",
+      "Construction Manager",
+      "Site Manager",
+      "Project Coordinator"
+    ],
+
+    "Pendidikan": [
+      "Teacher",
+      "Tutor",
+      "Private Tutor",
+      "Lecturer",
+      "Academic Coordinator",
+      "School Administrator",
+      "School Counselor",
+      "Education Consultant",
+      "Curriculum Developer",
+      "Trainer",
+      "Instructor"
+    ],
+
+    "Kesehatan": [
+      "Nurse",
+      "Midwife",
+      "Pharmacist",
+      "Pharmacy Assistant",
+      "Medical Assistant",
+      "Medical Secretary",
+      "Laboratory Technician",
+      "Radiology Technician",
+      "Dental Assistant",
+      "Physiotherapist",
+      "Nutritionist",
+      "Psychologist",
+      "Caregiver",
+      "Home Caregiver",
+      "Healthcare Administrator"
+    ],
+
+    "Transportasi": [
+      "Driver",
+      "Personal Driver",
+      "Truck Driver",
+      "Delivery Driver",
+      "Courier",
+      "Courier Coordinator",
+      "Dispatcher",
+      "Fleet Administrator",
+      "Fleet Supervisor",
+      "Fleet Manager",
+      "Motorcycle Courier"
+    ],
+
+    "Kuliner & Hospitality": [
+      "Waiter",
+      "Waitress",
+      "Barista",
+      "Chef",
+      "Cook",
+      "Kitchen Staff",
+      "Kitchen Supervisor",
+      "Restaurant Supervisor",
+      "Restaurant Manager",
+      "Hotel Staff",
+      "Hotel Receptionist",
+      "Housekeeping Staff",
+      "Housekeeping Supervisor",
+      "Event Staff",
+      "Event Coordinator",
+      "Event Manager"
+    ]
+  };
+
+  // Belum mengetik → tampilkan kategori
   if (!query) {
-    jobSuggestions.innerHTML = "";
-    jobSuggestions.classList.add("hidden");
+    jobSuggestions.innerHTML = `
+      <div class="suggestion-header">
+        ${language === "en" ? "Job Categories" : "Kategori Pekerjaan"}
+      </div>
+
+      ${Object.keys(jobCategories).map(category => `
+        <button
+          type="button"
+          class="job-suggestion-item"
+          data-category="${category}"
+        >
+          <span>${category}</span>
+          <span>›</span>
+        </button>
+      `).join("")}
+    `;
+
+    jobSuggestions.classList.remove("hidden");
+
+    jobSuggestions
+      .querySelectorAll(".job-suggestion-item")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+
+          const category = button.dataset.category;
+          const categoryJobs = jobCategories[category] || [];
+
+          jobSuggestions.innerHTML = `
+            <div class="suggestion-header">
+              ${category}
+            </div>
+
+            ${categoryJobs.map(title => `
+              <button
+                type="button"
+                class="job-suggestion-item"
+                data-job="${title}"
+              >
+                <span>${title}</span>
+              </button>
+            `).join("")}
+          `;
+
+          jobSuggestions.classList.remove("hidden");
+
+          jobSuggestions
+            .querySelectorAll(".job-suggestion-item")
+            .forEach(jobButton => {
+              jobButton.addEventListener("click", () => {
+                keyword.value = jobButton.dataset.job;
+                jobSuggestions.classList.add("hidden");
+                hasSearched = true;
+                filterJobs();
+              });
+            });
+        });
+      });
+
     return;
   }
 
-  const matchingJobs = jobs.filter(job =>
-    `${job.title || ""} ${job.category || ""}`
-      .toLowerCase()
-      .includes(query)
-  );
+  // Kalau mengetik manual → cari dari jobTypes
+  const allJobTypes = Array.isArray(jobTypes) ? jobTypes : [];
 
-  const jobMap = {};
-
-  matchingJobs.forEach(job => {
-    const title = (job.title || "").trim();
-    if (!title) return;
-
-    if (!jobMap[title]) {
-      jobMap[title] = 0;
-    }
-
-    jobMap[title]++;
-  });
-
-  const suggestions = Object.entries(jobMap)
-    .sort((a, b) => b[1] - a[1])
+  const matchingTypes = allJobTypes
+    .filter(title =>
+      title.toLowerCase().includes(query)
+    )
     .slice(0, 8);
 
-  if (suggestions.length === 0) {
+  if (matchingTypes.length === 0) {
     jobSuggestions.innerHTML = "";
     jobSuggestions.classList.add("hidden");
     return;
@@ -1628,30 +1988,39 @@ function updateJobSuggestions() {
 
   jobSuggestions.innerHTML = `
     <div class="suggestion-header">
-      ${language === "en" ? "Job Categories" : "Kategori Pekerjaan"}
+      ${language === "en" ? "Job Suggestions" : "Saran Jabatan"}
     </div>
 
-    ${suggestions.map(([title, count]) => `
-      <button type="button" class="job-suggestion-item">
+    ${matchingTypes.map(title => `
+      <button
+        type="button"
+        class="job-suggestion-item"
+        data-job="${title}"
+      >
         <span>${title}</span>
-        <span>(${count})</span>
       </button>
     `).join("")}
   `;
 
   jobSuggestions.classList.remove("hidden");
 
-  jobSuggestions.querySelectorAll(".job-suggestion-item").forEach(button => {
-    button.addEventListener("click", () => {
-      keyword.value = button.querySelector("span").textContent;
-      jobSuggestions.classList.add("hidden");
-      hasSearched = true;
-      filterJobs();
+  jobSuggestions
+    .querySelectorAll(".job-suggestion-item")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        keyword.value = button.dataset.job;
+        jobSuggestions.classList.add("hidden");
+        hasSearched = true;
+        filterJobs();
+      });
     });
-  });
 }
 
 keyword.addEventListener("input", updateJobSuggestions);
+
+keyword.addEventListener("focus", () => {
+  updateJobSuggestions();
+});
 
 const modal = document.querySelector("#authModal");
 const modalTitle = document.querySelector("#modalTitle");
