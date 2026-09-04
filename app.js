@@ -4862,7 +4862,9 @@ const currentUser = JSON.parse(userData);
 </button>
 
 <h1>
- Belum ada lamaran masuk.
+  ${myApplications.length === 0
+    ? "Belum ada lamaran masuk."
+    : "Lamaran Masuk"}
 </h1>
 
 <p style="color:#64748b;">
