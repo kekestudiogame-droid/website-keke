@@ -668,33 +668,22 @@ if (categoryFilter) {
  setText("#modalTitle", "Masuk");
  setText("#modalText", "Prototype akun. Backend akan dihubungkan pada tahap berikutnya.");
    
-  const labels = document.querySelectorAll("#companyFields label");
+ const labels = document.querySelectorAll("#companyFields label");
 
-  if (labels.length >= 5) {
-    labels[0].childNodes[0].textContent = t.companyName;
-    labels[1].childNodes[0].textContent = t.companyPhone;
-    labels[2].childNodes[0].textContent = t.website;
-    labels[3].childNodes[0].textContent = t.city;
-    labels[4].childNodes[0].textContent = t.address;
-  }
+if (labels.length >= 5) {
+  labels[0].childNodes[0].textContent = "Nama Perusahaan";
+  labels[1].childNodes[0].textContent = "No. HP";
+  labels[2].childNodes[0].textContent = "Website";
+  labels[3].childNodes[0].textContent = "Kota";
+  labels[4].childNodes[0].textContent = "Alamat";
+}
 
-  setPlaceholder(
-    "#companyName",
-    language === "en" ? "Company name" : "Nama perusahaan"
-  );
-
-  setPlaceholder("#companyPhone", "08xxxxxxxxxx");
-
-  setPlaceholder("#companyWebsite", "https://example.com");
-
-  setPlaceholder("#companyCity", "Jakarta");
-
-  setPlaceholder(
-    "#companyAddress",
-    language === "en" ? "Company address" : "Alamat perusahaan"
-  );
-
-  setPlaceholder(
+setPlaceholder("#companyName", "Nama perusahaan");
+setPlaceholder("#companyPhone", "08xxxxxxxxxx");
+setPlaceholder("#companyWebsite", "https://contoh.com");
+setPlaceholder("#companyCity", "Jakarta");
+setPlaceholder("#companyAddress", "Alamat perusahaan");
+   setPlaceholder(
     "#email",
     language === "en" ? "name@email.com" : "nama@email.com"
   );
