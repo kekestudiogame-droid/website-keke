@@ -4868,10 +4868,8 @@ const currentUser = JSON.parse(userData);
 </h1>
 
 <p style="color:#64748b;">
-  ${myApplications.length}
-  ${localStorage.getItem("siteLanguage") === "en"
-    ? "incoming applications"
-    : "lamaran masuk"}
+        ${myApplications.length}
+       lamaran masuk
 </p>
         ${
           myApplications.length === 0
