@@ -4815,7 +4815,7 @@ if (!userData || !accessToken) {
 const currentUser = JSON.parse(userData);
    try {
    const response = await fetch(
-  `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id)&order=created_at.desc`,
+ `${SUPABASE_APPLICATIONS_URL}?select=*,jobs(title,user_id),jobseekers(id,full_name,phone,city,education,experience,skill,photo)&order=created_at.desc`,
    {
     method: "GET",
     headers: {
