@@ -5346,7 +5346,7 @@ async function showApplicantDetail(userId) {
           </button>
    <button
   type="button"
-  onclick="openInterviewForm()"
+ onclick="openInterviewForm('${userId}')"
   style="
     width:100%;
     padding:12px;
