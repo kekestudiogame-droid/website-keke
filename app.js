@@ -5040,20 +5040,20 @@ async function submitJobPost() {
           "apikey": SUPABASE_KEY,
           "Prefer": "return=representation"
         },
-        body: JSON.stringify({
-          title,
-          city,
-          description,
-          user_id: user.id,
-          category,
-          job_type: jobType,
-          salary,
-          experience,
-          education,
-          application_deadline: applicationDeadline || null,
-          requirements
-          status: "draft",
-        })
+     body: JSON.stringify({
+  title,
+  city,
+  description,
+  user_id: user.id,
+  category,
+  job_type: jobType,
+  salary,
+  experience,
+  education,
+  application_deadline: applicationDeadline || null,
+  requirements,
+  status: "draft",
+      })
       }
     );
 
