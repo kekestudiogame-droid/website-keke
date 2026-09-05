@@ -3706,7 +3706,101 @@ if (applicationsResponse.ok) {
 }
 
 function openInterviewForm() {
-  alert("Form Undang Interview akan dibuka.");
+  const form = document.createElement("div");
+
+  form.innerHTML = `
+    <div style="
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    ">
+      <div style="
+        background:white;
+        width:90%;
+        max-width:500px;
+        padding:25px;
+        border-radius:12px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.2);
+      ">
+        <h2 style="margin-top:0;">Undang Interview</h2>
+
+        <label>Tanggal Interview</label>
+        <input type="date" style="
+          width:100%;
+          padding:10px;
+          margin:8px 0 15px;
+          box-sizing:border-box;
+        ">
+
+        <label>Jam Interview</label>
+        <input type="time" style="
+          width:100%;
+          padding:10px;
+          margin:8px 0 15px;
+          box-sizing:border-box;
+        ">
+
+        <label>Metode Interview</label>
+        <select style="
+          width:100%;
+          padding:10px;
+          margin:8px 0 15px;
+          box-sizing:border-box;
+        ">
+          <option value="online">Online</option>
+          <option value="offline">Offline</option>
+        </select>
+
+        <label>Link / Lokasi Interview</label>
+        <input type="text" placeholder="Masukkan link atau lokasi" style="
+          width:100%;
+          padding:10px;
+          margin:8px 0 15px;
+          box-sizing:border-box;
+        ">
+
+        <label>Pesan untuk Pelamar</label>
+        <textarea placeholder="Tulis pesan untuk pelamar..." style="
+          width:100%;
+          height:90px;
+          padding:10px;
+          margin:8px 0 15px;
+          box-sizing:border-box;
+          resize:vertical;
+        "></textarea>
+
+        <button type="button" onclick="this.closest('[style*=fixed]').remove()" style="
+          padding:10px 18px;
+          border:none;
+          border-radius:8px;
+          background:#6b7280;
+          color:white;
+          cursor:pointer;
+          margin-right:8px;
+        ">
+          Batal
+        </button>
+
+        <button type="button" onclick="alert('Undangan interview siap dikirim.')" style="
+          padding:10px 18px;
+          border:none;
+          border-radius:8px;
+          background:#2563eb;
+          color:white;
+          cursor:pointer;
+          font-weight:bold;
+        ">
+          Kirim Undangan
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(form);
 }
 // ================= PROFIL PERUSAHAAN =================
 
