@@ -3727,13 +3727,36 @@ function openInterviewForm(userId) {
         box-shadow:0 10px 30px rgba(0,0,0,0.2);
       ">
 
-        <h2 style="
-          margin-top:0;
-          margin-bottom:20px;
-          color:#123b6d;
-        ">
-          Undang Interview
-        </h2>
+      <div style="
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+">
+  <h2 style="
+    margin:0;
+    color:#123b6d;
+  ">
+    Undang Interview
+  </h2>
+
+  <button
+    type="button"
+    onclick="this.closest('[style*=fixed]').remove()"
+    style="
+      border:none;
+      background:none;
+      font-size:28px;
+      font-weight:bold;
+      color:#64748b;
+      cursor:pointer;
+      line-height:1;
+    "
+    aria-label="Tutup"
+  >
+    ×
+  </button>
+</div>
 
         <label style="font-weight:bold;">
           Tanggal Interview
