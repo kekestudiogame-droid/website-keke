@@ -3705,6 +3705,63 @@ if (applicationsResponse.ok) {
 }  
 }
 
+async function sendInterviewInvitation(userId) {
+  const date = document.getElementById("interviewDate").value;
+  const time = document.getElementById("interviewTime").value;
+
+  if (!date || !time) {
+    alert("Silakan pilih tanggal dan jam interview.");
+    return;
+  }
+
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  try {
+    const company = JSON.parse(userData);
+
+    const response = await fetch(
+      `${SUPABASE_URL}interviews`,
+      {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal"
+        },
+        body: JSON.stringify({
+          applicant_id: userId,
+          company_id: company.id,
+          interview_date: date,
+          interview_time: time,
+          status: "pending"
+        })
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    alert(
+      "Undangan interview berhasil dikirim.\n" +
+      "Tanggal: " + date + "\n" +
+      "Jam: " + time
+    );
+
+    document.querySelector('[style*=fixed]').remove();
+
+  } catch (error) {
+    console.error("Gagal mengirim undangan interview:", error);
+    alert("Gagal mengirim undangan interview.");
+  }
+}
 function openInterviewForm(userId) {
   const form = document.createElement("div");
 
@@ -3827,23 +3884,9 @@ function openInterviewForm(userId) {
           Batal
         </button>
 
-        <button
+              <button
           type="button"
-          onclick="
-            const date = document.getElementById('interviewDate').value;
-            const time = document.getElementById('interviewTime').value;
-
-            if (!date || !time) {
-              alert('Silakan pilih tanggal dan jam interview.');
-              return;
-            }
-
-            alert(
-              'Undangan interview:\\n' +
-              'Tanggal: ' + date + '\\n' +
-              'Jam: ' + time
-            );
-          "
+          onclick="sendInterviewInvitation('${userId}')"
           style="
             padding:10px 18px;
             border:none;
@@ -3856,11 +3899,10 @@ function openInterviewForm(userId) {
         >
           Kirim Undangan
         </button>
-
-      </div>
-    </div>
-  `;
-
+        </div>
+        </div>
+        `;
+          
   document.body.appendChild(form);
 }
 
@@ -4077,7 +4119,7 @@ async function showCompanyProfile() {
                 <div style="margin-top:5px;color:#64748b;">
                   ${company.city || "-"}
                 </div>
-              </div>
+                </div>
 
               <div style="
                 padding:16px;
@@ -5539,7 +5581,7 @@ async function showJobseekerProfile() {
         box-shadow:0 3px 12px rgba(0,0,0,.15);
       ">
 
-        <div>
+          <div>
           <div style="
             font-size:24px;
             font-weight:bold;
