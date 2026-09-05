@@ -3863,6 +3863,18 @@ function openInterviewForm(userId) {
 
   document.body.appendChild(form);
 }
+
+function confirmAcceptApplicant(userId) {
+  const confirmAccept = confirm(
+    "Apakah Anda yakin ingin menerima pelamar ini?"
+  );
+
+  if (!confirmAccept) {
+    return;
+  }
+
+  alert("Pelamar berhasil diterima.");
+}
 // ================= PROFIL PERUSAHAAN =================
 
 async function showCompanyProfile() {
@@ -5423,22 +5435,23 @@ async function showApplicantDetail(userId) {
          Undang Interview
          </button>
 
-          <button
-            type="button"
-            style="
-              width:100%;
-              padding:12px;
-              margin-bottom:10px;
-              border:none;
-              border-radius:8px;
-              background:#16a34a;
-              color:white;
-              cursor:pointer;
-              font-weight:bold;
-            "
-          >
-            Terima Pelamar
-          </button>
+        <button
+  type="button"
+  onclick="confirmAcceptApplicant('${userId}')"
+  style="
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border:none;
+    border-radius:8px;
+    background:#16a34a;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    "
+    >
+    Terima Pelamar
+    </button>
 
           <button
             type="button"
