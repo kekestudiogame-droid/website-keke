@@ -4115,7 +4115,7 @@ function confirmAcceptApplicant(userId) {
     }
 
     const response = await fetch(
-      `${SUPABASE_URL}applications?user_id=eq.${userId}&select=id,job_id,jobs(user_id)`,
+   `${SUPABASE_URL}applications?user_id=eq.${userId}&job_id=eq.${jobId}&select=id,job_id,jobs(user_id)`,
       {
         method: "GET",
         headers: {
@@ -4136,16 +4136,12 @@ function confirmAcceptApplicant(userId) {
       return;
     }
 
-    const application = applications.find(
-      item =>
-        item.jobs &&
-        String(item.jobs.user_id) === String(company.id)
-    );
+  const application = applications[0];
 
     if (!application) {
-      alert("Lamaran ini bukan milik lowongan perusahaan Anda.");
-      return;
-    }
+    alert("Lamaran ini bukan milik lowongan perusahaan Anda.");
+    return;
+   }
 
     const updateResponse = await fetch(
       `${SUPABASE_URL}applications?id=eq.${application.id}`,
