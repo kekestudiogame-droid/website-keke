@@ -2887,8 +2887,8 @@ const language = "id";
 if (userData && accessToken) {
   const user = JSON.parse(userData);
 
- fetch(
-  `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=id,status,created_at,jobs(title,company_name)&order=created_at.desc`,
+fetch(
+  `${SUPABASE_URL}applications?user_id=eq.${user.id}&select=id,status,rejection_reason,created_at,jobs(title,company_name)&order=created_at.desc`,
   {
     method: "GET",
     headers: {
@@ -2993,13 +2993,35 @@ if (progressSelect && progressDetail) {
             telah berhasil terkirim.
           </div>
 
-          <div style="
-            margin-top:6px;
-            font-size:13px;
-            color:#64748b;
-          ">
-            Perusahaan akan menerima dan meninjau lamaran Anda.
-          </div>
+         <div style="
+  margin-top:6px;
+  font-size:13px;
+  color:${application.status === "rejected" ? "#dc2626" : "#64748b"};
+">
+  ${
+    application.status === "rejected"
+      ? `Lamaran Anda ditolak oleh perusahaan.`
+      : `Perusahaan akan menerima dan meninjau lamaran Anda.`
+  }
+</div>
+
+${
+  application.status === "rejected" && application.rejection_reason
+    ? `
+      <div style="
+        margin-top:12px;
+        padding:12px;
+        border-radius:10px;
+        background:#fef2f2;
+        border:1px solid #fecaca;
+        color:#991b1b;
+      ">
+        <strong>Alasan dari perusahaan:</strong><br>
+        ${application.rejection_reason}
+      </div>
+    `
+    : ""
+}
 
           <div style="
             margin-top:10px;
