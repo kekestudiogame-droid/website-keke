@@ -5248,20 +5248,21 @@ async function showApplicantDetail(userId) {
     Hubungi Pelamar
           </button>
           <button
-            type="button"
-            style="
-              width:100%;
-              padding:12px;
-              margin-bottom:10px;
-              border:none;
-              border-radius:8px;
-              background:#2563eb;
-              color:white;
-              cursor:pointer;
-              font-weight:bold;
-            "
-          >
-            Undang Interview
+  type="button"
+  style="
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    "
+    >
+    Undang Interview
+          </button>
           </button>
 
           <button
