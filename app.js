@@ -4593,40 +4593,64 @@ async function showMyJobs() {
                   ">
                     ${job.description || "-"}
                   </p>
-                  <div style="
-                    display:flex;
-                    gap:10px;
-                    margin-top:18px;
-                  ">
-                   <button
-                   onclick="editMyJob('${job.id}')"
-                   style="
-                   padding:10px 18px;
-                   background:#123b6d;
-                   color:white;
-                   border:none;
-                   border-radius:8px;
-                   cursor:pointer;
-                   font-weight:bold;
-                    "
-                  >
-                  ✏️ Edit
-                  </button>
+                <div style="
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+  flex-wrap:wrap;
+">
 
-                  <button
-                    onclick="deleteMyJob('${job.id}')"
-                    style="
-                    padding:10px 18px;
-                    background:#dc2626;
-                    color:white;
-                   border:none;
-                   border-radius:8px;
-                   cursor:pointer;
-                   font-weight:bold;
-                   "
-                    >
-                   🗑️ Hapus
-                    </button>
+  <button
+    onclick="editMyJob('${job.id}')"
+    style="
+      padding:10px 18px;
+      background:#123b6d;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+    "
+  >
+    ✏️ Edit
+  </button>
+
+  ${
+    job.status === "draft"
+      ? `
+        <button
+          onclick="publishMyJob('${job.id}')"
+          style="
+            padding:10px 18px;
+            background:#16805c;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+          "
+        >
+          🚀 Kirim
+        </button>
+      `
+      : ""
+  }
+
+             <button
+              onclick="deleteMyJob('${job.id}')"
+              style="
+              padding:10px 18px;
+              background:#dc2626;
+               color:white;
+               border:none;
+               border-radius:8px;
+               cursor:pointer;
+               font-weight:bold;
+               "
+               >
+                  🗑️ Hapus
+                </button>
+
                 </div>
                 </div>
               `).join("")
