@@ -5108,94 +5108,203 @@ async function showApplicantDetail(userId) {
         </div>
       `;
 
-    dashboard.innerHTML = `
-      <div style="max-width:850px;margin:auto;">
+   dashboard.innerHTML = `
+  <div style="max-width:850px;margin:auto;">
 
-        <button
-          type="button"
-          onclick="showIncomingApplications()"
-          style="
-            padding:10px 18px;
-            border:none;
-            border-radius:8px;
-            background:#123b6d;
-            color:white;
-            cursor:pointer;
-            font-weight:bold;
-            margin-bottom:25px;
-          "
-        >
-          ← Kembali ke Lamaran Masuk
-        </button>
+    <button
+      type="button"
+      onclick="showIncomingApplications()"
+      style="
+        padding:10px 18px;
+        border:none;
+        border-radius:8px;
+        background:#123b6d;
+        color:white;
+        cursor:pointer;
+        font-weight:bold;
+        margin-bottom:25px;
+      "
+    >
+      ← Kembali ke Lamaran Masuk
+    </button>
 
-        <div style="
-          background:white;
-          padding:30px;
-          border-radius:16px;
-          border:1px solid #e5eaf1;
-          box-shadow:0 3px 15px rgba(15,23,42,.07);
+    <div style="
+      background:white;
+      padding:30px;
+      border-radius:16px;
+      border:1px solid #e5eaf1;
+      box-shadow:0 3px 15px rgba(15,23,42,.07);
+    ">
+
+      <h1 style="
+        margin-top:0;
+        text-align:center;
+        color:#172b4d;
+      ">
+        Profil Pelamar
+      </h1>
+
+      <!-- IDENTITAS UTAMA -->
+      <div style="
+        text-align:center;
+        margin:25px 0 30px;
+      ">
+
+        ${photoHTML}
+
+        <h2 style="margin:15px 0 5px;">
+          ${profile.full_name || "Nama belum tersedia"}
+        </h2>
+
+        <p style="color:#64748b;margin:0;">
+          ${profile.city || "Domisili belum tersedia"}
+        </p>
+
+      </div>
+
+      <!-- DROPDOWN DETAIL PROFIL -->
+      <details style="
+        border:1px solid #e5eaf1;
+        border-radius:10px;
+        margin-bottom:15px;
+        overflow:hidden;
+      ">
+
+        <summary style="
+          padding:16px 18px;
+          cursor:pointer;
+          font-weight:bold;
+          color:#123b6d;
+          background:#f8fafc;
         ">
+          ▼ Detail Profil Pelamar
+        </summary>
 
-          <h1 style="
-            margin-top:0;
-            text-align:center;
-            color:#172b4d;
-          ">
-            Profil Pelamar
-          </h1>
+        <div style="padding:20px;">
 
-          <div style="
-            text-align:center;
-            margin:25px 0 30px;
-          ">
-            ${photoHTML}
+          <p>
+            <strong>Nomor Telepon</strong><br>
+            ${profile.phone || "Belum tersedia"}
+          </p>
 
-            <h2 style="margin:15px 0 5px;">
-              ${profile.full_name || "Nama belum tersedia"}
-            </h2>
+          <p>
+            <strong>Kota / Domisili</strong><br>
+            ${profile.city || "Belum tersedia"}
+          </p>
 
-            <p style="color:#64748b;margin:0;">
-              ${profile.city || "Domisili belum tersedia"}
-            </p>
-          </div>
+          <p>
+            <strong>Pendidikan</strong><br>
+            ${profile.education || "Belum tersedia"}
+          </p>
 
-          <div style="
-            border-top:1px solid #e5eaf1;
-            padding-top:20px;
-          ">
+          <p>
+            <strong>Pengalaman Kerja</strong><br>
+            ${profile.experience || "Belum tersedia"}
+          </p>
 
-            <p>
-              <strong>Nomor Telepon</strong><br>
-              ${profile.phone || "Belum tersedia"}
-            </p>
-
-            <p>
-              <strong>Kota / Domisili</strong><br>
-              ${profile.city || "Belum tersedia"}
-            </p>
-
-            <p>
-              <strong>Pendidikan</strong><br>
-              ${profile.education || "Belum tersedia"}
-            </p>
-
-            <p>
-              <strong>Pengalaman Kerja</strong><br>
-              ${profile.experience || "Belum tersedia"}
-            </p>
-
-            <p>
-              <strong>Keahlian</strong><br>
-              ${profile.skills || "Belum tersedia"}
-            </p>
-
-          </div>
+          <p style="margin-bottom:0;">
+            <strong>Keahlian</strong><br>
+            ${profile.skills || "Belum tersedia"}
+          </p>
 
         </div>
 
-      </div>
-    `;
+      </details>
 
+      <!-- DROPDOWN TINDAKAN PERUSAHAAN -->
+      <details style="
+        border:1px solid #e5eaf1;
+        border-radius:10px;
+        overflow:hidden;
+      ">
+
+        <summary style="
+          padding:16px 18px;
+          cursor:pointer;
+          font-weight:bold;
+          color:#123b6d;
+          background:#f8fafc;
+        ">
+          ▼ Tindakan Perusahaan
+        </summary>
+
+        <div style="padding:20px;">
+
+          <button
+            type="button"
+            style="
+              width:100%;
+              padding:12px;
+              margin-bottom:10px;
+              border:none;
+              border-radius:8px;
+              background:#123b6d;
+              color:white;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            Hubungi Pelamar
+          </button>
+
+          <button
+            type="button"
+            style="
+              width:100%;
+              padding:12px;
+              margin-bottom:10px;
+              border:none;
+              border-radius:8px;
+              background:#2563eb;
+              color:white;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            Undang Interview
+          </button>
+
+          <button
+            type="button"
+            style="
+              width:100%;
+              padding:12px;
+              margin-bottom:10px;
+              border:none;
+              border-radius:8px;
+              background:#16a34a;
+              color:white;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            Terima Pelamar
+          </button>
+
+          <button
+            type="button"
+            style="
+              width:100%;
+              padding:12px;
+              border:none;
+              border-radius:8px;
+              background:#dc2626;
+              color:white;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            Tolak Pelamar
+          </button>
+
+        </div>
+
+      </details>
+
+    </div>
+
+  </div>
+`;
     document.body.innerHTML = "";
     document.body.appendChild(dashboard);
 
