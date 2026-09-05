@@ -3323,6 +3323,30 @@ async function loadInterviewInvitations() {
     }
 
     const interviews = await response.json();
+    const companyIds = [...new Set(
+    interviews.map(interview => interview.company_id).filter(Boolean)
+    )];
+
+   let companies = [];
+
+   if (companyIds.length > 0) {
+   const companyResponse = await fetch(
+    `${SUPABASE_URL}companies?id=in.(${companyIds.join(",")})&select=id,company_name`,
+    {
+      method: "GET",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${accessToken}`
+      }
+    }
+  );
+
+  if (!companyResponse.ok) {
+    throw new Error(await companyResponse.text());
+  }
+
+  companies = await companyResponse.json();
+}
 
     const dashboard = document.querySelector("#jobseekerDashboard");
 
@@ -3379,14 +3403,18 @@ async function loadInterviewInvitations() {
             border:1px solid #e5eaf1;
           ">
 
-            <div style="
-              font-size:17px;
-              font-weight:bold;
-              color:#123b6d;
-              margin-bottom:10px;
-            ">
-              Anda mendapat undangan interview
-            </div>
+          <div style="
+            font-size:17px;
+            font-weight:bold;
+            color:#123b6d;
+            margin-bottom:10px;
+          ">
+           Undangan interview dari ${
+           companies.find(
+           item => String(item.id) === String(interview.company_id)
+           )?.company_name || "Perusahaan"
+           }
+           </div>
 
             <div style="
               color:#334155;
