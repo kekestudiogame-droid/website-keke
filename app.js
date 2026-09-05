@@ -3705,6 +3705,9 @@ if (applicationsResponse.ok) {
 }  
 }
 
+function openInterviewForm() {
+  alert("Form Undang Interview akan dibuka.");
+}
 // ================= PROFIL PERUSAHAAN =================
 
 async function showCompanyProfile() {
@@ -5247,8 +5250,9 @@ async function showApplicantDetail(userId) {
     >
     Hubungi Pelamar
           </button>
-          <button
+   <button
   type="button"
+  onclick="openInterviewForm()"
   style="
     width:100%;
     padding:12px;
@@ -5261,9 +5265,8 @@ async function showApplicantDetail(userId) {
     font-weight:bold;
     "
     >
-    Undang Interview
-          </button>
-          </button>
+         Undang Interview
+         </button>
 
           <button
             type="button"
