@@ -4076,7 +4076,7 @@ function confirmAcceptApplicant(userId) {
 
   alert("Pelamar berhasil diterima.");
 }
-async function rejectApplicant(userId) {
+  async function rejectApplicant(userId, jobId) {
   const confirmReject = confirm(
     "Apakah Anda yakin ingin menolak pelamar ini?"
   );
@@ -5426,7 +5426,7 @@ for (const app of myApplications) {
             : myApplications.map(app => `
 
               <div
-                onclick="showApplicantDetail('${app.user_id}')"
+              onclick="showApplicantDetail('${app.user_id}', '${app.job_id}')"
                 style="
                   background:white;
                   padding:22px;
@@ -5504,7 +5504,7 @@ for (const app of myApplications) {
 
 // ================= DETAIL PROFIL PELAMAR =================
 
-async function showApplicantDetail(userId) {
+  async function showApplicantDetail(userId, jobId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
@@ -5755,7 +5755,7 @@ async function showApplicantDetail(userId) {
 
          <button
   type="button"
-  onclick="rejectApplicant('${userId}')"
+  onclick="rejectApplicant('${userId}', '${jobId}')"
   style="
     width:100%;
     padding:12px;
