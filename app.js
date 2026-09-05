@@ -3324,13 +3324,102 @@ async function loadInterviewInvitations() {
 
     const interviews = await response.json();
 
-    console.log("Undangan interview:", interviews);
+    const dashboard = document.querySelector("#jobseekerDashboard");
+
+    if (!dashboard) {
+      return;
+    }
+
+    let interviewSection = document.querySelector("#interviewInvitationSection");
+
+    if (!interviewSection) {
+      interviewSection = document.createElement("div");
+      interviewSection.id = "interviewInvitationSection";
+
+      const contentArea = dashboard.querySelector(
+        'div[style*="max-width:1100px"]'
+      );
+
+      if (contentArea) {
+        contentArea.insertBefore(
+          interviewSection,
+          contentArea.firstElementChild
+        );
+      }
+    }
+
+    if (interviews.length === 0) {
+      interviewSection.innerHTML = "";
+      return;
+    }
+
+    interviewSection.innerHTML = `
+      <div style="
+        background:white;
+        padding:25px;
+        margin-bottom:25px;
+        border-radius:16px;
+        box-shadow:0 3px 15px rgba(15,23,42,.07);
+        border:1px solid #e5eaf1;
+      ">
+        <h2 style="
+          margin:0 0 18px;
+          color:#172b4d;
+          font-size:20px;
+        ">
+          📅 Undangan Interview
+        </h2>
+
+        ${interviews.map(interview => `
+          <div style="
+            background:#f8fafc;
+            padding:20px;
+            margin-bottom:12px;
+            border-radius:12px;
+            border:1px solid #e5eaf1;
+          ">
+
+            <div style="
+              font-size:17px;
+              font-weight:bold;
+              color:#123b6d;
+              margin-bottom:10px;
+            ">
+              Anda mendapat undangan interview
+            </div>
+
+            <div style="
+              color:#334155;
+              margin-bottom:6px;
+            ">
+              📅 <strong>Tanggal:</strong>
+              ${interview.interview_date || "-"}
+            </div>
+
+            <div style="
+              color:#334155;
+              margin-bottom:6px;
+            ">
+              🕐 <strong>Jam:</strong>
+              ${interview.interview_time || "-"}
+            </div>
+
+            <div style="
+              color:#334155;
+            ">
+              📌 <strong>Status:</strong>
+              ${interview.status || "pending"}
+            </div>
+
+          </div>
+        `).join("")}
+      </div>
+    `;
 
   } catch (error) {
-    console.error("Gagal mengambil undangan interview:", error);
+    console.error("Gagal menampilkan undangan interview:", error);
   }
 }
-
 function translateMyApplications(page) {
   if (!page) return;
 
