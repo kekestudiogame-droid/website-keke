@@ -4643,6 +4643,51 @@ async function showMyJobs() {
     alert("Gagal mengambil lowongan: " + error.message);
   }
 }
+
+async function publishMyJob(jobId) {
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  const confirmPublish = confirm(
+    "Yakin ingin mengirim lowongan ini agar tampil di CariKerjaku.id?"
+  );
+
+  if (!confirmPublish) return;
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}jobs?id=eq.${jobId}`,
+      {
+        method: "PATCH",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          status: "published"
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    alert("✅ Lowongan berhasil dikirim dan sudah tampil di CariKerjaku.id.");
+
+    showMyJobs();
+
+  } catch (error) {
+    alert("Gagal mengirim lowongan: " + error.message);
+  }
+}
 async function deleteMyJob(jobId) {
     const confirmDelete = confirm(
     localStorage.getItem("siteLanguage") === "en"
