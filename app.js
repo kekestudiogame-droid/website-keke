@@ -5654,22 +5654,22 @@ async function showApplicantDetail(userId) {
     Terima Pelamar
     </button>
 
-          <button
-            type="button"
-            style="
-              width:100%;
-              padding:12px;
-              border:none;
-              border-radius:8px;
-              background:#dc2626;
-              color:white;
-              cursor:pointer;
-              font-weight:bold;
-            "
-          >
-            Tolak Pelamar
-          </button>
-
+         <button
+  type="button"
+  onclick="rejectApplicant('${userId}')"
+  style="
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#dc2626;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+  "
+>
+  Tolak Pelamar
+</button>
         </div>
 
       </details>
