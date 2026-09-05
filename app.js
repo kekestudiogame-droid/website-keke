@@ -5032,6 +5032,181 @@ for (const app of myApplications) {
   }
 }
 
+// ================= DETAIL PROFIL PELAMAR =================
+
+async function showApplicantDetail(userId) {
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}jobseeker_profiles?id=eq.${userId}&select=id,full_name,phone,city,education,experience,skills,photo_url`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    const profiles = await response.json();
+    const profile = profiles[0];
+
+    if (!profile) {
+      alert("Profil pelamar belum tersedia.");
+      return;
+    }
+
+    const dashboard = document.createElement("div");
+
+    dashboard.style.cssText = `
+      min-height:100vh;
+      background:#f4f7fb;
+      font-family:Arial,sans-serif;
+      padding:30px;
+      color:#172b4d;
+    `;
+
+    const photoHTML = profile.photo_url
+      ? `
+        <img
+          src="${profile.photo_url}"
+          alt="Foto ${profile.full_name || "Pelamar"}"
+          style="
+            width:130px;
+            height:130px;
+            object-fit:cover;
+            border-radius:50%;
+            border:4px solid #dbe3ec;
+          "
+        >
+      `
+      : `
+        <div style="
+          width:130px;
+          height:130px;
+          border-radius:50%;
+          background:#e8eef6;
+          margin:auto;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:60px;
+          border:4px solid #dbe3ec;
+        ">
+          👤
+        </div>
+      `;
+
+    dashboard.innerHTML = `
+      <div style="max-width:850px;margin:auto;">
+
+        <button
+          type="button"
+          onclick="showIncomingApplications()"
+          style="
+            padding:10px 18px;
+            border:none;
+            border-radius:8px;
+            background:#123b6d;
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+            margin-bottom:25px;
+          "
+        >
+          ← Kembali ke Lamaran Masuk
+        </button>
+
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:16px;
+          border:1px solid #e5eaf1;
+          box-shadow:0 3px 15px rgba(15,23,42,.07);
+        ">
+
+          <h1 style="
+            margin-top:0;
+            text-align:center;
+            color:#172b4d;
+          ">
+            Profil Pelamar
+          </h1>
+
+          <div style="
+            text-align:center;
+            margin:25px 0 30px;
+          ">
+            ${photoHTML}
+
+            <h2 style="margin:15px 0 5px;">
+              ${profile.full_name || "Nama belum tersedia"}
+            </h2>
+
+            <p style="color:#64748b;margin:0;">
+              ${profile.city || "Domisili belum tersedia"}
+            </p>
+          </div>
+
+          <div style="
+            border-top:1px solid #e5eaf1;
+            padding-top:20px;
+          ">
+
+            <p>
+              <strong>Nomor Telepon</strong><br>
+              ${profile.phone || "Belum tersedia"}
+            </p>
+
+            <p>
+              <strong>Kota / Domisili</strong><br>
+              ${profile.city || "Belum tersedia"}
+            </p>
+
+            <p>
+              <strong>Pendidikan</strong><br>
+              ${profile.education || "Belum tersedia"}
+            </p>
+
+            <p>
+              <strong>Pengalaman Kerja</strong><br>
+              ${profile.experience || "Belum tersedia"}
+            </p>
+
+            <p>
+              <strong>Keahlian</strong><br>
+              ${profile.skills || "Belum tersedia"}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+    document.body.innerHTML = "";
+    document.body.appendChild(dashboard);
+
+  } catch (error) {
+
+    console.error("Gagal mengambil detail profil pelamar:", error);
+
+    alert("Gagal mengambil profil pelamar.");
+  }
+}
+
 // ================= PROFIL DIRI PENCARI KERJA =================
 
 async function showJobseekerProfile() {
