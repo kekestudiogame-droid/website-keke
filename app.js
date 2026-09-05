@@ -3865,9 +3865,8 @@ function openInterviewForm(userId) {
 }
 
 function confirmAcceptApplicant(userId) {
-  const confirmAccept = confirm(
-    "Apakah Anda yakin ingin menerima pelamar ini?"
-  );
+  alert("Tombol Terima Pelamar berhasil diklik. ID: " + userId);
+}
 
   if (!confirmAccept) {
     return;
@@ -4326,7 +4325,7 @@ async function showMyJobs() {
   }
 }
 async function deleteMyJob(jobId) {
-  const confirmDelete = confirm(
+    const confirmDelete = confirm(
     localStorage.getItem("siteLanguage") === "en"
       ? "Are you sure you want to delete this job?"
       : "Yakin ingin menghapus lowongan ini?"
