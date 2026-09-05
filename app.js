@@ -4979,20 +4979,54 @@ function showPostJobForm() {
           style="width:100%;box-sizing:border-box;margin:7px 0 20px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
         >
 
-        <div style="display:flex;gap:10px;">
-          <button
-            onclick="submitJobPost()"
-            style="flex:1;padding:13px;border:0;border-radius:10px;background:#123b6d;color:white;font-weight:bold;cursor:pointer;"
-          >
-            Simpan Lowongan
-          </button>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+      <button
+      onclick="submitJobPost()"
+      style="
+      width:100%;
+      padding:13px;
+      border:0;
+      border-radius:10px;
+      background:#123b6d;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    "
+  >
+    Simpan Lowongan
+  </button>
 
-          <button
-            onclick="this.closest('div[style*=fixed]').remove()"
-            style="padding:13px 20px;border:1px solid #dbe2ea;border-radius:10px;background:white;cursor:pointer;"
-          >
-            Batal
-          </button>
+  <button
+    onclick="publishNewJob()"
+    style="
+      width:100%;
+      padding:13px;
+      border:0;
+      border-radius:10px;
+      background:#16805c;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    "
+  >
+    🚀 Kirim Lowongan
+  </button>
+
+  <button
+    onclick="this.closest('div[style*=fixed]').remove()"
+    style="
+      width:100%;
+      padding:13px;
+      border:1px solid #dbe2ea;
+      border-radius:10px;
+      background:white;
+      cursor:pointer;
+    "
+  >
+    Batal
+  </button>
+
+</div>
         </div>
 
       </div>
@@ -5001,6 +5035,88 @@ function showPostJobForm() {
 
   document.body.appendChild(form);
   translatePostJobForm(form);
+}
+
+async function publishNewJob() {
+  const title = document.getElementById("jobTitle").value.trim();
+  const city = document.getElementById("jobCity").value.trim();
+  const description = document.getElementById("jobDescription").value.trim();
+  const category = document.getElementById("jobCategory").value;
+  const jobType = document.getElementById("jobType").value;
+  const salary = document.getElementById("jobSalary").value.trim();
+  const experience = document.getElementById("jobExperience").value.trim();
+  const education = document.getElementById("jobEducation").value.trim();
+  const applicationDeadline = document.getElementById("jobDeadline").value;
+  const requirements = document.getElementById("jobRequirements").value.trim();
+
+  if (!title || !city || !description) {
+    alert("Judul lowongan, kota, dan deskripsi wajib diisi.");
+    return;
+  }
+
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  const user = JSON.parse(userData);
+
+  const confirmPublish = confirm(
+    "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di CariKerjaku.id?"
+  );
+
+  if (!confirmPublish) return;
+
+  try {
+    const response = await fetch(
+      "https://ksqrimmecpriyepsuclc.supabase.co/rest/v1/jobs",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`,
+          "apikey": SUPABASE_KEY,
+          "Prefer": "return=representation"
+        },
+        body: JSON.stringify({
+          title,
+          city,
+          description,
+          user_id: user.id,
+          category,
+          job_type: jobType,
+          salary,
+          experience,
+          education,
+          application_deadline: applicationDeadline || null,
+          requirements,
+          status: "published"
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.message || result.error || "Gagal mengirim lowongan."
+      );
+    }
+
+    alert("✅ Lowongan berhasil dikirim dan sudah tampil di CariKerjaku.id.");
+
+    document
+      .getElementById("postJobFormContainer")
+      ?.remove();
+
+    showMyJobs();
+
+  } catch (error) {
+    alert("Gagal mengirim lowongan: " + error.message);
+  }
 }
 async function submitJobPost() {
   const title = document.getElementById("jobTitle").value.trim();
