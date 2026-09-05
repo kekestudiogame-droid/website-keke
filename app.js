@@ -5007,6 +5007,7 @@ async function submitJobPost() {
           education,
           application_deadline: applicationDeadline || null,
           requirements
+          status: "draft",
         })
       }
     );
