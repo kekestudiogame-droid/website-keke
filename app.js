@@ -5020,7 +5020,7 @@ async function submitJobPost() {
       );
     }
 
-    alert("✅ Lowongan berhasil dipasang dan sudah tampil di CariKerjaku.id.");
+   alert("✅ Lowongan berhasil disimpan sebagai Draft.");
 
     showMyJobs();
 
