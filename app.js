@@ -2879,6 +2879,7 @@ const language = "id";
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
   translateJobseekerDashboard(dashboard);
+    loadInterviewInvitations();
   
   const userData = localStorage.getItem("cariKerjakuUser");
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
@@ -3289,6 +3290,47 @@ async function showMyApplications() {
     alert("Gagal mengambil lowongan: " + error.message);
   }
 }
+// ================= UNDANGAN INTERVIEW =================
+
+async function loadInterviewInvitations() {
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    return;
+  }
+
+  try {
+    const user = JSON.parse(userData);
+
+    if (!user.id) {
+      return;
+    }
+
+    const response = await fetch(
+      `${SUPABASE_URL}interviews?applicant_id=eq.${user.id}&select=id,company_id,interview_date,interview_time,status,created_at&order=interview_date.asc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    const interviews = await response.json();
+
+    console.log("Undangan interview:", interviews);
+
+  } catch (error) {
+    console.error("Gagal mengambil undangan interview:", error);
+  }
+}
+
 function translateMyApplications(page) {
   if (!page) return;
 
