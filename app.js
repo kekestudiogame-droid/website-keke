@@ -3705,7 +3705,7 @@ if (applicationsResponse.ok) {
 }  
 }
 
-function openInterviewForm() {
+function openInterviewForm(userId) {
   const form = document.createElement("div");
 
   form.innerHTML = `
@@ -3721,81 +3721,119 @@ function openInterviewForm() {
       <div style="
         background:white;
         width:90%;
-        max-width:500px;
+        max-width:420px;
         padding:25px;
         border-radius:12px;
         box-shadow:0 10px 30px rgba(0,0,0,0.2);
       ">
-        <h2 style="margin-top:0;">Undang Interview</h2>
 
-        <label>Tanggal Interview</label>
-        <input type="date" style="
-          width:100%;
-          padding:10px;
-          margin:8px 0 15px;
-          box-sizing:border-box;
+        <h2 style="
+          margin-top:0;
+          margin-bottom:20px;
+          color:#123b6d;
         ">
+          Undang Interview
+        </h2>
 
-        <label>Jam Interview</label>
-        <input type="time" style="
-          width:100%;
-          padding:10px;
-          margin:8px 0 15px;
-          box-sizing:border-box;
-        ">
+        <label style="font-weight:bold;">
+          Tanggal Interview
+        </label>
 
-        <label>Metode Interview</label>
-        <select style="
-          width:100%;
-          padding:10px;
-          margin:8px 0 15px;
-          box-sizing:border-box;
-        ">
-          <option value="online">Online</option>
-          <option value="offline">Offline</option>
-        </select>
+        <input
+          type="date"
+          id="interviewDate"
+          onchange="
+            const d = new Date(this.value + 'T00:00:00');
+            const days = [
+              'Minggu','Senin','Selasa','Rabu',
+              'Kamis','Jumat','Sabtu'
+            ];
+            document.getElementById('interviewDay').textContent =
+              this.value ? days[d.getDay()] : '';
+          "
+          style="
+            width:100%;
+            padding:10px;
+            margin:8px 0 5px;
+            box-sizing:border-box;
+            border:1px solid #cbd5e1;
+            border-radius:8px;
+          "
+        >
 
-        <label>Link / Lokasi Interview</label>
-        <input type="text" placeholder="Masukkan link atau lokasi" style="
-          width:100%;
-          padding:10px;
-          margin:8px 0 15px;
-          box-sizing:border-box;
-        ">
+        <div
+          id="interviewDay"
+          style="
+            min-height:20px;
+            margin-bottom:15px;
+            color:#64748b;
+            font-weight:bold;
+          "
+        ></div>
 
-        <label>Pesan untuk Pelamar</label>
-        <textarea placeholder="Tulis pesan untuk pelamar..." style="
-          width:100%;
-          height:90px;
-          padding:10px;
-          margin:8px 0 15px;
-          box-sizing:border-box;
-          resize:vertical;
-        "></textarea>
+        <label style="font-weight:bold;">
+          Jam Interview
+        </label>
 
-        <button type="button" onclick="this.closest('[style*=fixed]').remove()" style="
-          padding:10px 18px;
-          border:none;
-          border-radius:8px;
-          background:#6b7280;
-          color:white;
-          cursor:pointer;
-          margin-right:8px;
-        ">
+        <input
+          type="time"
+          id="interviewTime"
+          style="
+            width:100%;
+            padding:10px;
+            margin:8px 0 20px;
+            box-sizing:border-box;
+            border:1px solid #cbd5e1;
+            border-radius:8px;
+          "
+        >
+
+        <button
+          type="button"
+          onclick="this.closest('[style*=fixed]').remove()"
+          style="
+            padding:10px 18px;
+            border:none;
+            border-radius:8px;
+            background:#6b7280;
+            color:white;
+            cursor:pointer;
+            margin-right:8px;
+          "
+        >
           Batal
         </button>
 
-        <button type="button" onclick="alert('Undangan interview siap dikirim.')" style="
-          padding:10px 18px;
-          border:none;
-          border-radius:8px;
-          background:#2563eb;
-          color:white;
-          cursor:pointer;
-          font-weight:bold;
-        ">
+        <button
+          type="button"
+          onclick="
+            const date = document.getElementById('interviewDate').value;
+            const time = document.getElementById('interviewTime').value;
+
+            if (!date || !time) {
+              alert('Silakan pilih tanggal dan jam interview.');
+              return;
+            }
+
+            alert(
+              'Undangan interview:\\n' +
+              'Tanggal: ' + date + '\\n' +
+              'Jam: ' + time
+            );
+          "
+          style="
+            padding:10px 18px;
+            border:none;
+            border-radius:8px;
+            background:#2563eb;
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+          "
+        >
           Kirim Undangan
         </button>
+
       </div>
     </div>
   `;
