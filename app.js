@@ -4098,9 +4098,83 @@ async function rejectApplicant(userId) {
     return;
   }
 
-  alert("Pelamar berhasil ditolak.");
-}
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
+  if (!userData || !accessToken) {
+    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    return;
+  }
+
+  try {
+    const company = JSON.parse(userData);
+
+    if (!company.id) {
+      alert("ID perusahaan tidak ditemukan.");
+      return;
+    }
+
+    const response = await fetch(
+      `${SUPABASE_URL}applications?user_id=eq.${userId}&select=id,job_id,jobs(user_id)`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + accessToken
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    const applications = await response.json();
+
+    if (applications.length === 0) {
+      alert("Data lamaran tidak ditemukan.");
+      return;
+    }
+
+    const application = applications.find(
+      item =>
+        item.jobs &&
+        String(item.jobs.user_id) === String(company.id)
+    );
+
+    if (!application) {
+      alert("Lamaran ini bukan milik lowongan perusahaan Anda.");
+      return;
+    }
+
+    const updateResponse = await fetch(
+      `${SUPABASE_URL}applications?id=eq.${application.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal"
+        },
+        body: JSON.stringify({
+          status: "rejected",
+          rejection_reason: reason.trim()
+        })
+      }
+    );
+
+    if (!updateResponse.ok) {
+      throw new Error(await updateResponse.text());
+    }
+
+    alert("Pelamar berhasil ditolak.");
+
+  } catch (error) {
+    console.error("Gagal menolak pelamar:", error);
+    alert("Gagal menolak pelamar.");
+  }
+}
 // ================= PROFIL PERUSAHAAN =================
 
 async function showCompanyProfile() {
