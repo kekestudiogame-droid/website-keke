@@ -549,9 +549,10 @@ async function translateDisplayedJobs() {
 if (cityList) {
   cityList.innerHTML = "";
 
-  cities.forEach(city => {
-    const option = document.createElement("option");
+ const citySource = window.cities || [];
 
+citySource.forEach(city => {
+    const option = document.createElement("option");
     option.value = city;
 
     if (language === "en") {
