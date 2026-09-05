@@ -3865,8 +3865,9 @@ function openInterviewForm(userId) {
 }
 
 function confirmAcceptApplicant(userId) {
-  alert("Tombol Terima Pelamar berhasil diklik. ID: " + userId);
-}
+  const confirmAccept = confirm(
+    "Apakah Anda yakin ingin menerima pelamar ini?"
+  );
 
   if (!confirmAccept) {
     return;
