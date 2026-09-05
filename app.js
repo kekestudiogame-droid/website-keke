@@ -5230,23 +5230,23 @@ async function showApplicantDetail(userId) {
 
         <div style="padding:20px;">
 
-          <button
-            type="button"
-            style="
-              width:100%;
-              padding:12px;
-              margin-bottom:10px;
-              border:none;
-              border-radius:8px;
-              background:#123b6d;
-              color:white;
-              cursor:pointer;
-              font-weight:bold;
-            "
-          >
-            Hubungi Pelamar
+         <button
+    type="button"
+    onclick="window.open('https://wa.me/${(profile.phone || '').replace(/^0/, '62').replace(/[^0-9]/g, '')}', '_blank')"
+    style="
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border:none;
+    border-radius:8px;
+    background:#123b6d;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    "
+    >
+    Hubungi Pelamar
           </button>
-
           <button
             type="button"
             style="
