@@ -4076,6 +4076,31 @@ function confirmAcceptApplicant(userId) {
 
   alert("Pelamar berhasil diterima.");
 }
+async function rejectApplicant(userId) {
+  const confirmReject = confirm(
+    "Apakah Anda yakin ingin menolak pelamar ini?"
+  );
+
+  if (!confirmReject) {
+    return;
+  }
+
+  const reason = prompt(
+    "Masukkan alasan penolakan pelamar:"
+  );
+
+  if (reason === null) {
+    return;
+  }
+
+  if (!reason.trim()) {
+    alert("Alasan penolakan harus diisi.");
+    return;
+  }
+
+  alert("Pelamar berhasil ditolak.");
+}
+
 // ================= PROFIL PERUSAHAAN =================
 
 async function showCompanyProfile() {
