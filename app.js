@@ -3308,7 +3308,9 @@ async function loadInterviewInvitations() {
     }
 
     const response = await fetch(
-      `${SUPABASE_URL}interviews?applicant_id=eq.${user.id}&select=id,company_id,interview_date,interview_time,status,created_at&order=interview_date.asc`,
+     const response = await fetch(
+  `${SUPABASE_URL}interviews?applicant_id=eq.${user.id}&select=id,company_id,interview_date,interview_time,status,created_at,companies(company_name)&order=interview_date.asc`,
+  {
       {
         method: "GET",
         headers: {
