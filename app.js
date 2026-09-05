@@ -3308,10 +3308,8 @@ async function loadInterviewInvitations() {
     }
 
     const response = await fetch(
-     const response = await fetch(
   `${SUPABASE_URL}interviews?applicant_id=eq.${user.id}&select=id,company_id,interview_date,interview_time,status,created_at,companies(company_name)&order=interview_date.asc`,
   {
-      {
         method: "GET",
         headers: {
           apikey: SUPABASE_KEY,
