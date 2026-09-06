@@ -1599,7 +1599,7 @@ if (featuredJobs.length > 0) {
             cursor:pointer;
           "
         >
-          Details
+          Lihat Detail
         </button>
 
         <button
