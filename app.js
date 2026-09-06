@@ -1574,6 +1574,12 @@ if (featuredJobs.length > 0) {
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
   hasSearched = true;
+
+  if (jobSuggestions) {
+    jobSuggestions.innerHTML = "";
+    jobSuggestions.style.display = "none";
+  }
+
   filterJobs();
 });
 
