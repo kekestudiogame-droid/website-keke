@@ -523,7 +523,101 @@ async function translateDisplayedJobs() {
 }
 
 </script>
+<!-- CHATBOT CARI KERJAKU -->
+<div id="chatbot-button" onclick="toggleChatbot()">
+  💬
+</div>
 
-  
+<div id="chatbot-box">
+  <div id="chatbot-header">
+    <span>🤖 Cari Kerjaku Assistant</span>
+    <button onclick="toggleChatbot()">✕</button>
+  </div>
+
+  <div id="chatbot-messages">
+    <div class="chatbot-message bot">
+      Halo! 👋 Ada yang bisa saya bantu?
+    </div>
+  </div>
+
+  <div id="chatbot-input-area">
+    <input
+      type="text"
+      id="chatbot-input"
+      placeholder="Tulis pertanyaan..."
+      onkeydown="if(event.key==='Enter') sendChatbotMessage()"
+    >
+    <button onclick="sendChatbotMessage()">Kirim</button>
+  </div>
+</div>
+
+<script>
+function toggleChatbot() {
+  const box = document.getElementById("chatbot-box");
+
+  if (box.style.display === "flex") {
+    box.style.display = "none";
+  } else {
+    box.style.display = "flex";
+  }
+}
+
+async function sendChatbotMessage() {
+  const input = document.getElementById("chatbot-input");
+  const messages = document.getElementById("chatbot-messages");
+
+  const message = input.value.trim();
+
+  if (!message) return;
+
+  messages.innerHTML += `
+    <div class="chatbot-message user">
+      ${message}
+    </div>
+  `;
+
+  input.value = "";
+
+  try {
+    const response = await fetch(
+      "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/chatbot",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          message: message,
+          language: localStorage.getItem("siteLanguage") || "id"
+        })
+      }
+    );
+
+    const data = await response.json();
+    console.log("CHATBOT RESPONSE:", data);
+
+    messages.innerHTML += `
+      <div class="chatbot-message bot">
+        ${data.reply || "Maaf, saya belum bisa menjawab."}
+      </div>
+    `;
+
+    messages.scrollTop = messages.scrollHeight;
+
+  } catch (error) {
+    console.error("Chatbot error:", error);
+
+    messages.innerHTML += `
+      <div class="chatbot-message bot">
+        Maaf, terjadi kesalahan. Silakan coba lagi.
+      </div>
+    `;
+  }
+}
+</script>
+
 </body>
 </html>
+  
+
