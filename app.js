@@ -1456,7 +1456,7 @@ if (featuredJobs.length > 0) {
           font-size:12px;
           color:#e8f1fb;
         ">
-          ▣ ${translateCategory(job.category)}
+         ▣ ${job.category || ""}
         </span>
       </div>
 
