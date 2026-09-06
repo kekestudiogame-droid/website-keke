@@ -1313,7 +1313,7 @@ function filterJobs(){
 const featuredJob = document.querySelector("#featuredJob");
 
 if (featuredJob) {
-const featuredJobs = hasSearched
+const featuredJobs = filtered.length > 0
   ? filtered
   : [...jobs].sort((a, b) => {
       const dateA = new Date(a.created_at || a.createdAt || 0);
