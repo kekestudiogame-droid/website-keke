@@ -1159,17 +1159,23 @@ if (locationInput) {
         `;
       }).join("")}
     `;
+  citySuggestions.classList.remove("hidden");
 
-    citySuggestions.classList.remove("hidden");
+citySuggestions
+  .querySelectorAll(".job-suggestion-item")
+  .forEach(button => {
+    button.addEventListener("click", () => {
+      const selectedCity = button.dataset.city;
 
-    citySuggestions
-      .querySelectorAll(".job-suggestion-item")
-      .forEach(button => {
-        button.addEventListener("click", () => {
-          locationInput.value = button.dataset.city;
-          citySuggestions.classList.add("hidden");
-        });
-      });
+      const normalizedCity = selectedCity
+        .replace(/^Kabupaten /, "")
+        .replace(/^Kota Administrasi /, "")
+        .replace(/^Kota /, "");
+
+      locationInput.value = normalizedCity;
+      citySuggestions.classList.add("hidden");
+    });
+  });
   });
 
   locationInput.addEventListener("focus", () => {
