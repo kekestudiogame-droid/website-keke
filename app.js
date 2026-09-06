@@ -1136,29 +1136,35 @@ if (language === "en" && list.length > 0) {
 
     try {
 
-      const { data, error } =
-        await supabase.functions.invoke(
-          "translate-job",
-          {
-            body: {
-              jobs: batch.map((job) => ({
-                title: job.title || "",
-                company: job.company || "",
-                location: job.location || "",
-                type: job.type || "",
-                category: job.category || "",
-                salary: job.salary || "",
-                description: job.description || "",
-                requirements: job.requirements || ""
-              }))
-            }
-          }
-        );
+     const response = await fetch(
+  "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/translate-job",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: SUPABASE_KEY
+    },
+    body: JSON.stringify({
+      jobs: batch.map((job) => ({
+        title: job.title || "",
+        company: job.company || "",
+        location: job.location || "",
+        type: job.type || "",
+        category: job.category || "",
+        salary: job.salary || "",
+        description: job.description || "",
+        requirements: job.requirements || ""
+      }))
+    })
+  }
+);
 
-      if (error) {
-        console.error("Batch translation error:", error);
-        continue;
-      }
+const data = await response.json();
+
+if (!response.ok) {
+  console.error("Batch translation error:", data);
+  continue;
+}
 
       if (
         data?.success &&
