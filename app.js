@@ -1372,17 +1372,13 @@ if (!response.ok) {
 
         <button data-details="${i}">
           ${
-            language === "en"
-              ? "View Details"
-              : "Lihat Detail"
+          "Lihat Detail"
           }
         </button>
 
         <button data-apply="${i}">
           ${
-            language === "en"
-              ? "Apply →"
-              : "Lamar →"
+          "Lamar →"
           }
         </button>
 
