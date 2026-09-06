@@ -628,12 +628,12 @@ async function sendChatbotMessage() {
   }
 }
 </script>
-
-  <script>
+```html
+<script>
 /* =========================================================
-   GLOBAL LANGUAGE SYSTEM BARU
+   GLOBAL LANGUAGE SYSTEM
    CariKerjaku ID ↔ EN
-   TIDAK menggunakan Gemini
+   Tanpa Gemini
    ========================================================= */
 
 (function () {
@@ -642,7 +642,6 @@ async function sendChatbotMessage() {
 
   const GLOBAL_TRANSLATIONS = {
 
-    /* NAVIGASI */
     "Beranda": "Home",
     "Lowongan": "Jobs",
     "Cara Kerja": "How It Works",
@@ -655,28 +654,23 @@ async function sendChatbotMessage() {
     "Keluar": "Logout",
     "Logout": "Logout",
 
-    /* AKUN */
     "Pencari Kerja": "Job Seeker",
     "Perusahaan": "Company",
     "Dashboard": "Dashboard",
     "Profil": "Profile",
     "Bantuan": "Help",
 
-    /* HALAMAN UTAMA */
     "PLATFORM KARIER INDONESIA": "INDONESIAN CAREER PLATFORM",
-    "Temukan pekerjaan yang tepat untukmu.":
-      "Find the right job for you.",
+    "Temukan pekerjaan yang tepat untukmu.": "Find the right job for you.",
     "Cari lowongan, temukan perusahaan, dan kirim lamaran dari satu tempat.":
       "Find jobs, discover companies, and apply from one place.",
 
-    /* SEARCH */
     "Cari Lowongan": "Find Jobs",
     "Jabatan atau kata kunci": "Job title or keyword",
     "Ketik kota atau lokasi": "Type city or location",
     "Kota atau lokasi": "City or location",
     "Semua kota / lokasi": "All cities / locations",
 
-    /* JOB */
     "LOWONGAN TERBARU": "LATEST JOBS",
     "Peluang kerja untukmu": "Job opportunities for you",
     "Semua Bidang": "All Fields",
@@ -690,7 +684,6 @@ async function sendChatbotMessage() {
     "Lihat Detail": "View Details",
     "Kirim Lamaran": "Submit Application",
 
-    /* KATEGORI */
     "Administrasi": "Administration",
     "Akuntansi": "Accounting",
     "Keuangan": "Finance",
@@ -716,7 +709,6 @@ async function sendChatbotMessage() {
     "Transportasi": "Transportation",
     "Lainnya": "Other",
 
-    /* SECTION */
     "CARA KERJA": "HOW IT WORKS",
     "Mulai mencari kerja dalam 3 langkah":
       "Start your job search in 3 steps",
@@ -733,7 +725,6 @@ async function sendChatbotMessage() {
     "Pilih pekerjaan yang sesuai dan pantau status lamaranmu.":
       "Choose a suitable job and track your application status.",
 
-    /* PERUSAHAAN */
     "Cari Kerja di Sini!": "Find a Job Here!",
     "Temukan lowongan yang sesuai dengan keahlian dan impianmu.":
       "Find jobs that match your skills and dreams.",
@@ -744,12 +735,10 @@ async function sendChatbotMessage() {
 
     "Pasang Lowongan": "Post a Job",
 
-    /* LAUNCHING */
     "Baru Launching!": "Just Launched!",
     "Temukan peluang kerja terbaik di Cari Kerjaku.":
       "Find the best job opportunities at Cari Kerjaku.",
 
-    /* STATUS */
     "Belum Ada Lowongan": "No Jobs Available",
     "Lowongan Belum Tersedia": "Jobs Not Yet Available",
     "Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.":
@@ -767,7 +756,6 @@ async function sendChatbotMessage() {
     "Lowongan perusahaan akan muncul di sini.":
       "Your company's jobs will appear here.",
 
-    /* PEMBAYARAN */
     "PEMBAYARAN": "PAYMENT",
     "Pembayaran CariKerjaku": "CariKerjaku Payment",
     "Saat ini pemasangan lowongan masih gratis.":
@@ -775,7 +763,6 @@ async function sendChatbotMessage() {
     "Sistem pembayaran akan diaktifkan pada tahap berikutnya.":
       "The payment system will be activated at a later stage.",
 
-    /* FORM */
     "Daftar sebagai:": "Register as:",
     "Nama Perusahaan": "Company Name",
     "No. HP": "Phone Number",
@@ -789,7 +776,6 @@ async function sendChatbotMessage() {
     "Belum punya akun?": "Don't have an account?",
     "Tutup": "Close",
 
-    /* SISTEM */
     "Terjadi kesalahan.": "An error occurred.",
     "Silakan coba lagi.": "Please try again.",
     "Berhasil": "Success",
@@ -803,8 +789,9 @@ async function sendChatbotMessage() {
     "Batal": "Cancel",
     "Konfirmasi": "Confirmation",
 
-    /* FOOTER */
+    "Bantuan": "Help",
     "Privacy Policy": "Privacy Policy",
+    "Syarat & Ketentuan": "Terms & Conditions",
     "Terms & Conditions": "Terms & Conditions"
 
   };
@@ -825,6 +812,8 @@ async function sendChatbotMessage() {
 
     const value = String(text).trim();
 
+    if (!value) return text;
+
     if (language === "en") {
       return GLOBAL_TRANSLATIONS[value] || value;
     }
@@ -832,56 +821,98 @@ async function sendChatbotMessage() {
     return EN_TO_ID[value] || value;
   }
 
-  function translatePage(language) {
+  function translateElement(element, language) {
 
-    document.querySelectorAll(
-      "body *:not(#jobList):not(#jobList *):not(#featuredJob):not(#featuredJob *)"
-    ).forEach(function (element) {
+    if (!element) return;
 
-      if (
-        element.tagName === "SCRIPT" ||
-        element.tagName === "STYLE"
-      ) {
+    if (
+      element.tagName === "SCRIPT" ||
+      element.tagName === "STYLE"
+    ) {
+      return;
+    }
+
+    /* PLACEHOLDER */
+    if (element.hasAttribute("placeholder")) {
+
+      const oldValue =
+        element.getAttribute("placeholder");
+
+      const newValue =
+        translateText(oldValue, language);
+
+      if (oldValue !== newValue) {
+        element.setAttribute(
+          "placeholder",
+          newValue
+        );
+      }
+    }
+
+    /* TITLE */
+    if (element.hasAttribute("title")) {
+
+      const oldValue =
+        element.getAttribute("title");
+
+      const newValue =
+        translateText(oldValue, language);
+
+      if (oldValue !== newValue) {
+        element.setAttribute(
+          "title",
+          newValue
+        );
+      }
+    }
+
+    /* TEXT NODE */
+    Array.from(element.childNodes).forEach(function (node) {
+
+      if (node.nodeType !== Node.TEXT_NODE) {
         return;
       }
 
-      /* PLACEHOLDER */
-      if (element.hasAttribute("placeholder")) {
-        const oldValue = element.getAttribute("placeholder");
-        const newValue = translateText(oldValue, language);
+      const original = node.nodeValue;
+      const trimmed = original.trim();
 
-        if (oldValue !== newValue) {
-          element.setAttribute("placeholder", newValue);
-        }
+      if (!trimmed) return;
+
+      const translated =
+        translateText(trimmed, language);
+
+      if (translated !== trimmed) {
+
+        const start =
+          original.indexOf(trimmed);
+
+        const end =
+          start + trimmed.length;
+
+        node.nodeValue =
+          original.substring(0, start) +
+          translated +
+          original.substring(end);
       }
 
-      /* TEXT LANGSUNG */
-      Array.from(element.childNodes).forEach(function (node) {
+    });
+  }
 
-        if (node.nodeType !== Node.TEXT_NODE) return;
+  function translatePage(language) {
 
-        const oldText = node.nodeValue;
-        const trimmed = oldText.trim();
+    document
+      .querySelectorAll("body *")
+      .forEach(function (element) {
 
-        if (!trimmed) return;
+        translateElement(
+          element,
+          language
+        );
 
-        const newText = translateText(trimmed, language);
-
-        if (trimmed !== newText) {
-
-          const start = oldText.indexOf(trimmed);
-          const end = start + trimmed.length;
-
-          node.nodeValue =
-            oldText.substring(0, start) +
-            newText +
-            oldText.substring(end);
-        }
       });
 
-    });
-
-    document.documentElement.lang = language;
+    document.documentElement.lang =
+      language;
 
     localStorage.setItem(
       LANGUAGE_KEY,
@@ -891,7 +922,10 @@ async function sendChatbotMessage() {
 
   window.setLanguage = function (language) {
 
-    if (language !== "id" && language !== "en") {
+    if (
+      language !== "id" &&
+      language !== "en"
+    ) {
       language = "id";
     }
 
@@ -900,38 +934,117 @@ async function sendChatbotMessage() {
 
   window.getLanguage = function () {
 
-    return localStorage.getItem(LANGUAGE_KEY) === "en"
+    return localStorage.getItem(
+      LANGUAGE_KEY
+    ) === "en"
       ? "en"
       : "id";
   };
 
-  /* TOMBOL ID */
-  const langID = document.getElementById("langID");
+  /* =========================
+     KONTEN DINAMIS
+     ========================= */
+
+  const observer =
+    new MutationObserver(function (mutations) {
+
+      const language =
+        localStorage.getItem(
+          LANGUAGE_KEY
+        ) || "id";
+
+      mutations.forEach(function (mutation) {
+
+        mutation.addedNodes.forEach(function (node) {
+
+          if (
+            node.nodeType !== Node.ELEMENT_NODE
+          ) {
+            return;
+          }
+
+          translateElement(
+            node,
+            language
+          );
+
+          node
+            .querySelectorAll("*")
+            .forEach(function (child) {
+
+              translateElement(
+                child,
+                language
+              );
+
+            });
+
+        });
+
+      });
+
+    });
+
+  observer.observe(
+    document.body,
+    {
+      childList: true,
+      subtree: true
+    }
+  );
+
+  /* =========================
+     TOMBOL BAHASA
+     ========================= */
+
+  const langID =
+    document.getElementById("langID");
+
+  const langEN =
+    document.getElementById("langEN");
 
   if (langID) {
-    langID.addEventListener("click", function () {
-      window.setLanguage("id");
-    });
-  }
 
-  /* TOMBOL EN */
-  const langEN = document.getElementById("langEN");
+    langID.addEventListener(
+      "click",
+      function () {
+
+        window.setLanguage("id");
+
+      }
+    );
+
+  }
 
   if (langEN) {
-    langEN.addEventListener("click", function () {
-      window.setLanguage("en");
-    });
+
+    langEN.addEventListener(
+      "click",
+      function () {
+
+        window.setLanguage("en");
+
+      }
+    );
+
   }
 
-  /* BAHASA TERSIMPAN */
-  const savedLanguage =
-    localStorage.getItem(LANGUAGE_KEY) || "id";
+  /* =========================
+     BAHASA TERSIMPAN
+     ========================= */
 
-  window.setLanguage(savedLanguage);
+  const savedLanguage =
+    localStorage.getItem(
+      LANGUAGE_KEY
+    ) || "id";
+
+  window.setLanguage(
+    savedLanguage
+  );
 
 })();
 </script>
+```
 </body>
 </html>
-  
 
