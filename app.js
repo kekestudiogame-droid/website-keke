@@ -1,5 +1,9 @@
 const SUPABASE_URL = "https://ksqrimmecpriyepsuclc.supabase.co/rest/v1/";
 const SUPABASE_KEY = "sb_publishable_xvPQL9oniSRwZoqmSc5W4A_NS9ldWIL";
+const supabase = window.supabase.createClient(
+  "https://ksqrimmecpriyepsuclc.supabase.co",
+  SUPABASE_KEY
+);
 
 const supabaseHeaders = {
   apikey: SUPABASE_KEY,
