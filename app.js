@@ -1320,10 +1320,6 @@ const featuredJobs = hasSearched
       const dateB = new Date(b.created_at || b.createdAt || 0);
       return dateB - dateA;
     });
-      const dateA = new Date(a.created_at || a.createdAt || 0);
-      const dateB = new Date(b.created_at || b.createdAt || 0);
-      return dateB - dateA;
-    });
 
 if (featuredJobs.length > 0) {
     const job = featuredJobs[0];
