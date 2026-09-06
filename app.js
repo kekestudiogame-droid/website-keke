@@ -3582,7 +3582,7 @@ function translateMyApplications(page) {
     .replaceAll("Menunggu", "Pending")
     .replaceAll("Diterima", "Accepted")
     .replaceAll("Ditolak", "Rejected")
-    .replaceAll("Lihat Detail", "View Details");
+   
 
   const language = localStorage.getItem("siteLanguage") || "id";
 
