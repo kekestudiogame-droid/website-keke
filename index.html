@@ -521,6 +521,501 @@ async function translateDisplayedJobs() {
     renderJobs(jobs);
   }
 }
+ /* =========================================================
+   GLOBAL LANGUAGE SYSTEM — CariKerjaku
+   ID ↔ EN
+   ========================================================= */
+
+(function () {
+  const LANGUAGE_KEY = "siteLanguage";
+
+  const LANGUAGE_MAP = {
+    "Beranda": "Home",
+    "Lowongan": "Jobs",
+    "Cari Lowongan": "Find Jobs",
+    "Cara Kerja": "How It Works",
+    "Tentang": "About",
+    "Tentang Kami": "About Us",
+    "Kontak": "Contact",
+    "Pembayaran": "Payment",
+
+    "Masuk": "Login",
+    "Daftar": "Register",
+    "Logout": "Logout",
+    "Keluar": "Logout",
+
+    "Pencari Kerja": "Job Seeker",
+    "Perusahaan": "Company",
+    "Dashboard": "Dashboard",
+    "Dashboard Pencari Kerja": "Job Seeker Dashboard",
+    "Dashboard Perusahaan": "Company Dashboard",
+    "Profil": "Profile",
+    "Bantuan": "Help",
+
+    "PLATFORM KARIER INDONESIA": "INDONESIAN CAREER PLATFORM",
+    "Temukan pekerjaan yang tepat untukmu.": "Find the right job for you.",
+    "Cari lowongan, temukan perusahaan, dan kirim lamaran dari satu tempat.":
+      "Find jobs, discover companies, and apply from one place.",
+
+    "Jabatan atau kata kunci": "Job title or keyword",
+    "Ketik kota atau lokasi": "Type city or location",
+    "Kota atau lokasi": "City or location",
+    "Semua kota / lokasi": "All cities / locations",
+    "Cari Lowongan": "Find Jobs",
+    "lowongan tersedia": "jobs available",
+
+    "LOWONGAN TERBARU": "LATEST JOBS",
+    "Peluang kerja untukmu": "Job opportunities for you",
+    "Semua Bidang": "All Fields",
+    "Semua kategori": "All Categories",
+
+    "Administrasi": "Administration",
+    "Accounting": "Accounting",
+    "Akuntansi": "Accounting",
+    "Finance": "Finance",
+    "Keuangan": "Finance",
+    "Marketing": "Marketing",
+    "Pemasaran": "Marketing",
+    "Sales": "Sales",
+    "Penjualan": "Sales",
+    "IT": "IT",
+    "Teknologi": "Technology",
+    "Teknologi & IT": "Technology & IT",
+    "HRD": "HR",
+    "HR": "HR",
+    "Sumber Daya Manusia": "Human Resources",
+    "Desain": "Design",
+    "Customer Service": "Customer Service",
+    "Logistik": "Logistics",
+    "Operasional": "Operations",
+    "Produksi": "Production",
+    "Kesehatan": "Healthcare",
+    "Pendidikan": "Education",
+    "Kuliner": "Culinary",
+    "Retail": "Retail",
+    "Manufaktur": "Manufacturing",
+    "Teknik": "Engineering",
+    "Hukum": "Legal",
+    "Media": "Media",
+    "Kreatif": "Creative",
+    "Perhotelan": "Hospitality",
+    "Restoran": "Restaurant",
+    "Transportasi": "Transportation",
+    "Lainnya": "Other",
+
+    "Baru Launching!": "Just Launched!",
+    "Temukan peluang kerja terbaik di Cari Kerjaku.":
+      "Find the best job opportunities at Cari Kerjaku.",
+
+    "Cari Kerja di Sini!": "Find a Job Here!",
+    "Temukan lowongan yang sesuai dengan keahlian dan impianmu.":
+      "Find jobs that match your skills and dreams.",
+
+    "Butuh Karyawan?": "Need Employees?",
+    "Pasang lowongan dan temukan kandidat terbaik untuk perusahaanmu.":
+      "Post a job and find the best candidates for your company.",
+
+    "Pasang Lowongan": "Post a Job",
+
+    "CARA KERJA": "HOW IT WORKS",
+    "Mulai mencari kerja dalam 3 langkah":
+      "Start your job search in 3 steps",
+
+    "Buat profil": "Create a profile",
+    "Lengkapi profil dan keahlian agar perusahaan mengenalmu.":
+      "Complete your profile and skills so companies can get to know you.",
+
+    "Cari lowongan": "Search for jobs",
+    "Gunakan kata kunci, lokasi, dan kategori untuk menemukan pekerjaan.":
+      "Use keywords, location, and categories to find jobs.",
+
+    "Kirim lamaran": "Submit your application",
+    "Pilih pekerjaan yang sesuai dan pantau status lamaranmu.":
+      "Choose a suitable job and track your application status.",
+
+    "Kirim Lamaran": "Submit Application",
+    "Lamar": "Apply",
+    "Lamar Sekarang": "Apply Now",
+    "Lihat Detail": "View Details",
+    "Detail Lowongan": "Job Details",
+    "DETAIL LOWONGAN": "JOB DETAILS",
+    "Deskripsi Pekerjaan": "Job Description",
+    "Persyaratan": "Requirements",
+
+    "Satu tempat untuk pencari kerja dan perusahaan.":
+      "One place for job seekers and companies.",
+    "Temukan lowongan kerja dan peluang karier dari berbagai bidang di Indonesia.":
+      "Find job openings and career opportunities from various fields in Indonesia.",
+
+    "PEMBAYARAN": "PAYMENT",
+    "Pembayaran CariKerjaku": "CariKerjaku Payment",
+    "Saat ini pemasangan lowongan masih gratis.":
+      "Job posting is currently free.",
+    "Sistem pembayaran akan diaktifkan pada tahap berikutnya.":
+      "The payment system will be activated at a later stage.",
+
+    "Daftar sebagai:": "Register as:",
+    "Nama Perusahaan": "Company Name",
+    "No. HP": "Phone Number",
+    "Website": "Website",
+    "Kota": "City",
+    "Alamat": "Address",
+    "Nama perusahaan": "Company name",
+    "Alamat perusahaan": "Company address",
+    "Minimal 6 karakter": "Minimum 6 characters",
+    "Lanjut": "Continue",
+    "Belum punya akun?": "Don't have an account?",
+    "Prototype akun. Backend akan dihubungkan pada tahap berikutnya.":
+      "Account prototype. The backend will be connected at a later stage.",
+
+    "Tutup": "Close",
+
+    "Belum Ada Lowongan": "No Jobs Available",
+    "Lowongan Belum Tersedia": "Jobs Not Yet Available",
+    "Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.":
+      "There are no jobs matching your current search.",
+
+    "Lamaran Saya": "My Applications",
+    "Belum Ada Lamaran": "No Applications Yet",
+    "Lamaran pekerjaan yang kamu kirim akan muncul di sini.":
+      "The jobs you apply for will appear here.",
+    "Status:": "Status:",
+    "Tanggal:": "Date:",
+    "Menunggu": "Pending",
+
+    "Lowongan Saya": "My Jobs",
+    "Daftar lowongan perusahaan Anda.": "Your company's job listings.",
+    "Lowongan perusahaan akan muncul di sini.":
+      "Your company's jobs will appear here.",
+
+    "Privacy Policy": "Privacy Policy",
+    "Terms & Conditions": "Terms & Conditions",
+    "Bantuan": "Help",
+
+    "Halo! 👋 Ada yang bisa saya bantu?":
+      "Hello! 👋 How can I help you?",
+    "Tulis pertanyaan...": "Type your question...",
+    "Kirim": "Send",
+
+    "Terjadi kesalahan.": "An error occurred.",
+    "Silakan coba lagi.": "Please try again.",
+    "Berhasil": "Success",
+    "Gagal": "Failed",
+    "Disimpan": "Saved",
+    "Dihapus": "Deleted",
+    "Memuat...": "Loading...",
+    "Menyimpan...": "Saving...",
+    "Ya": "Yes",
+    "Tidak": "No",
+    "Batal": "Cancel",
+    "Konfirmasi": "Confirmation"
+  };
+
+  const EN_TO_ID = {};
+
+  Object.keys(LANGUAGE_MAP).forEach(function (idText) {
+    const enText = LANGUAGE_MAP[idText];
+
+    if (!EN_TO_ID[enText]) {
+      EN_TO_ID[enText] = idText;
+    }
+  });
+
+  function getLanguage() {
+    return localStorage.getItem(LANGUAGE_KEY) === "en"
+      ? "en"
+      : "id";
+  }
+
+  function translateValue(value, language) {
+    if (!value) return value;
+
+    const text = String(value).trim();
+
+    if (language === "en") {
+      return LANGUAGE_MAP[text] || text;
+    }
+
+    return EN_TO_ID[text] || text;
+  }
+
+  function translateTextNode(node, language) {
+    if (!node || !node.nodeValue) return;
+
+    const original = node.nodeValue;
+    const trimmed = original.trim();
+
+    if (!trimmed) return;
+
+    const translated = translateValue(trimmed, language);
+
+    if (translated !== trimmed) {
+      const start = original.indexOf(trimmed);
+      const end = start + trimmed.length;
+
+      node.nodeValue =
+        original.substring(0, start) +
+        translated +
+        original.substring(end);
+    }
+  }
+
+  function translateElement(element, language) {
+    if (!element || element.nodeType !== 1) return;
+
+    /*
+     * Jangan menerjemahkan isi lowongan dinamis.
+     * translateDisplayedJobs() menangani bagian tersebut.
+     */
+    if (
+      element.closest("#jobList") ||
+      element.closest("#featuredJob")
+    ) {
+      return;
+    }
+
+    if (element.hasAttribute("placeholder")) {
+      const value = element.getAttribute("placeholder");
+      const translated = translateValue(value, language);
+
+      if (translated !== value) {
+        element.setAttribute("placeholder", translated);
+      }
+    }
+
+    if (element.hasAttribute("aria-label")) {
+      const value = element.getAttribute("aria-label");
+      const translated = translateValue(value, language);
+
+      if (translated !== value) {
+        element.setAttribute("aria-label", translated);
+      }
+    }
+
+    if (element.hasAttribute("title")) {
+      const value = element.getAttribute("title");
+      const translated = translateValue(value, language);
+
+      if (translated !== value) {
+        element.setAttribute("title", translated);
+      }
+    }
+
+    if (element.tagName === "OPTION") {
+      const value = element.textContent.trim();
+      const translated = translateValue(value, language);
+
+      if (translated !== value) {
+        element.textContent = translated;
+      }
+    }
+
+    /*
+     * Text node langsung milik elemen.
+     * Tidak menyentuh script/style.
+     */
+    if (
+      element.tagName !== "SCRIPT" &&
+      element.tagName !== "STYLE" &&
+      element.tagName !== "TEXTAREA"
+    ) {
+      Array.from(element.childNodes).forEach(function (child) {
+        if (child.nodeType === Node.TEXT_NODE) {
+          translateTextNode(child, language);
+        }
+      });
+    }
+  }
+
+  function translatePage(language) {
+    const root = document.body;
+
+    if (!root) return;
+
+    /*
+     * Elemen yang tidak boleh diproses oleh mesin global.
+     */
+    const excluded = new Set([
+      "SCRIPT",
+      "STYLE",
+      "NOSCRIPT"
+    ]);
+
+    const walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function (node) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            if (excluded.has(node.tagName)) {
+              return NodeFilter.FILTER_REJECT;
+            }
+
+            if (
+              node.closest("#jobList") ||
+              node.closest("#featuredJob")
+            ) {
+              return NodeFilter.FILTER_REJECT;
+            }
+
+            return NodeFilter.FILTER_ACCEPT;
+          }
+
+          if (node.nodeType === Node.TEXT_NODE) {
+            const parent = node.parentElement;
+
+            if (!parent) {
+              return NodeFilter.FILTER_REJECT;
+            }
+
+            if (
+              parent.closest("#jobList") ||
+              parent.closest("#featuredJob") ||
+              excluded.has(parent.tagName)
+            ) {
+              return NodeFilter.FILTER_REJECT;
+            }
+
+            return NodeFilter.FILTER_ACCEPT;
+          }
+
+          return NodeFilter.FILTER_REJECT;
+        }
+      }
+    );
+
+    const nodes = [];
+
+    let node;
+
+    while ((node = walker.nextNode())) {
+      nodes.push(node);
+    }
+
+    nodes.forEach(function (item) {
+      if (item.nodeType === Node.TEXT_NODE) {
+        translateTextNode(item, language);
+      } else {
+        translateElement(item, language);
+      }
+    });
+
+    document.documentElement.lang = language;
+    localStorage.setItem(LANGUAGE_KEY, language);
+  }
+
+  /*
+   * Bahasa global.
+   */
+  window.setLanguage = function (language) {
+    if (language !== "id" && language !== "en") {
+      language = "id";
+    }
+
+    translatePage(language);
+
+    /*
+     * Lowongan tetap menggunakan translator Supabase
+     * yang sudah berjalan.
+     */
+    if (
+      language === "en" &&
+      typeof translateDisplayedJobs === "function"
+    ) {
+      translateDisplayedJobs();
+    }
+  };
+
+  window.getLanguage = getLanguage;
+
+  /*
+   * Tombol ID / EN.
+   */
+  const langID = document.getElementById("langID");
+  const langEN = document.getElementById("langEN");
+
+  if (langID) {
+    langID.addEventListener("click", function () {
+      window.setLanguage("id");
+    });
+  }
+
+  if (langEN) {
+    langEN.addEventListener("click", function () {
+      window.setLanguage("en");
+    });
+  }
+
+  /*
+   * ALERT GLOBAL
+   */
+  const originalAlert = window.alert;
+
+  window.alert = function (message) {
+    const language = getLanguage();
+    const translated = translateValue(message, language);
+
+    return originalAlert.call(window, translated);
+  };
+
+  /*
+   * CONFIRM GLOBAL
+   */
+  const originalConfirm = window.confirm;
+
+  window.confirm = function (message) {
+    const language = getLanguage();
+    const translated = translateValue(message, language);
+
+    return originalConfirm.call(window, translated);
+  };
+
+  /*
+   * MutationObserver:
+   * elemen baru yang muncul setelah klik/search/login/submit
+   * akan ikut diterjemahkan otomatis.
+   */
+  const observer = new MutationObserver(function (mutations) {
+    const language = getLanguage();
+
+    mutations.forEach(function (mutation) {
+      mutation.addedNodes.forEach(function (node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          translateElement(node, language);
+
+          node.querySelectorAll("*").forEach(function (child) {
+            translateElement(child, language);
+          });
+        }
+
+        if (node.nodeType === Node.TEXT_NODE) {
+          translateTextNode(node, language);
+        }
+      });
+    });
+  });
+
+  /*
+   * Mulai memantau halaman.
+   */
+  if (document.body) {
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  /*
+   * Terapkan bahasa tersimpan ketika halaman dibuka.
+   */
+  const savedLanguage = localStorage.getItem(LANGUAGE_KEY);
+
+  if (savedLanguage === "en") {
+    window.setLanguage("en");
+  } else {
+    window.setLanguage("id");
+  }
+})();
   </script>
 
 <div style="text-align:center; padding:20px;">
