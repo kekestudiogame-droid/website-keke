@@ -1094,6 +1094,90 @@ if (locationInput) {
     });
   }
 }
+// =====================================================
+// CITY SUGGESTIONS
+// =====================================================
+let citySuggestions = document.querySelector("#citySuggestions");
+
+if (locationInput) {
+
+  if (!citySuggestions) {
+    citySuggestions = document.createElement("div");
+    citySuggestions.id = "citySuggestions";
+    citySuggestions.className = "job-suggestions hidden";
+
+    locationInput.parentNode.insertBefore(
+      citySuggestions,
+      locationInput.nextSibling
+    );
+  }
+
+  locationInput.addEventListener("input", () => {
+
+    const query = locationInput.value.trim().toLowerCase();
+    const language = localStorage.getItem("siteLanguage") || "id";
+
+    if (!query) {
+      citySuggestions.innerHTML = "";
+      citySuggestions.classList.add("hidden");
+      return;
+    }
+
+    const matchingCities = cities
+      .filter(city =>
+        city.toLowerCase().includes(query)
+      )
+      .slice(0, 8);
+
+    if (matchingCities.length === 0) {
+      citySuggestions.innerHTML = "";
+      citySuggestions.classList.add("hidden");
+      return;
+    }
+
+    citySuggestions.innerHTML = `
+      <div class="suggestion-header">
+        ${language === "en" ? "City Suggestions" : "Saran Kota"}
+      </div>
+
+      ${matchingCities.map(city => {
+        const displayCity = language === "en"
+          ? city
+              .replace("Kabupaten ", "Regency ")
+              .replace("Kota Administrasi ", "Administrative City of ")
+              .replace("Kota ", "City of ")
+          : city;
+
+        return `
+          <button
+            type="button"
+            class="job-suggestion-item"
+            data-city="${city}"
+          >
+            <span>${displayCity}</span>
+          </button>
+        `;
+      }).join("")}
+    `;
+
+    citySuggestions.classList.remove("hidden");
+
+    citySuggestions
+      .querySelectorAll(".job-suggestion-item")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          locationInput.value = button.dataset.city;
+          citySuggestions.classList.add("hidden");
+        });
+      });
+  });
+
+  locationInput.addEventListener("focus", () => {
+    if (locationInput.value.trim()) {
+      locationInput.dispatchEvent(new Event("input"));
+    }
+  });
+}
 
 async function renderJobs(list = jobs) {
   jobsGrid.innerHTML = "";
@@ -1578,6 +1662,11 @@ document.querySelector("#searchForm").addEventListener("submit", e => {
   if (jobSuggestions) {
     jobSuggestions.innerHTML = "";
     jobSuggestions.style.display = "none";
+  }
+
+  if (citySuggestions) {
+    citySuggestions.innerHTML = "";
+    citySuggestions.classList.add("hidden");
   }
 
   filterJobs();
