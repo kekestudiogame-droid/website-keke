@@ -2530,11 +2530,10 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
       );
     }
 
-      if (isRegister) {
-      showNotification("registrationSuccess");
-      );
+    if (isRegister) {
+  showNotification("registrationSuccess");
 
-      isRegister = false;
+  isRegister = false;
       modalTitle.textContent = "Masuk";
       modalText.textContent =
         "Masukkan email dan password untuk masuk.";
