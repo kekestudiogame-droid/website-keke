@@ -1337,53 +1337,108 @@ function startLanguageObserver() {
      LANGUAGE BUTTONS
      ========================================================= */
 
-  function setupLanguageButtons() {
+function setupLanguageButtons() {
 
-    const langID =
-      document.getElementById(
-        "langID"
-      );
+  const langID =
+    document.getElementById("langID");
 
-    const langEN =
-      document.getElementById(
-        "langEN"
-      );
+  const langEN =
+    document.getElementById("langEN");
 
 
-    if (langID) {
+  if (langID) {
 
-      langID.addEventListener(
-        "click",
-        function () {
+    langID.addEventListener(
+      "click",
+      function () {
 
-          window.setLanguage(
-            "id"
-          );
+        window.setLanguage("id");
 
-        }
-      );
-
-    }
-
-
-    if (langEN) {
-
-      langEN.addEventListener(
-        "click",
-        function () {
-
-          window.setLanguage(
-            "en"
-          );
-
-        }
-      );
-
-    }
+      }
+    );
 
   }
 
 
+  if (langEN) {
+
+    langEN.addEventListener(
+      "click",
+      function () {
+
+        window.setLanguage("en");
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     AUTH MODAL DYNAMIC CONTENT
+     ===================================================== */
+
+  const authButtons = [
+    "loginBtn",
+    "registerBtn",
+    "switchAuth",
+    "jobseekerAccount",
+    "companyAccount"
+  ];
+
+
+  authButtons.forEach(function (id) {
+
+    const button =
+      document.getElementById(id);
+
+    if (!button) return;
+
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        setTimeout(function () {
+
+          const language =
+            localStorage.getItem(
+              LANGUAGE_KEY
+            ) || "id";
+
+          const modal =
+            document.getElementById(
+              "authModal"
+            );
+
+          if (!modal) return;
+
+
+          translateElement(
+            modal,
+            language
+          );
+
+
+          modal
+            .querySelectorAll("*")
+            .forEach(function (element) {
+
+              translateElement(
+                element,
+                language
+              );
+
+            });
+
+        }, 50);
+
+      }
+    );
+
+  });
+
+}
   /* =========================================================
      INITIALIZE
      ========================================================= */
