@@ -1473,3 +1473,105 @@ function setupLanguageButtons() {
   }
 
 })();
+
+// ================= GLOBAL NOTIFICATION =================
+
+const notificationTranslations = {
+
+  loginRequired: {
+    id: "Silakan login terlebih dahulu.",
+    en: "Please log in first."
+  },
+
+  invalidAccount: {
+    id: "Data akun tidak valid. Silakan login kembali.",
+    en: "Invalid account data. Please log in again."
+  },
+
+  userIdNotFound: {
+    id: "ID pengguna tidak ditemukan.",
+    en: "User ID not found."
+  },
+
+  companySessionNotFound: {
+    id: "Sesi perusahaan tidak ditemukan. Silakan login kembali.",
+    en: "Company session not found. Please log in again."
+  },
+
+  registrationSuccess: {
+    id: "Pendaftaran berhasil! Silakan masuk menggunakan email dan password tadi.",
+    en: "Registration successful! Please log in using the email and password you just registered."
+  },
+
+  loginSuccess: {
+    id: "Login berhasil!",
+    en: "Login successful!"
+  },
+
+  profileNotFound: {
+    id: "Profil perusahaan belum ditemukan.",
+    en: "Company profile not found."
+  },
+
+  jobRequired: {
+    id: "Judul lowongan, kota, dan deskripsi wajib diisi.",
+    en: "Job title, city, and description are required."
+  },
+
+  applicationSuccess: {
+    id: "Lamaran berhasil dikirim!",
+    en: "Application submitted successfully!"
+  },
+
+  applicationFailed: {
+    id: "Lamaran gagal dikirim",
+    en: "Failed to submit application."
+  },
+
+  noIncomingApplications: {
+    id: "Belum ada lamaran masuk",
+    en: "No incoming applications yet."
+  },
+
+  paymentFailed: {
+    id: "Gagal memproses pembayaran:",
+    en: "Failed to process payment:"
+  },
+
+  companyProfileFailed: {
+    id: "Gagal mengambil profil perusahaan:",
+    en: "Failed to load company profile:"
+  },
+
+  jobsFailed: {
+    id: "Gagal mengambil lowongan:",
+    en: "Failed to load jobs:"
+  },
+
+  applicationLoadFailed: {
+    id: "Gagal mengambil lamaran:",
+    en: "Failed to load applications:"
+  }
+};
+
+
+function showNotification(key, extraMessage = "") {
+
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  const notification =
+    notificationTranslations[key];
+
+  if (!notification) {
+    alert(extraMessage);
+    return;
+  }
+
+  const message =
+    language === "en"
+      ? notification.en
+      : notification.id;
+
+  alert(message + extraMessage);
+}
