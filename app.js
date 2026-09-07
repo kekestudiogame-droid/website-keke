@@ -4795,6 +4795,10 @@ async function showMyJobs() {
     document.body.innerHTML = "";
     document.body.appendChild(page);
     translateMyJobs(page);
+
+    if (window.setLanguage) {
+    window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+     }
   } catch (error) {
     showNotification("jobsFailed", " " + error.message);
   }
