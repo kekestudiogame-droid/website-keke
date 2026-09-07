@@ -5734,7 +5734,7 @@ for (const app of myApplications) {
             margin-bottom:25px;
           "
         >
-          ← Kembali
+        ← ${localStorage.getItem("siteLanguage") === "en" ? "Back" : "Kembali"}
         </button>
 
 
