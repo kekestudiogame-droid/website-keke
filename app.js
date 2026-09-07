@@ -5738,18 +5738,25 @@ for (const app of myApplications) {
         </button>
 
 
-        <h1>
-          ${
-            myApplications.length === 0
-              ? "Belum ada lamaran masuk."
-              : "Lamaran Masuk"
-          }
-        </h1>
+     <h1>
+  ${
+    myApplications.length === 0
+      ? (localStorage.getItem("siteLanguage") === "en"
+          ? "No incoming applications."
+          : "Belum ada lamaran masuk.")
+      : (localStorage.getItem("siteLanguage") === "en"
+          ? "Incoming Applications"
+          : "Lamaran Masuk")
+  }
+</h1>
 
-
-        <p style="color:#64748b;">
-          ${myApplications.length} lamaran masuk
-        </p>
+<p style="color:#64748b;">
+  ${
+    localStorage.getItem("siteLanguage") === "en"
+      ? `${myApplications.length} incoming applications`
+      : `${myApplications.length} lamaran masuk`
+  }
+</p>
 
 
         ${
