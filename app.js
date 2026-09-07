@@ -2577,7 +2577,7 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
     throw new Error(companyError);
   }
       const language = localStorage.getItem("siteLanguage") || "id";
-      alert("Login berhasil!");
+        showNotification("loginSuccess");
 
 showCompanyDashboard();
 return;
