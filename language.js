@@ -9,7 +9,10 @@
 
   const GLOBAL_TRANSLATIONS = {
 
-    /* ===== NAVIGASI ===== */
+    /* =====================================================
+       NAVIGASI
+       ===================================================== */
+
     "Beranda": "Home",
     "Lowongan": "Jobs",
     "Cara Kerja": "How It Works",
@@ -22,14 +25,16 @@
     "Keluar": "Logout",
     "Logout": "Logout",
     "Bantuan": "Help",
-
-    /* ===== AKUN ===== */
-    "Pencari Kerja": "Job Seeker",
+    "Cari Kerja": "Find a Job",
+    "Cari": "Search",
     "Perusahaan": "Company",
-    "Dashboard": "Dashboard",
     "Profil": "Profile",
+    "Dashboard": "Dashboard",
 
-    /* ===== HERO / BERANDA ===== */
+    /* =====================================================
+       HALAMAN UTAMA / HERO
+       ===================================================== */
+
     "PLATFORM KARIER INDONESIA":
       "INDONESIAN CAREER PLATFORM",
 
@@ -54,7 +59,10 @@
     "Pasang Lowongan":
       "Post a Job",
 
-    /* ===== SEARCH ===== */
+    /* =====================================================
+       SEARCH
+       ===================================================== */
+
     "Cari Lowongan":
       "Find Jobs",
 
@@ -70,18 +78,39 @@
     "Semua kota / lokasi":
       "All cities / locations",
 
-    /* ===== LOWONGAN ===== */
+    "Semua Kota":
+      "All Cities",
+
+    "Semua Jenis Pekerjaan":
+      "All Job Types",
+
+    "Semua kategori":
+      "All Categories",
+
+    "Semua Bidang":
+      "All Fields",
+
+    "Jenis Pekerjaan":
+      "Job Type",
+
+    "Kota":
+      "City",
+
+    "Cari pekerjaan":
+      "Search for jobs",
+
+    "Search":
+      "Search",
+
+    /* =====================================================
+       LOWONGAN
+       ===================================================== */
+
     "LOWONGAN TERBARU":
       "LATEST JOBS",
 
     "Peluang kerja untukmu":
       "Job opportunities for you",
-
-    "Semua Bidang":
-      "All Fields",
-
-    "Semua kategori":
-      "All Categories",
 
     "Detail Lowongan":
       "Job Details",
@@ -95,19 +124,68 @@
     "Persyaratan":
       "Requirements",
 
+    "Syarat / Kualifikasi":
+      "Requirements / Qualifications",
+
     "Lamar":
       "Apply",
 
     "Lamar Sekarang":
       "Apply Now",
 
-    "Lihat Detail":
-      "View Details",
-
     "Kirim Lamaran":
       "Submit Application",
 
-    /* ===== KATEGORI ===== */
+    "Lihat Detail":
+      "View Details",
+
+    "Lihat":
+      "View",
+
+    "Kembali":
+      "Back",
+
+    "Edit":
+      "Edit",
+
+    "Hapus":
+      "Delete",
+
+    "Simpan":
+      "Save",
+
+    "Batal":
+      "Cancel",
+
+    /* =====================================================
+       FEATURED JOB
+       ===================================================== */
+
+    "Baru Launching!":
+      "Just Launched!",
+
+    "Temukan peluang kerja terbaik di Cari Kerjaku.":
+      "Find the best job opportunities at Cari Kerjaku.",
+
+    "Belum Ada Lowongan":
+      "No Jobs Available",
+
+    "Lowongan Belum Tersedia":
+      "Jobs Not Yet Available",
+
+    "Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.":
+      "There are no jobs matching your current search.",
+
+    "Belum ada lowongan nyata yang tersedia untuk pencarian ini.":
+      "There are no real job openings available for this search.",
+
+    "Silakan coba jenis pekerjaan atau kota lainnya.":
+      "Please try another job type or city.",
+
+    /* =====================================================
+       KATEGORI PEKERJAAN
+       ===================================================== */
+
     "Administrasi":
       "Administration",
 
@@ -180,7 +258,13 @@
     "Lainnya":
       "Other",
 
-    /* ===== CARA KERJA ===== */
+    "Pilih kategori":
+      "Select category",
+
+    /* =====================================================
+       CARA KERJA
+       ===================================================== */
+
     "CARA KERJA":
       "HOW IT WORKS",
 
@@ -205,25 +289,69 @@
     "Pilih pekerjaan yang sesuai dan pantau status lamaranmu.":
       "Choose a suitable job and track your application status.",
 
-    /* ===== FEATURED ===== */
-    "Baru Launching!":
-      "Just Launched!",
+    /* =====================================================
+       JOB SEEKER DASHBOARD
+       ===================================================== */
 
-    "Temukan peluang kerja terbaik di Cari Kerjaku.":
-      "Find the best job opportunities at Cari Kerjaku.",
+    "Dashboard Pencari Kerja":
+      "Job Seeker Dashboard",
 
-    "Belum Ada Lowongan":
-      "No Jobs Available",
+    "Selamat Datang 👋":
+      "Welcome 👋",
 
-    "Lowongan Belum Tersedia":
-      "Jobs Not Yet Available",
+    "Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.":
+      "Manage your CV and prepare yourself for your next job.",
 
-    "Belum ada lowongan yang sesuai dengan pencarian Anda saat ini.":
-      "There are no jobs matching your current search.",
+    "CV Saya":
+      "My CV",
 
-    /* ===== LAMARAN ===== */
+    "📄 CV Saya":
+      "📄 My CV",
+
+    "Belum Upload":
+      "Not Uploaded",
+
     "Lamaran Saya":
       "My Applications",
+
+    "Pekerjaan Tersimpan":
+      "Saved Jobs",
+
+    "Notifikasi":
+      "Notifications",
+
+    "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu.":
+      "Upload your CV in PDF format so companies can view your profile and work experience.",
+
+    "Upload CV kamu":
+      "Upload your CV",
+
+    "Format yang diperbolehkan: PDF":
+      "Allowed format: PDF",
+
+    "Upload CV":
+      "Upload CV",
+
+    "Pilih file CV terlebih dahulu.":
+      "Please select a CV file first.",
+
+    "CV harus berupa file PDF.":
+      "CV must be a PDF file.",
+
+    "Mengupload CV...":
+      "Uploading CV...",
+
+    "CV berhasil diupload.":
+      "CV uploaded successfully.",
+
+    "Gagal upload CV:":
+      "CV upload failed:",
+
+    "← Dashboard":
+      "← Dashboard",
+
+    "Lamaran pekerjaan yang kamu kirim akan muncul di sini.":
+      "The jobs you apply for will appear here.",
 
     "Belum Ada Lamaran":
       "No Applications Yet",
@@ -237,9 +365,45 @@
     "Menunggu":
       "Pending",
 
-    /* ===== PERUSAHAAN ===== */
+    /* =====================================================
+       COMPANY DASHBOARD
+       ===================================================== */
+
+    "Dashboard Perusahaan":
+      "Company Dashboard",
+
+    "Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.":
+      "Manage your job openings and recruitment needs.",
+
+    "Total Lowongan":
+      "Total Jobs",
+
+    "Lowongan Aktif":
+      "Active Jobs",
+
+    "Total Pelamar":
+      "Total Applicants",
+
+    "Lamaran Baru":
+      "New Applications",
+
+    "Kelola Perusahaan":
+      "Manage Company",
+
+    "Pilih menu yang ingin Anda kelola.":
+      "Choose a menu to manage.",
+
+    "Profil Perusahaan":
+      "Company Profile",
+
+    "Pasang Lowongan":
+      "Post a Job",
+
     "Lowongan Saya":
       "My Jobs",
+
+    "📋 Lowongan Saya":
+      "📋 My Jobs",
 
     "Daftar lowongan perusahaan Anda.":
       "Your company's job listings.",
@@ -250,9 +414,6 @@
     "Lamaran Masuk":
       "Incoming Applications",
 
-    "Profil Perusahaan":
-      "Company Profile",
-
     "Undang Interview":
       "Invite to Interview",
 
@@ -262,7 +423,179 @@
     "Terima Pelamar":
       "Accept Applicant",
 
-    /* ===== PEMBAYARAN ===== */
+    /* =====================================================
+       COMPANY PROFILE
+       ===================================================== */
+
+    "Profil perusahaan Anda":
+      "Your company profile",
+
+    "Nama Perusahaan":
+      "Company Name",
+
+    "📧 Email":
+      "📧 Email",
+
+    "📞 Telepon":
+      "📞 Phone",
+
+    "🌐 Website":
+      "🌐 Website",
+
+    "📍 Kota":
+      "📍 City",
+
+    "🏠 Alamat":
+      "🏠 Address",
+
+    "Deskripsi":
+      "Description",
+
+    "Simpan Profil":
+      "Save Profile",
+
+    /* =====================================================
+       POST JOB
+       ===================================================== */
+
+    "Lengkapi informasi pekerjaan yang ingin Anda tawarkan.":
+      "Complete the job information you want to offer.",
+
+    "Judul / Posisi Pekerjaan":
+      "Job Title / Position",
+
+    "Kategori Pekerjaan":
+      "Job Category",
+
+    "Lokasi / Kota":
+      "Location / City",
+
+    "Jenis Pekerjaan":
+      "Job Type",
+
+    "Pilih jenis pekerjaan":
+      "Select job type",
+
+    "Gaji":
+      "Salary",
+
+    "Pengalaman Kerja":
+      "Work Experience",
+
+    "Pendidikan Minimal":
+      "Minimum Education",
+
+    "Batas Lamaran":
+      "Application Deadline",
+
+    "Simpan Lowongan":
+      "Save Job",
+
+    "Contoh: Staff Administrasi":
+      "Example: Administrative Staff",
+
+    "Contoh: Jakarta":
+      "Example: Jakarta",
+
+    "Contoh: Rp 5.000.000 - Rp 7.000.000 / bulan":
+      "Example: Rp 5,000,000 - Rp 7,000,000 / month",
+
+    "Contoh: Minimal 1 tahun":
+      "Example: At least 1 year",
+
+    "Contoh: SMA / SMK / D3 / S1":
+      "Example: High School / Diploma / Bachelor's",
+
+    "Jelaskan pekerjaan dan tanggung jawabnya...":
+      "Describe the job and responsibilities...",
+
+    "Tuliskan persyaratan kandidat...":
+      "Enter candidate requirements...",
+
+    /* =====================================================
+       AUTH / REGISTER / LOGIN
+       ===================================================== */
+
+    "Daftar sebagai:":
+      "Register as:",
+
+    "Pencari Kerja":
+      "Job Seeker",
+
+    "Perusahaan":
+      "Company",
+
+    "Nama perusahaan":
+      "Company name",
+
+    "Alamat perusahaan":
+      "Company address",
+
+    "No. HP":
+      "Phone Number",
+
+    "Website":
+      "Website",
+
+    "Alamat":
+      "Address",
+
+    "Minimal 6 karakter":
+      "Minimum 6 characters",
+
+    "Lanjut":
+      "Continue",
+
+    "Belum punya akun?":
+      "Don't have an account?",
+
+    "Sudah punya akun?":
+      "Already have an account?",
+
+    "Tutup":
+      "Close",
+
+    "Email":
+      "Email",
+
+    "Kata Sandi":
+      "Password",
+
+    "Nama Lengkap":
+      "Full Name",
+
+    "Nomor Telepon":
+      "Phone Number",
+
+    "Masuk ke akun":
+      "Log in to your account",
+
+    "Buat akun":
+      "Create an account",
+
+    "Daftar sekarang":
+      "Register now",
+
+    /* =====================================================
+       FILTER
+       ===================================================== */
+
+    "Semua Kota":
+      "All Cities",
+
+    "Semua Jenis Pekerjaan":
+      "All Job Types",
+
+    "Pilih kota":
+      "Select city",
+
+    "Pilih jenis pekerjaan":
+      "Select job type",
+
+    /* =====================================================
+       PAYMENT
+       ===================================================== */
+
     "PEMBAYARAN":
       "PAYMENT",
 
@@ -275,49 +608,9 @@
     "Sistem pembayaran akan diaktifkan pada tahap berikutnya.":
       "The payment system will be activated at a later stage.",
 
-    /* ===== FORM ===== */
-    "Daftar sebagai:":
-      "Register as:",
-
-    "Nama Perusahaan":
-      "Company Name",
-
-    "No. HP":
-      "Phone Number",
-
-    "Website":
-      "Website",
-
-    "Kota":
-      "City",
-
-    "Alamat":
-      "Address",
-
-    "Nama perusahaan":
-      "Company name",
-
-    "Alamat perusahaan":
-      "Company address",
-
-    "Minimal 6 karakter":
-      "Minimum 6 characters",
-
-    "Lanjut":
-      "Continue",
-
-    "Belum punya akun?":
-      "Don't have an account?",
-
-    "Tutup":
-      "Close",
-
-    /* ===== STATUS ===== */
-    "Terjadi kesalahan.":
-      "An error occurred.",
-
-    "Silakan coba lagi.":
-      "Please try again.",
+    /* =====================================================
+       NOTIFICATION / STATUS / ALERT
+       ===================================================== */
 
     "Berhasil":
       "Success",
@@ -348,219 +641,64 @@
 
     "Konfirmasi":
       "Confirmation",
-         /* ===== DASHBOARD PENCAri KERJA ===== */
 
-    "Dashboard Pencari Kerja":
-      "Job Seeker Dashboard",
+    "Terjadi kesalahan.":
+      "An error occurred.",
 
-    "Selamat Datang 👋":
-      "Welcome 👋",
+    "Silakan coba lagi.":
+      "Please try again.",
 
-    "Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.":
-      "Manage your CV and prepare yourself for your next job.",
+    "Silakan login terlebih dahulu.":
+      "Please log in first.",
 
-    "CV Saya":
-      "My CV",
+    "Data akun tidak valid. Silakan login kembali.":
+      "Invalid account data. Please log in again.",
 
-    "Belum Upload":
-      "Not Uploaded",
+    "ID pengguna tidak ditemukan.":
+      "User ID not found.",
 
-    "Pekerjaan Tersimpan":
-      "Saved Jobs",
+    "Sesi perusahaan tidak ditemukan. Silakan login kembali.":
+      "Company session not found. Please log in again.",
 
-    "Notifikasi":
-      "Notifications",
+    "Judul lowongan, kota, dan deskripsi wajib diisi.":
+      "Job title, city, and description are required.",
 
-    "📄 CV Saya":
-      "📄 My CV",
+    "Gagal mengambil lowongan: ":
+      "Failed to fetch jobs: ",
 
-    "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu.":
-      "Upload your CV in PDF format so companies can view your profile and work experience.",
+    "Gagal membuat pembayaran Midtrans.":
+      "Failed to create Midtrans payment.",
 
-    "Upload CV kamu":
-      "Upload your CV",
+    "Gagal memproses pembayaran: ":
+      "Failed to process payment: ",
 
-    "Format yang diperbolehkan: PDF":
-      "Allowed format: PDF",
+    /* =====================================================
+       CHATBOT UI
+       Tidak mengubah fungsi chatbot
+       ===================================================== */
 
-    "Upload CV":
-      "Upload CV",
+    "Cari Kerjaku Assistant":
+      "Cari Kerjaku Assistant",
 
-    "Pilih file CV terlebih dahulu.":
-      "Please select a CV file first.",
+    "Halo! 👋 Ada yang bisa saya bantu?":
+      "Hello! 👋 How can I help you?",
 
-    "CV harus berupa file PDF.":
-      "CV must be a PDF file.",
+    "Tulis pertanyaan...":
+      "Type your question...",
 
-    "Mengupload CV...":
-      "Uploading CV...",
+    "Kirim":
+      "Send",
 
-    "CV berhasil diupload.":
-      "CV uploaded successfully.",
+    "Maaf, saya belum bisa menjawab.":
+      "Sorry, I can't answer that yet.",
 
-    "Gagal upload CV:":
-      "CV upload failed:",
+    "Maaf, terjadi kesalahan. Silakan coba lagi.":
+      "Sorry, an error occurred. Please try again.",
 
+    /* =====================================================
+       FOOTER
+       ===================================================== */
 
-    /* ===== LAMARAN SAYA ===== */
-
-    "← Dashboard":
-      "← Dashboard",
-
-    "Lamaran pekerjaan yang kamu kirim akan muncul di sini.":
-      "The jobs you apply for will appear here.",
-
-
-    /* ===== DASHBOARD PERUSAHAAN ===== */
-
-    "Dashboard Perusahaan":
-      "Company Dashboard",
-
-    "Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.":
-      "Manage your job openings and recruitment needs.",
-
-    "Total Lowongan":
-      "Total Jobs",
-
-    "Lowongan Aktif":
-      "Active Jobs",
-
-    "Total Pelamar":
-      "Total Applicants",
-
-    "Lamaran Baru":
-      "New Applications",
-
-    "Kelola Perusahaan":
-      "Manage Company",
-
-    "Pilih menu yang ingin Anda kelola.":
-      "Choose a menu to manage.",
-
-    "Belum ada lowongan nyata yang tersedia untuk pencarian ini.":
-      "There are no real job openings available for this search.",
-
-    "Silakan coba jenis pekerjaan atau kota lainnya.":
-      "Please try another job type or city.",
-
-    "Kembali":
-      "Back",
-
-    "Simpan":
-      "Save",
-
-    "Edit":
-      "Edit",
-
-    "Hapus":
-      "Delete",
-
-    "Lihat":
-      "View",
-
-
-    /* ===== PROFIL PERUSAHAAN ===== */
-
-    "Profil perusahaan Anda":
-      "Your company profile",
-
-    "📧 Email":
-      "📧 Email",
-
-    "📞 Telepon":
-      "📞 Phone",
-
-    "🌐 Website":
-      "🌐 Website",
-
-    "📍 Kota":
-      "📍 City",
-
-    "🏠 Alamat":
-      "🏠 Address",
-
-    "Deskripsi":
-      "Description",
-
-    "Simpan Profil":
-      "Save Profile",
-
-
-    /* ===== PASANG LOWONGAN ===== */
-
-    "Lengkapi informasi pekerjaan yang ingin Anda tawarkan.":
-      "Complete the job information you want to offer.",
-
-    "Judul / Posisi Pekerjaan":
-      "Job Title / Position",
-
-    "Kategori Pekerjaan":
-      "Job Category",
-
-    "Pilih kategori":
-      "Select category",
-
-    "Lokasi / Kota":
-      "Location / City",
-
-    "Jenis Pekerjaan":
-      "Job Type",
-
-    "Pilih jenis pekerjaan":
-      "Select job type",
-
-    "Gaji":
-      "Salary",
-
-    "Pengalaman Kerja":
-      "Work Experience",
-
-    "Pendidikan Minimal":
-      "Minimum Education",
-
-    "Syarat / Kualifikasi":
-      "Requirements / Qualifications",
-
-    "Batas Lamaran":
-      "Application Deadline",
-
-    "Simpan Lowongan":
-      "Save Job",
-
-
-    /* ===== PLACEHOLDER PASANG LOWONGAN ===== */
-
-    "Contoh: Staff Administrasi":
-      "Example: Administrative Staff",
-
-    "Contoh: Jakarta":
-      "Example: Jakarta",
-
-    "Contoh: Rp 5.000.000 - Rp 7.000.000 / bulan":
-      "Example: Rp 5,000,000 - Rp 7,000,000 / month",
-
-    "Contoh: Minimal 1 tahun":
-      "Example: At least 1 year",
-
-    "Contoh: SMA / SMK / D3 / S1":
-      "Example: High School / Diploma / Bachelor's",
-
-    "Jelaskan pekerjaan dan tanggung jawabnya...":
-      "Describe the job and responsibilities...",
-
-    "Tuliskan persyaratan kandidat...":
-      "Enter candidate requirements...",
-
-
-    /* ===== FILTER LOWONGAN ===== */
-
-    "Semua Kota":
-      "All Cities",
-
-    "Semua Jenis Pekerjaan":
-      "All Job Types",
-
-    /* ===== FOOTER ===== */
     "Syarat & Ketentuan":
       "Terms & Conditions",
 
@@ -568,7 +706,42 @@
       "Privacy Policy",
 
     "Terms & Conditions":
-      "Terms & Conditions"
+      "Terms & Conditions",
+
+  
+    /* =====================================================
+       COMMON
+       ===================================================== */
+
+    "Pilih":
+      "Select",
+
+    "Kirim":
+      "Send",
+
+    "Selesai":
+      "Done",
+
+    "Berikutnya":
+      "Next",
+
+    "Sebelumnya":
+      "Previous",
+
+    "Tidak ada data":
+      "No data available",
+
+    "Tidak ditemukan":
+      "Not found",
+
+    "Cari lagi":
+      "Search again",
+
+    "Muat ulang":
+      "Reload",
+
+    "Detail":
+      "Details"
 
   };
 
@@ -581,8 +754,7 @@
 
   Object.keys(GLOBAL_TRANSLATIONS).forEach(function (idText) {
 
-    const enText =
-      GLOBAL_TRANSLATIONS[idText];
+    const enText = GLOBAL_TRANSLATIONS[idText];
 
     if (!EN_TO_ID[enText]) {
       EN_TO_ID[enText] = idText;
@@ -599,8 +771,7 @@
 
     if (!text) return text;
 
-    const value =
-      String(text).trim();
+    const value = String(text).trim();
 
     if (!value) return text;
 
@@ -637,14 +808,12 @@
     }
 
 
-    /* PLACEHOLDER */
+    /* ---------- PLACEHOLDER ---------- */
 
     if (element.hasAttribute("placeholder")) {
 
       const oldValue =
-        element.getAttribute(
-          "placeholder"
-        );
+        element.getAttribute("placeholder");
 
       const newValue =
         translateText(
@@ -664,7 +833,7 @@
     }
 
 
-    /* TITLE */
+    /* ---------- TITLE ---------- */
 
     if (element.hasAttribute("title")) {
 
@@ -689,7 +858,39 @@
     }
 
 
-    /* TEXT NODE */
+    /* ---------- VALUE BUTTON / INPUT ---------- */
+
+    if (
+      element.tagName === "INPUT" ||
+      element.tagName === "BUTTON"
+    ) {
+
+      if (
+        element.type !== "text" &&
+        element.type !== "search" &&
+        element.type !== "email" &&
+        element.type !== "password"
+      ) {
+
+        const value =
+          element.value;
+
+        const translated =
+          translateText(
+            value,
+            language
+          );
+
+        if (value !== translated) {
+          element.value = translated;
+        }
+
+      }
+
+    }
+
+
+    /* ---------- TEXT NODE ---------- */
 
     Array.from(
       element.childNodes
@@ -750,6 +951,8 @@
      ========================================================= */
 
   function translatePage(language) {
+
+    if (!document.body) return;
 
     document
       .querySelectorAll("body *")
