@@ -3401,7 +3401,7 @@ if (!userData || !accessToken) {
    document.body.appendChild(page);
  
   } catch (error) {
-    alert("Gagal mengambil lowongan: " + error.message);
+  showNotification("jobsFailed", " " + error.message);
   }
 }
 // ================= UNDANGAN INTERVIEW =================
@@ -4756,7 +4756,7 @@ async function showMyJobs() {
     document.body.appendChild(page);
     translateMyJobs(page);
   } catch (error) {
-    alert("Gagal mengambil lowongan: " + error.message);
+    showNotification("jobsFailed", " " + error.message);
   }
 }
 
