@@ -767,35 +767,83 @@
      TRANSLATE TEXT
      ========================================================= */
 
-  function translateText(text, language) {
+function translateText(text, language) {
 
-    if (!text) return text;
+  if (!text) return text;
 
-    const value = String(text).trim();
+  let value = String(text);
 
-    if (!value) return text;
+  if (!value.trim()) return value;
 
-    if (language === "en") {
 
-      return (
-        GLOBAL_TRANSLATIONS[value] ||
-        value
-      );
+  /* =====================================================
+     ENGLISH
+     ===================================================== */
+
+  if (language === "en") {
+
+    /* exact match */
+    const exact =
+      GLOBAL_TRANSLATIONS[value.trim()];
+
+    if (exact) {
+
+      const leading =
+        value.match(/^\s*/)?.[0] || "";
+
+      const trailing =
+        value.match(/\s*$/)?.[0] || "";
+
+      return leading + exact + trailing;
 
     }
 
-    return (
-      EN_TO_ID[value] ||
-      value
-    );
+
+    /* sentence / phrase replacement */
+    Object.keys(GLOBAL_TRANSLATIONS)
+      .sort(function (a, b) {
+        return b.length - a.length;
+      })
+      .forEach(function (idText) {
+
+        const enText =
+          GLOBAL_TRANSLATIONS[idText];
+
+        if (!idText || !enText) return;
+
+        value =
+          value.split(idText).join(enText);
+
+      });
+
+    return value;
 
   }
 
 
-  /* =========================================================
-     TRANSLATE ELEMENT
-     ========================================================= */
+  /* =====================================================
+     INDONESIAN
+     ===================================================== */
 
+  Object.keys(EN_TO_ID)
+    .sort(function (a, b) {
+      return b.length - a.length;
+    })
+    .forEach(function (enText) {
+
+      const idText =
+        EN_TO_ID[enText];
+
+      if (!enText || !idText) return;
+
+      value =
+        value.split(enText).join(idText);
+
+    });
+
+  return value;
+
+}
   function translateElement(element, language) {
 
     if (!element) return;
