@@ -2531,9 +2531,8 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
       );
     }
 
-    if (isRegister) {
-      alert(
-        "Pendaftaran berhasil! Silakan masuk menggunakan email dan password tadi."
+      if (isRegister) {
+      showNotification("registrationSuccess");
       );
 
       isRegister = false;
