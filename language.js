@@ -1396,8 +1396,7 @@ function startLanguageObserver() {
     );
 
 
-    startLanguageObserver();
-
+   // startLanguageObserver();
     setupLanguageButtons();
 
   }
