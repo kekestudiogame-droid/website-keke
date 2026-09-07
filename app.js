@@ -5830,7 +5830,9 @@ for (const app of myApplications) {
                   color:#123b6d;
                   font-weight:bold;
                 ">
-                  Lihat Profil Pelamar →
+               ${localStorage.getItem("siteLanguage") === "en"
+                ? "View Applicant Profile →"
+                : "Lihat Profil Pelamar →"}
                 </div>
 
               </div>
