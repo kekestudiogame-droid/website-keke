@@ -635,14 +635,8 @@
 
     "Daftar sekarang":
       "Register now",
-    "Buat akun baru":
-      "Create a new account",
-
-    "Masuk ke akun Anda":
-       "Log in to your account",
-
-    "Register as:":
-       "Daftar sebagai:", 
+    "Buat akun perusahaan untuk memasang lowongan.":
+      "Create a company account to post job openings.",
 
     "Prototype akun. Backend akan dihubungkan pada tahap berikutnya.":
       "Account prototype. Backend will be connected at a later stage.",
