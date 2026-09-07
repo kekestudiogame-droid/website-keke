@@ -3924,21 +3924,38 @@ async function showCompanyDashboard() {
  document.body.innerHTML = "";
  document.body.appendChild(dashboard);
  translateCompanyDashboard();
-  const companyHeaderName = document.getElementById("companyHeaderName");
-  const userDataHeader = localStorage.getItem("cariKerjakuUser");
+const companyHeaderName = document.getElementById("companyHeaderName");
+const userDataHeader = localStorage.getItem("cariKerjakuUser");
+const accessTokenHeader = localStorage.getItem("cariKerjakuAccessToken");
 
-  if (companyHeaderName && userDataHeader) {
+if (companyHeaderName && userDataHeader && accessTokenHeader) {
   try {
     const companyUser = JSON.parse(userDataHeader);
 
-    if (companyUser.company_name) {
-      companyHeaderName.textContent = companyUser.company_name;
+    if (companyUser.id) {
+      const response = await fetch(
+        `${SUPABASE_URL}companies?user_id=eq.${companyUser.id}&select=company_name`,
+        {
+          method: "GET",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${accessTokenHeader}`
+          }
+        }
+      );
+
+      if (response.ok) {
+        const companies = await response.json();
+
+        if (companies.length > 0 && companies[0].company_name) {
+          companyHeaderName.textContent = companies[0].company_name;
+        }
+      }
     }
-    } catch (error) {
+  } catch (error) {
     console.error("Gagal mengambil nama perusahaan:", error);
-    }
-    }
-  
+  }
+}
     const userData = localStorage.getItem("cariKerjakuUser");
     const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
