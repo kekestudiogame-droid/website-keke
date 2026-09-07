@@ -6124,9 +6124,12 @@ for (const app of myApplications) {
 
   </div>
 `;
-    document.body.innerHTML = "";
-    document.body.appendChild(dashboard);
+  document.body.innerHTML = "";
+  document.body.appendChild(dashboard);
 
+  if (window.setLanguage) {
+  window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+}
   } catch (error) {
 
     console.error("Gagal mengambil detail profil pelamar:", error);
