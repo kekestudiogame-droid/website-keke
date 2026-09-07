@@ -5345,7 +5345,7 @@ function translateCompanyDashboard() {
   const dashboard = document.getElementById("companyDashboard");
   if (!dashboard) return;
 
-  const language = "id";
+const language = localStorage.getItem("siteLanguage") || "id";
 
  const translations = {
   "Tentang": "About",
