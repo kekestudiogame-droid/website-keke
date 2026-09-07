@@ -52,41 +52,91 @@
 
   <div class="container">
 
-    <h1>Hubungi Cari Kerjaku</h1>
+<h1 id="contactTitle">Hubungi Cari Kerjaku</h1>
 
-    <p>
-      Jika Anda memiliki pertanyaan, membutuhkan bantuan, atau mengalami
-      kendala saat menggunakan Cari Kerjaku, silakan menghubungi kami
-      melalui kontak yang tersedia.
-    </p>
+<p id="contactIntro">
+  Jika Anda memiliki pertanyaan, membutuhkan bantuan, atau mengalami
+  kendala saat menggunakan Cari Kerjaku, silakan menghubungi kami
+  melalui kontak yang tersedia.
+</p>
 
-    <div class="contact-box">
-      <h2>Kontak</h2>
+<div class="contact-box">
 
-      <p>
-        Untuk sementara, layanan Cari Kerjaku dapat dihubungi melalui
-        nomor telepon resmi yang akan ditampilkan pada halaman ini.
-      </p>
+  <h2 id="contactHeading">Kontak</h2>
 
-      <p>
-  Untuk informasi dan bantuan, silakan hubungi Cari Kerjaku melalui
-  nomor telepon resmi berikut:
-      </p>
+  <p id="contactText1">
+    Untuk sementara, layanan Cari Kerjaku dapat dihubungi melalui
+    nomor telepon resmi yang akan ditampilkan pada halaman ini.
+  </p>
 
-       <p>
-  <strong>📞 087780181152</strong>
-      </p>
+  <p id="contactText2">
+    Untuk informasi dan bantuan, silakan hubungi Cari Kerjaku melalui
+    nomor telepon resmi berikut:
+  </p>
 
-    <p style="margin-top:40px; text-align:center;">
-      <a href="index.html">← Kembali ke Cari Kerjaku</a>
-    </p>
+  <p>
+    <strong>📞 087780181152</strong>
+  </p>
 
-    <p style="text-align:center;">
-      © Cari Kerjaku
-    </p>
+</div>
+
+<p style="margin-top:40px; text-align:center;">
+  <a id="backLink" href="index.html">← Kembali ke Cari Kerjaku</a>
+</p>
+
+<p id="copyright" style="text-align:center;">
+  © Cari Kerjaku
+</p>
+
 
   </div>
 
+  <script>
+    function translateContactPage() {
+
+      const language = localStorage.getItem("siteLanguage") || "id";
+
+      const translations = {
+        id: {
+          contactTitle: "Hubungi Cari Kerjaku",
+          contactIntro:
+            "Jika Anda memiliki pertanyaan, membutuhkan bantuan, atau mengalami kendala saat menggunakan Cari Kerjaku, silakan menghubungi kami melalui kontak yang tersedia.",
+          contactHeading: "Kontak",
+          contactText1:
+            "Untuk sementara, layanan Cari Kerjaku dapat dihubungi melalui nomor telepon resmi yang akan ditampilkan pada halaman ini.",
+          contactText2:
+            "Untuk informasi dan bantuan, silakan hubungi Cari Kerjaku melalui nomor telepon resmi berikut:",
+          backLink: "← Kembali ke Cari Kerjaku",
+          copyright: "© Cari Kerjaku"
+        },
+
+        en: {
+          contactTitle: "Contact Cari Kerjaku",
+          contactIntro:
+            "If you have any questions, need assistance, or experience any issues while using Cari Kerjaku, please contact us through the available contact information.",
+          contactHeading: "Contact",
+          contactText1:
+            "For the time being, Cari Kerjaku can be contacted through the official phone number provided on this page.",
+          contactText2:
+            "For information and assistance, please contact Cari Kerjaku through the following official phone number:",
+          backLink: "← Back to Cari Kerjaku",
+          copyright: "© Cari Kerjaku"
+        }
+      };
+
+      const text = translations[language] || translations.id;
+
+      document.getElementById("contactTitle").textContent = text.contactTitle;
+      document.getElementById("contactIntro").textContent = text.contactIntro;
+      document.getElementById("contactHeading").textContent = text.contactHeading;
+      document.getElementById("contactText1").textContent = text.contactText1;
+      document.getElementById("contactText2").textContent = text.contactText2;
+      document.getElementById("backLink").textContent = text.backLink;
+      document.getElementById("copyright").textContent = text.copyright;
+    }
+
+    document.addEventListener("DOMContentLoaded", translateContactPage);
+  </script>
 
 </body>
 </html>
