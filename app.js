@@ -4545,9 +4545,13 @@ async function showCompanyProfile() {
       </div>
     `;
 
-    document.body.innerHTML = "";
-    document.body.appendChild(profile);
-    translateCompanyProfile(profile);
+  document.body.innerHTML = "";
+  document.body.appendChild(profile);
+  translateCompanyProfile(profile);
+
+  if (window.setLanguage) {
+  window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+  }
   } catch (error) {
      showNotification("companyProfileFailed", " " + error.message);
   }
