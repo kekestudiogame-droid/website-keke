@@ -2591,7 +2591,7 @@ alert("Login berhasil!");
     }
 
   } catch (error) {
-    alert("Gagal: " + error.message);
+   showNotification("invalidAccount", " " + error.message);
   }
 });
 
