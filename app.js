@@ -3991,7 +3991,7 @@ async function sendInterviewInvitation(userId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData || !accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+   showNotification("companySessionNotFound");
     return;
   }
 
@@ -4216,7 +4216,7 @@ function confirmAcceptApplicant(userId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData || !accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+   showNotification("companySessionNotFound");
     return;
   }
 
@@ -4292,7 +4292,7 @@ async function showCompanyProfile() {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData || !accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+  showNotification("companySessionNotFound");
     return;
   }
 
@@ -4525,7 +4525,7 @@ async function showMyJobs() {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData || !accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+  showNotification("companySessionNotFound");
     return;
   }
 
@@ -4764,7 +4764,7 @@ async function publishMyJob(jobId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+ showNotification("companySessionNotFound");
     return;
   }
 
@@ -4816,7 +4816,7 @@ async function deleteMyJob(jobId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+ showNotification("companySessionNotFound");
     return;
   }
 
@@ -4856,7 +4856,7 @@ async function editMyJob(jobId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+  showNotification("companySessionNotFound");
     return;
   }
 
@@ -5174,7 +5174,7 @@ async function publishNewJob() {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData || !accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    showNotification("companySessionNotFound");
     return;
   }
 
@@ -5255,7 +5255,7 @@ async function submitJobPost() {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData || !accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    showNotification("companySessionNotFound");
     return;
   }
 
@@ -5574,7 +5574,7 @@ async function showIncomingApplications() {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData || !accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+    showNotification("companySessionNotFound");
     return;
   }
 
@@ -5804,7 +5804,7 @@ for (const app of myApplications) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
-    alert("Sesi perusahaan tidak ditemukan. Silakan login kembali.");
+   showNotification("companySessionNotFound");
     return;
   }
 
