@@ -5166,7 +5166,7 @@ async function publishNewJob() {
   const requirements = document.getElementById("jobRequirements").value.trim();
 
   if (!title || !city || !description) {
-    alert("Judul lowongan, kota, dan deskripsi wajib diisi.");
+  showNotification("jobRequired");
     return;
   }
 
@@ -5247,7 +5247,7 @@ async function submitJobPost() {
   const requirements = document.getElementById("jobRequirements").value.trim();
 
   if (!title || !city || !description) {
-    alert("Judul lowongan, kota, dan deskripsi wajib diisi.");
+     showNotification("jobRequired");
     return;
   }
 
