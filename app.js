@@ -2585,7 +2585,7 @@ return;
 showJobseekerDashboard();
 
 const language = localStorage.getItem("siteLanguage") || "id";
-alert("Login berhasil!");
+showNotification("loginSuccess");
     }
 
   } catch (error) {
