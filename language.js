@@ -1304,109 +1304,29 @@
    ========================================================= */
 
 function startLanguageObserver() {
+  if (!document.body) return;
 
-  if (!document.body) {
-    return;
-  }
+  const observer = new MutationObserver(function (mutations) {
+    const language =
+      localStorage.getItem(LANGUAGE_KEY) || "id";
 
-  const observer = new MutationObserver(
-    function (mutations) {
+    mutations.forEach(function (mutation) {
+      mutation.addedNodes.forEach(function (node) {
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
 
-      const language =
-        localStorage.getItem(LANGUAGE_KEY) || "id";
+        translateElement(node, language);
 
-      mutations.forEach(function (mutation) {
-
-        /* TEXT NODE YANG BERUBAH */
-        if (
-          mutation.type === "characterData" &&
-          mutation.target.nodeType === Node.TEXT_NODE
-        ) {
-
-          const original =
-            mutation.target.nodeValue;
-
-          const translated =
-            translateText(
-              original,
-              language
-            );
-
-          if (translated !== original) {
-            mutation.target.nodeValue =
-              translated;
-          }
-
-          return;
-        }
-
-
-        /* ELEMENT / TEXT NODE YANG DITAMBAHKAN */
-        mutation.addedNodes.forEach(function (node) {
-
-          /* TEXT NODE */
-          if (
-            node.nodeType === Node.TEXT_NODE
-          ) {
-
-            const original =
-              node.nodeValue;
-
-            const translated =
-              translateText(
-                original,
-                language
-              );
-
-            if (translated !== original) {
-              node.nodeValue =
-                translated;
-            }
-
-            return;
-          }
-
-
-          /* ELEMENT NODE */
-          if (
-            node.nodeType !== Node.ELEMENT_NODE
-          ) {
-            return;
-          }
-
-          translateElement(
-            node,
-            language
-          );
-
-          node
-            .querySelectorAll("*")
-            .forEach(function (child) {
-
-              translateElement(
-                child,
-                language
-              );
-
-            });
-
+        node.querySelectorAll("*").forEach(function (child) {
+          translateElement(child, language);
         });
-
       });
+    });
+  });
 
-    }
-  );
-
-
-  observer.observe(
-    document.body,
-    {
-      childList: true,
-      subtree: true,
-      characterData: true
-    }
-  );
-
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
 }
   /* =========================================================
      LANGUAGE BUTTONS
