@@ -3263,8 +3263,8 @@ if (!userData || !accessToken) {
   try {
     user = JSON.parse(userData);
   } catch {
-    alert("Data akun tidak valid. Silakan login kembali.");
-    return;
+  showNotification("invalidAccount");
+  return;
   }
 
   if (!user.id) {
