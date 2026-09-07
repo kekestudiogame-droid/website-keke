@@ -5192,8 +5192,12 @@ function showPostJobForm() {
     </div>
   `;
 
-  document.body.appendChild(form);
-  translatePostJobForm(form);
+document.body.appendChild(form);
+translatePostJobForm(form);
+
+if (window.setLanguage) {
+  window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+}
 }
 
 async function publishNewJob() {
