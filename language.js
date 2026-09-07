@@ -646,6 +646,11 @@
 
     "Prototype akun. Backend akan dihubungkan pada tahap berikutnya.":
       "Account prototype. Backend will be connected at a later stage.",
+     "Masukkan email dan password untuk masuk.":
+     "Enter your email and password to log in.",
+
+   "Buat akun untuk mulai melamar pekerjaan.":
+      "Create an account to start applying for jobs.",
 
     /* =====================================================
        JOB DETAIL
