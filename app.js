@@ -3395,8 +3395,12 @@ if (!userData || !accessToken) {
       </div>
     `;
 
-   document.body.innerHTML = "";
-   document.body.appendChild(page);
+  document.body.innerHTML = "";
+  document.body.appendChild(page);
+
+   if (window.setLanguage) {
+    window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+}
  
   } catch (error) {
   showNotification("jobsFailed", " " + error.message);
