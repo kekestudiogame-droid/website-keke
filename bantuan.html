@@ -42,94 +42,235 @@
 
 <body>
 
-  
   <div class="container">
 
-    <h1>Bantuan Cari Kerjaku</h1>
+<h1 id="helpTitle">Bantuan Cari Kerjaku</h1>
 
-    <p>
-      Selamat datang di halaman Bantuan Cari Kerjaku.
-      Halaman ini membantu pengguna memahami cara menggunakan
-      layanan Cari Kerjaku.
-    </p>
+<p id="helpIntro">
+  Selamat datang di halaman Bantuan Cari Kerjaku.
+  Halaman ini membantu pengguna memahami cara menggunakan
+  layanan Cari Kerjaku.
+</p>
 
-    <h2>1. Cara Mendaftar</h2>
+<h2 id="help1Title">1. Cara Mendaftar</h2>
 
-    <p>
-      Pilih menu daftar atau registrasi, kemudian masukkan informasi
-      yang diperlukan dan ikuti petunjuk yang tersedia.
-    </p>
+<p id="help1Text">
+  Pilih menu daftar atau registrasi, kemudian masukkan informasi
+  yang diperlukan dan ikuti petunjuk yang tersedia.
+</p>
 
-    <h2>2. Cara Login</h2>
+<h2 id="help2Title">2. Cara Login</h2>
 
-    <p>
-      Masukkan email dan kata sandi yang telah digunakan saat
-      pendaftaran, kemudian pilih tombol Login.
-    </p>
+<p id="help2Text">
+  Masukkan email dan kata sandi yang telah digunakan saat
+  pendaftaran, kemudian pilih tombol Login.
+</p>
 
-    <h2>3. Cara Mencari Lowongan</h2>
+<h2 id="help3Title">3. Cara Mencari Lowongan</h2>
 
-    <p>
-      Gunakan daftar lowongan dan fitur pencarian untuk menemukan
-      pekerjaan berdasarkan posisi atau lokasi yang sesuai.
-    </p>
+<p id="help3Text">
+  Gunakan daftar lowongan dan fitur pencarian untuk menemukan
+  pekerjaan berdasarkan posisi atau lokasi yang sesuai.
+</p>
 
-    <h2>4. Cara Melamar Pekerjaan</h2>
+<h2 id="help4Title">4. Cara Melamar Pekerjaan</h2>
 
-    <p>
-      Buka lowongan yang diinginkan, periksa informasi pekerjaan,
-      kemudian pilih tombol <strong>Lamar Sekarang</strong>.
-    </p>
+<p id="help4Text">
+  Buka lowongan yang diinginkan, periksa informasi pekerjaan,
+  kemudian pilih tombol <strong>Lamar Sekarang</strong>.
+</p>
 
-    <h2>5. Upload CV</h2>
+<h2 id="help5Title">5. Upload CV</h2>
 
-    <p>
-      Pencari kerja dapat mengunggah CV melalui akun mereka apabila
-      fitur tersebut tersedia. Pastikan CV yang diunggah merupakan
-      dokumen yang benar dan sesuai.
-    </p>
+<p id="help5Text">
+  Pencari kerja dapat mengunggah CV melalui akun mereka apabila
+  fitur tersebut tersedia. Pastikan CV yang diunggah merupakan
+  dokumen yang benar dan sesuai.
+</p>
 
-    <h2>6. Untuk Perusahaan</h2>
+<h2 id="help6Title">6. Untuk Perusahaan</h2>
 
-    <p>
-      Perusahaan dapat membuat akun perusahaan, melengkapi profil,
-      kemudian menggunakan fitur pemasangan lowongan sesuai dengan
-      layanan yang tersedia.
-    </p>
+<p id="help6Text">
+  Perusahaan dapat membuat akun perusahaan, melengkapi profil,
+  kemudian menggunakan fitur pemasangan lowongan sesuai dengan
+  layanan yang tersedia.
+</p>
 
-    <h2>7. Pembayaran</h2>
+<h2 id="help7Title">7. Pembayaran</h2>
 
-    <p>
-      Jika pemasangan lowongan memerlukan pembayaran, ikuti petunjuk
-      pembayaran yang tersedia pada platform.
-    </p>
+<p id="help7Text">
+  Jika pemasangan lowongan memerlukan pembayaran, ikuti petunjuk
+  pembayaran yang tersedia pada platform.
+</p>
 
-    <h2>8. Jika Mengalami Masalah</h2>
+<h2 id="help8Title">8. Jika Mengalami Masalah</h2>
 
-    <p>
-      Jika mengalami kendala saat menggunakan Cari Kerjaku, periksa
-      kembali informasi yang dimasukkan dan coba gunakan layanan
-      kembali. Jika masalah tetap terjadi, hubungi Cari Kerjaku
-      melalui informasi kontak yang tersedia pada platform.
-    </p>
+<p id="help8Text">
+  Jika mengalami kendala saat menggunakan Cari Kerjaku, periksa
+  kembali informasi yang dimasukkan dan coba gunakan layanan
+  kembali. Jika masalah tetap terjadi, hubungi Cari Kerjaku
+  melalui informasi kontak yang tersedia pada platform.
+</p>
 
-    <h2>9. Keamanan</h2>
+<h2 id="help9Title">9. Keamanan</h2>
 
-    <p>
-      Jangan membagikan kata sandi atau informasi keamanan akun kepada
-      orang lain. Gunakan Cari Kerjaku hanya untuk tujuan yang sah.
-    </p>
+<p id="help9Text">
+  Jangan membagikan kata sandi atau informasi keamanan akun kepada
+  orang lain. Gunakan Cari Kerjaku hanya untuk tujuan yang sah.
+</p>
 
-    <p style="margin-top:40px; text-align:center;">
-      <a href="index.html">← Kembali ke Cari Kerjaku</a>
-    </p>
+<p style="margin-top:40px; text-align:center;">
+  <a id="helpBackLink" href="index.html">← Kembali ke Cari Kerjaku</a>
+</p>
 
-    <p style="text-align:center;">
-      © Cari Kerjaku
-    </p>
-
+<p id="helpCopyright" style="text-align:center;">
+  © Cari Kerjaku
+</p>
 
   </div>
-<script src="language.js"></script>
+
+  <script>
+
+    function translateHelpPage() {
+
+      const language = localStorage.getItem("siteLanguage") || "id";
+
+      const translations = {
+
+        id: {
+          helpTitle: "Bantuan Cari Kerjaku",
+
+          helpIntro:
+            "Selamat datang di halaman Bantuan Cari Kerjaku. Halaman ini membantu pengguna memahami cara menggunakan layanan Cari Kerjaku.",
+
+          help1Title: "1. Cara Mendaftar",
+          help1Text:
+            "Pilih menu daftar atau registrasi, kemudian masukkan informasi yang diperlukan dan ikuti petunjuk yang tersedia.",
+
+          help2Title: "2. Cara Login",
+          help2Text:
+            "Masukkan email dan kata sandi yang telah digunakan saat pendaftaran, kemudian pilih tombol Login.",
+
+          help3Title: "3. Cara Mencari Lowongan",
+          help3Text:
+            "Gunakan daftar lowongan dan fitur pencarian untuk menemukan pekerjaan berdasarkan posisi atau lokasi yang sesuai.",
+
+          help4Title: "4. Cara Melamar Pekerjaan",
+          help4Text:
+            "Buka lowongan yang diinginkan, periksa informasi pekerjaan, kemudian pilih tombol Lamar Sekarang.",
+
+          help5Title: "5. Upload CV",
+          help5Text:
+            "Pencari kerja dapat mengunggah CV melalui akun mereka apabila fitur tersebut tersedia. Pastikan CV yang diunggah merupakan dokumen yang benar dan sesuai.",
+
+          help6Title: "6. Untuk Perusahaan",
+          help6Text:
+            "Perusahaan dapat membuat akun perusahaan, melengkapi profil, kemudian menggunakan fitur pemasangan lowongan sesuai dengan layanan yang tersedia.",
+
+          help7Title: "7. Pembayaran",
+          help7Text:
+            "Jika pemasangan lowongan memerlukan pembayaran, ikuti petunjuk pembayaran yang tersedia pada platform.",
+
+          help8Title: "8. Jika Mengalami Masalah",
+          help8Text:
+            "Jika mengalami kendala saat menggunakan Cari Kerjaku, periksa kembali informasi yang dimasukkan dan coba gunakan layanan kembali. Jika masalah tetap terjadi, hubungi Cari Kerjaku melalui informasi kontak yang tersedia pada platform.",
+
+          help9Title: "9. Keamanan",
+          help9Text:
+            "Jangan membagikan kata sandi atau informasi keamanan akun kepada orang lain. Gunakan Cari Kerjaku hanya untuk tujuan yang sah.",
+
+          helpBackLink: "← Kembali ke Cari Kerjaku",
+          helpCopyright: "© Cari Kerjaku"
+        },
+
+        en: {
+          helpTitle: "Cari Kerjaku Help",
+
+          helpIntro:
+            "Welcome to the Cari Kerjaku Help page. This page helps users understand how to use the Cari Kerjaku service.",
+
+          help1Title: "1. How to Register",
+          help1Text:
+            "Select the registration or sign-up menu, enter the required information, and follow the instructions provided.",
+
+          help2Title: "2. How to Login",
+          help2Text:
+            "Enter the email address and password used during registration, then select the Login button.",
+
+          help3Title: "3. How to Search for Jobs",
+          help3Text:
+            "Use the job listings and search feature to find jobs based on a suitable position or location.",
+
+          help4Title: "4. How to Apply for a Job",
+          help4Text:
+            "Open the desired job listing, review the job information, then select the Apply Now button.",
+
+          help5Title: "5. Upload CV",
+          help5Text:
+            "Job seekers can upload their CV through their account when this feature is available. Make sure the uploaded CV is the correct and appropriate document.",
+
+          help6Title: "6. For Companies",
+          help6Text:
+            "Companies can create a company account, complete their profile, and use the job posting feature according to the services available.",
+
+          help7Title: "7. Payment",
+          help7Text:
+            "If posting a job requires payment, follow the payment instructions provided on the platform.",
+
+          help8Title: "8. If You Experience a Problem",
+          help8Text:
+            "If you experience any issues while using Cari Kerjaku, check the information you entered and try using the service again. If the problem persists, contact Cari Kerjaku through the contact information available on the platform.",
+
+          help9Title: "9. Security",
+          help9Text:
+            "Do not share your password or account security information with anyone else. Use Cari Kerjaku only for legitimate purposes.",
+
+          helpBackLink: "← Back to Cari Kerjaku",
+          helpCopyright: "© Cari Kerjaku"
+        }
+      };
+
+      const text = translations[language] || translations.id;
+
+      document.getElementById("helpTitle").textContent = text.helpTitle;
+      document.getElementById("helpIntro").textContent = text.helpIntro;
+
+      document.getElementById("help1Title").textContent = text.help1Title;
+      document.getElementById("help1Text").textContent = text.help1Text;
+
+      document.getElementById("help2Title").textContent = text.help2Title;
+      document.getElementById("help2Text").textContent = text.help2Text;
+
+      document.getElementById("help3Title").textContent = text.help3Title;
+      document.getElementById("help3Text").textContent = text.help3Text;
+
+      document.getElementById("help4Title").textContent = text.help4Title;
+      document.getElementById("help4Text").textContent = text.help4Text;
+
+      document.getElementById("help5Title").textContent = text.help5Title;
+      document.getElementById("help5Text").textContent = text.help5Text;
+
+      document.getElementById("help6Title").textContent = text.help6Title;
+      document.getElementById("help6Text").textContent = text.help6Text;
+
+      document.getElementById("help7Title").textContent = text.help7Title;
+      document.getElementById("help7Text").textContent = text.help7Text;
+
+      document.getElementById("help8Title").textContent = text.help8Title;
+      document.getElementById("help8Text").textContent = text.help8Text;
+
+      document.getElementById("help9Title").textContent = text.help9Title;
+      document.getElementById("help9Text").textContent = text.help9Text;
+
+      document.getElementById("helpBackLink").textContent = text.helpBackLink;
+      document.getElementById("helpCopyright").textContent = text.helpCopyright;
+    }
+
+    document.addEventListener("DOMContentLoaded", translateHelpPage);
+
+  </script>
+
+  <script src="language.js"></script>
+
 </body>
 </html>
