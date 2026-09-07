@@ -10,6 +10,22 @@
   const GLOBAL_TRANSLATIONS = {
 
     /* =====================================================
+       BRAND / META
+       ===================================================== */
+
+    "Cari Kerjaku ID — Temukan Pekerjaanmu":
+      "Cari Kerjaku ID — Find Your Job",
+
+    "Cari Kerjaku ID - platform pencarian lowongan kerja dan rekrutmen.":
+      "Cari Kerjaku ID - job search and recruitment platform.",
+
+    "CARI KERJAKU ID":
+      "CARI KERJAKU ID",
+
+    "CariKerjaku ID":
+      "CariKerjaku ID",
+
+    /* =====================================================
        NAVIGASI
        ===================================================== */
 
@@ -31,12 +47,25 @@
     "Profil": "Profile",
     "Dashboard": "Dashboard",
 
+    "Dashboard Pencari Kerja":
+      "Job Seeker Dashboard",
+
+    "Dashboard Perusahaan":
+      "Company Dashboard",
+
     /* =====================================================
-       HALAMAN UTAMA / HERO
+       HERO
        ===================================================== */
 
     "PLATFORM KARIER INDONESIA":
       "INDONESIAN CAREER PLATFORM",
+
+    /* Penting: H1 index.html terpisah oleh <span> */
+    "Temukan pekerjaan yang":
+      "Find the right job",
+
+    "tepat untukmu.":
+      "for you.",
 
     "Temukan pekerjaan yang tepat untukmu.":
       "Find the right job for you.",
@@ -93,8 +122,14 @@
     "Jenis Pekerjaan":
       "Job Type",
 
-    "Kota":
-      "City",
+    "Filter bidang pekerjaan":
+      "Job field filter",
+
+    "Pilih kota":
+      "Select city",
+
+    "Pilih jenis pekerjaan":
+      "Select job type",
 
     "Cari pekerjaan":
       "Search for jobs",
@@ -157,6 +192,9 @@
     "Batal":
       "Cancel",
 
+    "Detail":
+      "Details",
+
     /* =====================================================
        FEATURED JOB
        ===================================================== */
@@ -183,7 +221,7 @@
       "Please try another job type or city.",
 
     /* =====================================================
-       KATEGORI PEKERJAAN
+       CATEGORY
        ===================================================== */
 
     "Administrasi":
@@ -192,20 +230,38 @@
     "Akuntansi":
       "Accounting",
 
+    "Accounting":
+      "Accounting",
+
     "Keuangan":
+      "Finance",
+
+    "Finance":
       "Finance",
 
     "Pemasaran":
       "Marketing",
 
+    "Marketing":
+      "Marketing",
+
     "Penjualan":
       "Sales",
+
+    "Sales":
+      "Sales",
+
+    "IT":
+      "IT",
 
     "Teknologi":
       "Technology",
 
     "Teknologi & IT":
       "Technology & IT",
+
+    "HRD":
+      "HR",
 
     "Sumber Daya Manusia":
       "Human Resources",
@@ -255,6 +311,12 @@
     "Transportasi":
       "Transportation",
 
+    "Customer Service":
+      "Customer Service",
+
+    "Retail":
+      "Retail",
+
     "Lainnya":
       "Other",
 
@@ -290,11 +352,18 @@
       "Choose a suitable job and track your application status.",
 
     /* =====================================================
-       JOB SEEKER DASHBOARD
+       ABOUT
        ===================================================== */
 
-    "Dashboard Pencari Kerja":
-      "Job Seeker Dashboard",
+    "Satu tempat untuk pencari kerja dan perusahaan.":
+      "One place for job seekers and companies.",
+
+    "Temukan lowongan kerja dan peluang karier dari berbagai bidang di Indonesia.":
+      "Find job openings and career opportunities from various fields across Indonesia.",
+
+    /* =====================================================
+       JOB SEEKER
+       ===================================================== */
 
     "Selamat Datang 👋":
       "Welcome 👋",
@@ -369,9 +438,6 @@
        COMPANY DASHBOARD
        ===================================================== */
 
-    "Dashboard Perusahaan":
-      "Company Dashboard",
-
     "Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.":
       "Manage your job openings and recruitment needs.",
 
@@ -395,9 +461,6 @@
 
     "Profil Perusahaan":
       "Company Profile",
-
-    "Pasang Lowongan":
-      "Post a Job",
 
     "Lowongan Saya":
       "My Jobs",
@@ -432,6 +495,9 @@
 
     "Nama Perusahaan":
       "Company Name",
+
+    "Nama perusahaan":
+      "Company name",
 
     "📧 Email":
       "📧 Email",
@@ -470,12 +536,6 @@
     "Lokasi / Kota":
       "Location / City",
 
-    "Jenis Pekerjaan":
-      "Job Type",
-
-    "Pilih jenis pekerjaan":
-      "Select job type",
-
     "Gaji":
       "Salary",
 
@@ -513,7 +573,7 @@
       "Enter candidate requirements...",
 
     /* =====================================================
-       AUTH / REGISTER / LOGIN
+       AUTH
        ===================================================== */
 
     "Daftar sebagai:":
@@ -525,12 +585,6 @@
     "Perusahaan":
       "Company",
 
-    "Nama perusahaan":
-      "Company name",
-
-    "Alamat perusahaan":
-      "Company address",
-
     "No. HP":
       "Phone Number",
 
@@ -539,6 +593,9 @@
 
     "Alamat":
       "Address",
+
+    "Alamat perusahaan":
+      "Company address",
 
     "Minimal 6 karakter":
       "Minimum 6 characters",
@@ -558,6 +615,9 @@
     "Email":
       "Email",
 
+    "Password":
+      "Password",
+
     "Kata Sandi":
       "Password",
 
@@ -576,21 +636,33 @@
     "Daftar sekarang":
       "Register now",
 
+    "Prototype akun. Backend akan dihubungkan pada tahap berikutnya.":
+      "Account prototype. Backend will be connected at a later stage.",
+
     /* =====================================================
-       FILTER
+       JOB DETAIL
        ===================================================== */
 
-    "Semua Kota":
-      "All Cities",
+    "Nama Lowongan":
+      "Job Title",
 
-    "Semua Jenis Pekerjaan":
-      "All Job Types",
+    "Nama Perusahaan":
+      "Company Name",
 
-    "Pilih kota":
-      "Select city",
+    "📍 Lokasi":
+      "📍 Location",
 
-    "Pilih jenis pekerjaan":
-      "Select job type",
+    "💼 Tipe Pekerjaan":
+      "💼 Job Type",
+
+    "💰 Gaji":
+      "💰 Salary",
+
+    "Deskripsi pekerjaan akan tampil di sini.":
+      "Job description will appear here.",
+
+    "Persyaratan pekerjaan akan tampil di sini.":
+      "Job requirements will appear here.",
 
     /* =====================================================
        PAYMENT
@@ -609,7 +681,7 @@
       "The payment system will be activated at a later stage.",
 
     /* =====================================================
-       NOTIFICATION / STATUS / ALERT
+       STATUS / ALERT
        ===================================================== */
 
     "Berhasil":
@@ -635,9 +707,6 @@
 
     "Tidak":
       "No",
-
-    "Batal":
-      "Cancel",
 
     "Konfirmasi":
       "Confirmation",
@@ -674,7 +743,7 @@
 
     /* =====================================================
        CHATBOT UI
-       Tidak mengubah fungsi chatbot
+       Fungsi chatbot TIDAK diubah
        ===================================================== */
 
     "Cari Kerjaku Assistant":
@@ -708,16 +777,12 @@
     "Terms & Conditions":
       "Terms & Conditions",
 
-  
     /* =====================================================
        COMMON
        ===================================================== */
 
     "Pilih":
       "Select",
-
-    "Kirim":
-      "Send",
 
     "Selesai":
       "Done",
@@ -738,16 +803,13 @@
       "Search again",
 
     "Muat ulang":
-      "Reload",
-
-    "Detail":
-      "Details"
+      "Reload"
 
   };
 
 
   /* =========================================================
-     EN → ID
+     BUILD EN → ID
      ========================================================= */
 
   const EN_TO_ID = {};
@@ -756,7 +818,10 @@
 
     const enText = GLOBAL_TRANSLATIONS[idText];
 
-    if (!EN_TO_ID[enText]) {
+    if (
+      enText &&
+      !EN_TO_ID[enText]
+    ) {
       EN_TO_ID[enText] = idText;
     }
 
@@ -767,26 +832,81 @@
      TRANSLATE TEXT
      ========================================================= */
 
-function translateText(text, language) {
+  function translateText(text, language) {
 
-  if (!text) return text;
+    if (!text) return text;
 
-  let value = String(text);
+    let value = String(text);
 
-  if (!value.trim()) return value;
+    if (!value.trim()) {
+      return value;
+    }
 
 
-  /* =====================================================
-     ENGLISH
-     ===================================================== */
+    /* =====================================================
+       ID → EN
+       ===================================================== */
 
-  if (language === "en") {
+    if (language === "en") {
 
-    /* exact match */
-    const exact =
-      GLOBAL_TRANSLATIONS[value.trim()];
+      const trimmed = value.trim();
 
-    if (exact) {
+      if (
+        GLOBAL_TRANSLATIONS[trimmed]
+      ) {
+
+        const translated =
+          GLOBAL_TRANSLATIONS[trimmed];
+
+        const leading =
+          value.match(/^\s*/)?.[0] || "";
+
+        const trailing =
+          value.match(/\s*$/)?.[0] || "";
+
+        return (
+          leading +
+          translated +
+          trailing
+        );
+
+      }
+
+
+      Object.keys(GLOBAL_TRANSLATIONS)
+        .sort(function (a, b) {
+          return b.length - a.length;
+        })
+        .forEach(function (idText) {
+
+          const enText =
+            GLOBAL_TRANSLATIONS[idText];
+
+          if (!idText || !enText) {
+            return;
+          }
+
+          value =
+            value.split(idText).join(enText);
+
+        });
+
+      return value;
+    }
+
+
+    /* =====================================================
+       EN → ID
+       ===================================================== */
+
+    const trimmed = value.trim();
+
+    if (
+      EN_TO_ID[trimmed]
+    ) {
+
+      const translated =
+        EN_TO_ID[trimmed];
 
       const leading =
         value.match(/^\s*/)?.[0] || "";
@@ -794,71 +914,69 @@ function translateText(text, language) {
       const trailing =
         value.match(/\s*$/)?.[0] || "";
 
-      return leading + exact + trailing;
+      return (
+        leading +
+        translated +
+        trailing
+      );
 
     }
 
 
-    /* sentence / phrase replacement */
-    Object.keys(GLOBAL_TRANSLATIONS)
+    Object.keys(EN_TO_ID)
       .sort(function (a, b) {
         return b.length - a.length;
       })
-      .forEach(function (idText) {
+      .forEach(function (enText) {
 
-        const enText =
-          GLOBAL_TRANSLATIONS[idText];
+        const idText =
+          EN_TO_ID[enText];
 
-        if (!idText || !enText) return;
+        if (!enText || !idText) {
+          return;
+        }
 
         value =
-          value.split(idText).join(enText);
+          value.split(enText).join(idText);
 
       });
 
     return value;
-
   }
 
 
-  /* =====================================================
-     INDONESIAN
-     ===================================================== */
+  /* =========================================================
+     TRANSLATE ELEMENT
+     ========================================================= */
 
-  Object.keys(EN_TO_ID)
-    .sort(function (a, b) {
-      return b.length - a.length;
-    })
-    .forEach(function (enText) {
-
-      const idText =
-        EN_TO_ID[enText];
-
-      if (!enText || !idText) return;
-
-      value =
-        value.split(enText).join(idText);
-
-    });
-
-  return value;
-
-}
   function translateElement(element, language) {
 
     if (!element) return;
 
     if (
-      element.tagName === "SCRIPT" ||
-      element.tagName === "STYLE"
+      element.nodeType !== Node.ELEMENT_NODE
     ) {
       return;
     }
 
 
-    /* ---------- PLACEHOLDER ---------- */
+    /* Jangan sentuh kode */
+    if (
+      element.tagName === "SCRIPT" ||
+      element.tagName === "STYLE" ||
+      element.tagName === "NOSCRIPT"
+    ) {
+      return;
+    }
 
-    if (element.hasAttribute("placeholder")) {
+
+    /* =====================================================
+       PLACEHOLDER
+       ===================================================== */
+
+    if (
+      element.hasAttribute("placeholder")
+    ) {
 
       const oldValue =
         element.getAttribute("placeholder");
@@ -881,9 +999,13 @@ function translateText(text, language) {
     }
 
 
-    /* ---------- TITLE ---------- */
+    /* =====================================================
+       TITLE ATTRIBUTE
+       ===================================================== */
 
-    if (element.hasAttribute("title")) {
+    if (
+      element.hasAttribute("title")
+    ) {
 
       const oldValue =
         element.getAttribute("title");
@@ -906,31 +1028,72 @@ function translateText(text, language) {
     }
 
 
-    /* ---------- VALUE BUTTON / INPUT ---------- */
+    /* =====================================================
+       ARIA LABEL
+       ===================================================== */
 
     if (
-      element.tagName === "INPUT" ||
-      element.tagName === "BUTTON"
+      element.hasAttribute("aria-label")
     ) {
 
+      const oldValue =
+        element.getAttribute("aria-label");
+
+      const newValue =
+        translateText(
+          oldValue,
+          language
+        );
+
+      if (oldValue !== newValue) {
+
+        element.setAttribute(
+          "aria-label",
+          newValue
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       BUTTON / INPUT VALUE
+       ===================================================== */
+
+    if (
+      element.tagName === "BUTTON" ||
+      element.tagName === "INPUT"
+    ) {
+
+      const type =
+        (element.type || "").toLowerCase();
+
       if (
-        element.type !== "text" &&
-        element.type !== "search" &&
-        element.type !== "email" &&
-        element.type !== "password"
+        type !== "text" &&
+        type !== "search" &&
+        type !== "email" &&
+        type !== "password" &&
+        type !== "tel" &&
+        type !== "url"
       ) {
 
-        const value =
+        const oldValue =
           element.value;
 
-        const translated =
+        const newValue =
           translateText(
-            value,
+            oldValue,
             language
           );
 
-        if (value !== translated) {
-          element.value = translated;
+        if (
+          oldValue !== newValue
+        ) {
+
+          element.value =
+            newValue;
+
         }
 
       }
@@ -938,15 +1101,16 @@ function translateText(text, language) {
     }
 
 
-    /* ---------- TEXT NODE ---------- */
+    /* =====================================================
+       TEXT NODES
+       ===================================================== */
 
     Array.from(
       element.childNodes
     ).forEach(function (node) {
 
       if (
-        node.nodeType !==
-        Node.TEXT_NODE
+        node.nodeType !== Node.TEXT_NODE
       ) {
         return;
       }
@@ -954,38 +1118,22 @@ function translateText(text, language) {
       const original =
         node.nodeValue;
 
-      const trimmed =
-        original.trim();
-
-      if (!trimmed) return;
+      if (!original) {
+        return;
+      }
 
       const translated =
         translateText(
-          trimmed,
+          original,
           language
         );
 
       if (
-        translated !== trimmed
+        translated !== original
       ) {
 
-        const start =
-          original.indexOf(
-            trimmed
-          );
-
-        const end =
-          start + trimmed.length;
-
         node.nodeValue =
-          original.substring(
-            0,
-            start
-          ) +
-          translated +
-          original.substring(
-            end
-          );
+          translated;
 
       }
 
@@ -995,28 +1143,103 @@ function translateText(text, language) {
 
 
   /* =========================================================
-     TRANSLATE WHOLE PAGE
+     TRANSLATE PAGE
      ========================================================= */
 
   function translatePage(language) {
 
-    if (!document.body) return;
+    if (!document.documentElement) {
+      return;
+    }
 
-    document
-      .querySelectorAll("body *")
-      .forEach(function (element) {
 
-        translateElement(
-          element,
-          language
-        );
-
-      });
-
+    /* =====================================================
+       HTML LANG
+       ===================================================== */
 
     document.documentElement.lang =
       language;
 
+
+    /* =====================================================
+       TITLE
+       ===================================================== */
+
+    if (document.title) {
+
+      document.title =
+        translateText(
+          document.title,
+          language
+        );
+
+    }
+
+
+    /* =====================================================
+       META DESCRIPTION
+       ===================================================== */
+
+    const metaDescription =
+      document.querySelector(
+        'meta[name="description"]'
+      );
+
+    if (metaDescription) {
+
+      const oldDescription =
+        metaDescription.getAttribute(
+          "content"
+        );
+
+      const newDescription =
+        translateText(
+          oldDescription,
+          language
+        );
+
+      if (
+        oldDescription !== newDescription
+      ) {
+
+        metaDescription.setAttribute(
+          "content",
+          newDescription
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       BODY
+       ===================================================== */
+
+    if (document.body) {
+
+      translateElement(
+        document.body,
+        language
+      );
+
+      document
+        .querySelectorAll("body *")
+        .forEach(function (element) {
+
+          translateElement(
+            element,
+            language
+          );
+
+        });
+
+    }
+
+
+    /* =====================================================
+       SAVE LANGUAGE
+       ===================================================== */
 
     localStorage.setItem(
       LANGUAGE_KEY,
@@ -1027,7 +1250,7 @@ function translateText(text, language) {
 
 
   /* =========================================================
-     GLOBAL FUNCTION
+     GLOBAL SET LANGUAGE
      ========================================================= */
 
   window.setLanguage =
@@ -1037,7 +1260,9 @@ function translateText(text, language) {
         language !== "id" &&
         language !== "en"
       ) {
+
         language = "id";
+
       }
 
       translatePage(
@@ -1046,6 +1271,10 @@ function translateText(text, language) {
 
     };
 
+
+  /* =========================================================
+     GET LANGUAGE
+     ========================================================= */
 
   window.getLanguage =
     function () {
@@ -1062,12 +1291,14 @@ function translateText(text, language) {
 
 
   /* =========================================================
-     DYNAMIC CONTENT
+     DYNAMIC CONTENT OBSERVER
      ========================================================= */
 
   function startLanguageObserver() {
 
-    if (!document.body) return;
+    if (!document.body) {
+      return;
+    }
 
     const observer =
       new MutationObserver(
@@ -1081,37 +1312,36 @@ function translateText(text, language) {
           mutations.forEach(
             function (mutation) {
 
-              mutation.addedNodes
-                .forEach(
-                  function (node) {
+              mutation.addedNodes.forEach(
+                function (node) {
 
-                    if (
-                      node.nodeType !==
-                      Node.ELEMENT_NODE
-                    ) {
-                      return;
-                    }
+                  if (
+                    node.nodeType !==
+                    Node.ELEMENT_NODE
+                  ) {
+                    return;
+                  }
 
-                    translateElement(
-                      node,
-                      language
+                  translateElement(
+                    node,
+                    language
+                  );
+
+                  node
+                    .querySelectorAll("*")
+                    .forEach(
+                      function (child) {
+
+                        translateElement(
+                          child,
+                          language
+                        );
+
+                      }
                     );
 
-                    node
-                      .querySelectorAll("*")
-                      .forEach(
-                        function (child) {
-
-                          translateElement(
-                            child,
-                            language
-                          );
-
-                        }
-                      );
-
-                  }
-                );
+                }
+              );
 
             }
           );
