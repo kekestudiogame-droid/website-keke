@@ -4513,7 +4513,7 @@ async function showCompanyProfile() {
     document.body.appendChild(profile);
     translateCompanyProfile(profile);
   } catch (error) {
-    alert("Gagal mengambil profil perusahaan: " + error.message);
+     showNotification("companyProfileFailed", " " + error.message);
   }
 }
 
