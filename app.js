@@ -5463,7 +5463,7 @@ const translations = {
 function translatePostJobForm(form) {
   if (!form) return;
 
-  const language = "id";
+ const language = localStorage.getItem("siteLanguage") || "id";
 
   const translations = {
     "Pasang Lowongan": "Post a Job",
