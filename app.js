@@ -3665,13 +3665,20 @@ async function showCompanyDashboard() {
             Cari Kerjaku
           </div>
 
-          <div style="
-            font-size:13px;
-            opacity:.85;
-            margin-top:4px;
-          ">
-            Dashboard Perusahaan
-          </div>
+        <div style="
+         font-size:13px;
+         opacity:.85;
+         margin-top:4px;
+         ">
+         Dashboard Perusahaan
+       </div>
+
+          <div id="companyHeaderName" style="
+          font-size:12px;
+          opacity:.75;
+          margin-top:3px;
+         ">
+        </div>
         </div>
 
         <button onclick="companyLogout()" style="
@@ -3917,12 +3924,26 @@ async function showCompanyDashboard() {
  document.body.innerHTML = "";
  document.body.appendChild(dashboard);
  translateCompanyDashboard();
-  
-const userData = localStorage.getItem("cariKerjakuUser");
-const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  const companyHeaderName = document.getElementById("companyHeaderName");
+  const userDataHeader = localStorage.getItem("cariKerjakuUser");
 
-if (userData && accessToken) {
+  if (companyHeaderName && userDataHeader) {
   try {
+    const companyUser = JSON.parse(userDataHeader);
+
+    if (companyUser.company_name) {
+      companyHeaderName.textContent = companyUser.company_name;
+    }
+    } catch (error) {
+    console.error("Gagal mengambil nama perusahaan:", error);
+    }
+    }
+  
+    const userData = localStorage.getItem("cariKerjakuUser");
+    const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+    if (userData && accessToken) {
+     try {
     const user = JSON.parse(userData);
 
     if (user.id) {
