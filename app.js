@@ -5416,7 +5416,7 @@ const language = localStorage.getItem("siteLanguage") || "id";
 function translateCompanyProfile(profile) {
   if (!profile) return;
 
-  const language = "id";
+ const language = localStorage.getItem("siteLanguage") || "id";
 
 const translations = {
   "Profil Perusahaan": "Company Profile",
