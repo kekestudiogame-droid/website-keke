@@ -476,6 +476,10 @@
 
     "Lamaran Masuk":
       "Incoming Applications",
+     "Pelamar:": "Applicant:",
+     "Nama pelamar belum tersedia": "Applicant name not available",
+     "Dikirim:": "Submitted:",
+     "Lihat Profil Pelamar →": "View Applicant Profile →",
 
     "Undang Interview":
       "Invite to Interview",
