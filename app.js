@@ -3268,7 +3268,7 @@ if (!userData || !accessToken) {
   }
 
   if (!user.id) {
-    alert("ID pengguna tidak ditemukan.");
+  showNotification("userIdNotFound");
     return;
   }
 
