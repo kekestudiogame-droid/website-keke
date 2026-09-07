@@ -2244,13 +2244,12 @@ return;
 
    const language = localStorage.getItem("siteLanguage") || "id";
 
-  alert(
-  language === "en"
-    ? `Application submitted successfully!\n\n${job.title} - ${job.company}`
-    : `Lamaran berhasil dikirim!\n\n${job.title} - ${job.company}`
+showNotification(
+  "applicationSuccess",
+  `\n\n${job.title} - ${job.company}`
 );
   } catch (error) {
-    alert("Gagal mengirim lamaran: " + error.message);
+  showNotification("applicationFailed", " " + error.message);
   }
 }
 
