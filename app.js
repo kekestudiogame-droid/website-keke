@@ -2191,10 +2191,10 @@ const accessToken = localStorage.getItem("cariKerjakuAccessToken");
     return;
   }
 
-  if (!user.id) {
-    alert("Data akun tidak ditemukan. Silakan login kembali.");
-    return;
-  }
+ if (!user.id) {
+  showNotification("invalidAccount");
+  return;
+}
 
   try {
     
