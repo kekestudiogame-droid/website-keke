@@ -4330,7 +4330,7 @@ async function showCompanyProfile() {
     const companies = await response.json();
 
     if (!companies.length) {
-      alert("Profil perusahaan belum ditemukan.");
+      showNotification("profileNotFound");
       return;
     }
 
