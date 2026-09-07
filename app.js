@@ -3253,10 +3253,10 @@ async function showMyApplications() {
   const userData = localStorage.getItem("cariKerjakuUser");
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
-  if (!userData || !accessToken) {
-    alert("Silakan login terlebih dahulu.");
-    return;
-  }
+if (!userData || !accessToken) {
+  showNotification("loginRequired");
+  return;
+}
 
   let user;
 
