@@ -348,6 +348,217 @@
 
     "Konfirmasi":
       "Confirmation",
+         /* ===== DASHBOARD PENCAri KERJA ===== */
+
+    "Dashboard Pencari Kerja":
+      "Job Seeker Dashboard",
+
+    "Selamat Datang 👋":
+      "Welcome 👋",
+
+    "Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.":
+      "Manage your CV and prepare yourself for your next job.",
+
+    "CV Saya":
+      "My CV",
+
+    "Belum Upload":
+      "Not Uploaded",
+
+    "Pekerjaan Tersimpan":
+      "Saved Jobs",
+
+    "Notifikasi":
+      "Notifications",
+
+    "📄 CV Saya":
+      "📄 My CV",
+
+    "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu.":
+      "Upload your CV in PDF format so companies can view your profile and work experience.",
+
+    "Upload CV kamu":
+      "Upload your CV",
+
+    "Format yang diperbolehkan: PDF":
+      "Allowed format: PDF",
+
+    "Upload CV":
+      "Upload CV",
+
+    "Pilih file CV terlebih dahulu.":
+      "Please select a CV file first.",
+
+    "CV harus berupa file PDF.":
+      "CV must be a PDF file.",
+
+    "Mengupload CV...":
+      "Uploading CV...",
+
+    "CV berhasil diupload.":
+      "CV uploaded successfully.",
+
+    "Gagal upload CV:":
+      "CV upload failed:",
+
+
+    /* ===== LAMARAN SAYA ===== */
+
+    "← Dashboard":
+      "← Dashboard",
+
+    "Lamaran pekerjaan yang kamu kirim akan muncul di sini.":
+      "The jobs you apply for will appear here.",
+
+
+    /* ===== DASHBOARD PERUSAHAAN ===== */
+
+    "Dashboard Perusahaan":
+      "Company Dashboard",
+
+    "Kelola lowongan dan kebutuhan rekrutmen perusahaan Anda.":
+      "Manage your job openings and recruitment needs.",
+
+    "Total Lowongan":
+      "Total Jobs",
+
+    "Lowongan Aktif":
+      "Active Jobs",
+
+    "Total Pelamar":
+      "Total Applicants",
+
+    "Lamaran Baru":
+      "New Applications",
+
+    "Kelola Perusahaan":
+      "Manage Company",
+
+    "Pilih menu yang ingin Anda kelola.":
+      "Choose a menu to manage.",
+
+    "Belum ada lowongan nyata yang tersedia untuk pencarian ini.":
+      "There are no real job openings available for this search.",
+
+    "Silakan coba jenis pekerjaan atau kota lainnya.":
+      "Please try another job type or city.",
+
+    "Kembali":
+      "Back",
+
+    "Simpan":
+      "Save",
+
+    "Edit":
+      "Edit",
+
+    "Hapus":
+      "Delete",
+
+    "Lihat":
+      "View",
+
+
+    /* ===== PROFIL PERUSAHAAN ===== */
+
+    "Profil perusahaan Anda":
+      "Your company profile",
+
+    "📧 Email":
+      "📧 Email",
+
+    "📞 Telepon":
+      "📞 Phone",
+
+    "🌐 Website":
+      "🌐 Website",
+
+    "📍 Kota":
+      "📍 City",
+
+    "🏠 Alamat":
+      "🏠 Address",
+
+    "Deskripsi":
+      "Description",
+
+    "Simpan Profil":
+      "Save Profile",
+
+
+    /* ===== PASANG LOWONGAN ===== */
+
+    "Lengkapi informasi pekerjaan yang ingin Anda tawarkan.":
+      "Complete the job information you want to offer.",
+
+    "Judul / Posisi Pekerjaan":
+      "Job Title / Position",
+
+    "Kategori Pekerjaan":
+      "Job Category",
+
+    "Pilih kategori":
+      "Select category",
+
+    "Lokasi / Kota":
+      "Location / City",
+
+    "Jenis Pekerjaan":
+      "Job Type",
+
+    "Pilih jenis pekerjaan":
+      "Select job type",
+
+    "Gaji":
+      "Salary",
+
+    "Pengalaman Kerja":
+      "Work Experience",
+
+    "Pendidikan Minimal":
+      "Minimum Education",
+
+    "Syarat / Kualifikasi":
+      "Requirements / Qualifications",
+
+    "Batas Lamaran":
+      "Application Deadline",
+
+    "Simpan Lowongan":
+      "Save Job",
+
+
+    /* ===== PLACEHOLDER PASANG LOWONGAN ===== */
+
+    "Contoh: Staff Administrasi":
+      "Example: Administrative Staff",
+
+    "Contoh: Jakarta":
+      "Example: Jakarta",
+
+    "Contoh: Rp 5.000.000 - Rp 7.000.000 / bulan":
+      "Example: Rp 5,000,000 - Rp 7,000,000 / month",
+
+    "Contoh: Minimal 1 tahun":
+      "Example: At least 1 year",
+
+    "Contoh: SMA / SMK / D3 / S1":
+      "Example: High School / Diploma / Bachelor's",
+
+    "Jelaskan pekerjaan dan tanggung jawabnya...":
+      "Describe the job and responsibilities...",
+
+    "Tuliskan persyaratan kandidat...":
+      "Enter candidate requirements...",
+
+
+    /* ===== FILTER LOWONGAN ===== */
+
+    "Semua Kota":
+      "All Cities",
+
+    "Semua Jenis Pekerjaan":
+      "All Job Types",
 
     /* ===== FOOTER ===== */
     "Syarat & Ketentuan":
