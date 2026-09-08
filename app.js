@@ -4549,6 +4549,21 @@ async function showCompanyProfile() {
             ">
               Profil perusahaan Anda
             </p>
+              <button
+              onclick="editCompanyProfile()"
+              style="
+              padding:12px 20px;
+              background:#123b6d;
+              color:white;
+              border:none;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:bold;
+              margin-top:15px;
+            "
+            >
+            ✏️ Edit Profil
+            </button>
 
             <div style="
               display:grid;
@@ -4635,7 +4650,350 @@ async function showCompanyProfile() {
      showNotification("companyProfileFailed", " " + error.message);
   }
 }
+// ================= EDIT PROFIL PERUSAHAAN =================
 
+async function editCompanyProfile() {
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    showNotification("companySessionNotFound");
+    return;
+  }
+
+  let user;
+
+  try {
+    user = JSON.parse(userData);
+  } catch {
+    alert("Data akun tidak valid. Silakan login kembali.");
+    return;
+  }
+
+  if (!user.id) {
+    alert("ID pengguna tidak ditemukan.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}companies?user_id=eq.${user.id}&select=*`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    const companies = await response.json();
+
+    if (!companies.length) {
+      showNotification("profileNotFound");
+      return;
+    }
+
+    const company = companies[0];
+
+    const profile = document.getElementById("companyProfile");
+
+    if (!profile) return;
+
+    profile.innerHTML = `
+      <div style="
+        min-height:100vh;
+        background:#f4f7fb;
+        font-family:Arial,sans-serif;
+        color:#1f2937;
+      ">
+
+        <div style="
+          background:#123b6d;
+          color:white;
+          padding:20px 30px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          box-shadow:0 3px 12px rgba(0,0,0,.15);
+        ">
+          <div>
+            <div style="
+              font-size:24px;
+              font-weight:bold;
+            ">
+              Cari Kerjaku
+            </div>
+
+            <div style="
+              font-size:13px;
+              opacity:.85;
+              margin-top:4px;
+            ">
+              Edit Profil Perusahaan
+            </div>
+          </div>
+
+          <button
+            onclick="showCompanyProfile()"
+            style="
+              background:rgba(255,255,255,.12);
+              color:white;
+              border:1px solid rgba(255,255,255,.3);
+              padding:10px 18px;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            ← Batal
+          </button>
+        </div>
+
+        <div style="
+          max-width:900px;
+          margin:auto;
+          padding:35px 25px;
+        ">
+
+          <div style="
+            background:white;
+            padding:30px;
+            border-radius:16px;
+            box-shadow:0 3px 15px rgba(15,23,42,.07);
+            border:1px solid #e5eaf1;
+          ">
+
+            <h1 style="
+              margin:0 0 25px 0;
+              color:#172b4d;
+              font-size:28px;
+            ">
+              Edit Profil Perusahaan
+            </h1>
+
+            <label>Nama Perusahaan</label>
+            <input
+              id="editCompanyName"
+              value="${company.company_name || ""}"
+              style="
+                width:100%;
+                box-sizing:border-box;
+                padding:13px;
+                margin:7px 0 18px;
+                border:1px solid #dbe3ec;
+                border-radius:8px;
+                font-size:15px;
+              "
+            >
+
+            <label>Email</label>
+            <input
+              value="${company.email || ""}"
+              disabled
+              style="
+                width:100%;
+                box-sizing:border-box;
+                padding:13px;
+                margin:7px 0 18px;
+                border:1px solid #e5eaf1;
+                border-radius:8px;
+                font-size:15px;
+                background:#f1f5f9;
+              "
+            >
+
+            <label>Telepon</label>
+            <input
+              id="editCompanyPhone"
+              value="${company.phone || ""}"
+              style="
+                width:100%;
+                box-sizing:border-box;
+                padding:13px;
+                margin:7px 0 18px;
+                border:1px solid #dbe3ec;
+                border-radius:8px;
+                font-size:15px;
+              "
+            >
+
+            <label>Website</label>
+            <input
+              id="editCompanyWebsite"
+              value="${company.website || ""}"
+              style="
+                width:100%;
+                box-sizing:border-box;
+                padding:13px;
+                margin:7px 0 18px;
+                border:1px solid #dbe3ec;
+                border-radius:8px;
+                font-size:15px;
+              "
+            >
+
+            <label>Kota</label>
+            <input
+              id="editCompanyCity"
+              value="${company.city || ""}"
+              style="
+                width:100%;
+                box-sizing:border-box;
+                padding:13px;
+                margin:7px 0 18px;
+                border:1px solid #dbe3ec;
+                border-radius:8px;
+                font-size:15px;
+              "
+            >
+
+            <label>Alamat</label>
+            <textarea
+              id="editCompanyAddress"
+              rows="4"
+              style="
+                width:100%;
+                box-sizing:border-box;
+                padding:13px;
+                margin:7px 0 25px;
+                border:1px solid #dbe3ec;
+                border-radius:8px;
+                font-size:15px;
+                resize:vertical;
+              "
+            >${company.address || ""}</textarea>
+
+            <div style="
+              display:flex;
+              gap:12px;
+              flex-wrap:wrap;
+            ">
+
+              <button
+                onclick="saveCompanyProfile('${company.id}')"
+                style="
+                  padding:12px 22px;
+                  background:#123b6d;
+                  color:white;
+                  border:none;
+                  border-radius:8px;
+                  cursor:pointer;
+                  font-weight:bold;
+                "
+              >
+                💾 Simpan
+              </button>
+
+              <button
+                onclick="showCompanyProfile()"
+                style="
+                  padding:12px 22px;
+                  background:#e2e8f0;
+                  color:#172b4d;
+                  border:none;
+                  border-radius:8px;
+                  cursor:pointer;
+                  font-weight:bold;
+                "
+              >
+                Batal
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    `;
+
+    if (window.setLanguage) {
+      window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+    }
+
+  } catch (error) {
+    showNotification("companyProfileFailed", " " + error.message);
+  }
+}
+
+
+// ================= SIMPAN PROFIL PERUSAHAAN =================
+
+async function saveCompanyProfile(companyId) {
+
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    showNotification("companySessionNotFound");
+    return;
+  }
+
+  const companyName =
+    document.getElementById("editCompanyName")?.value.trim();
+
+  const phone =
+    document.getElementById("editCompanyPhone")?.value.trim();
+
+  const website =
+    document.getElementById("editCompanyWebsite")?.value.trim();
+
+  const city =
+    document.getElementById("editCompanyCity")?.value.trim();
+
+  const address =
+    document.getElementById("editCompanyAddress")?.value.trim();
+
+  if (!companyName) {
+    alert("Nama perusahaan wajib diisi.");
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      `${SUPABASE_URL}companies?id=eq.${companyId}`,
+      {
+        method: "PATCH",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal"
+        },
+        body: JSON.stringify({
+          company_name: companyName,
+          phone: phone,
+          website: website,
+          city: city,
+          address: address
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    alert("Profil perusahaan berhasil diperbarui.");
+
+    await showCompanyProfile();
+
+  } catch (error) {
+
+    console.error("Gagal menyimpan profil perusahaan:", error);
+
+    showNotification(
+      "companyProfileFailed",
+      " " + error.message
+    );
+  }
+}
 
 // ================= LOWONGAN SAYA =================
 
