@@ -4072,11 +4072,15 @@ async function sendInterviewInvitation(userId) {
       throw new Error(await response.text());
     }
 
-    alert(
-      "Undangan interview berhasil dikirim.\n" +
+  alert(
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Interview invitation sent successfully.\n" +
+      "Date: " + date + "\n" +
+      "Time: " + time
+    : "Undangan interview berhasil dikirim.\n" +
       "Tanggal: " + date + "\n" +
       "Jam: " + time
-    );
+);
 
     document.querySelector('[style*=fixed]').remove();
 
