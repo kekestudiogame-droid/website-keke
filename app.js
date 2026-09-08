@@ -6003,7 +6003,7 @@ for (const app of myApplications) {
           color:#123b6d;
           background:#f8fafc;
         ">
-          ▼ Detail Profil Pelamar
+         ▼ ${localStorage.getItem("siteLanguage") === "en" ? "Applicant Profile Details" : "Detail Profil Pelamar"}
         </summary>
 
         <div style="padding:20px;">
@@ -6014,7 +6014,7 @@ for (const app of myApplications) {
           </p>
 
           <p>
-            <strong>Kota / Domisili</strong><br>
+          <strong>${localStorage.getItem("siteLanguage") === "en" ? "City / Location" : "Kota / Domisili"}</strong>
             ${profile.city || "Belum tersedia"}
           </p>
 
@@ -6029,7 +6029,7 @@ for (const app of myApplications) {
           </p>
 
           <p style="margin-bottom:0;">
-            <strong>Keahlian</strong><br>
+          <strong>${localStorage.getItem("siteLanguage") === "en" ? "Skills" : "Keahlian"}</strong>
             ${profile.skills || "Belum tersedia"}
           </p>
 
