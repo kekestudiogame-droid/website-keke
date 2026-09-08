@@ -5001,14 +5001,7 @@ const response = await fetch(
       const errorText = await response.text();
       throw new Error(errorText);
     }
-
-   const language = localStorage.getItem("siteLanguage") || "id";
-
-       showNotification(
-       language === "en"
-       ? "Company profile updated successfully."
-       : "Profil perusahaan berhasil diperbarui."
-        );
+      showNotification("profileUpdated");
 
     await showCompanyProfile();
 
