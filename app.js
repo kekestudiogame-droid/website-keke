@@ -4113,12 +4113,16 @@ function openInterviewForm(userId) {
   align-items:center;
   margin-bottom:20px;
 ">
-  <h2 style="
-    margin:0;
-    color:#123b6d;
-  ">
-    Undang Interview
-  </h2>
+ <h2 style="
+  margin:0;
+  color:#123b6d;
+">
+  ${
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Invite to Interview"
+      : "Undang Interview"
+  }
+   </h2>
 
   <button
     type="button"
@@ -6137,9 +6141,9 @@ for (const app of myApplications) {
     >
     Hubungi Pelamar
           </button>
-   <button
+  <button
   type="button"
- onclick="openInterviewForm('${userId}')"
+  onclick="openInterviewForm('${userId}')"
   style="
     width:100%;
     padding:12px;
@@ -6150,10 +6154,14 @@ for (const app of myApplications) {
     color:white;
     cursor:pointer;
     font-weight:bold;
-    "
-    >
-         Undang Interview
-         </button>
+  "
+>
+  ${
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Invite to Interview"
+      : "Undang Interview"
+  }
+       </button>
 
         <button
   type="button"
