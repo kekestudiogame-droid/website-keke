@@ -5801,7 +5801,7 @@ for (const app of myApplications) {
 
 
                 <p>
-                  <strong>Pelamar:</strong>
+                  <strong>${localStorage.getItem("siteLanguage") === "en" ? "Applicant:" : "Pelamar:"}</strong>
                   ${
                     app.jobseeker?.full_name ||
                     "Nama pelamar belum tersedia"
