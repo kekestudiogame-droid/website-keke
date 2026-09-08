@@ -2467,8 +2467,16 @@ document.querySelector("#switchAuth").addEventListener("click", () => {
   modalTitle.textContent = isRegister ? "Daftar" : "Masuk";
 
   modalText.textContent = isRegister
-    ? "Buat akun untuk mulai melamar pekerjaan."
-    : "Masukkan email dan password untuk masuk.";
+  ? (
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Create an account to start applying for jobs."
+        : "Buat akun untuk mulai melamar pekerjaan."
+    )
+  : (
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Enter your email and password to log in."
+        : "Masukkan email dan password untuk masuk."
+    );
 
   document.querySelector("#switchAuth").textContent =
     isRegister ? "Masuk" : "Daftar";
