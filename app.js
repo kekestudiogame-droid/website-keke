@@ -5951,9 +5951,14 @@ function translatePostJobForm(form) {
 
   form.querySelectorAll("*").forEach(element => {
     if (element.children.length === 0) {
-      const text = element.textContent.trim();
+    const text = element.textContent.trim();
 
-      if (language === "en" && translations[text]) {
+    if (text === "Cari Kerjaku") {
+    element.textContent = "CariKerjaku";
+    return;
+  }
+
+   if (language === "en" && translations[text]) {
         element.textContent = translations[text];
       }
 
