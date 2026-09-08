@@ -6051,7 +6051,7 @@ for (const app of myApplications) {
           color:#123b6d;
           background:#f8fafc;
         ">
-          ▼ Tindakan Perusahaan
+        ▼ ${localStorage.getItem("siteLanguage") === "en" ? "Company Actions" : "Tindakan Perusahaan"}
         </summary>
 
         <div style="padding:20px;">
@@ -6123,7 +6123,7 @@ for (const app of myApplications) {
     font-weight:bold;
   "
 >
-  Tolak Pelamar
+${localStorage.getItem("siteLanguage") === "en" ? "Reject Applicant" : "Tolak Pelamar"}
 </button>
         </div>
 
