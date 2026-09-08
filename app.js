@@ -4480,7 +4480,7 @@ async function showCompanyProfile() {
               font-size:24px;
               font-weight:bold;
             ">
-              Cari Kerjaku
+             CariKerjaku
             </div>
 
             <div style="
