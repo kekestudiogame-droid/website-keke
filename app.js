@@ -4142,9 +4142,13 @@ function openInterviewForm(userId) {
   </button>
 </div>
 
-        <label style="font-weight:bold;">
-          Tanggal Interview
-        </label>
+      <label style="font-weight:bold;">
+      ${
+      localStorage.getItem("siteLanguage") === "en"
+      ? "Interview Date"
+      : "Tanggal Interview"
+      }
+       </label>
 
         <input
           type="date"
@@ -4178,9 +4182,13 @@ function openInterviewForm(userId) {
           "
         ></div>
 
-        <label style="font-weight:bold;">
-          Jam Interview
-        </label>
+      <label style="font-weight:bold;">
+      ${
+      localStorage.getItem("siteLanguage") === "en"
+      ? "Interview Time"
+      : "Jam Interview"
+      }
+      </label>
 
         <input
           type="time"
