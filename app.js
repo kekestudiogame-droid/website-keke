@@ -4204,7 +4204,11 @@ function openInterviewForm(userId) {
             margin-right:8px;
           "
         >
-          Batal
+       ${
+          localStorage.getItem("siteLanguage") === "en"
+           ? "Cancel"
+           : "Batal"
+           }
         </button>
 
               <button
@@ -4220,7 +4224,11 @@ function openInterviewForm(userId) {
             font-weight:bold;
           "
         >
-          Kirim Undangan
+        ${
+          localStorage.getItem("siteLanguage") === "en"
+          ? "Send Invitation"
+           : "Kirim Undangan"
+          }
         </button>
         </div>
         </div>
