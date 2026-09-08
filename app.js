@@ -4968,7 +4968,7 @@ const response = await fetch(
           apikey: SUPABASE_KEY,
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
-          Prefer: "return=minimal"
+           Prefer: "return=representation"
         },
         body: JSON.stringify({
           company_name: companyName,
