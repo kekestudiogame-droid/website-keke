@@ -2437,9 +2437,12 @@ if (registerBtn) {
       modalTitle.textContent = "Daftar";
     }
 
-    if (modalText) {
-      modalText.textContent = "Buat akun untuk mulai melamar pekerjaan.";
-    }
+  if (modalText) {
+  modalText.textContent =
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Create an account to start applying for jobs."
+      : "Buat akun untuk mulai melamar pekerjaan.";
+}
 
     if (authForm) {
       authForm.classList.remove("hidden");
