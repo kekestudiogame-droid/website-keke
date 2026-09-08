@@ -4219,9 +4219,11 @@ function openInterviewForm(userId) {
 }
 
 function confirmAcceptApplicant(userId) {
-  const confirmAccept = confirm(
-    "Apakah Anda yakin ingin menerima pelamar ini?"
-  );
+ const confirmReject = confirm(
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Are you sure you want to reject this applicant?"
+    : "Apakah Anda yakin ingin menolak pelamar ini?"
+);
 
   if (!confirmAccept) {
     return;
@@ -4238,18 +4240,24 @@ function confirmAcceptApplicant(userId) {
     return;
   }
 
-  const reason = prompt(
-    "Masukkan alasan penolakan pelamar:"
-  );
+ const reason = prompt(
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Enter the reason for rejecting the applicant:"
+    : "Masukkan alasan penolakan pelamar:"
+);
 
   if (reason === null) {
     return;
   }
 
-  if (!reason.trim()) {
-    alert("Alasan penolakan harus diisi.");
-    return;
-  }
+ if (!reason.trim()) {
+  alert(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Rejection reason is required."
+      : "Alasan penolakan harus diisi."
+  );
+  return;
+}
 
   const userData = localStorage.getItem("cariKerjakuUser");
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
@@ -4262,10 +4270,14 @@ function confirmAcceptApplicant(userId) {
   try {
     const company = JSON.parse(userData);
 
-    if (!company.id) {
-      alert("ID perusahaan tidak ditemukan.");
-      return;
-    }
+  if (!company.id) {
+  alert(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Company ID not found."
+      : "ID perusahaan tidak ditemukan."
+  );
+  return;
+}
 
     const response = await fetch(
    `${SUPABASE_URL}applications?user_id=eq.${userId}&job_id=eq.${jobId}&select=id,job_id,jobs(user_id)`,
@@ -4284,10 +4296,14 @@ function confirmAcceptApplicant(userId) {
 
     const applications = await response.json();
 
-    if (applications.length === 0) {
-      alert("Data lamaran tidak ditemukan.");
-      return;
-    }
+  if (applications.length === 0) {
+  alert(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Application data not found."
+      : "Data lamaran tidak ditemukan."
+  );
+  return;
+}
 
   const application = applications[0];
 
