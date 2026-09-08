@@ -4655,9 +4655,8 @@ if (window.setLanguage) {
   }
 }
 
-}
   } catch (error) {
-     showNotification("companyProfileFailed", " " + error.message);
+    showNotification("companyProfileFailed", " " + error.message);
   }
 }
 // ================= EDIT PROFIL PERUSAHAAN =================
