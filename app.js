@@ -3676,7 +3676,7 @@ async function showCompanyDashboard() {
             font-size:24px;
             font-weight:bold;
           ">
-            Cari Kerjaku
+         CariKerjaku
           </div>
 
         <div style="
