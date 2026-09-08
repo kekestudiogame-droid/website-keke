@@ -4029,8 +4029,12 @@ if (applicationsResponse.ok) {
 }
 
 async function sendInterviewInvitation(userId) {
-  const date = document.getElementById("interviewDate").value;
-  const time = document.getElementById("interviewTime").value;
+const date = document.getElementById("interviewDate").value;
+const time = document.getElementById("interviewTime").value;
+
+const displayDate = date
+  ? date.split("-").reverse().join("-")
+  : "";
 
   if (!date || !time) {
     alert("Silakan pilih tanggal dan jam interview.");
@@ -4075,10 +4079,10 @@ async function sendInterviewInvitation(userId) {
   alert(
   localStorage.getItem("siteLanguage") === "en"
     ? "Interview invitation sent successfully.\n" +
-      "Date: " + date + "\n" +
-      "Time: " + time
+     "Date: " + displayDate + "\n" +
+     "Time: " + time
     : "Undangan interview berhasil dikirim.\n" +
-      "Tanggal: " + date + "\n" +
+      "Tanggal: " + displayDate + "\n" +
       "Jam: " + time
 );
 
