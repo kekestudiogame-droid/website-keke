@@ -5967,7 +5967,7 @@ for (const app of myApplications) {
         text-align:center;
         color:#172b4d;
       ">
-        Profil Pelamar
+       ${localStorage.getItem("siteLanguage") === "en" ? "Applicant Profile" : "Profil Pelamar"}
       </h1>
 
       <!-- IDENTITAS UTAMA -->
