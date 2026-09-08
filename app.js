@@ -4233,8 +4233,10 @@ function confirmAcceptApplicant(userId) {
 }
   async function rejectApplicant(userId, jobId) {
   const confirmReject = confirm(
-    "Apakah Anda yakin ingin menolak pelamar ini?"
-  );
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Are you sure you want to reject this applicant?"
+    : "Apakah Anda yakin ingin menolak pelamar ini?"
+);
 
   if (!confirmReject) {
     return;
@@ -4307,10 +4309,14 @@ function confirmAcceptApplicant(userId) {
 
   const application = applications[0];
 
-    if (!application) {
-    alert("Lamaran ini bukan milik lowongan perusahaan Anda.");
-    return;
-   }
+  if (!application) {
+  alert(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "This application does not belong to your company's job listing."
+      : "Lamaran ini bukan milik lowongan perusahaan Anda."
+  );
+  return;
+}
 
     const updateResponse = await fetch(
       `${SUPABASE_URL}applications?id=eq.${application.id}`,
