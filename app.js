@@ -4802,7 +4802,7 @@ async function editCompanyProfile() {
               "
             >
 
-            <label>Email</label>
+            <label>📧 Email</label>
             <input
               value="${company.email || ""}"
               disabled
@@ -4818,7 +4818,7 @@ async function editCompanyProfile() {
               "
             >
 
-            <label>Telepon</label>
+            <label>📞 Telepon</label>
             <input
               id="editCompanyPhone"
               value="${company.phone || ""}"
@@ -4848,7 +4848,7 @@ async function editCompanyProfile() {
               "
             >
 
-            <label>Kota</label>
+            <label>📍 Kota</label>
             <input
               id="editCompanyCity"
               value="${company.city || ""}"
