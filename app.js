@@ -4230,17 +4230,21 @@ function openInterviewForm(userId) {
 }
 
 function confirmAcceptApplicant(userId) {
- const confirmReject = confirm(
-  localStorage.getItem("siteLanguage") === "en"
-    ? "Are you sure you want to reject this applicant?"
-    : "Apakah Anda yakin ingin menolak pelamar ini?"
-);
+    const confirmAccept = confirm(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Are you sure you want to accept this applicant?"
+      : "Apakah Anda yakin ingin menerima pelamar ini?"
+  );
 
   if (!confirmAccept) {
     return;
   }
 
-  alert("Pelamar berhasil diterima.");
+  alert(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Applicant accepted successfully."
+      : "Pelamar berhasil diterima."
+  );
 }
   async function rejectApplicant(userId, jobId) {
   const confirmReject = confirm(
