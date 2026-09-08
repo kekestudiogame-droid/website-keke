@@ -5816,7 +5816,7 @@ for (const app of myApplications) {
 
 
                 <p style="color:#64748b;">
-                  Dikirim:
+                ${localStorage.getItem("siteLanguage") === "en" ? "Submitted:" : "Dikirim:"}
                   ${
                     app.created_at
                       ? new Date(app.created_at).toLocaleString("id-ID")
