@@ -5002,7 +5002,7 @@ const response = await fetch(
       throw new Error(errorText);
     }
 
-    alert("Profil perusahaan berhasil diperbarui.");
+     showNotification("profileUpdated");
 
     await showCompanyProfile();
 
