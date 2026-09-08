@@ -4733,11 +4733,11 @@ async function editCompanyProfile() {
           box-shadow:0 3px 12px rgba(0,0,0,.15);
         ">
           <div>
-            <div style="
+          <div style="
               font-size:24px;
               font-weight:bold;
-            ">
-              Cari Kerjaku
+              ">
+              <span id="editCompanyBrand">CariKerjaku</span>
             </div>
 
             <div style="
@@ -4922,9 +4922,15 @@ async function editCompanyProfile() {
       </div>
     `;
 
-    if (window.setLanguage) {
-      window.setLanguage(localStorage.getItem("siteLanguage") || "id");
-    }
+   if (window.setLanguage) {
+  window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+
+  const editCompanyBrand = document.getElementById("editCompanyBrand");
+
+  if (editCompanyBrand) {
+    editCompanyBrand.textContent = "CariKerjaku";
+  }
+}
 
   } catch (error) {
     showNotification("companyProfileFailed", " " + error.message);
