@@ -5627,7 +5627,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const language = "id";
 
 modalTitle.textContent = "Masuk";
-modalText.textContent = "Masuk ke akun Anda";
+modalText.textContent =
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Log in to your account"
+    : "Masuk ke akun Anda";
     authForm.dataset.mode = "login";
   });
 }
