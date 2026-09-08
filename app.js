@@ -4449,7 +4449,9 @@ async function showCompanyProfile() {
       return;
     }
 
-    const company = companies[0];
+   const company = companies.find(
+    c => c.id === "009267ea-f6cd-4527-b7ce-43d124a84369"
+    );
 
     const profile = document.createElement("div");
 
