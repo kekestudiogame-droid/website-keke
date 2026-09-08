@@ -4477,11 +4477,11 @@ async function showCompanyProfile() {
         ">
           <div>
             <div style="
-              font-size:24px;
-              font-weight:bold;
-            ">
-             CariKerjaku
-            </div>
+             font-size:24px;
+             font-weight:bold;
+             ">
+             <span id="companyProfileBrand">CariKerjaku</span>
+             </div>
 
             <div style="
               font-size:13px;
@@ -4645,13 +4645,16 @@ async function showCompanyProfile() {
   document.body.appendChild(profile);
   translateCompanyProfile(profile);
 
- if (window.setLanguage) {
+if (window.setLanguage) {
   window.setLanguage(localStorage.getItem("siteLanguage") || "id");
 
-  const brand = profile.querySelector("div div");
-  if (brand && brand.textContent.trim() === "SearchKerjaku") {
-    brand.textContent = "CariKerjaku";
+  const companyProfileBrand = document.getElementById("companyProfileBrand");
+
+  if (companyProfileBrand) {
+    companyProfileBrand.textContent = "CariKerjaku";
   }
+}
+
 }
   } catch (error) {
      showNotification("companyProfileFailed", " " + error.message);
