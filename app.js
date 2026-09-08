@@ -5260,9 +5260,15 @@ async function showMyJobs() {
     document.body.appendChild(page);
     translateMyJobs(page);
 
-    if (window.setLanguage) {
-    window.setLanguage(localStorage.getItem("siteLanguage") || "id");
-     }
+   if (window.setLanguage) {
+       window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+
+   const myJobsBrand = document.getElementById("myJobsBrand");
+
+   if (myJobsBrand) {
+    myJobsBrand.textContent = "CariKerjaku";
+  }
+}
   } catch (error) {
     showNotification("jobsFailed", " " + error.message);
   }
