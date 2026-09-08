@@ -5088,6 +5088,14 @@ function companyLogout() {
 }
 
 function showPostJobForm() {
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    showNotification("companySessionNotFound");
+    return;
+  }
+
   const form = document.createElement("div");
 
   form.innerHTML = `
