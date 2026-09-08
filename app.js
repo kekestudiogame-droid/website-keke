@@ -5646,14 +5646,22 @@ modalText.textContent =
   });
 }
 
-  if (registerBtn) {
-    registerBtn.addEventListener("click", () => {
-      authModal.classList.remove("hidden");
-      modalTitle.textContent = "Daftar";
-      modalText.textContent = "Buat akun baru";
-      authForm.dataset.mode = "register";
-    });
-  }
+     if (registerBtn) {
+       registerBtn.addEventListener("click", () => {
+       authModal.classList.remove("hidden");
+       modalTitle.textContent =
+       localStorage.getItem("siteLanguage") === "en"
+        ? "Register"
+        : "Daftar";
+
+       modalText.textContent =
+       localStorage.getItem("siteLanguage") === "en"
+        ? "Create a new account"
+        : "Buat akun baru";
+
+    authForm.dataset.mode = "register";
+  });
+}
 
   if (closeModal) {
     closeModal.addEventListener("click", () => {
