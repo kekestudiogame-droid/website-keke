@@ -4339,11 +4339,19 @@ function confirmAcceptApplicant(userId) {
       throw new Error(await updateResponse.text());
     }
 
-    alert("Pelamar berhasil ditolak.");
+ alert(
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Applicant rejected successfully."
+    : "Pelamar berhasil ditolak."
+);
 
   } catch (error) {
     console.error("Gagal menolak pelamar:", error);
-    alert("Gagal menolak pelamar.");
+  alert(
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Failed to reject applicant."
+    : "Gagal menolak pelamar."
+);
   }
 }
 // ================= PROFIL PERUSAHAAN =================
