@@ -4036,11 +4036,14 @@ const displayDate = date
   ? date.split("-").reverse().join("-")
   : "";
 
-  if (!date || !time) {
-    alert("Silakan pilih tanggal dan jam interview.");
-    return;
-  }
-
+ if (!date || !time) {
+    alert(
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Please select the interview date and time."
+      : "Silakan pilih tanggal dan jam interview."
+  );
+  return;
+}
   const userData = localStorage.getItem("cariKerjakuUser");
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
