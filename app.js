@@ -4645,9 +4645,14 @@ async function showCompanyProfile() {
   document.body.appendChild(profile);
   translateCompanyProfile(profile);
 
-  if (window.setLanguage) {
+ if (window.setLanguage) {
   window.setLanguage(localStorage.getItem("siteLanguage") || "id");
+
+  const brand = profile.querySelector("div div");
+  if (brand && brand.textContent.trim() === "SearchKerjaku") {
+    brand.textContent = "CariKerjaku";
   }
+}
   } catch (error) {
      showNotification("companyProfileFailed", " " + error.message);
   }
