@@ -4955,9 +4955,12 @@ async function saveCompanyProfile(companyId) {
 
   try {
 
- const user = JSON.parse(userData);
+const user = JSON.parse(userData);
 
- const response = await fetch(
+console.log("COMPANY ID YANG DIUPDATE:", companyId);
+console.log("USER DATA:", userData);
+
+const response = await fetch(
   `${SUPABASE_URL}companies?id=eq.${companyId}&user_id=eq.${user.id}`,
       {
         method: "PATCH",
