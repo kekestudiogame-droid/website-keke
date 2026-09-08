@@ -5084,12 +5084,12 @@ async function showMyJobs() {
           justify-content:space-between;
           align-items:center;
         ">
-          <div>
-            <div style="
-              font-size:24px;
-              font-weight:bold;
+        <div>
+        <div id="myJobsBrand" style="
+            font-size:24px;
+            font-weight:bold;
             ">
-              Cari Kerjaku
+            CariKerjaku
             </div>
 
             <div style="
