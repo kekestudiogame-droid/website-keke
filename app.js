@@ -5435,7 +5435,7 @@ const confirmPublish = confirm(
       throw new Error(errorText);
     }
 
-    alert("✅ Lowongan berhasil dikirim dan sudah tampil di CariKerjaku.id.");
+    showNotification("jobPublished");
 
     showMyJobs();
 
