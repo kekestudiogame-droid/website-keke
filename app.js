@@ -3002,8 +3002,7 @@ function showJobseekerDashboard() {
   translateJobseekerDashboard(dashboard);
     loadInterviewInvitations();
   
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
 
 if (userData && accessToken) {
   const user = JSON.parse(userData);
