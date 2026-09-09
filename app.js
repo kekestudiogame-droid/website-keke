@@ -2353,16 +2353,24 @@ const menuHelp = document.querySelector("#menuHelp");
 const menuLogout = document.querySelector("#menuLogout");
 
 if (menuJobseeker) {
-  menuJobseeker.addEventListener("click", () => {
+  menuJobseeker.onclick = function () {
     const dashboard = document.querySelector("#jobseekerDashboard");
+    const mainMenu = document.querySelector("#mainMenu");
 
     if (dashboard) {
       dashboard.style.display = "block";
-      document.querySelector("#mainMenu").style.display = "none";
-    } else if (typeof showJobseekerDashboard === "function") {
+
+      if (mainMenu) {
+        mainMenu.style.display = "none";
+      }
+
+      return;
+    }
+
+    if (typeof showJobseekerDashboard === "function") {
       showJobseekerDashboard();
     }
-  });
+  };
 }
 
 if (menuCompany) {
