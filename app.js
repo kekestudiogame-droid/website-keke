@@ -6771,7 +6771,7 @@ ${localStorage.getItem("siteLanguage") === "en" ? "Reject Applicant" : "Tolak Pe
 
 async function showJobseekerProfile() {
   const userData = localStorage.getItem("cariKerjakuUser");
-  const language = "id";
+  const language = localStorage.getItem("siteLanguage") || "id";
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!userData) {
