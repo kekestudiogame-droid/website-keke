@@ -2912,15 +2912,16 @@ function showJobseekerDashboard() {
             color:#172b4d;
             font-size:22px;
           ">
-            📄 CV Saya
+          📄 ${currentLanguage === "en" ? "My CV" : "CV Saya"}
           </h2>
 
           <p style="
             color:#64748b;
             margin-bottom:22px;
           ">
-            Upload CV dalam format PDF agar perusahaan dapat melihat
-            profil dan pengalaman kerja kamu.
+            ${currentLanguage === "en"
+            ? "Upload your CV in PDF format so companies can view your profile and work experience."
+            : "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu."}
           </p>
 
           <div style="
