@@ -2616,9 +2616,21 @@ loadJobsFromDatabase();
 // ================= DASHBOARD PENCARI KERJA =================
 
 function showJobseekerDashboard() {
-const language = "id";
-  const dashboard = document.createElement("div");
+  const language = localStorage.getItem("siteLanguage") || "id";
 
+  const userData = localStorage.getItem("cariKerjakuUser");
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!userData || !accessToken) {
+    alert(
+      language === "en"
+        ? "Job seeker session not found. Please log in again."
+        : "Sesi pencari kerja tidak ditemukan. Silakan login kembali."
+    );
+    return;
+  }
+
+  const dashboard = document.createElement("div");
   dashboard.id = "jobseekerDashboard";
 
   dashboard.innerHTML = `
