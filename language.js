@@ -1521,6 +1521,18 @@ const notificationTranslations = {
     id: "Judul lowongan, kota, dan deskripsi wajib diisi.",
     en: "Job title, city, and description are required."
   },
+     jobPublishConfirm: {
+    id: "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di CariKerjaku.id?",
+    en: "Are you sure you want to submit this job posting and display it on CariKerjaku.id?"
+  },
+     jobDraftSaved: {
+    id: "Lowongan berhasil disimpan sebagai Draft.",
+    en: "Job posting has been successfully saved as a Draft."
+  },
+     jobPublished: {
+    id: "Lowongan berhasil dikirim dan sudah tampil di CariKerjaku.id.",
+    en: "Job posting has been successfully submitted and is now live on CariKerjaku.id."
+  },
 
   applicationSuccess: {
     id: "Lamaran berhasil dikirim!",
