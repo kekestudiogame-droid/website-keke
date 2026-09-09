@@ -3350,6 +3350,7 @@ ${
 // ================= LAMARAN SAYA =================
 async function showMyApplications() {
   const userData = localStorage.getItem("cariKerjakuUser");
+  const language = localStorage.getItem("siteLanguage") || "id";
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
 if (!userData || !accessToken) {
@@ -3409,9 +3410,9 @@ if (!userData || !accessToken) {
             Cari Kerjaku
           </div>
 
-          <div style="font-size:13px;margin-top:4px;opacity:.85;">
-            Lamaran Saya
-          </div>
+        <div style="font-size:13px;margin-top:4px;opacity:.85;">
+          ${language === "en" ? "My Applications" : "Lamaran Saya"}
+        </div>
         </div>
 
         <div style="
