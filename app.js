@@ -5828,9 +5828,13 @@ async function publishNewJob() {
 
   const user = JSON.parse(userData);
 
+  const language = localStorage.getItem("siteLanguage") || "id";
+
   const confirmPublish = confirm(
-    "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di CariKerjaku.id?"
-  );
+  language === "en"
+    ? "Are you sure you want to submit this job posting and display it on CariKerjaku.id?"
+    : "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di CariKerjaku.id?"
+);
 
   if (!confirmPublish) return;
 
