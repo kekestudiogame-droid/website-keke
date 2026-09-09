@@ -3236,29 +3236,56 @@ ${
     }
   });
 }
-      function translateJobseekerDashboard(page) {
-      if (!page) return;
+    function translateJobseekerDashboard(page) {
+  if (!page) return;
 
-     const language = "id";
-     const translations = {
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translations = {
     "Dashboard Pencari Kerja": "Job Seeker Dashboard",
     "🔎 Cari Lowongan": "🔎 Find Jobs",
+    "📅 Undangan Interview": "📅 Interview Invitations",
+
+    "Undangan interview dari": "Interview invitation from",
+
+    "📅 Tanggal:": "📅 Date:",
+    "🕐 Jam:": "🕐 Time:",
+    "📌 Status:": "📌 Status:",
+
     "Selamat Datang 👋": "Welcome 👋",
-    "Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.": "Manage your CV and prepare yourself for your next job.",
+    "Kelola CV dan persiapkan dirimu untuk mendapatkan pekerjaan.":
+      "Manage your CV and prepare yourself for your next job.",
+
+    "Profil Diri": "My Profile",
+    "👤 Lengkapi Profil": "👤 Complete Profile",
+
     "CV Saya": "My CV",
     "Belum Upload": "Not Uploaded",
+
     "Lamaran Saya": "My Applications",
+    "Lamaran terkirim": "Applications sent",
+
     "Perkembangan Lamaran": "Application Progress",
+
     "Notifikasi": "Notifications",
+
+    "🔔 Perkembangan Lamaran": "🔔 Application Progress",
+    "Pilih lamaran...": "Select an application...",
+
     "📄 CV Saya": "📄 My CV",
-    "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu.": "Upload your CV in PDF format so companies can view your profile and work experience.",
+
+    "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu.":
+      "Upload your CV in PDF format so companies can view your profile and work experience.",
+
     "Upload CV kamu": "Upload your CV",
     "Format yang diperbolehkan: PDF": "Allowed format: PDF",
     "Upload CV": "Upload CV",
+
     "Pilih file CV terlebih dahulu.": "Please select a CV file first.",
     "CV harus berupa file PDF.": "CV must be a PDF file.",
     "Silakan login terlebih dahulu.": "Please log in first.",
-    "Data akun tidak valid. Silakan login kembali.": "Invalid account data. Please log in again.",
+    "Data akun tidak valid. Silakan login kembali.":
+      "Invalid account data. Please log in again.",
     "ID pengguna tidak ditemukan.": "User ID not found.",
     "Mengupload CV...": "Uploading CV...",
     "CV berhasil diupload.": "CV uploaded successfully.",
