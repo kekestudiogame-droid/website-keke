@@ -5404,10 +5404,13 @@ async function publishMyJob(jobId) {
     return;
   }
 
-  const confirmPublish = confirm(
-    "Yakin ingin mengirim lowongan ini agar tampil di CariKerjaku.id?"
-  );
+const language = localStorage.getItem("siteLanguage") || "id";
 
+const confirmPublish = confirm(
+  language === "en"
+    ? "Are you sure you want to submit this job posting and display it on CariKerjaku.id?"
+    : "Yakin ingin mengirim lowongan ini agar tampil di CariKerjaku.id?"
+);
   if (!confirmPublish) return;
 
   try {
