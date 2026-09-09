@@ -3292,12 +3292,37 @@ ${
     "Gagal upload CV:": "CV upload failed:"
   };
 
-  page.querySelectorAll("*").forEach(element => {
+   page.querySelectorAll("*").forEach(element => {
     if (element.children.length === 0) {
       const text = element.textContent.trim();
 
       if (language === "en" && translations[text]) {
         element.textContent = translations[text];
+      }
+
+      if (language === "en") {
+
+        if (text.startsWith("Undangan interview dari")) {
+          element.textContent = text.replace(
+            "Undangan interview dari",
+            "Interview invitation from"
+          );
+        }
+
+        if (text.startsWith("📅 Tanggal:")) {
+          element.textContent = text.replace(
+            "📅 Tanggal:",
+            "📅 Date:"
+          );
+        }
+
+        if (text.startsWith("🕐 Jam:")) {
+          element.textContent = text.replace(
+            "🕐 Jam:",
+            "🕐 Time:"
+          );
+        }
+
       }
     }
   });
