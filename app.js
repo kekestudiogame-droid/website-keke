@@ -3645,7 +3645,11 @@ const interviewStatusLabel =
               margin-bottom:6px;
             ">
              📅 <strong>${interviewDateLabel}</strong>
-              ${interview.interview_date || "-"}
+              ${
+               interview.interview_date
+               ? new Date(interview.interview_date).toLocaleDateString("id-ID")
+               : "-"
+               }
             </div>
 
             <div style="
