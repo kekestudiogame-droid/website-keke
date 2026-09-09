@@ -2632,6 +2632,7 @@ function showJobseekerDashboard() {
 
   const dashboard = document.createElement("div");
   dashboard.id = "jobseekerDashboard";
+  const currentLanguage = localStorage.getItem("siteLanguage") || "id";
 
   dashboard.innerHTML = `
     <div style="
