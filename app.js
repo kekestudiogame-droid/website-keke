@@ -2868,7 +2868,7 @@ function showJobseekerDashboard() {
     color:#172b4d;
     font-size:20px;
   ">
-    🔔 Perkembangan Lamaran
+ 🔔 ${currentLanguage === "en" ? "Application Progress" : "Perkembangan Lamaran"}
   </h2>
 
 <div id="applicationProgressContent">
