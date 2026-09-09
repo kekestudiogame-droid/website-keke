@@ -5952,7 +5952,7 @@ async function submitJobPost() {
       );
     }
 
-   alert("✅ Lowongan berhasil disimpan sebagai Draft.");
+        showNotification("jobDraftSaved");
 
     showMyJobs();
 
