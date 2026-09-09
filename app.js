@@ -3521,6 +3521,32 @@ async function loadInterviewInvitations() {
     }
 
     const interviews = await response.json();
+    const language = localStorage.getItem("siteLanguage") || "id";
+
+const interviewTitle =
+  language === "en"
+    ? "📅 Interview Invitations"
+    : "📅 Undangan Interview";
+
+const interviewFrom =
+  language === "en"
+    ? "Interview invitation from"
+    : "Undangan interview dari";
+
+const interviewDateLabel =
+  language === "en"
+    ? "Date:"
+    : "Tanggal:";
+
+const interviewTimeLabel =
+  language === "en"
+    ? "Time:"
+    : "Jam:";
+
+const interviewStatusLabel =
+  language === "en"
+    ? "Status:"
+    : "Status:";
     const companyIds = [...new Set(
     interviews.map(interview => interview.company_id).filter(Boolean)
     )];
@@ -3584,12 +3610,12 @@ async function loadInterviewInvitations() {
         box-shadow:0 3px 15px rgba(15,23,42,.07);
         border:1px solid #e5eaf1;
       ">
-        <h2 style="
-          margin:0 0 18px;
-          color:#172b4d;
-          font-size:20px;
-        ">
-          📅 Undangan Interview
+     <h2 style="
+         margin:0 0 18px;
+         color:#172b4d;
+         font-size:20px;
+         ">
+        ${interviewTitle}
         </h2>
 
         ${interviews.map(interview => `
@@ -3607,7 +3633,7 @@ async function loadInterviewInvitations() {
             color:#123b6d;
             margin-bottom:10px;
           ">
-           Undangan interview dari ${
+            ${interviewFrom} ${
            companies.find(
            item => String(item.id) === String(interview.company_id)
            )?.company_name || "Perusahaan"
@@ -3618,7 +3644,7 @@ async function loadInterviewInvitations() {
               color:#334155;
               margin-bottom:6px;
             ">
-              📅 <strong>Tanggal:</strong>
+             📅 <strong>${interviewDateLabel}</strong>
               ${interview.interview_date || "-"}
             </div>
 
@@ -3626,7 +3652,7 @@ async function loadInterviewInvitations() {
               color:#334155;
               margin-bottom:6px;
             ">
-              🕐 <strong>Jam:</strong>
+            🕐 <strong>${interviewTimeLabel}</strong>
               ${interview.interview_time || "-"}
             </div>
 
