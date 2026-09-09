@@ -3036,33 +3036,42 @@ const progressDetail = document.querySelector("#applicationProgressDetail");
 
 if (progressSelect && progressDetail) {
 
-  if (applications.length === 0) {
+if (applications.length === 0) {
 
-    progressSelect.innerHTML = `
-      <option value="">Belum ada lamaran</option>
-    `;
+  progressSelect.innerHTML = `
+    <option value="">
+      ${currentLanguage === "en" ? "No applications yet" : "Belum ada lamaran"}
+    </option>
+  `;
 
-    progressDetail.innerHTML = `
-      <div style="
+         progressDetail.innerHTML = `
+        <div style="
         padding:18px;
         border-radius:12px;
         background:#f8fafc;
         color:#64748b;
         text-align:center;
       ">
-        Belum ada perkembangan lamaran.
+       ${currentLanguage === "en"
+         ? "There is no application progress yet."
+           : "Belum ada perkembangan lamaran."
+       }
       </div>
     `;
 
   } else {
 
     progressSelect.innerHTML = `
-      <option value="">Pilih lamaran...</option>
-      ${applications.map(application => `
-        <option value="${application.id}">
-          Lamaran #${application.id} — ${application.jobs?.title || "Lowongan"} — ${application.jobs?.company_name || "Perusahaan"}
-        </option>
-      `).join("")}
+    <option value="">
+     ${currentLanguage === "en" ? "Select an application..." : "Pilih lamaran..."}
+    </option>
+    ${applications.map(application => `
+  <option value="${application.id}">
+    ${currentLanguage === "en" ? "Application" : "Lamaran"} #${application.id} —
+    ${application.jobs?.title || (currentLanguage === "en" ? "Job Vacancy" : "Lowongan")} —
+    ${application.jobs?.company_name || (currentLanguage === "en" ? "Company" : "Perusahaan")}
+  </option>
+`).join("")}
     `;
 
     progressSelect.addEventListener("change", () => {
@@ -3093,7 +3102,7 @@ if (progressSelect && progressDetail) {
             color:#7c3aed;
             margin-bottom:7px;
           ">
-            📩 Lamaran #${application.id}
+        📩 ${currentLanguage === "en" ? "Application" : "Lamaran"} #${application.id}
           </div>
 
           <div style="
@@ -3101,29 +3110,38 @@ if (progressSelect && progressDetail) {
             font-weight:bold;
             color:#172b4d;
           ">
-            ${application.jobs?.title || "Lowongan"}
+        ${application.jobs?.title || (currentLanguage === "en" ? "Job Vacancy" : "Lowongan")}
           </div>
 
-          <div style="
-            margin-top:8px;
-            color:#334155;
+      <div style="
+           margin-top:8px;
+           color:#334155;
           ">
-            Lamaran Anda ke
-            <strong>${application.jobs?.company_name || "Perusahaan"}</strong>
-            telah berhasil terkirim.
-          </div>
-
+          ${
+          currentLanguage === "en"
+           ? `Your application to <strong>${application.jobs?.company_name || "Company"}</strong> has been successfully submitted.`
+           : `Lamaran Anda ke <strong>${application.jobs?.company_name || "Perusahaan"}</strong> telah berhasil terkirim.`
+           }
+           </div>
          <div style="
   margin-top:6px;
   font-size:13px;
   color:${application.status === "rejected" ? "#dc2626" : "#64748b"};
-">
-  ${
-    application.status === "rejected"
-      ? `Lamaran Anda ditolak oleh perusahaan.`
-      : `Perusahaan akan menerima dan meninjau lamaran Anda.`
-  }
-</div>
+     ">
+         ${
+          application.status === "rejected"
+          ? (
+          currentLanguage === "en"
+          ? "Your application has been rejected by the company."
+          : "Lamaran Anda ditolak oleh perusahaan."
+           )
+        : (
+         currentLanguage === "en"
+          ? "The company will receive and review your application."
+          : "Perusahaan akan menerima dan meninjau lamaran Anda."
+         )
+        }
+      </div>
 
 ${
   application.status === "rejected" && application.rejection_reason
