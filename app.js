@@ -5396,106 +5396,12 @@ async function showMyJobs() {
   }
 }
 
-async function publishMyJob(jobId) {
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
-  if (!accessToken) {
- showNotification("companySessionNotFound");
-    return;
-  }
-
-const language = localStorage.getItem("siteLanguage") || "id";
-
-const confirmPublish = confirm(
-  language === "en"
-    ? "Are you sure you want to submit this job posting and display it on CariKerjaku.id?"
-    : "Yakin ingin mengirim lowongan ini agar tampil di CariKerjaku.id?"
-);
-  if (!confirmPublish) return;
-
-  try {
-    const response = await fetch(
-      `${SUPABASE_URL}jobs?id=eq.${jobId}`,
-      {
-        method: "PATCH",
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({
-          status: "published"
-        })
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText);
-    }
-
-    showNotification("jobPublished");
-
-    showMyJobs();
-
-  } catch (error) {
-    alert("Gagal mengirim lowongan: " + error.message);
-  }
-}
-async function deleteMyJob(jobId) {
-    const confirmDelete = confirm(
-    localStorage.getItem("siteLanguage") === "en"
-      ? "Are you sure you want to delete this job?"
-      : "Yakin ingin menghapus lowongan ini?"
-  );
-
-  if (!confirmDelete) return;
-
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
-  if (!accessToken) {
- showNotification("companySessionNotFound");
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `${SUPABASE_URL}jobs?id=eq.${jobId}`,
-      {
-        method: "DELETE",
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText);
-    }
-
-    alert(
-      localStorage.getItem("siteLanguage") === "en"
-        ? "Job deleted successfully."
-        : "Lowongan berhasil dihapus."
-    );
-
-    showMyJobs();
-
-  } catch (error) {
-    alert("Gagal menghapus lowongan: " + error.message);
-  }
-}
-
-window.deleteMyJob = deleteMyJob;
 
 async function editMyJob(jobId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
-  showNotification("companySessionNotFound");
+    showNotification("companySessionNotFound");
     return;
   }
 
@@ -5525,19 +5431,241 @@ async function editMyJob(jobId) {
 
     const job = jobs[0];
 
-    const title = prompt("Judul Lowongan:", job.title || "");
-    if (title === null) return;
+    const form = document.createElement("div");
 
-    const city = prompt("Kota:", job.city || "");
-    if (city === null) return;
+    form.innerHTML = `
+      <div id="editJobFormContainer" style="
+        position:fixed;
+        inset:0;
+        background:rgba(15,23,42,.65);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        z-index:9999;
+        padding:20px;
+        overflow-y:auto;
+      ">
+        <div style="
+          background:#fff;
+          padding:28px;
+          border-radius:18px;
+          width:100%;
+          max-width:620px;
+          box-shadow:0 20px 50px rgba(0,0,0,.2);
+          margin:auto;
+        ">
 
-    const description = prompt(
-      "Deskripsi Lowongan:",
-      job.description || ""
-    );
-    if (description === null) return;
+          <h2 style="
+            margin:0 0 6px;
+            font-size:26px;
+            color:#123b6d;
+          ">
+            Edit Lowongan
+          </h2>
 
-    const updateResponse = await fetch(
+          <p style="
+            margin:0 0 22px;
+            color:#64748b;
+            font-size:14px;
+          ">
+            Perbarui informasi pekerjaan Anda.
+          </p>
+
+          <label>Judul / Posisi Pekerjaan</label>
+          <input
+            id="editJobTitle"
+            value="${job.title || ""}"
+            placeholder="Contoh: Staff Administrasi"
+            style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+          >
+
+          <label>Kategori Pekerjaan</label>
+          <select
+            id="editJobCategory"
+            style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;background:white;"
+          >
+            <option value="">Pilih kategori</option>
+            <option value="Administrasi">Administrasi</option>
+            <option value="Accounting">Accounting</option>
+            <option value="Finance">Finance</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Sales">Sales</option>
+            <option value="IT">IT</option>
+            <option value="Teknologi">Teknologi</option>
+            <option value="HRD">HRD</option>
+            <option value="Desain">Desain</option>
+            <option value="Customer Service">Customer Service</option>
+            <option value="Logistik">Logistik</option>
+            <option value="Produksi">Produksi</option>
+            <option value="Kesehatan">Kesehatan</option>
+            <option value="Pendidikan">Pendidikan</option>
+            <option value="Kuliner">Kuliner</option>
+            <option value="Retail">Retail</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+
+          <label>Lokasi / Kota</label>
+          <input
+            id="editJobCity"
+            value="${job.city || ""}"
+            placeholder="Contoh: Jakarta"
+            style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+          >
+
+          <label>Jenis Pekerjaan</label>
+          <select
+            id="editJobType"
+            style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;background:white;"
+          >
+            <option value="">Pilih jenis pekerjaan</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Remote">Remote</option>
+          </select>
+
+          <label>Gaji</label>
+          <input
+            id="editJobSalary"
+            value="${job.salary || ""}"
+            placeholder="Contoh: Rp 5.000.000 - Rp 7.000.000 / bulan"
+            style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+          >
+
+          <label>Pengalaman Kerja</label>
+          <input
+            id="editJobExperience"
+            value="${job.experience || ""}"
+            placeholder="Contoh: Minimal 1 tahun"
+            style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+          >
+
+          <label>Pendidikan Minimal</label>
+          <input
+            id="editJobEducation"
+            value="${job.education || ""}"
+            placeholder="Contoh: SMA / SMK / D3 / S1"
+            style="width:100%;box-sizing:border-box;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+          >
+
+          <label>Deskripsi Pekerjaan</label>
+          <textarea
+            id="editJobDescription"
+            placeholder="Jelaskan pekerjaan dan tanggung jawabnya..."
+            style="width:100%;box-sizing:border-box;height:100px;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;resize:vertical;"
+          >${job.description || ""}</textarea>
+
+          <label>Syarat / Kualifikasi</label>
+          <textarea
+            id="editJobRequirements"
+            placeholder="Tuliskan persyaratan kandidat..."
+            style="width:100%;box-sizing:border-box;height:100px;margin:7px 0 15px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;resize:vertical;"
+          >${job.requirements || ""}</textarea>
+
+          <label>Batas Lamaran</label>
+          <input
+            id="editJobDeadline"
+            type="date"
+            value="${job.application_deadline || ""}"
+            style="width:100%;box-sizing:border-box;margin:7px 0 20px;padding:12px;border:1px solid #dbe2ea;border-radius:10px;"
+          >
+
+          <div style="display:flex;flex-direction:column;gap:10px;">
+
+            <button
+              onclick="saveEditedJob('${job.id}')"
+              style="
+                width:100%;
+                padding:13px;
+                border:0;
+                border-radius:10px;
+                background:#123b6d;
+                color:white;
+                font-weight:bold;
+                cursor:pointer;
+              "
+            >
+              Simpan Perubahan
+            </button>
+
+            <button
+              onclick="document.getElementById('editJobFormContainer')?.remove()"
+              style="
+                width:100%;
+                padding:13px;
+                border:1px solid #dbe2ea;
+                border-radius:10px;
+                background:white;
+                cursor:pointer;
+              "
+            >
+              Batal
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(form);
+
+    // Set nilai select sesuai data database
+    document.getElementById("editJobCategory").value =
+      job.category || "";
+
+    document.getElementById("editJobType").value =
+      job.job_type || "";
+
+  } catch (error) {
+    alert("Gagal membuka edit lowongan: " + error.message);
+  }
+}
+
+async function saveEditedJob(jobId) {
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!accessToken) {
+    showNotification("companySessionNotFound");
+    return;
+  }
+
+  const title =
+    document.getElementById("editJobTitle").value.trim();
+
+  const category =
+    document.getElementById("editJobCategory").value;
+
+  const city =
+    document.getElementById("editJobCity").value.trim();
+
+  const jobType =
+    document.getElementById("editJobType").value;
+
+  const salary =
+    document.getElementById("editJobSalary").value.trim();
+
+  const experience =
+    document.getElementById("editJobExperience").value.trim();
+
+  const education =
+    document.getElementById("editJobEducation").value.trim();
+
+  const description =
+    document.getElementById("editJobDescription").value.trim();
+
+  const requirements =
+    document.getElementById("editJobRequirements").value.trim();
+
+  const applicationDeadline =
+    document.getElementById("editJobDeadline").value;
+
+  if (!title || !city || !description) {
+    showNotification("jobRequired");
+    return;
+  }
+
+  try {
+    const response = await fetch(
       `${SUPABASE_URL}jobs?id=eq.${jobId}`,
       {
         method: "PATCH",
@@ -5545,18 +5673,25 @@ async function editMyJob(jobId) {
           apikey: SUPABASE_KEY,
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
-          Prefer: "return=minimal"
+          "Prefer": "return=minimal"
         },
         body: JSON.stringify({
-          title: title.trim(),
-          city: city.trim(),
-          description: description.trim()
+          title,
+          category,
+          city,
+          job_type: jobType,
+          salary,
+          experience,
+          education,
+          description,
+          requirements,
+          application_deadline: applicationDeadline || null
         })
       }
     );
 
-    if (!updateResponse.ok) {
-      const errorText = await updateResponse.text();
+    if (!response.ok) {
+      const errorText = await response.text();
       throw new Error(errorText);
     }
 
@@ -5566,14 +5701,18 @@ async function editMyJob(jobId) {
         : "Lowongan berhasil diperbarui."
     );
 
+    document.getElementById("editJobFormContainer")?.remove();
+
     showMyJobs();
 
   } catch (error) {
-    alert("Gagal mengedit lowongan: " + error.message);
+    alert("Gagal menyimpan perubahan: " + error.message);
   }
 }
 
 window.editMyJob = editMyJob;
+window.saveEditedJob = saveEditedJob;
+
 
 function translateMyJobs(page) {
   if (!page) return;
