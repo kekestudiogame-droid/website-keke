@@ -5769,6 +5769,63 @@ async function saveEditedJob(jobId) {
 
 window.editMyJob = editMyJob;
 window.saveEditedJob = saveEditedJob;
+async function deleteMyJob(jobId) {
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!accessToken) {
+    showNotification("companySessionNotFound");
+    return;
+  }
+
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const confirmDelete = confirm(
+    language === "en"
+      ? "Are you sure you want to delete this job posting?"
+      : "Yakin ingin menghapus lowongan ini?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}jobs?id=eq.${jobId}`,
+      {
+        method: "DELETE",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+
+    alert(
+      language === "en"
+        ? "Job posting deleted successfully."
+        : "Lowongan berhasil dihapus."
+    );
+
+    await showMyJobs();
+
+  } catch (error) {
+    console.error("Gagal menghapus lowongan:", error);
+
+    alert(
+      language === "en"
+        ? "Failed to delete the job posting."
+        : "Gagal menghapus lowongan."
+    );
+  }
+}
+
+window.deleteMyJob = deleteMyJob;
 function translateEditJobForm(form) {
   if (!form) return;
 
