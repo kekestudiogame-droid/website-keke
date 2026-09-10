@@ -113,7 +113,7 @@ footer{border-top:1px solid var(--line)}.footer{min-height:80px;display:flex;ali
 
 #mainMenu {
   position: fixed;
-  right: 20px;
+  left: 20px;
   top: 75px;
   width: 230px;
   background: #fff;
