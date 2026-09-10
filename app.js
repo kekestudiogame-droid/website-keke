@@ -5615,7 +5615,7 @@ async function editMyJob(jobId) {
 
     document.getElementById("editJobType").value =
       job.job_type || "";
-    console.log("LANGUAGE EDIT:", localStorage.getItem("siteLanguage"));
+  
     translateEditJobForm(form);
 
   } catch (error) {
