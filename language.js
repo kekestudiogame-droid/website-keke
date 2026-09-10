@@ -970,6 +970,13 @@
     ) {
       return;
     }
+     // Jangan terjemahkan nama chatbot
+if (
+  element.closest &&
+  element.closest("#chatbot-header")
+) {
+  return;
+}
     if (
       element.nodeType !== Node.ELEMENT_NODE
     ) {
