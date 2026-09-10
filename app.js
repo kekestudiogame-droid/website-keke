@@ -6941,7 +6941,11 @@ for (const app of myApplications) {
         margin-bottom:25px;
       "
     >
-      ← Kembali ke Lamaran Masuk
+        ${
+         localStorage.getItem("siteLanguage") === "en"
+        ? "← Back to Incoming Applications"
+        : "← Kembali ke Lamaran Masuk"
+        }
     </button>
 
     <div style="
