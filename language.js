@@ -963,7 +963,13 @@
   function translateElement(element, language) {
 
     if (!element) return;
-
+    // Jangan terjemahkan brand CariKerjaku ID
+    if (
+      element.classList &&
+      element.classList.contains("brand")
+    ) {
+      return;
+    }
     if (
       element.nodeType !== Node.ELEMENT_NODE
     ) {
