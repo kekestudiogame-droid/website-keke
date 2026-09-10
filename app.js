@@ -7130,9 +7130,7 @@ ${localStorage.getItem("siteLanguage") === "en" ? "Reject Applicant" : "Tolak Pe
   document.body.innerHTML = "";
   document.body.appendChild(dashboard);
 
-  if (window.setLanguage) {
-  window.setLanguage(localStorage.getItem("siteLanguage") || "id");
-}
+
   } catch (error) {
 
     console.error("Gagal mengambil detail profil pelamar:", error);
