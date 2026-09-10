@@ -5615,6 +5615,7 @@ async function editMyJob(jobId) {
 
     document.getElementById("editJobType").value =
       job.job_type || "";
+    translateEditJobForm(form);
 
   } catch (error) {
     alert("Gagal membuka edit lowongan: " + error.message);
@@ -5712,7 +5713,119 @@ async function saveEditedJob(jobId) {
 
 window.editMyJob = editMyJob;
 window.saveEditedJob = saveEditedJob;
+function translateEditJobForm(form) {
+  if (!form) return;
 
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const translations = {
+    "Edit Lowongan": "Edit Job",
+    "Perbarui informasi pekerjaan Anda.": "Update your job information.",
+    "Judul / Posisi Pekerjaan": "Job Title / Position",
+    "Kategori Pekerjaan": "Job Category",
+    "Pilih kategori": "Select category",
+    "Lokasi / Kota": "Location / City",
+    "Jenis Pekerjaan": "Job Type",
+    "Pilih jenis pekerjaan": "Select job type",
+    "Gaji": "Salary",
+    "Pengalaman Kerja": "Work Experience",
+    "Pendidikan Minimal": "Minimum Education",
+    "Deskripsi Pekerjaan": "Job Description",
+    "Syarat / Kualifikasi": "Requirements / Qualifications",
+    "Batas Lamaran": "Application Deadline",
+    "Simpan Perubahan": "Save Changes",
+    "Batal": "Cancel"
+  };
+
+  const placeholders = {
+    "Contoh: Staff Administrasi": "Example: Administrative Staff",
+    "Contoh: Jakarta": "Example: Jakarta",
+    "Contoh: Rp 5.000.000 - Rp 7.000.000 / bulan":
+      "Example: Rp 5,000,000 - Rp 7,000,000 / month",
+    "Contoh: Minimal 1 tahun":
+      "Example: At least 1 year",
+    "Contoh: SMA / SMK / D3 / S1":
+      "Example: High School / Diploma / Bachelor's",
+    "Jelaskan pekerjaan dan tanggung jawabnya...":
+      "Describe the job and responsibilities...",
+    "Tuliskan persyaratan kandidat...":
+      "Enter candidate requirements..."
+  };
+
+  form.querySelectorAll("*").forEach(element => {
+    if (element.children.length === 0) {
+      const text = element.textContent.trim();
+
+      if (language === "en" && translations[text]) {
+        element.textContent = translations[text];
+      }
+
+      if (language === "id") {
+        const original = Object.keys(translations).find(
+          key => translations[key] === text
+        );
+
+        if (original) {
+          element.textContent = original;
+        }
+      }
+    }
+  });
+
+  form.querySelectorAll("input, textarea").forEach(element => {
+    const placeholder = element.getAttribute("placeholder");
+
+    if (!placeholder) return;
+
+    if (language === "en" && placeholders[placeholder]) {
+      element.setAttribute(
+        "placeholder",
+        placeholders[placeholder]
+      );
+    }
+
+    if (language === "id") {
+      const original = Object.keys(placeholders).find(
+        key => placeholders[key] === placeholder
+      );
+
+      if (original) {
+        element.setAttribute(
+          "placeholder",
+          original
+        );
+      }
+    }
+  });
+
+  form.querySelectorAll("option").forEach(option => {
+    const text = option.textContent.trim();
+
+    const optionTranslations = {
+      "Pilih kategori": "Select category",
+      "Administrasi": "Administration",
+      "Teknologi": "Technology",
+      "Kesehatan": "Healthcare",
+      "Pendidikan": "Education",
+      "Kuliner": "Culinary",
+      "Lainnya": "Other"
+    };
+
+    if (language === "en" && optionTranslations[text]) {
+      option.textContent = optionTranslations[text];
+    }
+
+    if (language === "id") {
+      const original = Object.keys(optionTranslations).find(
+        key => optionTranslations[key] === text
+      );
+
+      if (original) {
+        option.textContent = original;
+      }
+    }
+  });
+}
 
 function translateMyJobs(page) {
   if (!page) return;
