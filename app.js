@@ -7002,9 +7002,15 @@ for (const app of myApplications) {
 
         <div style="padding:20px;">
 
-          <p>
-            <strong>Nomor Telepon</strong><br>
-            ${profile.phone || "Belum tersedia"}
+        <p>
+          <strong>
+          ${
+          localStorage.getItem("siteLanguage") === "en"
+          ? "Phone Number"
+          : "Nomor Telepon"
+          }
+          </strong><br>
+          ${profile.phone || "Belum tersedia"}
           </p>
 
           <p>
@@ -7012,15 +7018,26 @@ for (const app of myApplications) {
             ${profile.city || "Belum tersedia"}
           </p>
 
-          <p>
-            <strong>Pendidikan</strong><br>
-            ${profile.education || "Belum tersedia"}
-          </p>
-
-          <p>
-            <strong>Pengalaman Kerja</strong><br>
-            ${profile.experience || "Belum tersedia"}
-          </p>
+           <p>
+           <strong>
+            ${
+            localStorage.getItem("siteLanguage") === "en"
+            ? "Education"
+            : "Pendidikan"
+            }
+            </strong><br>
+             ${profile.education || "Belum tersedia"}
+            </p>
+             <p>
+             <strong>
+              ${
+              localStorage.getItem("siteLanguage") === "en"
+               ? "Work Experience"
+               : "Pengalaman Kerja"
+                }
+             </strong><br>
+              ${profile.experience || "Belum tersedia"}
+            </p>
 
           <p style="margin-bottom:0;">
           <strong>${localStorage.getItem("siteLanguage") === "en" ? "Skills" : "Keahlian"}</strong>
