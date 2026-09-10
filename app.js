@@ -7061,7 +7061,11 @@ for (const app of myApplications) {
     font-weight:bold;
     "
     >
-    Hubungi Pelamar
+   ${
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Contact Applicant"
+    : "Hubungi Pelamar"
+    }
           </button>
   <button
   type="button"
@@ -7100,8 +7104,12 @@ for (const app of myApplications) {
     font-weight:bold;
     "
     >
-    Terima Pelamar
-    </button>
+  ${
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Accept Applicant"
+    : "Terima Pelamar"
+    }
+         </button>
 
          <button
   type="button"
