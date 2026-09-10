@@ -3687,6 +3687,23 @@ const interviewStatusLabel =
               📌 <strong>Status:</strong>
               ${interview.status || "pending"}
             </div>
+            <button
+               type="button"
+               onclick="deleteInterview('${interview.id}')"
+               style="
+               margin-top:14px;
+               padding:9px 14px;
+               border:0;
+               border-radius:8px;
+               background:#dc2626;
+               color:white;
+               font-size:13px;
+               font-weight:600;
+               cursor:pointer;
+               "
+               >
+               🗑 Hapus
+               </button>
 
           </div>
         `).join("")}
@@ -3697,8 +3714,69 @@ const interviewStatusLabel =
     console.error("Gagal menampilkan undangan interview:", error);
   }
 }
+
+async function deleteInterview(interviewId) {
+
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  const confirmDelete = confirm(
+    language === "en"
+      ? "Delete this interview invitation?"
+      : "Hapus undangan interview ini?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+
+    const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+    if (!accessToken) {
+      alert(
+        language === "en"
+          ? "Please login first."
+          : "Silakan login terlebih dahulu."
+      );
+      return;
+    }
+
+    const response = await fetch(
+      `${SUPABASE_URL}interviews?id=eq.${interviewId}`,
+      {
+        method: "DELETE",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    alert(
+      language === "en"
+        ? "Interview invitation deleted."
+        : "Undangan interview berhasil dihapus."
+    );
+
+    // Muat ulang dashboard
+    showJobseekerDashboard();
+
+  } catch (error) {
+
+    console.error("Gagal menghapus interview:", error);
+
+    alert(
+      language === "en"
+        ? "Failed to delete interview invitation."
+        : "Gagal menghapus undangan interview."
+    );
+  }
+}
+
 function translateMyApplications(page) {
-  if (!page) return;
 
   page.innerHTML = page.innerHTML
     .replaceAll("Lamaran Saya", "My Applications")
