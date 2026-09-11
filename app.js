@@ -3407,7 +3407,7 @@ if (!userData || !accessToken) {
           padding:20px 30px;
         ">
           <div style="font-size:24px;font-weight:bold;">
-            Cari Kerjaku
+          Kerjiva
           </div>
 
         <div style="font-size:13px;margin-top:4px;opacity:.85;">
