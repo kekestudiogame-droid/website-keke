@@ -3872,13 +3872,12 @@ async function showCompanyDashboard() {
         box-shadow:0 3px 12px rgba(0,0,0,.15);
       ">
         <div>
-          <div style="
-            font-size:24px;
-            font-weight:bold;
+         <div style="
+          font-size:24px;
+          font-weight:bold;
           ">
-         CariKerjaku
-          </div>
-
+          Kerjiva
+         </div>
         <div style="
          font-size:13px;
          opacity:.85;
@@ -4680,7 +4679,7 @@ async function showCompanyProfile() {
              font-size:24px;
              font-weight:bold;
              ">
-             <span id="companyProfileBrand">CariKerjaku</span>
+            <span id="companyProfileBrand">Kerjiva</span>
              </div>
 
             <div style="
@@ -4850,9 +4849,9 @@ if (window.setLanguage) {
 
   const companyProfileBrand = document.getElementById("companyProfileBrand");
 
-  if (companyProfileBrand) {
-    companyProfileBrand.textContent = "CariKerjaku";
-  }
+ if (companyProfileBrand) {
+  companyProfileBrand.textContent = "Kerjiva";
+}
 }
 
   } catch (error) {
@@ -4937,7 +4936,7 @@ async function editCompanyProfile() {
               font-size:24px;
               font-weight:bold;
               ">
-              <span id="editCompanyBrand">CariKerjaku</span>
+             <span id="editCompanyBrand">Kerjiva</span>
             </div>
 
             <div style="
@@ -5127,9 +5126,9 @@ async function editCompanyProfile() {
 
   const editCompanyBrand = document.getElementById("editCompanyBrand");
 
-  if (editCompanyBrand) {
-    editCompanyBrand.textContent = "CariKerjaku";
-  }
+ if (editCompanyBrand) {
+  editCompanyBrand.textContent = "Kerjiva";
+}
 }
 
   } catch (error) {
@@ -5286,11 +5285,11 @@ async function showMyJobs() {
         ">
         <div>
         <div id="myJobsBrand" style="
-            font-size:24px;
-            font-weight:bold;
-            ">
-            CariKerjaku
-            </div>
+         font-size:24px;
+         font-weight:bold;
+         ">
+         Kerjiva
+         </div>
 
             <div style="
               font-size:13px;
@@ -5465,9 +5464,9 @@ async function showMyJobs() {
 
    const myJobsBrand = document.getElementById("myJobsBrand");
 
-   if (myJobsBrand) {
-    myJobsBrand.textContent = "CariKerjaku";
-  }
+if (myJobsBrand) {
+  myJobsBrand.textContent = "Kerjiva";
+}
 }
   } catch (error) {
     showNotification("jobsFailed", " " + error.message);
@@ -5486,8 +5485,8 @@ async function publishMyJob(jobId) {
 
   const confirmPublish = confirm(
     language === "en"
-      ? "Are you sure you want to submit this job posting and display it on CariKerjaku.id?"
-      : "Yakin ingin mengirim lowongan ini agar tampil di CariKerjaku.id?"
+    ? "Are you sure you want to submit this job posting and display it on Kerjiva?"
+    : "Yakin ingin mengirim lowongan ini agar tampil di Kerjiva?"
   );
 
   if (!confirmPublish) return;
@@ -6278,9 +6277,9 @@ async function publishNewJob() {
 
   const confirmPublish = confirm(
   language === "en"
-    ? "Are you sure you want to submit this job posting and display it on CariKerjaku.id?"
-    : "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di CariKerjaku.id?"
-);
+   ? "Are you sure you want to submit this job posting and display it on Kerjiva?"
+   : "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di Kerjiva?"
+   );
 
   if (!confirmPublish) return;
 
@@ -6320,7 +6319,7 @@ async function publishNewJob() {
       );
     }
 
-    alert("✅ Lowongan berhasil dikirim dan sudah tampil di CariKerjaku.id.");
+ alert("✅ Lowongan berhasil dikirim dan sudah tampil di Kerjiva.");
 
     document
       .getElementById("postJobFormContainer")
