@@ -142,9 +142,8 @@ footer{border-top:1px solid var(--line)}.footer{min-height:80px;display:flex;ali
   background: #f1f5f9;
 }
 /* =========================
-   CHATBOT CARI KERJAKU
+   CHATBOT KERJIVA
    ========================= */
-
 #chatbot-button {
   position: fixed;
   right: 20px;
