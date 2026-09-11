@@ -6461,8 +6461,8 @@ const language = localStorage.getItem("siteLanguage") || "id";
     if (element.children.length === 0) {
    const text = element.textContent.trim();
 
-if (text === "Cari Kerjaku") {
-  element.textContent = "CariKerjaku";
+if (text === "Kerjiva") {
+  element.textContent = "Kerjiva";
   return;
 }
 
@@ -6554,11 +6554,10 @@ function translatePostJobForm(form) {
     if (element.children.length === 0) {
     const text = element.textContent.trim();
 
-    if (text === "Cari Kerjaku") {
-    element.textContent = "CariKerjaku";
-    return;
-  }
-
+ if (text === "Kerjiva") {
+  element.textContent = "Kerjiva";
+  return;
+}
    if (language === "en" && translations[text]) {
         element.textContent = translations[text];
       }
