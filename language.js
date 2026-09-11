@@ -1,6 +1,6 @@
 /* =========================================================
    GLOBAL LANGUAGE SYSTEM
-   CariKerjaku ID ↔ EN
+   Kerjiva ↔ EN
    ========================================================= */
 
 (function () {
@@ -13,17 +13,17 @@
        BRAND / META
        ===================================================== */
 
-    "Cari Kerjaku ID — Temukan Pekerjaanmu":
-      "Cari Kerjaku ID — Find Your Job",
+ "Kerjiva — Temukan Pekerjaanmu":
+  "Kerjiva — Find Your Job",
 
-    "Cari Kerjaku ID - platform pencarian lowongan kerja dan rekrutmen.":
-      "Cari Kerjaku ID - job search and recruitment platform.",
+  "Kerjiva - platform pencarian lowongan kerja dan rekrutmen.":
+  "Kerjiva - job search and recruitment platform.",
+     
+ "KERJIVA":
+  "KERJIVA",
 
-    "CARI KERJAKU ID":
-      "CARI KERJAKU ID",
-
-    "CariKerjaku ID":
-      "CariKerjaku ID",
+ "Kerjiva":
+  "Kerjiva",
 
     /* =====================================================
        NAVIGASI
@@ -682,8 +682,8 @@
     "PEMBAYARAN":
       "PAYMENT",
 
-    "Pembayaran CariKerjaku":
-      "CariKerjaku Payment",
+  "Pembayaran Kerjiva":
+  "Kerjiva Payment",
 
     "Saat ini pemasangan lowongan masih gratis.":
       "Job posting is currently free.",
@@ -757,8 +757,8 @@
        Fungsi chatbot TIDAK diubah
        ===================================================== */
 
-    "Cari Kerjaku Assistant":
-      "Cari Kerjaku Assistant",
+    "Kerjiva Assistant":
+    "Kerjiva Assistant",
 
     "Halo! 👋 Ada yang bisa saya bantu?":
       "Hello! 👋 How can I help you?",
@@ -1535,16 +1535,16 @@ const notificationTranslations = {
     en: "Job title, city, and description are required."
   },
      jobPublishConfirm: {
-    id: "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di CariKerjaku.id?",
-    en: "Are you sure you want to submit this job posting and display it on CariKerjaku.id?"
+  id: "Apakah Anda yakin ingin mengirim lowongan ini dan menampilkannya di Kerjiva?",
+  en: "Are you sure you want to submit this job posting and display it on Kerjiva?"
   },
      jobDraftSaved: {
     id: "Lowongan berhasil disimpan sebagai Draft.",
     en: "Job posting has been successfully saved as a Draft."
   },
      jobPublished: {
-    id: "Lowongan berhasil dikirim dan sudah tampil di CariKerjaku.id.",
-    en: "Job posting has been successfully submitted and is now live on CariKerjaku.id."
+   id: "Lowongan berhasil dikirim dan sudah tampil di Kerjiva.",
+   en: "Job posting has been successfully submitted and is now live on Kerjiva."
   },
 
   applicationSuccess: {
