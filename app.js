@@ -7301,7 +7301,7 @@ async function showJobseekerProfile() {
             font-size:24px;
             font-weight:bold;
           ">
-            Cari Kerjaku
+         Kerjiva
           </div>
 
           <div style="
