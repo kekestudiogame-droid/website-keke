@@ -7574,10 +7574,107 @@ async function showJobseekerProfile() {
   } catch (error) {
     console.error("Gagal mengambil profil:", error);
   }
-  
+
+
+  // ================= UPLOAD FOTO PROFIL =================
+
+  const photoInput = document.getElementById("jobseekerPhotoInput");
+
+  if (photoInput) {
+    photoInput.addEventListener("change", async () => {
+
+      const file = photoInput.files[0];
+
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        alert(
+          language === "en"
+            ? "Please select an image file."
+            : "Silakan pilih file gambar."
+        );
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert(
+          language === "en"
+            ? "Photo size must not exceed 5 MB."
+            : "Ukuran foto maksimal 5 MB."
+        );
+        return;
+      }
+
+      try {
+
+        const fileExt = file.name.split(".").pop().toLowerCase();
+
+        const filePath = `${user.id}.${fileExt}`;
+
+        const uploadResponse = await fetch(
+          `${SUPABASE_URL}storage/v1/object/profile-photos/${filePath}`,
+          {
+            method: "POST",
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": file.type,
+              "x-upsert": "true"
+            },
+            body: file
+          }
+        );
+
+        if (!uploadResponse.ok) {
+          throw new Error(await uploadResponse.text());
+        }
+
+        const photoUrl =
+          `${SUPABASE_URL}storage/v1/object/public/profile-photos/${filePath}`;
+
+        const updateResponse = await fetch(
+          `${SUPABASE_URL}jobseeker_profiles?id=eq.${user.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              photo_url: photoUrl,
+              updated_at: new Date().toISOString()
+            })
+          }
+        );
+
+        if (!updateResponse.ok) {
+          throw new Error(await updateResponse.text());
+        }
+
+        alert(
+          language === "en"
+            ? "Photo uploaded successfully."
+            : "Foto berhasil diupload."
+        );
+
+        console.log("PHOTO URL:", photoUrl);
+
+      } catch (error) {
+
+        console.error("Gagal upload foto:", error);
+
+        alert(
+          language === "en"
+            ? "Failed to upload photo."
+            : "Gagal mengupload foto."
+        );
+      }
+    });
+  }
+
 
   const saveButton = document.getElementById("saveJobseekerProfileBtn");
-
   if (saveButton) {
     saveButton.addEventListener("click", async () => {
 
