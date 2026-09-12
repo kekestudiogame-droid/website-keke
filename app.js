@@ -7612,7 +7612,7 @@ async function showJobseekerProfile() {
         const filePath = `${user.id}.${fileExt}`;
 
         const uploadResponse = await fetch(
-         `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1/object/profile-photos/${filePath}`,
+        `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1/object/profile-photos/${filePath}`,
           {
             method: "POST",
             headers: {
