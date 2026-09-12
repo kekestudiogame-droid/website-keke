@@ -7554,6 +7554,22 @@ async function showJobseekerProfile() {
 
       if (profiles.length > 0) {
         const profile = profiles[0];
+        const profilePhoto = document.getElementById("jobseekerProfilePhoto");
+
+if (profilePhoto && profile.photo_url) {
+  profilePhoto.innerHTML = `
+    <img
+      src="${profile.photo_url}"
+      alt="Profile Photo"
+      style="
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        border-radius:50%;
+      "
+    >
+  `;
+}
 
         document.getElementById("jobseekerFullName").value =
           profile.full_name || "";
