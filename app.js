@@ -7612,7 +7612,7 @@ async function showJobseekerProfile() {
         const filePath = `${user.id}.${fileExt}`;
 
         const uploadResponse = await fetch(
-          `${SUPABASE_URL}storage/v1/object/profile-photos/${filePath}`,
+         `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1/object/profile-photos/${filePath}`,
           {
             method: "POST",
             headers: {
@@ -7629,8 +7629,8 @@ async function showJobseekerProfile() {
           throw new Error(await uploadResponse.text());
         }
 
-        const photoUrl =
-          `${SUPABASE_URL}storage/v1/object/public/profile-photos/${filePath}`;
+       const photoUrl =
+         `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1/object/public/profile-photos/${filePath}`;
 
         const updateResponse = await fetch(
           `${SUPABASE_URL}jobseeker_profiles?id=eq.${user.id}`,
