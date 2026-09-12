@@ -7619,7 +7619,7 @@ async function showJobseekerProfile() {
               apikey: SUPABASE_KEY,
               Authorization: `Bearer ${accessToken}`,
               "Content-Type": file.type,
-              "x-upsert": "true"
+             
             },
             body: file
           }
