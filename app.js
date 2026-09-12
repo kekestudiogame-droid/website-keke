@@ -7357,20 +7357,23 @@ async function showJobseekerProfile() {
             margin:25px 0 30px;
           ">
 
-            <div style="
-              width:120px;
-              height:120px;
-              border-radius:50%;
-              background:#e8eef6;
-              margin:auto;
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              font-size:55px;
-              border:4px solid #dbe3ec;
-            ">
-              👤
-            </div>
+          <div
+  id="jobseekerProfilePhoto"
+  style="
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:#e8eef6;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    border:4px solid #dbe3ec;
+  "
+>
+  👤
+</div>
 
            <input
   id="jobseekerPhotoInput"
