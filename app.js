@@ -2615,7 +2615,7 @@ showNotification("loginSuccess");
 loadJobsFromDatabase();
 // ================= DASHBOARD PENCARI KERJA =================
 
-function showJobseekerDashboard() {
+  async function showJobseekerDashboard() {
   const language = localStorage.getItem("siteLanguage") || "id";
 
   const userData = localStorage.getItem("cariKerjakuUser");
