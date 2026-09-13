@@ -3982,6 +3982,150 @@ if (uploadOtherDocumentBtn && otherDocumentFileInput && otherDocumentStatus) {
   });
 
 }
+    // ================= TAMPILKAN DOKUMEN LAINNYA =================
+
+const otherDocumentDisplay = document.querySelector("#otherDocumentDisplay");
+
+if (otherDocumentDisplay && userData && accessToken) {
+
+  const otherDocumentUser = JSON.parse(userData);
+
+  try {
+
+    const otherDocumentResponse = await fetch(
+      `${SUPABASE_URL}jobseeker_documents?user_id=eq.${otherDocumentUser.id}&document_type=eq.other&select=id,document_name,file_path,created_at&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!otherDocumentResponse.ok) {
+      throw new Error(await otherDocumentResponse.text());
+    }
+
+    const documents = await otherDocumentResponse.json();
+
+    if (documents.length > 0) {
+
+      const documentItem = documents[0];
+
+      otherDocumentDisplay.innerHTML = `
+        <a
+          href="#"
+          id="viewOtherDocumentBtn"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#e8eef6;
+            color:#123b6d;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          📎 ${
+            currentLanguage === "en"
+              ? "View Document"
+              : "Lihat Dokumen"
+          }
+        </a>
+      `;
+
+      document
+        .querySelector("#viewOtherDocumentBtn")
+        .addEventListener("click", async (event) => {
+
+          event.preventDefault();
+
+          try {
+
+            const signResponse = await fetch(
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/sign/jobseeker-documents/")}${encodeURI(documentItem.file_path)}`,
+              {
+                method: "POST",
+                headers: {
+                  apikey: SUPABASE_KEY,
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  expiresIn: 3600
+                })
+              }
+            );
+
+            if (!signResponse.ok) {
+              throw new Error(await signResponse.text());
+            }
+
+            const signData = await signResponse.json();
+
+            const signedUrl =
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1")}${signData.signedURL}`;
+
+            window.open(
+              signedUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.error(
+              "Gagal membuka dokumen lainnya:",
+              error
+            );
+
+            alert(
+              currentLanguage === "en"
+                ? "Failed to open document."
+                : "Gagal membuka dokumen."
+            );
+          }
+
+        });
+
+    } else {
+
+      otherDocumentDisplay.innerHTML = `
+        <div style="
+          color:#64748b;
+          font-size:14px;
+        ">
+          ${
+            currentLanguage === "en"
+              ? "No document uploaded yet."
+              : "Belum ada dokumen yang diupload."
+          }
+        </div>
+      `;
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Gagal mengambil dokumen lainnya:",
+      error
+    );
+
+    otherDocumentDisplay.innerHTML = `
+      <div style="
+        color:#dc2626;
+        font-size:14px;
+      ">
+        ${
+          currentLanguage === "en"
+            ? "Failed to load document."
+            : "Gagal memuat dokumen."
+        }
+      </div>
+    `;
+  }
+}
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
