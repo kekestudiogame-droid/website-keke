@@ -4331,6 +4331,144 @@ if (uploadKtpBtn && ktpFileInput && ktpStatus) {
   });
 
 }
+    // ================= TAMPILKAN KTP =================
+
+const ktpDisplay = document.querySelector("#ktpDisplay");
+
+if (ktpDisplay && userData && accessToken) {
+
+  const ktpUser = JSON.parse(userData);
+
+  try {
+
+    const ktpResponse = await fetch(
+      `${SUPABASE_URL}jobseeker_documents?user_id=eq.${ktpUser.id}&document_type=eq.ktp&select=id,document_name,file_path,created_at&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!ktpResponse.ok) {
+      throw new Error(await ktpResponse.text());
+    }
+
+    const documents = await ktpResponse.json();
+
+    if (documents.length > 0) {
+
+      const ktp = documents[0];
+
+      ktpDisplay.innerHTML = `
+        <a
+          href="#"
+          id="viewKtpBtn"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#e8eef6;
+            color:#123b6d;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          🪪 ${
+            currentLanguage === "en"
+              ? "View ID Card"
+              : "Lihat KTP"
+          }
+        </a>
+      `;
+
+      document
+        .querySelector("#viewKtpBtn")
+        .addEventListener("click", async (event) => {
+
+          event.preventDefault();
+
+          try {
+
+            const signResponse = await fetch(
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/sign/jobseeker-documents/")}${encodeURI(ktp.file_path)}`,
+              {
+                method: "POST",
+                headers: {
+                  apikey: SUPABASE_KEY,
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  expiresIn: 3600
+                })
+              }
+            );
+
+            if (!signResponse.ok) {
+              throw new Error(await signResponse.text());
+            }
+
+            const signData = await signResponse.json();
+
+            const signedUrl =
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1")}${signData.signedURL}`;
+
+            window.open(
+              signedUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.error("Gagal membuka KTP:", error);
+
+            alert(
+              currentLanguage === "en"
+                ? "Failed to open ID card."
+                : "Gagal membuka KTP."
+            );
+          }
+
+        });
+
+    } else {
+
+      ktpDisplay.innerHTML = `
+        <div style="
+          color:#64748b;
+          font-size:14px;
+        ">
+          ${
+            currentLanguage === "en"
+              ? "No ID card uploaded yet."
+              : "Belum ada KTP yang diupload."
+          }
+        </div>
+      `;
+    }
+
+  } catch (error) {
+
+    console.error("Gagal mengambil KTP:", error);
+
+    ktpDisplay.innerHTML = `
+      <div style="
+        color:#dc2626;
+        font-size:14px;
+      ">
+        ${
+          currentLanguage === "en"
+            ? "Failed to load ID card."
+            : "Gagal memuat KTP."
+        }
+      </div>
+    `;
+  }
+}
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
