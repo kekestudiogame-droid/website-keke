@@ -4675,6 +4675,144 @@ if (uploadSimABtn && simAFileInput && simAStatus) {
   });
 
 }
+    // ================= TAMPILKAN SIM A =================
+
+const simADisplay = document.querySelector("#simADisplay");
+
+if (simADisplay && userData && accessToken) {
+
+  const simAUser = JSON.parse(userData);
+
+  try {
+
+    const simAResponse = await fetch(
+      `${SUPABASE_URL}jobseeker_documents?user_id=eq.${simAUser.id}&document_type=eq.sim_a&select=id,document_name,file_path,created_at&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!simAResponse.ok) {
+      throw new Error(await simAResponse.text());
+    }
+
+    const documents = await simAResponse.json();
+
+    if (documents.length > 0) {
+
+      const simA = documents[0];
+
+      simADisplay.innerHTML = `
+        <a
+          href="#"
+          id="viewSimABtn"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#e8eef6;
+            color:#123b6d;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          🚗 ${
+            currentLanguage === "en"
+              ? "View SIM A"
+              : "Lihat SIM A"
+          }
+        </a>
+      `;
+
+      document
+        .querySelector("#viewSimABtn")
+        .addEventListener("click", async (event) => {
+
+          event.preventDefault();
+
+          try {
+
+            const signResponse = await fetch(
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/sign/jobseeker-documents/")}${encodeURI(simA.file_path)}`,
+              {
+                method: "POST",
+                headers: {
+                  apikey: SUPABASE_KEY,
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  expiresIn: 3600
+                })
+              }
+            );
+
+            if (!signResponse.ok) {
+              throw new Error(await signResponse.text());
+            }
+
+            const signData = await signResponse.json();
+
+            const signedUrl =
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1")}${signData.signedURL}`;
+
+            window.open(
+              signedUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.error("Gagal membuka SIM A:", error);
+
+            alert(
+              currentLanguage === "en"
+                ? "Failed to open SIM A."
+                : "Gagal membuka SIM A."
+            );
+          }
+
+        });
+
+    } else {
+
+      simADisplay.innerHTML = `
+        <div style="
+          color:#64748b;
+          font-size:14px;
+        ">
+          ${
+            currentLanguage === "en"
+              ? "No SIM A uploaded yet."
+              : "Belum ada SIM A yang diupload."
+          }
+        </div>
+      `;
+    }
+
+  } catch (error) {
+
+    console.error("Gagal mengambil SIM A:", error);
+
+    simADisplay.innerHTML = `
+      <div style="
+        color:#dc2626;
+        font-size:14px;
+      ">
+        ${
+          currentLanguage === "en"
+            ? "Failed to load SIM A."
+            : "Gagal memuat SIM A."
+        }
+      </div>
+    `;
+  }
+}
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
