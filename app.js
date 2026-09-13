@@ -2217,8 +2217,177 @@ const documents = await documentsResponse.json();
 
 console.log("DOKUMEN PELAMAR:", documents);
 
-try {
-    
+// TAMPILKAN PILIHAN DOKUMEN
+const language = localStorage.getItem("siteLanguage") || "id";
+
+if (documents.length > 0) {
+
+  const documentChoices = documents.map(doc => `
+    <label style="
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      margin-bottom:8px;
+      border:1px solid #e5eaf1;
+      border-radius:8px;
+      cursor:pointer;
+      background:#f8fafc;
+    ">
+      <input
+        type="checkbox"
+        value="${doc.id}"
+        class="application-document-checkbox"
+        style="width:18px;height:18px;"
+      >
+      <span>
+        <strong>${doc.document_name}</strong>
+        <br>
+        <small style="color:#64748b;">
+          ${doc.document_type}
+        </small>
+      </span>
+    </label>
+  `).join("");
+
+  const modal = document.createElement("div");
+
+  modal.style.cssText = `
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+    padding:20px;
+  `;
+
+  modal.innerHTML = `
+    <div style="
+      background:white;
+      width:100%;
+      max-width:520px;
+      max-height:85vh;
+      overflow-y:auto;
+      padding:25px;
+      border-radius:16px;
+      box-shadow:0 10px 40px rgba(0,0,0,.2);
+    ">
+
+      <h2 style="
+        margin-top:0;
+        color:#123b6d;
+      ">
+        ${
+          language === "en"
+            ? "Select Documents"
+            : "Pilih Dokumen"
+        }
+      </h2>
+
+      <p style="color:#64748b;">
+        ${
+          language === "en"
+            ? "Select the documents you want to send with this application."
+            : "Pilih dokumen yang ingin kamu kirim bersama lamaran ini."
+        }
+      </p>
+
+      <div>
+        ${documentChoices}
+      </div>
+
+      <div style="
+        display:flex;
+        gap:10px;
+        margin-top:20px;
+      ">
+
+        <button
+          type="button"
+          id="cancelApplicationBtn"
+          style="
+            flex:1;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            background:#e5e7eb;
+            color:#172b4d;
+            cursor:pointer;
+            font-weight:bold;
+          "
+        >
+          ${
+            language === "en"
+              ? "Cancel"
+              : "Batal"
+          }
+        </button>
+
+        <button
+          type="button"
+          id="continueApplicationBtn"
+          style="
+            flex:1;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            background:#123b6d;
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+          "
+        >
+          ${
+            language === "en"
+              ? "Continue"
+              : "Lanjutkan"
+          }
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  document
+    .getElementById("cancelApplicationBtn")
+    .addEventListener("click", () => {
+      modal.remove();
+    });
+
+  document
+    .getElementById("continueApplicationBtn")
+    .addEventListener("click", () => {
+
+      const selectedDocuments = [
+        ...document.querySelectorAll(
+          ".application-document-checkbox:checked"
+        )
+      ].map(input => input.value);
+
+      console.log(
+        "DOKUMEN YANG DIPILIH:",
+        selectedDocuments
+      );
+
+      modal.remove();
+
+      // Sementara lanjut ke proses lamaran lama
+      submitApplicationWithDocuments(
+        job,
+        user,
+        accessToken,
+        selectedDocuments
+      );
+
+    });
+
+  return;
+}
     const response = await fetch(SUPABASE_APPLICATIONS_URL, {
       method: "POST",
       headers: {
