@@ -2191,12 +2191,33 @@ const accessToken = localStorage.getItem("cariKerjakuAccessToken");
     return;
   }
 
- if (!user.id) {
+if (!user.id) {
   showNotification("invalidAccount");
   return;
 }
 
-  try {
+// AMBIL DOKUMEN PENCARI KERJA
+const documentsResponse = await fetch(
+  `${SUPABASE_URL}jobseeker_documents?user_id=eq.${user.id}&select=id,document_type,document_name&order=created_at.desc`,
+  {
+    method: "GET",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json"
+    }
+  }
+);
+
+if (!documentsResponse.ok) {
+  throw new Error(await documentsResponse.text());
+}
+
+const documents = await documentsResponse.json();
+
+console.log("DOKUMEN PELAMAR:", documents);
+
+try {
     
     const response = await fetch(SUPABASE_APPLICATIONS_URL, {
       method: "POST",
