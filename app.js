@@ -7535,6 +7535,29 @@ async function showJobseekerProfile() {
               resize:vertical;
             "
           ></textarea>
+                    <div style="
+            margin:10px 0 25px;
+            padding:18px;
+            background:#f8fafc;
+            border:1px solid #e5eaf1;
+            border-radius:10px;
+          ">
+            <div style="
+              font-weight:bold;
+              color:#172b4d;
+              margin-bottom:10px;
+            ">
+              📄 ${language === "en" ? "My CV" : "CV Saya"}
+            </div>
+
+            <div id="jobseekerCvDisplay">
+              <span style="color:#6b7280;">
+                ${language === "en"
+                  ? "Checking your CV..."
+                  : "Memeriksa CV kamu..."}
+              </span>
+            </div>
+          </div>
 
           <button
             id="saveJobseekerProfileBtn"
@@ -7612,6 +7635,38 @@ if (profilePhoto && profile.photo_url) {
 
         document.getElementById("jobseekerSkills").value =
           profile.skills || "";
+        const cvDisplay = document.getElementById("jobseekerCvDisplay");
+
+if (cvDisplay) {
+  if (profile.cv_url) {
+    cvDisplay.innerHTML = `
+      <a
+        href="${profile.cv_url}"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          display:inline-block;
+          padding:10px 16px;
+          background:#123b6d;
+          color:white;
+          text-decoration:none;
+          border-radius:8px;
+          font-weight:bold;
+        "
+      >
+        📄 ${language === "en" ? "View My CV" : "Lihat CV Saya"}
+      </a>
+    `;
+  } else {
+    cvDisplay.innerHTML = `
+      <span style="color:#6b7280;">
+        ${language === "en"
+          ? "No CV uploaded yet."
+          : "Belum ada CV yang diupload."}
+      </span>
+    `;
+  }
+}
       }
     }
   } catch (error) {
