@@ -3229,6 +3229,49 @@ loadJobsFromDatabase();
                   ? "Upload other documents that may support your application."
                   : "Upload dokumen lain yang mungkin mendukung lamaran kamu."}
               </div>
+              <input
+  type="file"
+  id="otherDocumentFileInput"
+  accept=".pdf,application/pdf"
+  style="
+    display:block;
+    margin-top:15px;
+    max-width:100%;
+  "
+>
+
+<button
+  id="uploadOtherDocumentBtn"
+  style="
+    margin-top:12px;
+    padding:10px 18px;
+    background:#123b6d;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+  "
+>
+  ${currentLanguage === "en"
+    ? "Upload Document"
+    : "Upload Dokumen"}
+</button>
+
+<div
+  id="otherDocumentStatus"
+  style="
+    margin-top:12px;
+    font-weight:bold;
+  "
+></div>
+
+<div
+  id="otherDocumentDisplay"
+  style="
+    margin-top:12px;
+  "
+></div>
             </div>
 
           </div>
@@ -3799,6 +3842,145 @@ if (educationDisplay && userData && accessToken) {
       </div>
     `;
   }
+}
+    // ================= DOKUMEN: DOKUMEN LAINNYA =================
+
+const uploadOtherDocumentBtn = document.querySelector("#uploadOtherDocumentBtn");
+const otherDocumentFileInput = document.querySelector("#otherDocumentFileInput");
+const otherDocumentStatus = document.querySelector("#otherDocumentStatus");
+
+if (uploadOtherDocumentBtn && otherDocumentFileInput && otherDocumentStatus) {
+
+  uploadOtherDocumentBtn.addEventListener("click", async () => {
+
+    const file = otherDocumentFileInput.files[0];
+
+    if (!file) {
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "Please select a document first."
+          : "Pilih dokumen terlebih dahulu.";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "Document must be a PDF file."
+          : "Dokumen harus berupa file PDF.";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "File size must not exceed 5 MB."
+          : "Ukuran file maksimal 5 MB.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "Please log in first."
+          : "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "Invalid account data. Please log in again."
+          : "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "User ID not found."
+          : "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "Uploading document..."
+          : "Mengupload dokumen...";
+
+      const filePath =
+        `${user.id}/other/${Date.now()}_${file.name}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/jobseeker-documents/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      const documentResponse = await fetch(
+        `${SUPABASE_URL}jobseeker_documents`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+           Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            document_type: "other",
+            document_name: file.name,
+            file_path: filePath
+          })
+        }
+      );
+
+      if (!documentResponse.ok) {
+        const errorText = await documentResponse.text();
+        throw new Error(errorText);
+      }
+
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "Document uploaded successfully."
+          : "Dokumen berhasil diupload.";
+
+      otherDocumentFileInput.value = "";
+
+    } catch (error) {
+
+      console.error("Gagal upload dokumen lainnya:", error);
+
+      otherDocumentStatus.textContent =
+        currentLanguage === "en"
+          ? "Document upload failed."
+          : "Gagal mengupload dokumen.";
+    }
+
+  });
+
 }
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
