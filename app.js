@@ -4742,6 +4742,147 @@ if (uploadSimABtn && simAFileInput && simAStatus) {
   });
 
 }
+    // ================= DOKUMEN: SIM C =================
+
+const uploadSimCBtn = document.querySelector("#uploadSimCBtn");
+const simCFileInput = document.querySelector("#simCFileInput");
+const simCStatus = document.querySelector("#simCStatus");
+
+if (uploadSimCBtn && simCFileInput && simCStatus) {
+
+  uploadSimCBtn.addEventListener("click", async () => {
+
+    const file = simCFileInput.files[0];
+
+    if (!file) {
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "Please select a SIM C photo first."
+          : "Pilih foto SIM C terlebih dahulu.";
+      return;
+    }
+
+    if (!["image/jpeg", "image/png"].includes(file.type)) {
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "SIM C must be a JPG, JPEG, or PNG image."
+          : "SIM C harus berupa gambar JPG, JPEG, atau PNG.";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "File size must not exceed 5 MB."
+          : "Ukuran file maksimal 5 MB.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "Please log in first."
+          : "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "Invalid account data. Please log in again."
+          : "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "User ID not found."
+          : "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "Uploading SIM C..."
+          : "Mengupload SIM C...";
+
+      const fileExt = file.name.split(".").pop().toLowerCase();
+
+      const filePath =
+        `${user.id}/sim-c/${Date.now()}_sim-c.${fileExt}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/jobseeker-documents/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      const documentResponse = await fetch(
+        `${SUPABASE_URL}jobseeker_documents`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            document_type: "sim_c",
+            document_name: file.name,
+            file_path: filePath
+          })
+        }
+      );
+
+      if (!documentResponse.ok) {
+        const errorText = await documentResponse.text();
+        throw new Error(errorText);
+      }
+
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "SIM C uploaded successfully."
+          : "SIM C berhasil diupload.";
+
+      simCFileInput.value = "";
+
+    } catch (error) {
+
+      console.error("Gagal upload SIM C:", error);
+
+      simCStatus.textContent =
+        currentLanguage === "en"
+          ? "SIM C upload failed."
+          : "Gagal mengupload SIM C.";
+    }
+
+  });
+
+}
     // ================= TAMPILKAN SIM A =================
 
 const simADisplay = document.querySelector("#simADisplay");
