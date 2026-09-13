@@ -2997,6 +2997,113 @@ function showJobseekerDashboard() {
 
       </div>
     </div>
+            <!-- DOKUMEN SAYA -->
+        <div style="
+          margin-top:20px;
+          background:white;
+          padding:30px;
+          border-radius:16px;
+          box-shadow:0 3px 15px rgba(15,23,42,.07);
+          border:1px solid #e5eaf1;
+        ">
+
+          <h2 style="
+            margin-top:0;
+            color:#172b4d;
+            font-size:22px;
+          ">
+            📁 ${currentLanguage === "en" ? "My Documents" : "Dokumen Saya"}
+          </h2>
+
+          <p style="
+            color:#64748b;
+            margin-bottom:22px;
+          ">
+            ${currentLanguage === "en"
+              ? "Upload and manage the documents you may need when applying for jobs."
+              : "Upload dan kelola dokumen yang mungkin kamu perlukan saat melamar pekerjaan."}
+          </p>
+
+          <div style="
+            display:grid;
+            gap:14px;
+          ">
+
+            <div style="
+              padding:18px;
+              border:1px solid #e5eaf1;
+              border-radius:12px;
+              background:#f8fafc;
+            ">
+              <strong>📄 ${currentLanguage === "en" ? "Resume / CV" : "Daftar Riwayat Hidup"}</strong>
+              <div style="
+                margin-top:6px;
+                color:#64748b;
+                font-size:14px;
+              ">
+                ${currentLanguage === "en"
+                  ? "Upload your resume or curriculum vitae."
+                  : "Upload daftar riwayat hidup atau resume kamu."}
+              </div>
+            </div>
+
+            <div style="
+              padding:18px;
+              border:1px solid #e5eaf1;
+              border-radius:12px;
+              background:#f8fafc;
+            ">
+              <strong>📑 ${currentLanguage === "en" ? "Work Experience Letter" : "Paklaring / Surat Pengalaman Kerja"}</strong>
+              <div style="
+                margin-top:6px;
+                color:#64748b;
+                font-size:14px;
+              ">
+                ${currentLanguage === "en"
+                  ? "Upload documents that prove your previous work experience."
+                  : "Upload dokumen yang membuktikan pengalaman kerja sebelumnya."}
+              </div>
+            </div>
+
+            <div style="
+              padding:18px;
+              border:1px solid #e5eaf1;
+              border-radius:12px;
+              background:#f8fafc;
+            ">
+              <strong>🎓 ${currentLanguage === "en" ? "Education Certificate" : "Ijazah / Sertifikat"}</strong>
+              <div style="
+                margin-top:6px;
+                color:#64748b;
+                font-size:14px;
+              ">
+                ${currentLanguage === "en"
+                  ? "Upload education certificates or other supporting certificates."
+                  : "Upload ijazah atau sertifikat pendukung lainnya."}
+              </div>
+            </div>
+
+            <div style="
+              padding:18px;
+              border:1px solid #e5eaf1;
+              border-radius:12px;
+              background:#f8fafc;
+            ">
+              <strong>📎 ${currentLanguage === "en" ? "Other Documents" : "Dokumen Lainnya"}</strong>
+              <div style="
+                margin-top:6px;
+                color:#64748b;
+                font-size:14px;
+              ">
+                ${currentLanguage === "en"
+                  ? "Upload other documents that may support your application."
+                  : "Upload dokumen lain yang mungkin mendukung lamaran kamu."}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
   `;
 
   document.body.innerHTML = "";
