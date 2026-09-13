@@ -3150,7 +3150,145 @@ function showJobseekerDashboard() {
   document.body.appendChild(dashboard);
   translateJobseekerDashboard(dashboard);
     loadInterviewInvitations();
-  
+  // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
+
+const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
+const resumeFileInput = document.querySelector("#resumeFileInput");
+const resumeStatus = document.querySelector("#resumeStatus");
+
+if (uploadResumeBtn && resumeFileInput && resumeStatus) {
+
+  uploadResumeBtn.addEventListener("click", async () => {
+
+    const file = resumeFileInput.files[0];
+
+    if (!file) {
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "Please select a resume file first."
+          : "Pilih file daftar riwayat hidup terlebih dahulu.";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "Resume must be a PDF file."
+          : "Daftar riwayat hidup harus berupa file PDF.";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "File size must not exceed 5 MB."
+          : "Ukuran file maksimal 5 MB.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "Please log in first."
+          : "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "Invalid account data. Please log in again."
+          : "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "User ID not found."
+          : "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "Uploading resume..."
+          : "Mengupload daftar riwayat hidup...";
+
+      const filePath =
+        `${user.id}/resume/${Date.now()}_${file.name}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/jobseeker-documents/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      const documentResponse = await fetch(
+        `${SUPABASE_URL}jobseeker_documents`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            document_type: "resume",
+            document_name: file.name,
+            file_path: filePath
+          })
+        }
+      );
+
+      if (!documentResponse.ok) {
+        const errorText = await documentResponse.text();
+        throw new Error(errorText);
+      }
+
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "Resume uploaded successfully."
+          : "Daftar riwayat hidup berhasil diupload.";
+
+      resumeFileInput.value = "";
+
+    } catch (error) {
+
+      console.error("Gagal upload resume:", error);
+
+      resumeStatus.textContent =
+        currentLanguage === "en"
+          ? "Resume upload failed."
+          : "Gagal mengupload daftar riwayat hidup.";
+    }
+
+  });
+
+}
 
 
 if (userData && accessToken) {
@@ -3427,145 +3565,7 @@ status.textContent = "CV berhasil diupload.";
     }
   });
 }
-// ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
-const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
-const resumeFileInput = document.querySelector("#resumeFileInput");
-const resumeStatus = document.querySelector("#resumeStatus");
-
-if (uploadResumeBtn && resumeFileInput && resumeStatus) {
-
-  uploadResumeBtn.addEventListener("click", async () => {
-
-    const file = resumeFileInput.files[0];
-
-    if (!file) {
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "Please select a resume file first."
-          : "Pilih file daftar riwayat hidup terlebih dahulu.";
-      return;
-    }
-
-    if (file.type !== "application/pdf") {
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "Resume must be a PDF file."
-          : "Daftar riwayat hidup harus berupa file PDF.";
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "File size must not exceed 5 MB."
-          : "Ukuran file maksimal 5 MB.";
-      return;
-    }
-
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
-
-    if (!token || !userData) {
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "Please log in first."
-          : "Silakan login terlebih dahulu.";
-      return;
-    }
-
-    let user;
-
-    try {
-      user = JSON.parse(userData);
-    } catch {
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "Invalid account data. Please log in again."
-          : "Data akun tidak valid. Silakan login kembali.";
-      return;
-    }
-
-    if (!user.id) {
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "User ID not found."
-          : "ID pengguna tidak ditemukan.";
-      return;
-    }
-
-    try {
-
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "Uploading resume..."
-          : "Mengupload daftar riwayat hidup...";
-
-      const filePath =
-        `${user.id}/resume/${Date.now()}_${file.name}`;
-
-      const uploadResponse = await fetch(
-        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/jobseeker-documents/")}${filePath}`,
-        {
-          method: "POST",
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${token}`,
-            "Content-Type": file.type
-          },
-          body: file
-        }
-      );
-
-      if (!uploadResponse.ok) {
-        const errorText = await uploadResponse.text();
-        throw new Error(errorText);
-      }
-
-      const documentResponse = await fetch(
-        `${SUPABASE_URL}jobseeker_documents`,
-        {
-          method: "POST",
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            "Prefer": "return=minimal"
-          },
-          body: JSON.stringify({
-            user_id: user.id,
-            document_type: "resume",
-            document_name: file.name,
-            file_path: filePath
-          })
-        }
-      );
-
-      if (!documentResponse.ok) {
-        const errorText = await documentResponse.text();
-        throw new Error(errorText);
-      }
-
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "Resume uploaded successfully."
-          : "Daftar riwayat hidup berhasil diupload.";
-
-      resumeFileInput.value = "";
-
-    } catch (error) {
-
-      console.error("Gagal upload resume:", error);
-
-      resumeStatus.textContent =
-        currentLanguage === "en"
-          ? "Resume upload failed."
-          : "Gagal mengupload daftar riwayat hidup.";
-    }
-
-  });
-
-}
     function translateJobseekerDashboard(page) {
   if (!page) return;
 
