@@ -2442,6 +2442,130 @@ showNotification(
   showNotification("applicationFailed", " " + error.message);
   }
 }
+async function submitApplicationWithDocuments(
+  job,
+  user,
+  accessToken,
+  selectedDocuments
+) {
+
+  try {
+
+    // SIMPAN LAMARAN
+    const response = await fetch(SUPABASE_APPLICATIONS_URL, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+        Prefer: "return=representation"
+      },
+      body: JSON.stringify({
+        job_id: job.id,
+        user_id: user.id,
+        status: "submitted"
+      })
+    });
+
+    if (!response.ok) {
+
+      const data = await response.json().catch(() => ({}));
+      const errorText = JSON.stringify(data).toLowerCase();
+
+      if (
+        response.status === 409 ||
+        errorText.includes("duplicate") ||
+        errorText.includes("already exists") ||
+        errorText.includes("unique constraint")
+      ) {
+        const language =
+          localStorage.getItem("siteLanguage") || "id";
+
+        alert(
+          language === "en"
+            ? "You have already applied for this job."
+            : "Anda sudah melamar lowongan ini."
+        );
+
+        return;
+      }
+
+      throw new Error(
+        data.message ||
+        data.error_description ||
+        data.msg ||
+        "Lamaran gagal dikirim"
+      );
+    }
+
+    const applicationData = await response.json();
+
+    const application = Array.isArray(applicationData)
+      ? applicationData[0]
+      : applicationData;
+
+    if (!application || !application.id) {
+      throw new Error("Application ID tidak ditemukan.");
+    }
+
+    console.log(
+      "APPLICATION ID:",
+      application.id
+    );
+
+    // SIMPAN DOKUMEN YANG DIPILIH
+    for (const documentId of selectedDocuments) {
+
+      const documentResponse = await fetch(
+        `${SUPABASE_URL}application_documents`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+            Prefer: "return=minimal"
+          },
+          body: JSON.stringify({
+            application_id: application.id,
+            document_id: documentId
+          })
+        }
+      );
+
+      if (!documentResponse.ok) {
+        throw new Error(
+          await documentResponse.text()
+        );
+      }
+    }
+
+    console.log(
+      "DOKUMEN LAMARAN TERSIMPAN:",
+      selectedDocuments
+    );
+
+    const language =
+      localStorage.getItem("siteLanguage") || "id";
+
+    showNotification(
+      "applicationSuccess",
+      `\n\n${job.title} - ${job.company}`
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Gagal mengirim lamaran:",
+      error
+    );
+
+    showNotification(
+      "applicationFailed",
+      " " + error.message
+    );
+  }
+}
 
 jobsGrid.addEventListener("click", e => {
   const details = e.target.closest("[data-details]");
