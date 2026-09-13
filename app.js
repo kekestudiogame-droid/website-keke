@@ -2217,6 +2217,8 @@ const documents = await documentsResponse.json();
 
 console.log("DOKUMEN PELAMAR:", documents);
 
+  try {
+
 // TAMPILKAN PILIHAN DOKUMEN
  const applicationLanguage = localStorage.getItem("siteLanguage") || "id";
 
