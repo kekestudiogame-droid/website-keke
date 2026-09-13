@@ -4601,6 +4601,7 @@ if (ktpDisplay && userData && accessToken) {
     `;
   }
 }
+    
     // ================= DOKUMEN: SIM A =================
 
 const uploadSimABtn = document.querySelector("#uploadSimABtn");
@@ -4882,6 +4883,144 @@ if (uploadSimCBtn && simCFileInput && simCStatus) {
 
   });
 
+}
+    // ================= TAMPILKAN SIM C =================
+
+const simCDisplay = document.querySelector("#simCDisplay");
+
+if (simCDisplay && userData && accessToken) {
+
+  const simCUser = JSON.parse(userData);
+
+  try {
+
+    const simCResponse = await fetch(
+      `${SUPABASE_URL}jobseeker_documents?user_id=eq.${simCUser.id}&document_type=eq.sim_c&select=id,document_name,file_path,created_at&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!simCResponse.ok) {
+      throw new Error(await simCResponse.text());
+    }
+
+    const documents = await simCResponse.json();
+
+    if (documents.length > 0) {
+
+      const simC = documents[0];
+
+      simCDisplay.innerHTML = `
+        <a
+          href="#"
+          id="viewSimCBtn"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#e8eef6;
+            color:#123b6d;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          🛵 ${
+            currentLanguage === "en"
+              ? "View SIM C"
+              : "Lihat SIM C"
+          }
+        </a>
+      `;
+
+      document
+        .querySelector("#viewSimCBtn")
+        .addEventListener("click", async (event) => {
+
+          event.preventDefault();
+
+          try {
+
+            const signResponse = await fetch(
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/sign/jobseeker-documents/")}${encodeURI(simC.file_path)}`,
+              {
+                method: "POST",
+                headers: {
+                  apikey: SUPABASE_KEY,
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  expiresIn: 3600
+                })
+              }
+            );
+
+            if (!signResponse.ok) {
+              throw new Error(await signResponse.text());
+            }
+
+            const signData = await signResponse.json();
+
+            const signedUrl =
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1")}${signData.signedURL}`;
+
+            window.open(
+              signedUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.error("Gagal membuka SIM C:", error);
+
+            alert(
+              currentLanguage === "en"
+                ? "Failed to open SIM C."
+                : "Gagal membuka SIM C."
+            );
+          }
+
+        });
+
+    } else {
+
+      simCDisplay.innerHTML = `
+        <div style="
+          color:#64748b;
+          font-size:14px;
+        ">
+          ${
+            currentLanguage === "en"
+              ? "No SIM C uploaded yet."
+              : "Belum ada SIM C yang diupload."
+          }
+        </div>
+      `;
+    }
+
+  } catch (error) {
+
+    console.error("Gagal mengambil SIM C:", error);
+
+    simCDisplay.innerHTML = `
+      <div style="
+        color:#dc2626;
+        font-size:14px;
+      ">
+        ${
+          currentLanguage === "en"
+            ? "Failed to load SIM C."
+            : "Gagal memuat SIM C."
+        }
+      </div>
+    `;
+  }
 }
     // ================= TAMPILKAN SIM A =================
 
