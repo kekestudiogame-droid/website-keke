@@ -3656,6 +3656,150 @@ if (uploadEducationBtn && educationFileInput && educationStatus) {
   });
 
 }
+    // ================= TAMPILKAN IJAZAH / SERTIFIKAT =================
+
+const educationDisplay = document.querySelector("#educationDisplay");
+
+if (educationDisplay && userData && accessToken) {
+
+  const educationUser = JSON.parse(userData);
+
+  try {
+
+    const educationResponse = await fetch(
+      `${SUPABASE_URL}jobseeker_documents?user_id=eq.${educationUser.id}&document_type=eq.education&select=id,document_name,file_path,created_at&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!educationResponse.ok) {
+      throw new Error(await educationResponse.text());
+    }
+
+    const documents = await educationResponse.json();
+
+    if (documents.length > 0) {
+
+      const education = documents[0];
+
+      educationDisplay.innerHTML = `
+        <a
+          href="#"
+          id="viewEducationBtn"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#e8eef6;
+            color:#123b6d;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          🎓 ${
+            currentLanguage === "en"
+              ? "View Certificate"
+              : "Lihat Ijazah / Sertifikat"
+          }
+        </a>
+      `;
+
+      document
+        .querySelector("#viewEducationBtn")
+        .addEventListener("click", async (event) => {
+
+          event.preventDefault();
+
+          try {
+
+            const signResponse = await fetch(
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/sign/jobseeker-documents/")}${encodeURI(education.file_path)}`,
+              {
+                method: "POST",
+                headers: {
+                  apikey: SUPABASE_KEY,
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  expiresIn: 3600
+                })
+              }
+            );
+
+            if (!signResponse.ok) {
+              throw new Error(await signResponse.text());
+            }
+
+            const signData = await signResponse.json();
+
+            const signedUrl =
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1")}${signData.signedURL}`;
+
+            window.open(
+              signedUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.error(
+              "Gagal membuka ijazah / sertifikat:",
+              error
+            );
+
+            alert(
+              currentLanguage === "en"
+                ? "Failed to open certificate."
+                : "Gagal membuka ijazah / sertifikat."
+            );
+          }
+
+        });
+
+    } else {
+
+      educationDisplay.innerHTML = `
+        <div style="
+          color:#64748b;
+          font-size:14px;
+        ">
+          ${
+            currentLanguage === "en"
+              ? "No certificate uploaded yet."
+              : "Belum ada ijazah / sertifikat yang diupload."
+          }
+        </div>
+      `;
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Gagal mengambil ijazah / sertifikat:",
+      error
+    );
+
+    educationDisplay.innerHTML = `
+      <div style="
+        color:#dc2626;
+        font-size:14px;
+      ">
+        ${
+          currentLanguage === "en"
+            ? "Failed to load certificate."
+            : "Gagal memuat ijazah / sertifikat."
+        }
+      </div>
+    `;
+  }
+}
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
