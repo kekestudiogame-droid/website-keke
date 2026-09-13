@@ -2218,7 +2218,7 @@ const documents = await documentsResponse.json();
 console.log("DOKUMEN PELAMAR:", documents);
 
 // TAMPILKAN PILIHAN DOKUMEN
-const language = localStorage.getItem("siteLanguage") || "id";
+ const applicationLanguage = localStorage.getItem("siteLanguage") || "id";
 
 if (documents.length > 0) {
 
@@ -2280,7 +2280,7 @@ if (documents.length > 0) {
         color:#123b6d;
       ">
         ${
-          language === "en"
+           applicationLanguage === "en"
             ? "Select Documents"
             : "Pilih Dokumen"
         }
@@ -2288,7 +2288,7 @@ if (documents.length > 0) {
 
       <p style="color:#64748b;">
         ${
-          language === "en"
+         applicationLanguage === "en"
             ? "Select the documents you want to send with this application."
             : "Pilih dokumen yang ingin kamu kirim bersama lamaran ini."
         }
@@ -2319,7 +2319,7 @@ if (documents.length > 0) {
           "
         >
           ${
-            language === "en"
+          applicationLanguage === "en"
               ? "Cancel"
               : "Batal"
           }
@@ -2340,7 +2340,7 @@ if (documents.length > 0) {
           "
         >
           ${
-            language === "en"
+          applicationLanguage === "en"
               ? "Continue"
               : "Lanjutkan"
           }
@@ -2417,7 +2417,7 @@ if (documents.length > 0) {
    const language = localStorage.getItem("siteLanguage") || "id";
 
 alert(
-  language === "en"
+ applicationLanguage === "en"
     ? "You have already applied for this job."
     : "Anda sudah melamar lowongan ini."
 );
