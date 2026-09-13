@@ -3273,7 +3273,71 @@ loadJobsFromDatabase();
   "
 ></div>
             </div>
+<!-- KTP -->
+<div style="
+  padding:18px;
+  border:1px solid #e5eaf1;
+  border-radius:12px;
+  background:#f8fafc;
+">
+  <strong>
+    🪪 ${currentLanguage === "en" ? "ID Card (KTP)" : "KTP"}
+  </strong>
 
+  <div style="
+    margin-top:6px;
+    color:#64748b;
+    font-size:14px;
+  ">
+    ${currentLanguage === "en"
+      ? "Upload a photo or scan of your ID card."
+      : "Upload foto atau scan KTP kamu."}
+  </div>
+
+  <input
+    type="file"
+    id="ktpFileInput"
+    accept="image/jpeg,image/png"
+    style="
+      display:block;
+      margin-top:15px;
+      max-width:100%;
+    "
+  >
+
+  <button
+    id="uploadKtpBtn"
+    style="
+      margin-top:12px;
+      padding:10px 18px;
+      background:#123b6d;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+    "
+  >
+    ${currentLanguage === "en"
+      ? "Upload ID Card"
+      : "Upload KTP"}
+  </button>
+
+  <div
+    id="ktpStatus"
+    style="
+      margin-top:12px;
+      font-weight:bold;
+    "
+  ></div>
+
+  <div
+    id="ktpDisplay"
+    style="
+      margin-top:12px;
+    "
+  ></div>
+</div>
           </div>
 
         </div>
