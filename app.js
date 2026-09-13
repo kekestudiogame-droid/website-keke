@@ -3336,6 +3336,144 @@ if (uploadWorkLetterBtn && workLetterFileInput && workLetterStatus) {
   });
 
 }
+    // ================= TAMPILKAN PAKLARING =================
+
+const workLetterDisplay = document.querySelector("#workLetterDisplay");
+
+if (workLetterDisplay && userData && accessToken) {
+
+  const workLetterUser = JSON.parse(userData);
+
+  try {
+
+    const workLetterResponse = await fetch(
+      `${SUPABASE_URL}jobseeker_documents?user_id=eq.${workLetterUser.id}&document_type=eq.work_letter&select=id,document_name,file_path,created_at&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!workLetterResponse.ok) {
+      throw new Error(await workLetterResponse.text());
+    }
+
+    const documents = await workLetterResponse.json();
+
+    if (documents.length > 0) {
+
+      const workLetter = documents[0];
+
+      workLetterDisplay.innerHTML = `
+        <a
+          href="#"
+          id="viewWorkLetterBtn"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#e8eef6;
+            color:#123b6d;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          📑 ${
+            currentLanguage === "en"
+              ? "View Work Experience Letter"
+              : "Lihat Paklaring"
+          }
+        </a>
+      `;
+
+      document
+        .querySelector("#viewWorkLetterBtn")
+        .addEventListener("click", async (event) => {
+
+          event.preventDefault();
+
+          try {
+
+            const signResponse = await fetch(
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/sign/jobseeker-documents/")}${encodeURI(workLetter.file_path)}`,
+              {
+                method: "POST",
+                headers: {
+                  apikey: SUPABASE_KEY,
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  expiresIn: 3600
+                })
+              }
+            );
+
+            if (!signResponse.ok) {
+              throw new Error(await signResponse.text());
+            }
+
+            const signData = await signResponse.json();
+
+            const signedUrl =
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1")}${signData.signedURL}`;
+
+            window.open(
+              signedUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.error("Gagal membuka paklaring:", error);
+
+            alert(
+              currentLanguage === "en"
+                ? "Failed to open work experience letter."
+                : "Gagal membuka paklaring."
+            );
+          }
+
+        });
+
+    } else {
+
+      workLetterDisplay.innerHTML = `
+        <div style="
+          color:#64748b;
+          font-size:14px;
+        ">
+          ${
+            currentLanguage === "en"
+              ? "No work experience letter uploaded yet."
+              : "Belum ada paklaring yang diupload."
+          }
+        </div>
+      `;
+    }
+
+  } catch (error) {
+
+    console.error("Gagal mengambil paklaring:", error);
+
+    workLetterDisplay.innerHTML = `
+      <div style="
+        color:#dc2626;
+        font-size:14px;
+      ">
+        ${
+          currentLanguage === "en"
+            ? "Failed to load work experience letter."
+            : "Gagal memuat paklaring."
+        }
+      </div>
+    `;
+  }
+}
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
