@@ -3168,6 +3168,49 @@ loadJobsFromDatabase();
                   ? "Upload education certificates or other supporting certificates."
                   : "Upload ijazah atau sertifikat pendukung lainnya."}
               </div>
+              <input
+  type="file"
+  id="educationFileInput"
+  accept=".pdf,application/pdf"
+  style="
+    display:block;
+    margin-top:15px;
+    max-width:100%;
+  "
+>
+
+<button
+  id="uploadEducationBtn"
+  style="
+    margin-top:12px;
+    padding:10px 18px;
+    background:#123b6d;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+  "
+>
+  ${currentLanguage === "en"
+    ? "Upload Certificate"
+    : "Upload Ijazah / Sertifikat"}
+</button>
+
+<div
+  id="educationStatus"
+  style="
+    margin-top:12px;
+    font-weight:bold;
+  "
+></div>
+
+<div
+  id="educationDisplay"
+  style="
+    margin-top:12px;
+  "
+></div>
             </div>
 
             <div style="
@@ -3473,6 +3516,145 @@ if (workLetterDisplay && userData && accessToken) {
       </div>
     `;
   }
+}
+    // ================= DOKUMEN: IJAZAH / SERTIFIKAT =================
+
+const uploadEducationBtn = document.querySelector("#uploadEducationBtn");
+const educationFileInput = document.querySelector("#educationFileInput");
+const educationStatus = document.querySelector("#educationStatus");
+
+if (uploadEducationBtn && educationFileInput && educationStatus) {
+
+  uploadEducationBtn.addEventListener("click", async () => {
+
+    const file = educationFileInput.files[0];
+
+    if (!file) {
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "Please select a certificate file first."
+          : "Pilih file ijazah atau sertifikat terlebih dahulu.";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "Certificate must be a PDF file."
+          : "Ijazah atau sertifikat harus berupa file PDF.";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "File size must not exceed 5 MB."
+          : "Ukuran file maksimal 5 MB.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "Please log in first."
+          : "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "Invalid account data. Please log in again."
+          : "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "User ID not found."
+          : "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "Uploading certificate..."
+          : "Mengupload ijazah / sertifikat...";
+
+      const filePath =
+        `${user.id}/education/${Date.now()}_${file.name}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/jobseeker-documents/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      const documentResponse = await fetch(
+        `${SUPABASE_URL}jobseeker_documents`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            document_type: "education",
+            document_name: file.name,
+            file_path: filePath
+          })
+        }
+      );
+
+      if (!documentResponse.ok) {
+        const errorText = await documentResponse.text();
+        throw new Error(errorText);
+      }
+
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "Certificate uploaded successfully."
+          : "Ijazah / sertifikat berhasil diupload.";
+
+      educationFileInput.value = "";
+
+    } catch (error) {
+
+      console.error("Gagal upload ijazah / sertifikat:", error);
+
+      educationStatus.textContent =
+        currentLanguage === "en"
+          ? "Certificate upload failed."
+          : "Gagal mengupload ijazah / sertifikat.";
+    }
+
+  });
+
 }
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
