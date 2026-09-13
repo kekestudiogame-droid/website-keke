@@ -3338,6 +3338,71 @@ loadJobsFromDatabase();
     "
   ></div>
 </div>
+<!-- SIM A -->
+<div style="
+  padding:18px;
+  border:1px solid #e5eaf1;
+  border-radius:12px;
+  background:#f8fafc;
+">
+  <strong>
+    🚗 ${currentLanguage === "en" ? "Driving License (SIM A)" : "SIM A"}
+  </strong>
+
+  <div style="
+    margin-top:6px;
+    color:#64748b;
+    font-size:14px;
+  ">
+    ${currentLanguage === "en"
+      ? "Upload a photo or scan of your SIM A."
+      : "Upload foto atau scan SIM A kamu."}
+  </div>
+
+  <input
+    type="file"
+    id="simAFileInput"
+    accept="image/jpeg,image/png"
+    style="
+      display:block;
+      margin-top:15px;
+      max-width:100%;
+    "
+  >
+
+  <button
+    id="uploadSimABtn"
+    style="
+      margin-top:12px;
+      padding:10px 18px;
+      background:#123b6d;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+    "
+  >
+    ${currentLanguage === "en"
+      ? "Upload SIM A"
+      : "Upload SIM A"}
+  </button>
+
+  <div
+    id="simAStatus"
+    style="
+      margin-top:12px;
+      font-weight:bold;
+    "
+  ></div>
+
+  <div
+    id="simADisplay"
+    style="
+      margin-top:12px;
+    "
+  ></div>
+</div>
           </div>
 
         </div>
@@ -4468,6 +4533,147 @@ if (ktpDisplay && userData && accessToken) {
       </div>
     `;
   }
+}
+    // ================= DOKUMEN: SIM A =================
+
+const uploadSimABtn = document.querySelector("#uploadSimABtn");
+const simAFileInput = document.querySelector("#simAFileInput");
+const simAStatus = document.querySelector("#simAStatus");
+
+if (uploadSimABtn && simAFileInput && simAStatus) {
+
+  uploadSimABtn.addEventListener("click", async () => {
+
+    const file = simAFileInput.files[0];
+
+    if (!file) {
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "Please select a SIM A photo first."
+          : "Pilih foto SIM A terlebih dahulu.";
+      return;
+    }
+
+    if (!["image/jpeg", "image/png"].includes(file.type)) {
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "SIM A must be a JPG, JPEG, or PNG image."
+          : "SIM A harus berupa gambar JPG, JPEG, atau PNG.";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "File size must not exceed 5 MB."
+          : "Ukuran file maksimal 5 MB.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "Please log in first."
+          : "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "Invalid account data. Please log in again."
+          : "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "User ID not found."
+          : "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "Uploading SIM A..."
+          : "Mengupload SIM A...";
+
+      const fileExt = file.name.split(".").pop().toLowerCase();
+
+      const filePath =
+        `${user.id}/sim-a/${Date.now()}_sim-a.${fileExt}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/jobseeker-documents/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      const documentResponse = await fetch(
+        `${SUPABASE_URL}jobseeker_documents`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            document_type: "sim_a",
+            document_name: file.name,
+            file_path: filePath
+          })
+        }
+      );
+
+      if (!documentResponse.ok) {
+        const errorText = await documentResponse.text();
+        throw new Error(errorText);
+      }
+
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "SIM A uploaded successfully."
+          : "SIM A berhasil diupload.";
+
+      simAFileInput.value = "";
+
+    } catch (error) {
+
+      console.error("Gagal upload SIM A:", error);
+
+      simAStatus.textContent =
+        currentLanguage === "en"
+          ? "SIM A upload failed."
+          : "Gagal mengupload SIM A.";
+    }
+
+  });
+
 }
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
