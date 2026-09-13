@@ -2898,14 +2898,15 @@ loadJobsFromDatabase();
 
 </div>
 </div>
-        <!-- CV -->
-        <div style="
+           <!-- CV -->
+          <div style="
+          margin-top:0;
           background:white;
-          padding:30px;
+          padding:24px;
           border-radius:16px;
           box-shadow:0 3px 15px rgba(15,23,42,.07);
           border:1px solid #e5eaf1;
-        ">
+         ">
 
           <h2 style="
             margin-top:0;
@@ -2928,7 +2929,7 @@ loadJobsFromDatabase();
             background:#f8fafc;
             border:2px dashed #cbd5e1;
             border-radius:14px;
-            padding:30px;
+            padding:22px;
             text-align:center;
           ">
 
@@ -2998,10 +2999,10 @@ loadJobsFromDatabase();
       </div>
     </div>
             <!-- DOKUMEN SAYA -->
-        <div style="
-          margin-top:20px;
+          <div style="
+          margin-top:16px;
           background:white;
-          padding:30px;
+          padding:24px;
           border-radius:16px;
           box-shadow:0 3px 15px rgba(15,23,42,.07);
           border:1px solid #e5eaf1;
