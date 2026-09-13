@@ -3077,7 +3077,7 @@ function showJobseekerDashboard() {
     ${currentLanguage === "en" ? "Upload Resume" : "Upload Daftar Riwayat Hidup"}
   </button>
 
-  <div
+   <div
     id="resumeStatus"
     style="
       margin-top:12px;
@@ -3085,8 +3085,12 @@ function showJobseekerDashboard() {
     "
   ></div>
 
-</div>
-
+            <div
+            id="resumeDisplay"
+            style="
+            margin-top:12px;
+            "
+            ></div>
             <div style="
               padding:18px;
               border:1px solid #e5eaf1;
@@ -3288,6 +3292,145 @@ if (uploadResumeBtn && resumeFileInput && resumeStatus) {
 
   });
 
+}
+
+// ================= TAMPILKAN RESUME =================
+
+const resumeDisplay = document.querySelector("#resumeDisplay");
+
+if (resumeDisplay && userData && accessToken) {
+
+  const resumeUser = JSON.parse(userData);
+
+  try {
+
+    const resumeResponse = await fetch(
+      `${SUPABASE_URL}jobseeker_documents?user_id=eq.${resumeUser.id}&document_type=eq.resume&select=id,document_name,file_path,created_at&order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!resumeResponse.ok) {
+      throw new Error(await resumeResponse.text());
+    }
+
+    const resumes = await resumeResponse.json();
+
+    if (resumes.length > 0) {
+
+      const resume = resumes[0];
+
+      resumeDisplay.innerHTML = `
+        <a
+          href="#"
+          id="viewResumeBtn"
+          style="
+            display:inline-block;
+            padding:10px 16px;
+            background:#e8eef6;
+            color:#123b6d;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+          "
+        >
+          📄 ${
+            currentLanguage === "en"
+              ? "View Resume"
+              : "Lihat Daftar Riwayat Hidup"
+          }
+        </a>
+      `;
+
+      document
+        .querySelector("#viewResumeBtn")
+        .addEventListener("click", async (event) => {
+
+          event.preventDefault();
+
+          try {
+
+            const signResponse = await fetch(
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/sign/jobseeker-documents/")}${encodeURI(resume.file_path)}`,
+              {
+                method: "POST",
+                headers: {
+                  apikey: SUPABASE_KEY,
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  expiresIn: 3600
+                })
+              }
+            );
+
+            if (!signResponse.ok) {
+              throw new Error(await signResponse.text());
+            }
+
+            const signData = await signResponse.json();
+
+            const signedUrl =
+              `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1")}${signData.signedURL}`;
+
+            window.open(
+              signedUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.error("Gagal membuka resume:", error);
+
+            alert(
+              currentLanguage === "en"
+                ? "Failed to open resume."
+                : "Gagal membuka daftar riwayat hidup."
+            );
+          }
+
+        });
+
+    } else {
+
+      resumeDisplay.innerHTML = `
+        <div style="
+          color:#64748b;
+          font-size:14px;
+        ">
+          ${
+            currentLanguage === "en"
+              ? "No resume uploaded yet."
+              : "Belum ada daftar riwayat hidup yang diupload."
+          }
+        </div>
+      `;
+    }
+
+  } catch (error) {
+
+    console.error("Gagal mengambil resume:", error);
+
+    resumeDisplay.innerHTML = `
+      <div style="
+        color:#dc2626;
+        font-size:14px;
+      ">
+        ${
+          currentLanguage === "en"
+            ? "Failed to load resume."
+            : "Gagal memuat daftar riwayat hidup."
+        }
+      </div>
+    `;
+  }
 }
 
 
