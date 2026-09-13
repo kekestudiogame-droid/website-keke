@@ -3403,6 +3403,73 @@ loadJobsFromDatabase();
     "
   ></div>
 </div>
+
+<!-- SIM C -->
+<div style="
+  padding:18px;
+  border:1px solid #e5eaf1;
+  border-radius:12px;
+  background:#f8fafc;
+">
+  <strong>
+    🛵 ${currentLanguage === "en" ? "Driving License (SIM C)" : "SIM C"}
+  </strong>
+
+  <div style="
+    margin-top:6px;
+    color:#64748b;
+    font-size:14px;
+  ">
+    ${currentLanguage === "en"
+      ? "Upload a photo or scan of your SIM C."
+      : "Upload foto atau scan SIM C kamu."}
+  </div>
+
+  <input
+    type="file"
+    id="simCFileInput"
+    accept="image/jpeg,image/png"
+    style="
+      display:block;
+      margin-top:15px;
+      max-width:100%;
+    "
+  >
+
+  <button
+    id="uploadSimCBtn"
+    style="
+      margin-top:12px;
+      padding:10px 18px;
+      background:#123b6d;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+    "
+  >
+    ${currentLanguage === "en"
+      ? "Upload SIM C"
+      : "Upload SIM C"}
+  </button>
+
+  <div
+    id="simCStatus"
+    style="
+      margin-top:12px;
+      font-weight:bold;
+    "
+  ></div>
+
+  <div
+    id="simCDisplay"
+    style="
+      margin-top:12px;
+    "
+  ></div>
+</div>
+
           </div>
 
         </div>
