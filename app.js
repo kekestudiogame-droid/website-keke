@@ -2898,106 +2898,7 @@ loadJobsFromDatabase();
 
 </div>
 </div>
-           <!-- CV -->
-          <div style="
-          margin-top:0;
-          background:white;
-          padding:24px;
-          border-radius:16px;
-          box-shadow:0 3px 15px rgba(15,23,42,.07);
-          border:1px solid #e5eaf1;
-         ">
-
-          <h2 style="
-            margin-top:0;
-            color:#172b4d;
-            font-size:22px;
-          ">
-          📄 ${currentLanguage === "en" ? "My CV" : "CV Saya"}
-          </h2>
-
-          <p style="
-            color:#64748b;
-            margin-bottom:22px;
-          ">
-            ${currentLanguage === "en"
-            ? "Upload your CV in PDF format so companies can view your profile and work experience."
-            : "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu."}
-          </p>
-
-          <div style="
-            background:#f8fafc;
-            border:2px dashed #cbd5e1;
-            border-radius:14px;
-            padding:22px;
-            text-align:center;
-          ">
-
-            <div style="
-              font-size:42px;
-              margin-bottom:10px;
-            ">
-              📄
-            </div>
-
-            <div style="
-              font-weight:bold;
-              color:#172b4d;
-              margin-bottom:8px;
-            ">
-              Upload CV kamu
-            </div>
-
-            <div style="
-              color:#64748b;
-              font-size:14px;
-              margin-bottom:20px;
-            ">
-              Format yang diperbolehkan: PDF
-            </div>
-
-            <input
-              type="file"
-              id="cvFileInput"
-              accept=".pdf,application/pdf"
-              style="
-                display:block;
-                margin:0 auto;
-                max-width:100%;
-              "
-            >
-
-            <button
-              id="uploadCvBtn"
-              style="
-                margin-top:20px;
-                padding:12px 24px;
-                background:#123b6d;
-                color:white;
-                border:none;
-                border-radius:9px;
-                cursor:pointer;
-                font-size:15px;
-                font-weight:bold;
-                box-shadow:0 4px 10px rgba(18,59,109,.25);
-              "
-            >
-              Upload CV
-            </button>
-
-            <p
-              id="cvStatus"
-              style="
-                margin-top:18px;
-                font-weight:bold;
-              "
-            ></p>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
+          
             <!-- DOKUMEN SAYA -->
           <div style="
           margin-top:16px;
@@ -3029,6 +2930,103 @@ loadJobsFromDatabase();
             display:grid;
             gap:14px;
           ">
+          <!-- CV -->
+<div style="
+  margin-top:0;
+  background:white;
+  padding:24px;
+  border-radius:16px;
+  box-shadow:0 3px 15px rgba(15,23,42,.07);
+  border:1px solid #e5eaf1;
+">
+
+  <h2 style="
+    margin-top:0;
+    color:#172b4d;
+    font-size:22px;
+  ">
+    📄 ${currentLanguage === "en" ? "My CV" : "CV Saya"}
+  </h2>
+
+  <p style="
+    color:#64748b;
+    margin-bottom:22px;
+  ">
+    ${currentLanguage === "en"
+      ? "Upload your CV in PDF format so companies can view your profile and work experience."
+      : "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu."}
+  </p>
+
+  <div style="
+    background:#f8fafc;
+    border:2px dashed #cbd5e1;
+    border-radius:14px;
+    padding:22px;
+    text-align:center;
+  ">
+
+    <div style="
+      font-size:42px;
+      margin-bottom:10px;
+    ">
+      📄
+    </div>
+
+    <div style="
+      font-weight:bold;
+      color:#172b4d;
+      margin-bottom:8px;
+    ">
+      Upload CV kamu
+    </div>
+
+    <div style="
+      color:#64748b;
+      font-size:14px;
+      margin-bottom:20px;
+    ">
+      Format yang diperbolehkan: PDF
+    </div>
+
+    <input
+      type="file"
+      id="cvFileInput"
+      accept=".pdf,application/pdf"
+      style="
+        display:block;
+        margin:0 auto;
+        max-width:100%;
+      "
+    >
+
+    <button
+      id="uploadCvBtn"
+      style="
+        margin-top:20px;
+        padding:12px 24px;
+        background:#123b6d;
+        color:white;
+        border:none;
+        border-radius:9px;
+        cursor:pointer;
+        font-size:15px;
+        font-weight:bold;
+        box-shadow:0 4px 10px rgba(18,59,109,.25);
+      "
+    >
+      Upload CV
+    </button>
+
+    <p
+      id="cvStatus"
+      style="
+        margin-top:18px;
+        font-weight:bold;
+      "
+    ></p>
+
+  </div>
+</div>
 
           <div style="
   padding:18px;
