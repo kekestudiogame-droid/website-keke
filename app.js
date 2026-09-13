@@ -3245,12 +3245,36 @@ ${
         }
       );
 
-      if (!uploadResponse.ok) {
-        const errorText = await uploadResponse.text();
-        throw new Error(errorText);
-      }
+    if (!uploadResponse.ok) {
+  const errorText = await uploadResponse.text();
+  throw new Error(errorText);
+}
 
-      status.textContent = "CV berhasil diupload.";
+const cvUrl =
+  `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/public/cv/")}${filePath}`;
+
+const profileResponse = await fetch(
+  `${SUPABASE_URL}jobseeker_profiles?id=eq.${user.id}`,
+  {
+    method: "PATCH",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      cv_url: cvUrl,
+      updated_at: new Date().toISOString()
+    })
+  }
+);
+
+if (!profileResponse.ok) {
+  const errorText = await profileResponse.text();
+  throw new Error(errorText);
+}
+
+status.textContent = "CV berhasil diupload.";
     } catch (error) {
       status.textContent = "Gagal upload CV: " + error.message;
     }
