@@ -4126,6 +4126,7 @@ if (otherDocumentDisplay && userData && accessToken) {
     `;
   }
 }
+  
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
