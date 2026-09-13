@@ -3098,6 +3098,49 @@ loadJobsFromDatabase();
               background:#f8fafc;
             ">
               <strong>📑 ${currentLanguage === "en" ? "Work Experience Letter" : "Paklaring / Surat Pengalaman Kerja"}</strong>
+              <input
+                type="file"
+                id="workLetterFileInput"
+                accept=".pdf,application/pdf"
+                 style="
+                 display:block;
+                margin-top:15px;
+                max-width:100%;
+                "
+                >
+
+               <button
+               id="uploadWorkLetterBtn"
+               style="
+               margin-top:12px;
+               padding:10px 18px;
+               background:#123b6d;
+               color:white;
+               border:none;
+               border-radius:8px;
+               cursor:pointer;
+               font-weight:bold;
+               "
+               >
+                ${currentLanguage === "en"
+                ? "Upload Work Experience Letter"
+                : "Upload Paklaring"}
+               </button>
+
+               <div
+               id="workLetterStatus"
+               style="
+               margin-top:12px;
+               font-weight:bold;
+               "
+               ></div>
+
+               <div
+               id="workLetterDisplay"
+               style="
+               margin-top:12px;
+               "
+              ></div>
               <div style="
                 margin-top:6px;
                 color:#64748b;
@@ -3154,6 +3197,145 @@ loadJobsFromDatabase();
   document.body.appendChild(dashboard);
   translateJobseekerDashboard(dashboard);
     loadInterviewInvitations();
+    // ================= DOKUMEN: PAKLARING =================
+
+const uploadWorkLetterBtn = document.querySelector("#uploadWorkLetterBtn");
+const workLetterFileInput = document.querySelector("#workLetterFileInput");
+const workLetterStatus = document.querySelector("#workLetterStatus");
+
+if (uploadWorkLetterBtn && workLetterFileInput && workLetterStatus) {
+
+  uploadWorkLetterBtn.addEventListener("click", async () => {
+
+    const file = workLetterFileInput.files[0];
+
+    if (!file) {
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "Please select a work experience letter first."
+          : "Pilih file paklaring terlebih dahulu.";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "Work experience letter must be a PDF file."
+          : "Paklaring harus berupa file PDF.";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "File size must not exceed 5 MB."
+          : "Ukuran file maksimal 5 MB.";
+      return;
+    }
+
+    const token = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("cariKerjakuUser");
+
+    if (!token || !userData) {
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "Please log in first."
+          : "Silakan login terlebih dahulu.";
+      return;
+    }
+
+    let user;
+
+    try {
+      user = JSON.parse(userData);
+    } catch {
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "Invalid account data. Please log in again."
+          : "Data akun tidak valid. Silakan login kembali.";
+      return;
+    }
+
+    if (!user.id) {
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "User ID not found."
+          : "ID pengguna tidak ditemukan.";
+      return;
+    }
+
+    try {
+
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "Uploading work experience letter..."
+          : "Mengupload paklaring...";
+
+      const filePath =
+        `${user.id}/work-letter/${Date.now()}_${file.name}`;
+
+      const uploadResponse = await fetch(
+        `${SUPABASE_URL.replace("/rest/v1/", "/storage/v1/object/jobseeker-documents/")}${filePath}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": file.type
+          },
+          body: file
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText);
+      }
+
+      const documentResponse = await fetch(
+        `${SUPABASE_URL}jobseeker_documents`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            document_type: "work_letter",
+            document_name: file.name,
+            file_path: filePath
+          })
+        }
+      );
+
+      if (!documentResponse.ok) {
+        const errorText = await documentResponse.text();
+        throw new Error(errorText);
+      }
+
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "Work experience letter uploaded successfully."
+          : "Paklaring berhasil diupload.";
+
+      workLetterFileInput.value = "";
+
+    } catch (error) {
+
+      console.error("Gagal upload paklaring:", error);
+
+      workLetterStatus.textContent =
+        currentLanguage === "en"
+          ? "Work experience letter upload failed."
+          : "Gagal mengupload paklaring.";
+    }
+
+  });
+
+}
   // ================= DOKUMEN: DAFTAR RIWAYAT HIDUP =================
 
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
