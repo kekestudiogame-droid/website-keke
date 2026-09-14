@@ -10093,6 +10093,7 @@ ${localStorage.getItem("siteLanguage") === "en" ? "Reject Applicant" : "Tolak Pe
   }
 }
 async function viewApplicantDocument(filePath, documentName) {
+  console.log("FILE PATH YANG DIMINTA:", filePath);
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
