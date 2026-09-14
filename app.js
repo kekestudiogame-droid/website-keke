@@ -1236,7 +1236,17 @@ async function renderJobs(list = jobs) {
   }
   // Cache terjemahan agar tidak meminta Gemini berulang kali
   if (!window.jobTranslationCache) {
-    window.jobTranslationCache = new Map();
+    try {
+      const savedTranslations =
+        JSON.parse(localStorage.getItem("jobTranslationCache") || "{}");
+
+      window.jobTranslationCache = new Map(
+        Object.entries(savedTranslations)
+      );
+    } catch (error) {
+      console.error("Gagal membaca cache terjemahan:", error);
+      window.jobTranslationCache = new Map();
+    }
   }
 
   let displayJobs = list;
@@ -1308,10 +1318,17 @@ if (language === "en" && list.length > 0) {
             originalJob.id ||
             `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
 
-          window.jobTranslationCache.set(
-            cacheKey,
-            translatedJob
-          );
+         window.jobTranslationCache.set(
+             cacheKey,
+             translatedJob
+           );
+
+             localStorage.setItem(
+            "jobTranslationCache",
+             JSON.stringify(
+             Object.fromEntries(window.jobTranslationCache)
+           )
+           );
 
         });
 
