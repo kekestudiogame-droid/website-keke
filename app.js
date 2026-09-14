@@ -10092,6 +10092,61 @@ ${localStorage.getItem("siteLanguage") === "en" ? "Reject Applicant" : "Tolak Pe
     alert("Gagal mengambil profil pelamar.");
   }
 }
+async function viewApplicantDocument(filePath, documentName) {
+  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+
+  if (!accessToken) {
+    showNotification("companySessionNotFound");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1/object/sign/jobseeker-documents`,
+      {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          path: filePath,
+          expiresIn: 300
+        })
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    const data = await response.json();
+
+    const signedUrl = data.signedURL || data.signedUrl;
+
+    if (!signedUrl) {
+      throw new Error("Signed URL tidak ditemukan.");
+    }
+
+    window.open(
+      `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1${signedUrl}`,
+      "_blank"
+    );
+
+  } catch (error) {
+    console.error("Gagal membuka dokumen:", error);
+
+    const language =
+      localStorage.getItem("siteLanguage") || "id";
+
+    alert(
+      language === "en"
+        ? "Failed to open the document."
+        : "Gagal membuka dokumen."
+    );
+  }
+}
 
 // ================= PROFIL DIRI PENCARI KERJA =================
 
