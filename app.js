@@ -10123,16 +10123,17 @@ async function viewApplicantDocument(filePath, documentName) {
 
     const data = await response.json();
 
-    const signedUrl = data.signedURL || data.signedUrl;
+ const signedUrl = data.signedURL || data.signedUrl;
 
     if (!signedUrl) {
       throw new Error("Signed URL tidak ditemukan.");
-    }
+      }
 
-    window.open(
-      `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1${signedUrl}`,
-      "_blank"
-    );
+ const finalUrl = signedUrl.startsWith("http")
+     ? signedUrl
+     : `${SUPABASE_URL.replace("/rest/v1/", "/")}storage/v1${signedUrl}`;
+
+     window.open(finalUrl, "_blank");
 
   } catch (error) {
     console.error("Gagal membuka dokumen:", error);
