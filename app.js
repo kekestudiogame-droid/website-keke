@@ -1298,7 +1298,8 @@ if (language === "en" && list.length > 0) {
       ) {
 
         data.jobs.forEach((translatedJob, index) => {
-
+          console.log("HASIL TERJEMAHAN GEMINI:", translatedJob);
+          
           const originalJob = batch[index];
 
           if (!originalJob || !translatedJob) return;
