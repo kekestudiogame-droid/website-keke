@@ -1123,7 +1123,25 @@ if (
       }
 
     }
+/* =====================================================
+   CATEGORY OPTIONS
+   ===================================================== */
 
+if (element.tagName === "OPTION") {
+
+  const optionValue =
+    element.getAttribute("value");
+
+  if (optionValue === "HRD") {
+    element.textContent =
+      language === "en"
+        ? "HR"
+        : "HRD";
+
+    return;
+  }
+
+}
 
   /* =====================================================
    TEXT NODES
