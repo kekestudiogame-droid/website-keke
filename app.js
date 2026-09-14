@@ -43,7 +43,7 @@ async function loadJobsFromDatabase() {
         .toUpperCase()
     }));
 
-renderJobs(jobs);
+await renderJobs(jobs);
 
 // Tampilkan lowongan terbaru di kotak biru saat halaman pertama dibuka
 if (!hasSearched && jobs.length > 0) {
@@ -166,7 +166,11 @@ const latestJob = [...recentJobs].sort((a, b) => {
             line-height:1.25;
             color:#fff;
           ">
-            ${latestJob.title}
+         ${
+            localStorage.getItem("siteLanguage") === "en"
+            ? (window.jobTranslationCache?.get(latestJob.id)?.title || latestJob.title)
+            : latestJob.title
+            }
           </h3>
 
           <p style="
@@ -175,16 +179,20 @@ const latestJob = [...recentJobs].sort((a, b) => {
             font-weight:600;
             color:rgba(255,255,255,.78);
           ">
-            ${latestJob.company}
+           ${
+             localStorage.getItem("siteLanguage") === "en"
+             ? (window.jobTranslationCache?.get(latestJob.id)?.company || latestJob.company)
+             : latestJob.company
+             }
           </p>
           <div style="
-  font-size:12px;
-  color:rgba(255,255,255,.65);
-  margin-bottom:14px;
-">
-  ${latestJob.created_at
-    ? (
-        localStorage.getItem("siteLanguage") === "en"
+              font-size:12px;
+              color:rgba(255,255,255,.65);
+              margin-bottom:14px;
+              ">
+              ${latestJob.created_at
+              ? (
+              localStorage.getItem("siteLanguage") === "en"
           ? `Posted ${new Date(latestJob.created_at).toLocaleString("en-US", {
               day: "numeric",
               month: "long",
@@ -216,7 +224,11 @@ const latestJob = [...recentJobs].sort((a, b) => {
               font-size:12px;
               color:#e8f1fb;
             ">
-              📍 ${latestJob.location}
+            📍 ${
+                localStorage.getItem("siteLanguage") === "en"
+                ? (window.jobTranslationCache?.get(latestJob.id)?.location || latestJob.location)
+                : latestJob.location
+                 }
             </span>
 
             <span style="
@@ -226,7 +238,11 @@ const latestJob = [...recentJobs].sort((a, b) => {
               font-size:12px;
               color:#e8f1fb;
             ">
-              ▣ ${latestJob.category}
+           ▣ ${
+               localStorage.getItem("siteLanguage") === "en"
+               ? (window.jobTranslationCache?.get(latestJob.id)?.category || latestJob.category)
+                : latestJob.category
+                }
             </span>
           </div>
 
@@ -252,10 +268,18 @@ const latestJob = [...recentJobs].sort((a, b) => {
             -webkit-box-orient:vertical;
             overflow:hidden;
           ">
-            ${latestJob.description ||
-              (localStorage.getItem("siteLanguage") === "en"
-                ? "Discover this career opportunity and join this company."
-                : "Temukan peluang karier ini dan bergabung bersama perusahaan.")}
+         ${
+           localStorage.getItem("siteLanguage") === "en"
+            ? (
+            window.jobTranslationCache?.get(latestJob.id)?.description ||
+            latestJob.description ||
+            "Discover this career opportunity and join this company."
+            )
+           : (
+            latestJob.description ||
+             "Temukan peluang karier ini dan bergabung bersama perusahaan."
+             )
+             }
           </p>
 
           <div style="display:flex;gap:9px;">
