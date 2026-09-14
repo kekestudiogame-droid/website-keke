@@ -9580,7 +9580,7 @@ for (const app of myApplications) {
             : myApplications.map(app => `
 
               <div
-              onclick="showApplicantDetail('${app.user_id}', '${app.job_id}')"
+                  onclick="showApplicantDetail('${app.user_id}', '${app.job_id}', '${app.id}')"
                 style="
                   background:white;
                   padding:22px;
