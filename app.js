@@ -10123,7 +10123,10 @@ async function viewApplicantDocument(filePath, documentName) {
 
     const data = await response.json();
 
- const signedUrl = data.signedURL || data.signedUrl;
+    const signedUrl =
+      data[0]?.signedURL ||
+      data[0]?.signedUrl ||
+      data[0]?.signed_url;
 
     if (!signedUrl) {
       throw new Error("Signed URL tidak ditemukan.");
