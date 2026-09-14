@@ -276,7 +276,11 @@ const latestJob = [...recentJobs].sort((a, b) => {
                 cursor:pointer;
               "
             >
-             Lihat Detail
+            ${
+              localStorage.getItem("siteLanguage") === "en"
+               ? "View Details"
+                : "Lihat Detail"
+              }
             </button>
 
             <button
