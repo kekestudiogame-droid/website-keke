@@ -2714,8 +2714,12 @@ const job =
           : "Deskripsi pekerjaan belum tersedia."
       );
 
-    document.getElementById("jobDetailRequirements").textContent =
-      job.requirements || "Persyaratan belum tersedia.";
+  document.getElementById("jobDetailRequirements").textContent =
+          job.requirements || (
+          localStorage.getItem("siteLanguage") === "en"
+          ? "Requirements are not available."
+          : "Persyaratan belum tersedia."
+      );
 
     document.getElementById("jobDetailApply").onclick = () => {
       submitApplication(job);
