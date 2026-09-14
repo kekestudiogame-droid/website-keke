@@ -82,10 +82,9 @@ const latestJob = [...recentJobs].sort((a, b) => {
           ? "There are no jobs posted within the last month."
           : "Belum ada lowongan yang dipasang dalam 1 bulan terakhir."}
       </p>
-    </div>
-  `;
-  return;
-}
+       </div>
+       `;
+      } else {
 
     featuredJob.innerHTML = `
       <div class="featured-job-card" style="
