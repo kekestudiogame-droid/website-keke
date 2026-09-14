@@ -9881,6 +9881,74 @@ console.log(
         </div>
 
       </details>
+      <!-- DOKUMEN LAMARAN -->
+<details style="
+  border:1px solid #e5eaf1;
+  border-radius:10px;
+  margin-bottom:15px;
+  overflow:hidden;
+">
+
+  <summary style="
+    padding:16px 18px;
+    cursor:pointer;
+    font-weight:bold;
+    color:#123b6d;
+    background:#f8fafc;
+  ">
+    ▼ ${
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Application Documents"
+        : "Dokumen Lamaran"
+    }
+  </summary>
+
+  <div style="padding:20px;">
+
+    ${
+      applicationDocuments.length === 0
+        ? `
+          <p style="
+            color:#64748b;
+            margin:0;
+          ">
+            ${
+              localStorage.getItem("siteLanguage") === "en"
+                ? "No documents were attached to this application."
+                : "Tidak ada dokumen yang dilampirkan pada lamaran ini."
+            }
+          </p>
+        `
+        : applicationDocuments.map(item => `
+            <div style="
+              padding:14px;
+              margin-bottom:10px;
+              border:1px solid #e5eaf1;
+              border-radius:8px;
+              background:#f8fafc;
+            ">
+
+              <strong>
+                📄 ${item.jobseeker_documents?.document_name || "Dokumen"}
+              </strong>
+
+              <div style="
+                margin-top:5px;
+                color:#64748b;
+                font-size:13px;
+              ">
+                ${
+                  item.jobseeker_documents?.document_type || ""
+                }
+              </div>
+
+            </div>
+          `).join("")
+    }
+
+  </div>
+
+</details>
 
       <!-- DROPDOWN TINDAKAN PERUSAHAAN -->
       <details style="
