@@ -3004,7 +3004,7 @@ showNotification("loginSuccess");
   }
 });
 
-loadJobsFromDatabase();
+
 // ================= DASHBOARD PENCARI KERJA =================
 
   async function showJobseekerDashboard() {
