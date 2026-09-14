@@ -9941,6 +9941,29 @@ console.log(
                   item.jobseeker_documents?.document_type || ""
                 }
               </div>
+              <button
+  type="button"
+  onclick="viewApplicantDocument(
+    '${item.jobseeker_documents?.file_path || ""}',
+    '${(item.jobseeker_documents?.document_name || "Dokumen").replace(/'/g, "\\'")}'
+  )"
+  style="
+    margin-top:10px;
+    padding:8px 14px;
+    border:none;
+    border-radius:6px;
+    background:#123b6d;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+  "
+>
+  ${
+    localStorage.getItem("siteLanguage") === "en"
+      ? "View Document"
+      : "Lihat Dokumen"
+  }
+</button>
 
             </div>
           `).join("")
