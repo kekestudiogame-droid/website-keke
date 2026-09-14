@@ -963,7 +963,23 @@
   function translateElement(element, language) {
 
     if (!element) return;
-    // Jangan terjemahkan brand CariKerjaku ID
+         /* =====================================================
+       PROTEKSI CATEGORY OPTION
+       ===================================================== */
+
+    if (
+      element.tagName === "OPTION" &&
+      element.getAttribute("value") === "HRD"
+    ) {
+
+      element.textContent =
+        language === "en"
+          ? "HR"
+          : "HRD";
+
+      return;
+    }
+  // Jangan terjemahkan brand Kerjiva
     if (
       element.classList &&
       element.classList.contains("brand")
