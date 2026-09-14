@@ -2581,7 +2581,19 @@ jobsGrid.addEventListener("click", e => {
 
   if (!Number.isInteger(idx)) return;
 
-  const job = jobs[idx];
+ const originalJob = jobs[idx];
+
+const cacheKey =
+  originalJob.id ||
+  `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
+
+const translatedJob =
+  window.jobTranslationCache?.get(cacheKey);
+
+const job =
+  translatedJob && localStorage.getItem("siteLanguage") === "en"
+    ? { ...originalJob, ...translatedJob }
+    : originalJob;
 
   if (apply) {
     submitApplication(job);
@@ -2629,7 +2641,19 @@ featuredJob.addEventListener("click", e => {
 
   if (!Number.isInteger(idx)) return;
 
-  const job = jobs[idx];
+ const originalJob = jobs[idx];
+
+const cacheKey =
+  originalJob.id ||
+  `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
+
+const translatedJob =
+  window.jobTranslationCache?.get(cacheKey);
+
+const job =
+  translatedJob && localStorage.getItem("siteLanguage") === "en"
+    ? { ...originalJob, ...translatedJob }
+    : originalJob;
 
   if (apply) {
     submitApplication(job);
