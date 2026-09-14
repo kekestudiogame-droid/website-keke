@@ -9660,7 +9660,7 @@ for (const app of myApplications) {
 
 // ================= DETAIL PROFIL PELAMAR =================
 
-  async function showApplicantDetail(userId, jobId, applicationId)
+  async function showApplicantDetail(userId, jobId, applicationId) {
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
 
   if (!accessToken) {
