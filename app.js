@@ -1231,7 +1231,7 @@ if (language === "en" && list.length > 0) {
       apikey: SUPABASE_KEY
     },
     body: JSON.stringify({
-      jobs: batch.map((job) => ({
+       jobs: batch.map((job) => ({
         title: job.title || "",
         company: job.company || "",
         location: job.location || "",
@@ -1239,7 +1239,7 @@ if (language === "en" && list.length > 0) {
         category: job.category || "",
         salary: job.salary || "",
         description: job.description || "",
-        requirements: job.requirements || ""
+        requirements: job.requirements || job.requirement || ""
       }))
     })
   }
