@@ -1218,6 +1218,15 @@ async function renderJobs(list = jobs) {
 
   const language = localStorage.getItem("siteLanguage") || "id";
 
+  // Hilangkan duplikat lowongan berdasarkan ID
+  const uniqueJobs = Array.from(
+    new Map(
+      list.map(job => [job.id, job])
+    ).values()
+  );
+
+  list = uniqueJobs;
+
   if (jobCount) {
     jobCount.textContent = list.length;
   }
@@ -1225,7 +1234,6 @@ async function renderJobs(list = jobs) {
   if (emptyState) {
     emptyState.classList.toggle("hidden", list.length !== 0);
   }
-
   // Cache terjemahan agar tidak meminta Gemini berulang kali
   if (!window.jobTranslationCache) {
     window.jobTranslationCache = new Map();
