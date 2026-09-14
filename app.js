@@ -1371,9 +1371,11 @@ if (!response.ok) {
       <div class="job-actions">
 
         <button data-details="${i}">
-          ${
-          "Lihat Detail"
-          }
+        ${
+         language === "en"
+         ? "View Details"
+         : "Lihat Detail"
+         }
         </button>
 
         <button data-apply="${i}">
@@ -1599,7 +1601,11 @@ if (featuredJobs.length > 0) {
             cursor:pointer;
           "
         >
-          Lihat Detail
+        ${
+         localStorage.getItem("siteLanguage") === "en"
+          ? "View Details"
+          : "Lihat Detail"
+          }
         </button>
 
         <button
