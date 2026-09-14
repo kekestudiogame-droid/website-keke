@@ -1125,47 +1125,54 @@ if (
     }
 
 
-    /* =====================================================
-       TEXT NODES
-       ===================================================== */
+  /* =====================================================
+   TEXT NODES
+   ===================================================== */
 
-    Array.from(
-      element.childNodes
-    ).forEach(function (node) {
+Array.from(
+  element.childNodes
+).forEach(function (node) {
 
-      if (
-        node.nodeType !== Node.TEXT_NODE
-      ) {
-        return;
-      }
+  if (
+    node.nodeType !== Node.TEXT_NODE
+  ) {
+    return;
+  }
 
-      const original =
-        node.nodeValue;
+  const currentText =
+    node.nodeValue;
 
-      if (!original) {
-        return;
-      }
+  if (!currentText) {
+    return;
+  }
 
-      const translated =
-        translateText(
-          original,
-          language
-        );
+  /* Simpan teks asli hanya sekali */
+  if (
+    node.__originalLanguageText === undefined
+  ) {
+    node.__originalLanguageText =
+      currentText;
+  }
 
-      if (
-        translated !== original
-      ) {
+  const originalText =
+    node.__originalLanguageText;
 
-        node.nodeValue =
-          translated;
+  const translated =
+    translateText(
+      originalText,
+      language
+    );
 
-      }
+  if (
+    translated !== currentText
+  ) {
 
-    });
+    node.nodeValue =
+      translated;
 
   }
 
-
+});
   /* =========================================================
      TRANSLATE PAGE
      ========================================================= */
