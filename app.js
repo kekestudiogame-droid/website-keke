@@ -10110,10 +10110,10 @@ async function viewApplicantDocument(filePath, documentName) {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          path: filePath,
-          expiresIn: 300
-        })
+      body: JSON.stringify({
+      paths: [filePath],
+      expiresIn: 300
+      })
       }
     );
 
