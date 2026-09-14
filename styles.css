@@ -20,11 +20,112 @@ footer{border-top:1px solid var(--line)}
 }
 .modal{position:fixed;inset:0;background:rgba(10,20,40,.55);z-index:50;display:grid;place-items:center;padding:20px}.modal-card{background:#fff;border-radius:20px;padding:30px;width:min(420px,100%);position:relative;box-shadow:var(--shadow)}.modal-card h2{margin:0 0 8px}.modal-card>p{color:var(--muted);font-size:14px}.modal-close{position:absolute;right:16px;top:12px;border:0;background:none;font-size:28px;cursor:pointer;color:var(--muted)}label{display:block;font-size:13px;font-weight:700;margin:15px 0}label input{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:14px}.switch-auth{text-align:center;font-size:13px}.switch-auth button{border:0;background:none;color:var(--accent);font-weight:800;cursor:pointer}
 @media(max-width:850px){nav{display:none}.hero-grid{grid-template-columns:1fr}.jobs-grid{grid-template-columns:1fr 1fr}.about-card{grid-template-columns:1fr}.search-box{grid-template-columns:1fr}.steps{grid-template-columns:1fr}}
-@media(max-width:560px){.jobs-grid{grid-template-columns:1fr}.nav-actions .btn-ghost{display:none}.hero{padding-top:55px}.hero h1{letter-spacing:-2px}.section{padding:60px 0}}
+@media(max-width:850px){
+  nav{display:none}
+  .hero-grid{grid-template-columns:1fr}
+  .jobs-grid{grid-template-columns:1fr 1fr}
+  .about-card{grid-template-columns:1fr}
+  .search-box{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+}
+
+@media(max-width:560px){
+
+  .nav{
+    min-height:64px;
+    width:100%;
+    gap:6px;
+  }
+
+  #menuBtn{
+    flex:0 0 auto;
+    padding:9px 10px;
+    font-size:18px;
+  }
+
+  .brand{
+    flex:1 1 auto;
+    min-width:0;
+    margin-right:0;
+  }
+
+  .brand img{
+    width:105px !important;
+    max-width:105px;
+    height:auto;
+  }
+
+  .brand small{
+    font-size:8px !important;
+    white-space:nowrap;
+    letter-spacing:0 !important;
+  }
+
+  nav{
+    display:none;
+  }
+
+  .nav-actions{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+
+  .language-switcher{
+    display:flex;
+    align-items:center;
+    gap:1px;
+    white-space:nowrap;
+  }
+
+  .language-switcher button{
+    border:0;
+    background:transparent;
+    padding:5px 3px;
+    font-size:11px;
+    cursor:pointer;
+  }
+
+  .nav-actions .btn-ghost{
+    display:block;
+  }
+
+  .nav-actions .btn{
+    padding:8px 8px;
+    font-size:11px;
+    border-radius:8px;
+    white-space:nowrap;
+  }
+
+  #mainMenu{
+    left:8px;
+    top:68px;
+    width:220px;
+  }
+
+  .hero{
+    padding-top:55px;
+  }
+
+  .hero h1{
+    letter-spacing:-2px;
+  }
+
+  .section{
+    padding:60px 0;
+  }
+
+  .jobs-grid{
+    grid-template-columns:1fr;
+  }
+}
+
 .modal-card{
   max-height:90vh;
   overflow-y:auto;
 }
+
 /* =========================
    DETAIL LOWONGAN MODERN
    ========================= */
