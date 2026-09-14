@@ -333,8 +333,9 @@ const latestJob = [...recentJobs].sort((a, b) => {
 
         </div>
       </div>
-    `;
+      `;
   }
+}
 }
 
 console.log("LOWONGAN DARI DATABASE:", jobs);
