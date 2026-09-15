@@ -227,13 +227,13 @@ footer{border-top:1px solid var(--line)}
 #mainMenu {
   position: fixed;
   left: 20px;
-  top: 75px;
-  width: 245px;
+  top: 76px;
+  width: 255px;
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   box-shadow: 0 18px 45px rgba(20, 33, 61, 0.16);
-  padding: 8px;
+  padding: 9px;
   z-index: 99999;
   backdrop-filter: blur(12px);
 }
@@ -246,7 +246,7 @@ footer{border-top:1px solid var(--line)}
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: 44px;
+  min-height: 45px;
   padding: 11px 13px;
   margin: 2px 0;
   border: 0;
@@ -271,20 +271,36 @@ footer{border-top:1px solid var(--line)}
   transform: translateX(1px);
 }
 
-#mainMenu button:last-child {
-  margin-top: 6px;
+/* Logout dipisahkan dari menu utama */
+#mainMenu #menuLogout {
+  margin-top: 8px;
+  padding-top: 14px;
   border-top: 1px solid #e6eaf0;
   border-radius: 0 0 10px 10px;
-  padding-top: 14px;
   color: #657189;
 }
 
-#mainMenu button:last-child:hover {
+#mainMenu #menuLogout:hover {
   background: #f8fafc;
   color: #14213d;
 }
 
 @media (max-width: 560px) {
+
+  #mainMenu {
+    left: 8px;
+    top: 68px;
+    width: 235px;
+    border-radius: 14px;
+    padding: 7px;
+  }
+
+  #mainMenu button {
+    min-height: 43px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
 
   #mainMenu {
     left: 8px;
