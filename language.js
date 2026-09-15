@@ -53,7 +53,46 @@
     "Dashboard Perusahaan":
       "Company Dashboard",
 
-     "Pengaturan": "Settings",
+
+     /* =====================================================
+   SETTINGS
+   ===================================================== */
+
+"Pengaturan":
+  "Settings",
+
+"Kelola pengaturan akun dan preferensi Kerjiva.":
+  "Manage your Kerjiva account settings and preferences.",
+
+"🔔 Notifikasi":
+  "🔔 Notifications",
+
+"Atur preferensi notifikasi akun dan informasi Kerjiva.":
+  "Manage your account notifications and Kerjiva updates.",
+
+"Atur":
+  "Set",
+
+"🔒 Keamanan Akun":
+  "🔒 Account Security",
+
+"Kelola keamanan akun dan pengaturan akses.":
+  "Manage account security and access settings.",
+
+"Kelola":
+  "Manage",
+
+"👤 Profil & Akun":
+  "👤 Profile & Account",
+
+"Kelola informasi profil dan akun Kerjiva.":
+  "Manage your Kerjiva profile and account information.",
+
+"Buka":
+  "Open",
+
+"Kembali ke Kerjiva":
+  "Back to Kerjiva",
 
   /* =====================================================
    HERO
