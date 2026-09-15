@@ -1425,6 +1425,7 @@ Array.from(
 
     };
    window.translateElement = translateElement;
+   window.translateText = translateText;
 
 
   /* =========================================================
