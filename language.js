@@ -94,6 +94,15 @@
 "Kembali ke Kerjiva":
   "Back to Kerjiva",
 
+     "Belum Ada Notifikasi":
+      "No Notifications Yet",
+
+"Informasi terbaru mengenai aktivitas akun Anda.":
+  "Latest information about your account activity.",
+
+"Belum ada aktivitas baru pada akun Anda.":
+  "There is no new activity on your account.",
+
   /* =====================================================
    HERO
    ===================================================== */
