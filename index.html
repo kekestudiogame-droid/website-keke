@@ -81,36 +81,72 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">PLATFORM KARIER INDONESIA</p>
-          <h1>Temukan pekerjaan yang <span>tepat untukmu.</span></h1>
-          <p class="hero-copy">Cari lowongan, temukan perusahaan, dan kirim lamaran dari satu tempat.</p>
-          <form class="search-box" id="searchForm">
-            <input id="keyword" type="search" placeholder="Jabatan atau kata kunci" aria-label="Jabatan atau kata kunci">
-            <div id="jobSuggestions" class="job-suggestions hidden"></div>
-           <input
-             id="location"
-             type="text"
-             list="cityList"
-             placeholder="Ketik kota atau lokasi"
-             aria-label="Kota atau lokasi"
-             autocomplete="off"
-             >
+       <p class="eyebrow">PLATFORM KARIER INDONESIA</p>
 
-            <datalist id="cityList"></datalist>
-            <button class="btn btn-primary" type="submit">Cari Lowongan</button>
-          </form>
-          <div class="quick-tags">
-            <button data-keyword="Frontend Developer">Frontend Developer</button>
-            <button data-keyword="Marketing">Marketing</button>
-            <button data-keyword="Admin">Admin</button>
-            <button data-keyword="UI/UX Designer">UI/UX Designer</button>
-          </div>
-        </div>
-     <div id="featuredJob" class="mini-job" style="text-align:center;padding:25px;">
-  <div style="font-size:42px;margin-bottom:10px;">🚀</div>
-  <h3 style="margin:0 0 8px;">Baru Launching!</h3>
-  <p style="margin:0;color:#64748b;">
-   Temukan peluang kerja terbaik di Kerjiva.
+<h1>Temukan pekerjaan yang <span>tepat untukmu.</span></h1>
+
+<p class="hero-copy">
+  Cari lowongan kerja, temukan perusahaan terbaik, dan kirim lamaran dengan mudah dari satu tempat.
+</p>
+
+<form class="search-box" id="searchForm">
+  <input
+    id="keyword"
+    type="search"
+    placeholder="Jabatan atau kata kunci"
+    aria-label="Jabatan atau kata kunci"
+  >
+
+  <div id="jobSuggestions" class="job-suggestions hidden"></div>
+
+  <input
+    id="location"
+    type="text"
+    list="cityList"
+    placeholder="Ketik kota atau lokasi"
+    aria-label="Kota atau lokasi"
+    autocomplete="off"
+  >
+
+  <datalist id="cityList"></datalist>
+
+  <button class="btn btn-primary" type="submit">
+    Cari Lowongan
+  </button>
+</form>
+
+<div class="quick-tags">
+  <button data-keyword="Frontend Developer">Frontend Developer</button>
+  <button data-keyword="Marketing">Marketing</button>
+  <button data-keyword="Admin">Admin</button>
+  <button data-keyword="UI/UX Designer">UI/UX Designer</button>
+</div>
+<div id="featuredJob" class="mini-job" style="
+  text-align:center;
+  padding:30px 24px;
+  min-height:230px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+">
+  <div style="font-size:44px;margin-bottom:12px;">🚀</div>
+
+  <h3 style="
+    margin:0 0 10px;
+    font-size:22px;
+    color:#14213d;
+  ">
+    Baru Launching!
+  </h3>
+
+  <p style="
+    margin:0;
+    color:#64748b;
+    line-height:1.6;
+    max-width:280px;
+  ">
+    Temukan peluang kerja terbaik dan bangun masa depan kariermu bersama Kerjiva.
   </p>
 </div>
         </div>
