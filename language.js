@@ -692,6 +692,9 @@
 
     "Sistem pembayaran akan diaktifkan pada tahap berikutnya.":
       "The payment system will be activated at a later stage.",
+     
+     "Kembali ke Kerjiva":
+       "Back to Kerjiva",
 
     /* =====================================================
        STATUS / ALERT
