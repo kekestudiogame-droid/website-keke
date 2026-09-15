@@ -113,7 +113,75 @@
     .back-button:hover {
       opacity: .9;
     }
+.notification-panel {
+  margin-top: 28px;
+  padding: 22px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
 
+.notification-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.notification-header h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.notification-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.notification-close {
+  border: 0;
+  background: #ffffff;
+  color: #64748b;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.notification-close:hover {
+  background: #e2e8f0;
+}
+
+.notification-list {
+  padding-top: 18px;
+}
+
+.notification-empty {
+  text-align: center;
+  padding: 30px 15px;
+}
+
+.notification-empty-icon {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.notification-empty h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.notification-empty p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
     @media (max-width: 560px) {
       .page {
         padding: 24px 14px;
