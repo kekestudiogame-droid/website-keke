@@ -205,17 +205,63 @@
   </main>
 
   <script src="language.js"></script>
-  <script>
+ <script>
   const notificationSettingsBtn =
     document.getElementById("notificationSettingsBtn");
 
   if (notificationSettingsBtn) {
     notificationSettingsBtn.onclick = function () {
-      alert("Pengaturan notifikasi akan tersedia di sini.");
+      const existingPanel =
+        document.getElementById("notificationPanel");
+
+      if (existingPanel) {
+        existingPanel.remove();
+        return;
+      }
+
+      const panel = document.createElement("section");
+      panel.id = "notificationPanel";
+      panel.className = "notification-panel";
+
+      panel.innerHTML = `
+        <div class="notification-header">
+          <div>
+            <h2>🔔 Notifikasi</h2>
+            <p>Informasi terbaru mengenai aktivitas akun Anda.</p>
+          </div>
+
+          <button
+            type="button"
+            class="notification-close"
+            id="closeNotificationPanel">
+            ✕
+          </button>
+        </div>
+
+        <div id="notificationList" class="notification-list">
+          <div class="notification-empty">
+            <div class="notification-empty-icon">🔔</div>
+            <h3>Belum Ada Notifikasi</h3>
+            <p>
+              Belum ada aktivitas baru pada akun Anda.
+            </p>
+          </div>
+        </div>
+      `;
+
+      document.querySelector(".settings-card").appendChild(panel);
+
+      document.getElementById("closeNotificationPanel").onclick =
+        function () {
+          panel.remove();
+        };
+
+      if (typeof translateElement === "function") {
+        translateElement(panel);
+      }
     };
   }
 </script>
-
 </body>
 </html>
 
