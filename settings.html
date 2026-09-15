@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kerjiva — Pengaturan</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #14213d;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .settings-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 15px 40px rgba(20, 33, 61, 0.10);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .icon {
+      font-size: 46px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+    }
+
+    .header p {
+      margin: 0;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .setting-item:last-of-type {
+      border-bottom: 0;
+    }
+
+    .setting-info h2 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+
+    .setting-info p {
+      margin: 0;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .setting-button {
+      flex-shrink: 0;
+      padding: 9px 16px;
+      border: 1px solid #dbe3ef;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #123b6d;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .setting-button:hover {
+      background: #f1f5f9;
+    }
+
+    .back-button {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      padding: 11px 22px;
+      border-radius: 10px;
+      background: #123b6d;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-button:hover {
+      opacity: .9;
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        padding: 24px 14px;
+      }
+
+      .settings-card {
+        padding: 24px 20px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .setting-item {
+        align-items: flex-start;
+      }
+
+      .setting-button {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+    <div class="container">
+
+      <section class="settings-card">
+
+        <header class="header">
+          <div class="icon">⚙️</div>
+
+          <h1>Pengaturan</h1>
+
+          <p>
+            Kelola pengaturan akun dan preferensi Kerjiva.
+          </p>
+        </header>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h2>🔔 Notifikasi</h2>
+            <p>
+              Atur preferensi notifikasi akun dan informasi Kerjiva.
+            </p>
+          </div>
+
+          <button class="setting-button" type="button">
+            Atur
+          </button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h2>🔒 Keamanan Akun</h2>
+            <p>
+              Kelola keamanan akun dan pengaturan akses.
+            </p>
+          </div>
+
+          <button class="setting-button" type="button">
+            Kelola
+          </button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h2>👤 Profil & Akun</h2>
+            <p>
+              Kelola informasi profil dan akun Kerjiva.
+            </p>
+          </div>
+
+          <button class="setting-button" type="button">
+            Buka
+          </button>
+        </div>
+
+        <a href="index.html" class="back-button">
+          ← Kembali ke Kerjiva
+        </a>
+
+      </section>
+
+    </div>
+  </main>
+
+  <script src="language.js"></script>
+
+</body>
+</html>
+
