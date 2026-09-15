@@ -406,8 +406,28 @@ await loadNotifications();
 const currentLanguage =
   localStorage.getItem("siteLanguage") || "id";
 
-if (typeof window.translateElement === "function") {
-  window.translateElement(panel, currentLanguage);
+if (
+  currentLanguage === "en" &&
+  typeof window.translateText === "function"
+) {
+
+  panel.querySelectorAll("*").forEach(function (element) {
+
+    if (
+      element.children.length === 0 &&
+      element.textContent.trim()
+    ) {
+
+      element.textContent =
+        window.translateText(
+          element.textContent,
+          "en"
+        );
+
+    }
+
+  });
+
 }
 
 // =====================================================
