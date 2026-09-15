@@ -53,19 +53,18 @@
     "Dashboard Perusahaan":
       "Company Dashboard",
 
-    /* =====================================================
-       HERO
-       ===================================================== */
+  /* =====================================================
+   HERO
+   ===================================================== */
 
     "PLATFORM KARIER INDONESIA":
       "INDONESIAN CAREER PLATFORM",
 
-    /* Penting: H1 index.html terpisah oleh <span> */
     "Temukan pekerjaan yang":
       "Find the right job",
 
     "tepat untukmu.":
-      "for you.",
+       "for you.",
 
     "Temukan pekerjaan yang tepat untukmu.":
       "Find the right job for you.",
@@ -73,9 +72,12 @@
     "Cari lowongan, temukan perusahaan, dan kirim lamaran dari satu tempat.":
       "Find jobs, discover companies, and apply from one place.",
 
+    "Cari lowongan kerja, temukan perusahaan terbaik, dan kirim lamaran dengan mudah dari satu tempat.":
+      "Search for jobs, find the best companies, and apply easily, all in one place.",
+
     "Cari Kerja di Sini!":
       "Find a Job Here!",
-
+     
     "Temukan lowongan yang sesuai dengan keahlian dan impianmu.":
       "Find jobs that match your skills and dreams.",
 
