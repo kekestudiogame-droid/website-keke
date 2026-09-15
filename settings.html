@@ -164,9 +164,9 @@
             </p>
           </div>
 
-          <button class="setting-button" type="button">
+         <button class="setting-button" id="notificationSettingsBtn" type="button">
             Atur
-          </button>
+         </button>
         </div>
 
         <div class="setting-item">
@@ -205,6 +205,16 @@
   </main>
 
   <script src="language.js"></script>
+  <script>
+  const notificationSettingsBtn =
+    document.getElementById("notificationSettingsBtn");
+
+  if (notificationSettingsBtn) {
+    notificationSettingsBtn.onclick = function () {
+      alert("Pengaturan notifikasi akan tersedia di sini.");
+    };
+  }
+</script>
 
 </body>
 </html>
