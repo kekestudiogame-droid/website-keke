@@ -112,6 +112,21 @@
 "Kelola keamanan akun dan pengaturan akses.":
   "Manage account security and access settings.",
 
+     "Ubah Password":
+  "Change Password",
+
+"Gunakan password yang kuat dan jangan membagikannya kepada orang lain.":
+  "Use a strong password and never share it with anyone.",
+
+"🛡️ Status Keamanan":
+  "🛡️ Security Status",
+
+"Akun Anda menggunakan autentikasi Kerjiva dan perlindungan akses berbasis akun.":
+  "Your account uses Kerjiva authentication and account-based access protection.",
+
+"Fitur ubah password akan kita aktifkan pada langkah berikutnya.":
+  "The password change feature will be enabled in the next step.",
+
 "Kelola":
   "Manage",
 
