@@ -118,8 +118,8 @@
 "Gunakan password yang kuat dan jangan membagikannya kepada orang lain.":
   "Use a strong password and never share it with anyone.",
 
-"🛡️ Status Keamanan":
-  "🛡️ Security Status",
+"Status Keamanan":
+  "Security Status",
 
 "Akun Anda menggunakan autentikasi Kerjiva dan perlindungan akses berbasis akun.":
   "Your account uses Kerjiva authentication and account-based access protection.",
