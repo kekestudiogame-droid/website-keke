@@ -497,58 +497,58 @@ async function loadNotifications() {
       return;
     }
 
-    // ---------------------------------------------------
-    // TAMPILKAN DATA LAMARAN
-    // ---------------------------------------------------
+ // ---------------------------------------------------
+// TAMPILKAN DATA LAMARAN
+// ---------------------------------------------------
 
-    list.innerHTML = applications
-      .slice(0, 20)
-      .map(application => {
+list.innerHTML = applications
+  .slice(0, 20)
+  .map(application => {
 
-        const dateText =
-          application.created_at
-            ? new Date(
-                application.created_at
-              ).toLocaleString("id-ID")
-            : "";
+    const dateText =
+      application.created_at
+        ? new Date(
+            application.created_at
+          ).toLocaleString("id-ID")
+        : "";
 
-        return `
-          <div class="notification-item">
+    return `
+      <div class="notification-item">
 
-            <div class="notification-item-icon">
-              📄
-            </div>
+        <div class="notification-item-icon">
+          📄
+        </div>
 
-            <div class="notification-item-content">
+        <div class="notification-item-content">
 
-              <h3>
-                Lamaran Terkirim
-              </h3>
+          <h3>
+            Lamaran Terkirim
+          </h3>
 
-              <p>
-                Lamaran Anda telah tercatat di sistem Kerjiva.
-              </p>
+          <p>
+            Lamaran Anda telah tercatat di sistem Kerjiva.
+          </p>
 
-              ${
-                application.status
-                  ? `
-                    <span class="notification-status">
-                      ${application.status}
-                    </span>
-                  `
-                  : ""
-              }
+          ${
+            application.status
+              ? `
+                <span class="notification-status">
+                  ${application.status}
+                </span>
+              `
+              : ""
+          }
 
-              <small>
-                ${dateText}
-              </small>
+          <small>
+            ${dateText}
+          </small>
 
-            </div>
+        </div>
 
-          </div>
-        `;
-      })
-      .join("");
+      </div>
+    `;
+  })
+  .join("");
 
   } catch (error) {
 
@@ -576,7 +576,127 @@ async function loadNotifications() {
     `;
   }
 }
+
+
+// =====================================================
+// KEAMANAN AKUN
+// =====================================================
+
+const securityButtons =
+  document.querySelectorAll(".setting-button");
+
+if (securityButtons[1]) {
+
+  securityButtons[1].onclick = function () {
+
+    const existingPanel =
+      document.getElementById("securityPanel");
+
+    if (existingPanel) {
+      existingPanel.remove();
+      return;
+    }
+
+    const panel =
+      document.createElement("section");
+
+    panel.id = "securityPanel";
+    panel.className = "notification-panel";
+
+    panel.innerHTML = `
+      <div class="notification-header">
+
+        <div>
+          <h2>🔒 Keamanan Akun</h2>
+
+          <p>
+            Kelola keamanan dan akses akun Kerjiva Anda.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="notification-close"
+          id="closeSecurityPanel">
+          ✕
+        </button>
+
+      </div>
+
+      <div class="notification-list">
+
+        <div class="notification-item">
+
+          <div class="notification-item-icon">
+            🔑
+          </div>
+
+          <div class="notification-item-content">
+
+            <h3>Ubah Password</h3>
+
+            <p>
+              Gunakan password yang kuat dan jangan membagikannya
+              kepada orang lain.
+            </p>
+
+            <button
+              type="button"
+              class="setting-button"
+              id="changePasswordBtn">
+              Ubah Password
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="notification-item">
+
+          <div class="notification-item-icon">
+            🛡️
+          </div>
+
+          <div class="notification-item-content">
+
+            <h3>Status Keamanan</h3>
+
+            <p>
+              Akun Anda menggunakan autentikasi Kerjiva
+              dan perlindungan akses berbasis akun.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+    document
+      .querySelector(".settings-card")
+      .appendChild(panel);
+
+    document
+      .getElementById("closeSecurityPanel")
+      .onclick = function () {
+        panel.remove();
+      };
+
+    document
+      .getElementById("changePasswordBtn")
+      .onclick = function () {
+        alert(
+          "Fitur ubah password akan kita aktifkan pada langkah berikutnya."
+        );
+      };
+
+    if (typeof translateElement === "function") {
+      translateElement(panel);
+    }
+  };
+}
+
 </script>
 </body>
 </html>
-
