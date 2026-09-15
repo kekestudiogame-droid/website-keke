@@ -718,10 +718,32 @@ if (securityButtons[1]) {
           "Fitur ubah password akan kita aktifkan pada langkah berikutnya."
         );
       };
+const currentLanguage =
+  localStorage.getItem("siteLanguage") || "id";
 
-    if (typeof translateElement === "function") {
-      translateElement(panel);
+if (
+  currentLanguage === "en" &&
+  typeof window.translateText === "function"
+) {
+
+  panel.querySelectorAll("*").forEach(function (element) {
+
+    if (
+      element.children.length === 0 &&
+      element.textContent.trim()
+    ) {
+
+      element.textContent =
+        window.translateText(
+          element.textContent,
+          "en"
+        );
+
     }
+
+  });
+
+}
   };
 }
 
