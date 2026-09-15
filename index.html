@@ -82,11 +82,14 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
-       <p class="eyebrow">PLATFORM KARIER INDONESIA</p>
+    
+<p class="eyebrow" data-i18n="heroEyebrow">PLATFORM KARIER INDONESIA</p>
 
-<h1>Temukan pekerjaan yang <span>tepat untukmu.</span></h1>
+<h1 data-i18n="heroTitle">
+  Temukan pekerjaan yang <span>tepat untukmu.</span>
+</h1>
 
-<p class="hero-copy">
+<p class="hero-copy" data-i18n="heroCopy">
   Cari lowongan kerja, temukan perusahaan terbaik, dan kirim lamaran dengan mudah dari satu tempat.
 </p>
 
@@ -96,6 +99,7 @@
     type="search"
     placeholder="Jabatan atau kata kunci"
     aria-label="Jabatan atau kata kunci"
+    data-i18n-placeholder="keywordPlaceholder"
   >
 
   <div id="jobSuggestions" class="job-suggestions hidden"></div>
@@ -106,15 +110,17 @@
     list="cityList"
     placeholder="Ketik kota atau lokasi"
     aria-label="Kota atau lokasi"
+    data-i18n-placeholder="locationPlaceholder"
     autocomplete="off"
   >
 
   <datalist id="cityList"></datalist>
 
-  <button class="btn btn-primary" type="submit">
+  <button class="btn btn-primary" type="submit" data-i18n="searchButton">
     Cari Lowongan
   </button>
 </form>
+
 
 <div class="quick-tags">
   <button data-keyword="Frontend Developer">Frontend Developer</button>
