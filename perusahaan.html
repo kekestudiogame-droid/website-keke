@@ -255,7 +255,7 @@
       }
     }
   </style>
-<script>
+  <script>
   const SUPABASE_URL = "https://ksqrimmecpriyepsuclc.supabase.co/rest/v1/";
   const SUPABASE_KEY = "sb_publishable_xvPQL9oniSRwZoqmSc5W4A_NS9ldWIL";
 
@@ -274,52 +274,52 @@
 ```
 <div class="topbar">
   <div class="brand">Kerjiva</div>
-  <a class="back-link" href="index.html">← Kembali</a>
+ <a class="back-link" id="companyBackLink" href="index.html">← Kembali</a>
 </div>
 
 <section class="hero">
   <p class="eyebrow">KERJIVA</p>
-  <h1>Perusahaan & Statistik</h1>
-  <p>
-    Temukan perusahaan yang sedang membuka peluang kerja
-    dan lihat perkembangan Kerjiva dalam angka.
-  </p>
+<h1 id="companyPageTitle">Perusahaan & Statistik</h1>
+<p id="companyPageIntro">
+  Temukan perusahaan yang sedang membuka peluang kerja
+  dan lihat perkembangan Kerjiva dalam angka.
+</p>
 </section>
 
 <section>
-  <h2 class="section-title">Kerjiva dalam Angka</h2>
+<h2 class="section-title" id="statsTitle">Kerjiva dalam Angka</h2>
 
   <div class="stats">
 
     <div class="stat-card">
       <div class="stat-icon">👥</div>
       <span class="stat-number">0</span>
-      <span class="stat-label">Pencari Kerja</span>
+      <span class="stat-label" id="statJobseekers">Pencari Kerja</span>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon">🏢</div>
       <span class="stat-number">0</span>
-      <span class="stat-label">Perusahaan</span>
+      <span class="stat-label" id="statCompanies">Perusahaan</span>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon">💼</div>
       <span class="stat-number">0</span>
-      <span class="stat-label">Lowongan Aktif</span>
+      <span class="stat-label" id="statJobs">Lowongan Aktif</span>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon">📄</div>
       <span class="stat-number">0</span>
-      <span class="stat-label">Lamaran</span>
+      <span class="stat-label" id="statApplications">Lamaran</span>
     </div>
 
   </div>
 </section>
 
 <section>
-  <h2 class="section-title">Perusahaan yang Membuka Lowongan</h2>
+ <h2 class="section-title" id="companiesTitle">Perusahaan yang Membuka Lowongan</h2>
 
   <div class="companies">
 
@@ -338,8 +338,55 @@
   </main>
 
   <script>
+  const companyPageTranslations = {
+  id: {
+    back: "← Kembali",
+    title: "Perusahaan & Statistik",
+    intro: "Temukan perusahaan yang sedang membuka peluang kerja dan lihat perkembangan Kerjiva dalam angka.",
+    stats: "Kerjiva dalam Angka",
+    companies: "Perusahaan yang Membuka Lowongan",
+    empty: "Belum ada perusahaan yang membuka lowongan.",
+    activeJobs: "Lowongan Aktif",
+    locationUnavailable: "Lokasi tidak tersedia",
+    jobseekers: "Pencari Kerja",
+    companiesLabel: "Perusahaan",
+    activeJobsLabel: "Lowongan Aktif",
+    applications: "Lamaran"
+  },
+
+  en: {
+    back: "← Back",
+    title: "Companies & Statistics",
+    intro: "Discover companies currently offering job opportunities and see Kerjiva's growth in numbers.",
+    stats: "Kerjiva in Numbers",
+    companies: "Companies Hiring",
+    empty: "No companies are currently hiring.",
+    activeJobs: "Active Jobs",
+    locationUnavailable: "Location unavailable",
+    jobseekers: "Job Seekers",
+    companiesLabel: "Companies",
+    activeJobsLabel: "Active Jobs",
+    applications: "Applications"
+  }
+};
+function translateCompanyPage() {
+  const language = localStorage.getItem("siteLanguage") || "id";
+  const t = companyPageTranslations[language] || companyPageTranslations.id;
+
+  document.getElementById("companyBackLink").textContent = t.back;
+  document.getElementById("companyPageTitle").textContent = t.title;
+  document.getElementById("companyPageIntro").textContent = t.intro;
+  document.getElementById("statsTitle").textContent = t.stats;
+  document.getElementById("companiesTitle").textContent = t.companies;
+  document.getElementById("statJobseekers").textContent = t.jobseekers;
+  document.getElementById("statCompanies").textContent = t.companiesLabel;
+  document.getElementById("statJobs").textContent = t.activeJobsLabel;
+  document.getElementById("statApplications").textContent = t.applications;
+}
 async function loadCompanyStats() {
   try {
+    const language = localStorage.getItem("siteLanguage") || "id";
+    const t = companyPageTranslations[language] || companyPageTranslations.id;
     const [jobseekersRes, companiesRes, jobsRes, applicationsRes] = await Promise.all([
       fetch(`${SUPABASE_URL}jobseeker_profiles?select=id`, {
         headers: supabaseHeaders
@@ -402,7 +449,7 @@ async function loadCompanyStats() {
     if (companyList.length === 0) {
       companiesContainer.innerHTML = `
         <div class="empty">
-          Belum ada perusahaan yang membuka lowongan.
+         ${t.empty}
         </div>
       `;
       return;
@@ -423,12 +470,12 @@ async function loadCompanyStats() {
 
           <h3>${company.name}</h3>
 
-          <div class="company-location">
-            ${company.city ? "📍 " + company.city : "📍 Lokasi tidak tersedia"}
+         <div class="company-location">
+                ${company.city ? "📍 " + company.city : "📍 " + t.locationUnavailable}
           </div>
 
           <span class="company-jobs">
-            ${company.jobs} Lowongan Aktif
+           ${company.jobs} ${t.activeJobs}
           </span>
         </div>
       `;
@@ -438,7 +485,7 @@ async function loadCompanyStats() {
     console.error("Gagal memuat statistik perusahaan:", error);
   }
 }
-
+translateCompanyPage();
 document.addEventListener("DOMContentLoaded", loadCompanyStats);
 </script>
 </body>
