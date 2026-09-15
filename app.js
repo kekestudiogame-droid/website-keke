@@ -2761,11 +2761,17 @@ const menuJobseeker = document.querySelector("#menuJobseeker");
 const menuCompany = document.querySelector("#menuCompany");
 const menuCompanies = document.querySelector("#menuCompanies");
 const menuHelp = document.querySelector("#menuHelp");
+const menuPayment = document.querySelector("#menuPayment");
 const menuLogout = document.querySelector("#menuLogout");
 const menuHome = document.querySelector("#menuHome");
 if (menuCompanies) {
   menuCompanies.onclick = function () {
     window.location.href = "perusahaan.html";
+  };
+}
+if (menuPayment) {
+  menuPayment.onclick = function () {
+    window.location.href = "pembayaran.html";
   };
 }
 
