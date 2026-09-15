@@ -714,9 +714,16 @@ if (securityButtons[1]) {
     document
       .getElementById("changePasswordBtn")
       .onclick = function () {
-        alert(
-          "Fitur ubah password akan kita aktifkan pada langkah berikutnya."
-        );
+        
+      const currentLanguage =
+  localStorage.getItem("siteLanguage") || "id";
+
+const message =
+  currentLanguage === "en"
+    ? "The password change feature will be enabled in the next step."
+    : "Fitur ubah password akan kita aktifkan pada langkah berikutnya.";
+
+alert(message);
       };
 const currentLanguage =
   localStorage.getItem("siteLanguage") || "id";
