@@ -486,3 +486,15 @@ footer{border-top:1px solid var(--line)}
   background-position: right 12px center;
   background-size: 16px;
 }
+@media (min-width: 851px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+    gap: 50px;
+    align-items: center;
+  }
+
+  #featuredJob {
+    width: 100%;
+  }
+}
