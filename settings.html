@@ -386,9 +386,14 @@ if (notificationSettingsBtn) {
       </div>
     `;
 
-    document
-      .querySelector(".settings-card")
-      .appendChild(panel);
+  document
+  .querySelector(".setting-item:first-of-type")
+  .after(panel);
+    
+    panel.scrollIntoView({
+  behavior: "smooth",
+  block: "nearest"
+});
 
     document
       .getElementById("closeNotificationPanel")
