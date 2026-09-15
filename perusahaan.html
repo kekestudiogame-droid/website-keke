@@ -337,5 +337,111 @@
 
   </main>
 
+  <script>
+async function loadCompanyStats() {
+  try {
+    const [jobseekersRes, companiesRes, jobsRes, applicationsRes] = await Promise.all([
+      fetch(`${SUPABASE_URL}jobseeker_profiles?select=id`, {
+        headers: supabaseHeaders
+      }),
+
+      fetch(`${SUPABASE_URL}companies?select=id`, {
+        headers: supabaseHeaders
+      }),
+
+      fetch(`${SUPABASE_URL}jobs?status=eq.published&select=id,company_name,city`, {
+        headers: supabaseHeaders
+      }),
+
+      fetch(`${SUPABASE_URL}applications?select=id`, {
+        headers: supabaseHeaders
+      })
+    ]);
+
+    if (!jobseekersRes.ok || !companiesRes.ok || !jobsRes.ok || !applicationsRes.ok) {
+      throw new Error("Gagal mengambil data statistik dari Supabase.");
+    }
+
+    const jobseekers = await jobseekersRes.json();
+    const companies = await companiesRes.json();
+    const jobs = await jobsRes.json();
+    const applications = await applicationsRes.json();
+
+    // Statistik
+    const statNumbers = document.querySelectorAll(".stat-number");
+
+    if (statNumbers.length >= 4) {
+      statNumbers[0].textContent = jobseekers.length;
+      statNumbers[1].textContent = companies.length;
+      statNumbers[2].textContent = jobs.length;
+      statNumbers[3].textContent = applications.length;
+    }
+
+    // Kelompokkan lowongan berdasarkan perusahaan
+    const companyMap = {};
+
+    jobs.forEach(job => {
+      const name = (job.company_name || "Perusahaan").trim();
+
+      if (!companyMap[name]) {
+        companyMap[name] = {
+          name: name,
+          city: job.city || "",
+          jobs: 0
+        };
+      }
+
+      companyMap[name].jobs++;
+    });
+
+    const companyList = Object.values(companyMap);
+    const companiesContainer = document.querySelector(".companies");
+
+    if (!companiesContainer) return;
+
+    if (companyList.length === 0) {
+      companiesContainer.innerHTML = `
+        <div class="empty">
+          Belum ada perusahaan yang membuka lowongan.
+        </div>
+      `;
+      return;
+    }
+
+    companiesContainer.innerHTML = companyList.map(company => {
+      const initials = company.name
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(word => word[0])
+        .join("")
+        .toUpperCase();
+
+      return `
+        <div class="company-card">
+          <div class="company-logo">${initials}</div>
+
+          <h3>${company.name}</h3>
+
+          <div class="company-location">
+            ${company.city ? "📍 " + company.city : "📍 Lokasi tidak tersedia"}
+          </div>
+
+          <span class="company-jobs">
+            ${company.jobs} Lowongan Aktif
+          </span>
+        </div>
+      `;
+    }).join("");
+
+  } catch (error) {
+    console.error("Gagal memuat statistik perusahaan:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadCompanyStats);
+</script>
 </body>
 </html>
+
+
