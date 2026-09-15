@@ -401,11 +401,14 @@ if (notificationSettingsBtn) {
         panel.remove();
       };
 
-    await loadNotifications();
+ await loadNotifications();
 
-    if (typeof translateElement === "function") {
-      translateElement(panel);
-    }
+const currentLanguage =
+  localStorage.getItem("siteLanguage") || "id";
+
+if (typeof window.translateElement === "function") {
+  window.translateElement(panel, currentLanguage);
+}
   };
 }
 
