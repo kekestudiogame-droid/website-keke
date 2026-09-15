@@ -67,6 +67,39 @@
 "🔔 Notifikasi":
   "🔔 Notifications",
 
+     "Informasi terbaru mengenai aktivitas akun Anda.":
+  "Latest information about your account activity.",
+
+"Belum Ada Notifikasi":
+  "No Notifications Yet",
+
+"Belum ada aktivitas baru pada akun Anda.":
+  "There is no new activity on your account.",
+
+"Memuat Notifikasi":
+  "Loading Notifications",
+
+"Mengambil data terbaru dari Kerjiva...":
+  "Fetching the latest information from Kerjiva...",
+
+"Notifikasi Tidak Dapat Dimuat":
+  "Notifications Could Not Be Loaded",
+
+"Silakan coba lagi nanti.":
+  "Please try again later.",
+
+"Silakan Masuk":
+  "Please Log In",
+
+"Masuk ke akun Kerjiva untuk melihat notifikasi.":
+  "Log in to your Kerjiva account to view notifications.",
+
+"Lamaran Terkirim":
+  "Application Sent",
+
+"Lamaran Anda telah tercatat di sistem Kerjiva.":
+  "Your application has been recorded in the Kerjiva system.",
+
 "Atur preferensi notifikasi akun dan informasi Kerjiva.":
   "Manage your account notifications and Kerjiva updates.",
 
