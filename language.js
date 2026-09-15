@@ -1424,6 +1424,7 @@ Array.from(
       );
 
     };
+   window.translateElement = translateElement;
 
 
   /* =========================================================
