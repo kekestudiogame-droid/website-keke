@@ -312,9 +312,12 @@
             </p>
           </div>
 
-          <button class="setting-button" type="button">
-            Buka
-          </button>
+        <button
+            class="setting-button"
+            id="profileAccountBtn"
+             type="button">
+             Buka
+         </button>
         </div>
 
         <a href="index.html" class="back-button">
@@ -749,6 +752,349 @@ if (
 
 }
   };
+}
+  // =====================================================
+// PROFIL & AKUN
+// =====================================================
+
+const profileAccountBtn =
+  document.getElementById("profileAccountBtn");
+
+if (profileAccountBtn) {
+
+  profileAccountBtn.onclick = async function () {
+
+    const existingPanel =
+      document.getElementById("profileAccountPanel");
+
+    if (existingPanel) {
+      existingPanel.remove();
+      return;
+    }
+
+    const panel =
+      document.createElement("section");
+
+    panel.id = "profileAccountPanel";
+    panel.className = "notification-panel";
+
+    panel.innerHTML = `
+      <div class="notification-header">
+
+        <div>
+          <h2>👤 Profil & Akun</h2>
+
+          <p>
+            Kelola informasi profil dan akun Kerjiva.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="notification-close"
+          id="closeProfileAccountPanel">
+          ✕
+        </button>
+
+      </div>
+
+      <div id="profileAccountList" class="notification-list">
+
+        <div class="notification-empty">
+
+          <div class="notification-empty-icon">
+            🔄
+          </div>
+
+          <h3>Memuat Profil</h3>
+
+          <p>
+            Mengambil data profil Anda...
+          </p>
+
+        </div>
+
+      </div>
+    `;
+
+    document
+      .querySelector(".settings-card")
+      .appendChild(panel);
+
+    document
+      .getElementById("closeProfileAccountPanel")
+      .onclick = function () {
+        panel.remove();
+      };
+
+    const list =
+      document.getElementById("profileAccountList");
+
+    const userData =
+      localStorage.getItem("cariKerjakuUser");
+
+    const accessToken =
+      localStorage.getItem("cariKerjakuAccessToken");
+
+    if (!userData || !accessToken) {
+
+      list.innerHTML = `
+        <div class="notification-empty">
+
+          <div class="notification-empty-icon">
+            🔒
+          </div>
+
+          <h3>Silakan Masuk</h3>
+
+          <p>
+            Masuk ke akun Kerjiva untuk melihat profil Anda.
+          </p>
+
+        </div>
+      `;
+
+      return;
+    }
+
+    let currentUser;
+
+    try {
+
+      currentUser =
+        JSON.parse(userData);
+
+    } catch (error) {
+
+      console.error(
+        "Data pengguna tidak valid:",
+        error
+      );
+
+      list.innerHTML = `
+        <div class="notification-empty">
+
+          <div class="notification-empty-icon">
+            ⚠️
+          </div>
+
+          <h3>Profil Tidak Dapat Dimuat</h3>
+
+          <p>
+            Data akun tidak valid.
+          </p>
+
+        </div>
+      `;
+
+      return;
+    }
+
+    const userId =
+      currentUser.id;
+
+    try {
+
+      const response =
+        await fetch(
+          `${SUPABASE_URL}jobseeker_profiles?id=eq.${encodeURIComponent(userId)}&select=id,full_name,phone,city,education,experience`,
+          {
+            headers: {
+              ...supabaseHeaders,
+              Authorization:
+                `Bearer ${accessToken}`
+            }
+          }
+        );
+
+      if (!response.ok) {
+
+        throw new Error(
+          `Gagal mengambil profil: ${response.status}`
+        );
+
+      }
+
+      const profiles =
+        await response.json();
+
+      if (
+        !Array.isArray(profiles) ||
+        profiles.length === 0
+      ) {
+
+        list.innerHTML = `
+          <div class="notification-empty">
+
+            <div class="notification-empty-icon">
+              👤
+            </div>
+
+            <h3>Profil Belum Tersedia</h3>
+
+            <p>
+              Data profil Anda belum ditemukan.
+            </p>
+
+          </div>
+        `;
+
+        return;
+      }
+
+      const profile =
+        profiles[0];
+
+      list.innerHTML = `
+
+        <div class="notification-item">
+
+          <div class="notification-item-icon">
+            👤
+          </div>
+
+          <div class="notification-item-content">
+
+            <h3>Nama Lengkap</h3>
+
+            <p>
+              ${profile.full_name || "-"}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="notification-item">
+
+          <div class="notification-item-icon">
+            📱
+          </div>
+
+          <div class="notification-item-content">
+
+            <h3>Nomor Telepon</h3>
+
+            <p>
+              ${profile.phone || "-"}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="notification-item">
+
+          <div class="notification-item-icon">
+            📍
+          </div>
+
+          <div class="notification-item-content">
+
+            <h3>Kota</h3>
+
+            <p>
+              ${profile.city || "-"}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="notification-item">
+
+          <div class="notification-item-icon">
+            🎓
+          </div>
+
+          <div class="notification-item-content">
+
+            <h3>Pendidikan</h3>
+
+            <p>
+              ${profile.education || "-"}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="notification-item">
+
+          <div class="notification-item-icon">
+            💼
+          </div>
+
+          <div class="notification-item-content">
+
+            <h3>Pengalaman</h3>
+
+            <p>
+              ${profile.experience || "-"}
+            </p>
+
+          </div>
+
+        </div>
+
+      `;
+
+      const currentLanguage =
+        localStorage.getItem("siteLanguage") || "id";
+
+      if (
+        currentLanguage === "en" &&
+        typeof window.translateText === "function"
+      ) {
+
+        panel
+          .querySelectorAll("*")
+          .forEach(function (element) {
+
+            if (
+              element.children.length === 0 &&
+              element.textContent.trim()
+            ) {
+
+              element.textContent =
+                window.translateText(
+                  element.textContent,
+                  "en"
+                );
+
+            }
+
+          });
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Gagal mengambil profil:",
+        error
+      );
+
+      list.innerHTML = `
+        <div class="notification-empty">
+
+          <div class="notification-empty-icon">
+            ⚠️
+          </div>
+
+          <h3>Profil Tidak Dapat Dimuat</h3>
+
+          <p>
+            Silakan coba lagi nanti.
+          </p>
+
+        </div>
+      `;
+
+    }
+
+  };
+
 }
 
 </script>
