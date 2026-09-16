@@ -1281,16 +1281,17 @@ if (language === "en" && list.length > 0) {
             apikey: SUPABASE_KEY
           },
           body: JSON.stringify({
-            jobs: batch.map((job) => ({
-              title: job.title || "",
-              company: job.company || "",
-              location: job.location || "",
-              type: job.type || "",
-              category: job.category || "",
-              salary: job.salary || "",
-              description: job.description || "",
-              requirements: job.requirements || job.requirement || ""
-            }))
+          jobs: batch.map((job) => ({
+          id: job.id,
+          title: job.title || "",
+          company: job.company || "",
+          location: job.location || "",
+          type: job.type || "",
+          category: job.category || "",
+          salary: job.salary || "",
+          description: job.description || "",
+          requirements: job.requirements || job.requirement || ""
+           }))
           })
         }
       );
