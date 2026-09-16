@@ -2641,59 +2641,77 @@ jobsGrid.addEventListener("click", e => {
   const details = e.target.closest("[data-details]");
   const apply = e.target.closest("[data-apply]");
 
+  if (!details && !apply) return;
+
   const idx = Number(
-    (details || apply)?.dataset[
+    (details || apply).dataset[
       details ? "details" : "apply"
     ]
   );
 
   if (!Number.isInteger(idx)) return;
 
- const originalJob = jobs[idx];
+  const originalJob = jobs[idx];
 
-const cacheKey =
-  originalJob.id ||
-  `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
+  const cacheKey =
+    originalJob.id ||
+    `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
 
-const translatedJob =
-  window.jobTranslationCache?.get(cacheKey);
+  const translatedJob =
+    window.jobTranslationCache?.get(cacheKey);
 
-const job =
-  translatedJob && localStorage.getItem("siteLanguage") === "en"
-    ? { ...originalJob, ...translatedJob }
-    : originalJob;
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  const job =
+    language === "en" && translatedJob
+      ? { ...originalJob, ...translatedJob }
+      : originalJob;
 
   if (apply) {
-    submitApplication(job);
-  } else {
-    document.getElementById("jobDetailTitle").textContent = job.title;
-    document.getElementById("jobDetailCompany").textContent = job.company;
-    document.getElementById("jobDetailLocation").textContent = `📍 ${job.location}`;
-    document.getElementById("jobDetailType").textContent = `💼 ${job.type}`;
-    document.getElementById("jobDetailSalary").textContent = `💰 ${job.salary}`;
-
-    document.getElementById("jobDetailDescription").textContent =
-      job.description || (
-        localStorage.getItem("siteLanguage") === "en"
-          ? "Job description is not available."
-          : "Deskripsi pekerjaan belum tersedia."
-      );
-
-    document.getElementById("jobDetailRequirements").textContent =
-      job.requirements || (
-        localStorage.getItem("siteLanguage") === "en"
-          ? "Requirements are not available."
-          : "Persyaratan belum tersedia."
-      );
-
-    document.getElementById("jobDetailApply").onclick = () => {
-      submitApplication(job);
-      document.getElementById("jobDetailModal").classList.add("hidden");
-    };
-
-    document.getElementById("jobDetailModal").classList.remove("hidden");
+    submitApplication(originalJob);
+    return;
   }
+
+  document.getElementById("jobDetailTitle").textContent =
+    job.title || "";
+
+  document.getElementById("jobDetailCompany").textContent =
+    job.company || "";
+
+  document.getElementById("jobDetailLocation").textContent =
+    `📍 ${job.location || ""}`;
+
+  document.getElementById("jobDetailType").textContent =
+    `💼 ${job.type || ""}`;
+
+  document.getElementById("jobDetailSalary").textContent =
+    `💰 ${job.salary || ""}`;
+
+  document.getElementById("jobDetailDescription").textContent =
+    job.description ||
+    (
+      language === "en"
+        ? "Job description is not available."
+        : "Deskripsi pekerjaan belum tersedia."
+    );
+
+  document.getElementById("jobDetailRequirements").textContent =
+    job.requirements ||
+    (
+      language === "en"
+        ? "Requirements are not available."
+        : "Persyaratan belum tersedia."
+    );
+
+  document.getElementById("jobDetailApply").onclick = () => {
+    submitApplication(originalJob);
+    document.getElementById("jobDetailModal").classList.add("hidden");
+  };
+
+  document.getElementById("jobDetailModal").classList.remove("hidden");
 });
+
 
 featuredJob.addEventListener("click", e => {
   const details = e.target.closest("[data-details]");
@@ -2709,53 +2727,65 @@ featuredJob.addEventListener("click", e => {
 
   if (!Number.isInteger(idx)) return;
 
- const originalJob = jobs[idx];
+  const originalJob = jobs[idx];
 
-const cacheKey =
-  originalJob.id ||
-  `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
+  const cacheKey =
+    originalJob.id ||
+    `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
 
-const translatedJob =
-  window.jobTranslationCache?.get(cacheKey);
+  const translatedJob =
+    window.jobTranslationCache?.get(cacheKey);
 
-const job =
-  translatedJob && localStorage.getItem("siteLanguage") === "en"
-    ? { ...originalJob, ...translatedJob }
-    : originalJob;
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  const job =
+    language === "en" && translatedJob
+      ? { ...originalJob, ...translatedJob }
+      : originalJob;
 
   if (apply) {
-    submitApplication(job);
-  } else {
-    document.getElementById("jobDetailTitle").textContent = job.title;
-    document.getElementById("jobDetailCompany").textContent = job.company;
-    document.getElementById("jobDetailLocation").textContent =
-      `📍 ${job.location}`;
-    document.getElementById("jobDetailType").textContent =
-      `💼 ${job.type}`;
-    document.getElementById("jobDetailSalary").textContent =
-      `💰 ${job.salary}`;
+    submitApplication(originalJob);
+    return;
+  }
 
-    document.getElementById("jobDetailDescription").textContent =
-      job.description || (
-        localStorage.getItem("siteLanguage") === "en"
-          ? "Job description is not available."
-          : "Deskripsi pekerjaan belum tersedia."
-      );
+  document.getElementById("jobDetailTitle").textContent =
+    job.title || "";
+
+  document.getElementById("jobDetailCompany").textContent =
+    job.company || "";
+
+  document.getElementById("jobDetailLocation").textContent =
+    `📍 ${job.location || ""}`;
+
+  document.getElementById("jobDetailType").textContent =
+    `💼 ${job.type || ""}`;
+
+  document.getElementById("jobDetailSalary").textContent =
+    `💰 ${job.salary || ""}`;
+
+  document.getElementById("jobDetailDescription").textContent =
+    job.description ||
+    (
+      language === "en"
+        ? "Job description is not available."
+        : "Deskripsi pekerjaan belum tersedia."
+    );
 
   document.getElementById("jobDetailRequirements").textContent =
-          job.requirements || (
-          localStorage.getItem("siteLanguage") === "en"
-          ? "Requirements are not available."
-          : "Persyaratan belum tersedia."
-      );
+    job.requirements ||
+    (
+      language === "en"
+        ? "Requirements are not available."
+        : "Persyaratan belum tersedia."
+    );
 
-    document.getElementById("jobDetailApply").onclick = () => {
-      submitApplication(job);
-      document.getElementById("jobDetailModal").classList.add("hidden");
-    };
+  document.getElementById("jobDetailApply").onclick = () => {
+    submitApplication(originalJob);
+    document.getElementById("jobDetailModal").classList.add("hidden");
+  };
 
-    document.getElementById("jobDetailModal").classList.remove("hidden");
-  }
+  document.getElementById("jobDetailModal").classList.remove("hidden");
 });
 const loginBtn = document.querySelector("#loginBtn");
 const registerBtn = document.querySelector("#registerBtn");
