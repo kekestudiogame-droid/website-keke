@@ -286,7 +286,7 @@ const latestJob = [...recentJobs].sort((a, b) => {
             <button
               type="button"
               class="featured-details-btn"
-              data-details="${displayJobs.indexOf(latestJob)}"
+             data-details="${jobs.indexOf(latestJob)}"
               style="
                 flex:1;
                 min-height:44px;
@@ -309,7 +309,7 @@ const latestJob = [...recentJobs].sort((a, b) => {
             <button
               type="button"
               class="featured-apply-btn"
-              data-apply="${displayJobs.indexOf(latestJob)}"
+              data-apply="${jobs.indexOf(latestJob)}"
               style="
                 flex:1;
                 min-height:44px;
