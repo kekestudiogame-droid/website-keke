@@ -2540,9 +2540,11 @@ async function submitApplicationWithDocuments(
   }
 }
 
+```js
 // =====================================================
 // HANDLER DETAIL LOWONGAN
-// Satu sumber untuk daftar bawah + kartu biru
+// Membaca terjemahan langsung dari database
+// Tidak memanggil Gemini
 // =====================================================
 
 function openJobDetails(idx) {
@@ -2556,21 +2558,65 @@ function openJobDetails(idx) {
   const language =
     localStorage.getItem("siteLanguage") || "id";
 
-  const cacheKey =
-    originalJob.id ||
-    `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
+  // =====================================================
+  // PILIH DATA SESUAI BAHASA
+  // EN = gunakan hasil terjemahan yang sudah tersimpan
+  // ID = gunakan data asli
+  // =====================================================
 
-  const translatedJob =
-    window.jobTranslationCache?.get(
-    cacheKey
-   );
-
-  // Gunakan hasil terjemahan Gemini hanya ketika EN
   const job =
-    language === "en" && translatedJob
-      ? { ...originalJob, ...translatedJob }
+    language === "en"
+      ? {
+          ...originalJob,
+
+          title:
+            originalJob.title_en ||
+            originalJob.title ||
+            "",
+
+          description:
+            originalJob.description_en ||
+            originalJob.description ||
+            "",
+
+          requirements:
+            originalJob.requirements_en ||
+            originalJob.requirements ||
+            originalJob.requirement ||
+            "",
+
+          type:
+            originalJob.job_type_en ||
+            originalJob.type ||
+            originalJob.job_type ||
+            "",
+
+          category:
+            originalJob.category_en ||
+            originalJob.category ||
+            "",
+
+          salary:
+            originalJob.salary_en ||
+            originalJob.salary ||
+            "",
+
+          experience:
+            originalJob.experience_en ||
+            originalJob.experience ||
+            "",
+
+          education:
+            originalJob.education_en ||
+            originalJob.education ||
+            ""
+        }
       : originalJob;
 
+
+  // =====================================================
+  // ISI JOB DETAILS
+  // =====================================================
 
   document.getElementById("jobDetailTitle").textContent =
     job.title || "";
@@ -2611,8 +2657,11 @@ function openJobDetails(idx) {
     );
 
 
-  // Tombol Lamar tetap memakai DATA ASLI
-  // supaya aplikasi masuk ke database dengan benar
+  // =====================================================
+  // TOMBOL LAMAR
+  // Tetap menggunakan DATA ASLI
+  // =====================================================
+
   document.getElementById("jobDetailApply").onclick = () => {
 
     submitApplication(originalJob);
@@ -2624,11 +2673,15 @@ function openJobDetails(idx) {
   };
 
 
+  // =====================================================
+  // TAMPILKAN MODAL
+  // =====================================================
+
   document
     .getElementById("jobDetailModal")
     .classList.remove("hidden");
 }
-
+```
 
 // =====================================================
 // KLIK DARI DAFTAR LOWONGAN
