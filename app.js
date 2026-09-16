@@ -956,12 +956,17 @@ citySuggestions
   });
 }
 
+let hasSearched = false;
 async function renderJobs(list = jobs) {
   jobsGrid.innerHTML = "";
 
-  const language = localStorage.getItem("siteLanguage") || "id";
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
 
-  // Hilangkan duplikat lowongan berdasarkan ID
+  // =====================================================
+  // HILANGKAN DUPLIKAT BERDASARKAN ID
+  // =====================================================
+
   const uniqueJobs = Array.from(
     new Map(
       list.map(job => [job.id, job])
@@ -975,167 +980,252 @@ async function renderJobs(list = jobs) {
   }
 
   if (emptyState) {
-    emptyState.classList.toggle("hidden", list.length !== 0);
+    emptyState.classList.toggle(
+      "hidden",
+      list.length !== 0
+    );
   }
-  // Cache terjemahan agar tidak meminta Gemini berulang kali
+
+  // =====================================================
+  // SIAPKAN CACHE TERJEMAHAN
+  // =====================================================
+
   if (!window.jobTranslationCache) {
     try {
       const savedTranslations =
-        JSON.parse(localStorage.getItem("jobTranslationCache") || "{}");
-
-      window.jobTranslationCache = new Map(
-        Object.entries(savedTranslations)
-      );
-    } catch (error) {
-      console.error("Gagal membaca cache terjemahan:", error);
-      window.jobTranslationCache = new Map();
-    }
-  }
-
-  let displayJobs = list;
-
-// =====================================================
-// AUTO TRANSLATION JOB LISTING SAAT MODE ENGLISH
-// =====================================================
-if (language === "en" && list.length > 0) {
-
-  const batchSize = 5;
-
-  const uncachedJobs = list.filter((job) => {
-    const cacheKey =
-      job.id || `${job.title}-${job.company}-${job.location}`;
-
-    return !window.jobTranslationCache.has(cacheKey);
-  });
-
-  // Terjemahkan job dalam batch kecil agar request Gemini aman
-  for (let i = 0; i < uncachedJobs.length; i += batchSize) {
-
-    const batch = uncachedJobs.slice(i, i + batchSize);
-
-    try {
-
-      const response = await fetch(
-        "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/translate-job",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            apikey: SUPABASE_KEY
-          },
-          body: JSON.stringify({
-          jobs: batch.map((job) => ({
-          id: job.id,
-          title: job.title || "",
-          company: job.company || "",
-          location: job.location || "",
-          type: job.type || "",
-          category: job.category || "",
-          salary: job.salary || "",
-          description: job.description || "",
-          requirements: job.requirements || job.requirement || ""
-           }))
-          })
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error("Batch translation error:", data);
-        continue;
-      }
-
-      if (
-        data?.success &&
-        Array.isArray(data.jobs)
-      ) {
-
-        data.jobs.forEach((translatedJob, index) => {
-          console.log("HASIL TERJEMAHAN GEMINI:", translatedJob);
-          
-          const originalJob = batch[index];
-
-          if (!originalJob || !translatedJob) return;
-
-          const cacheKey =
-            originalJob.id ||
-            `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
-
-         window.jobTranslationCache.set(
-             cacheKey,
-             translatedJob
-           );
-
-             localStorage.setItem(
-            "jobTranslationCache",
-             JSON.stringify(
-             Object.fromEntries(window.jobTranslationCache)
-           )
-           );
-
-        });
-
-      } else {
-        console.error(
-          "Batch translation returned invalid data:",
-          data
+        JSON.parse(
+          localStorage.getItem(
+            "jobTranslationCache"
+          ) || "{}"
         );
-      }
+
+      window.jobTranslationCache =
+        new Map(
+          Object.entries(savedTranslations)
+        );
 
     } catch (error) {
 
       console.error(
-        "Batch translation failed:",
+        "Gagal membaca cache terjemahan:",
         error
       );
 
+      window.jobTranslationCache =
+        new Map();
     }
   }
 
-  // Gunakan hasil terjemahan dari cache
-  displayJobs = list.map((job) => {
-
-    const cacheKey =
-      job.id ||
-      `${job.title}-${job.company}-${job.location}`;
-
-    const translatedJob =
-      window.jobTranslationCache.get(cacheKey);
-
-    return translatedJob
-      ? { ...job, ...translatedJob }
-      : job;
-  });
-}
   // =====================================================
-  // TAMPILKAN JOB
+  // SATU PROSES TRANSLASI
   // =====================================================
+
+  let displayJobs = list;
+
+  if (
+    language === "en" &&
+    list.length > 0
+  ) {
+
+    const batchSize = 5;
+
+    const uncachedJobs =
+      list.filter(job => {
+
+        const cacheKey =
+          job.id ||
+          `${job.title}-${job.company}-${job.location}`;
+
+        return !window.jobTranslationCache.has(
+          cacheKey
+        );
+      });
+
+    // ---------------------------------------------------
+    // TERJEMAHKAN JOB YANG BELUM ADA DI CACHE
+    // ---------------------------------------------------
+
+    for (
+      let i = 0;
+      i < uncachedJobs.length;
+      i += batchSize
+    ) {
+
+      const batch =
+        uncachedJobs.slice(
+          i,
+          i + batchSize
+        );
+
+      try {
+
+        const response = await fetch(
+          "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/translate-job",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+              apikey: SUPABASE_KEY
+            },
+
+            body: JSON.stringify({
+              jobs: batch.map(job => ({
+                id: job.id,
+                title: job.title || "",
+                company: job.company || "",
+                location: job.location || "",
+                type: job.type || "",
+                category: job.category || "",
+                salary: job.salary || "",
+                description:
+                  job.description || "",
+                requirements:
+                  job.requirements ||
+                  job.requirement ||
+                  ""
+              }))
+            })
+          }
+        );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+
+          console.error(
+            "Batch translation error:",
+            data
+          );
+
+          continue;
+        }
+
+        if (
+          data?.success &&
+          Array.isArray(data.jobs)
+        ) {
+
+          data.jobs.forEach(
+            (translatedJob, index) => {
+
+              const originalJob =
+                batch[index];
+
+              if (
+                !originalJob ||
+                !translatedJob
+              ) {
+                return;
+              }
+
+              const cacheKey =
+                originalJob.id ||
+                `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
+
+              window.jobTranslationCache.set(
+                cacheKey,
+                translatedJob
+              );
+            }
+          );
+
+          // Simpan cache SEKALI setelah satu batch selesai
+          localStorage.setItem(
+            "jobTranslationCache",
+            JSON.stringify(
+              Object.fromEntries(
+                window.jobTranslationCache
+              )
+            )
+          );
+
+        } else {
+
+          console.error(
+            "Batch translation returned invalid data:",
+            data
+          );
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Batch translation failed:",
+          error
+        );
+      }
+    }
+
+    // ===================================================
+    // HASIL FINAL
+    // INI SATU-SATUNYA displayJobs YANG DIPAKAI
+    // ===================================================
+
+    displayJobs = list.map(job => {
+
+      const cacheKey =
+        job.id ||
+        `${job.title}-${job.company}-${job.location}`;
+
+      const translatedJob =
+        window.jobTranslationCache.get(
+          cacheKey
+        );
+
+      return translatedJob
+        ? {
+            ...job,
+            ...translatedJob
+          }
+        : job;
+    });
+  }
+
+  // =====================================================
+  // TAMPILKAN DAFTAR LOWONGAN
+  // =====================================================
+
   displayJobs.forEach((job, i) => {
-    const card = document.createElement("article");
+
+    const card =
+      document.createElement("article");
+
     card.className = "job-card";
 
     card.innerHTML = `
       <div class="job-top">
-        <div class="company-logo">${job.initials || ""}</div>
+
+        <div class="company-logo">
+          ${job.initials || ""}
+        </div>
 
         <span class="pill">
           ${job.type || ""}
         </span>
+
       </div>
 
-      <h3>${job.title || ""}</h3>
+      <h3>
+        ${job.title || ""}
+      </h3>
 
       <div class="company">
         ${job.company || ""}
       </div>
 
       <div class="job-meta">
-        <span>📍 ${job.location || ""}</span>
+
+        <span>
+          📍 ${job.location || ""}
+        </span>
 
         <span>
           ▣ ${job.category || ""}
         </span>
+
       </div>
 
       <div class="salary">
@@ -1143,45 +1233,60 @@ if (language === "en" && list.length > 0) {
       </div>
 
       <div class="job-posted-date">
+
         ${
           job.created_at
             ? (
                 language === "en"
-                  ? `Posted ${new Date(job.created_at).toLocaleString("en-US", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit"
-                    })}`
-                  : `Diposting ${new Date(job.created_at).toLocaleString("id-ID", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit"
-                    })}`
+
+                  ? `Posted ${new Date(
+                      job.created_at
+                    ).toLocaleString(
+                      "en-US",
+                      {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                      }
+                    )}`
+
+                  : `Diposting ${new Date(
+                      job.created_at
+                    ).toLocaleString(
+                      "id-ID",
+                      {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                      }
+                    )}`
               )
+
             : ""
         }
+
       </div>
 
       <div class="job-actions">
 
         <button data-details="${i}">
-        ${
-         language === "en"
-         ? "View Details"
-         : "Lihat Detail"
-         }
+          ${
+            language === "en"
+              ? "View Details"
+              : "Lihat Detail"
+          }
         </button>
 
         <button data-apply="${i}">
-       ${
-         language === "en"
-         ? "Apply →"
-         : "Lamar →"
-         }
+          ${
+            language === "en"
+              ? "Apply →"
+              : "Lamar →"
+          }
         </button>
 
       </div>
@@ -1189,8 +1294,439 @@ if (language === "en" && list.length > 0) {
 
     jobsGrid.appendChild(card);
   });
+
+  // =====================================================
+  // KARTU LOWONGAN TERBARU
+  // MENGGUNAKAN displayJobs YANG SAMA
+  // =====================================================
+
+  const featuredJob =
+    document.querySelector(
+      "#featuredJob"
+    );
+
+  if (
+    featuredJob &&
+    !hasSearched
+  ) {
+
+    const now = new Date();
+
+    const oneMonthAgo =
+      new Date(now);
+
+    oneMonthAgo.setMonth(
+      oneMonthAgo.getMonth() - 1
+    );
+
+    const recentJobs =
+      displayJobs.filter(job => {
+
+        if (!job.created_at) {
+          return false;
+        }
+
+        const postedDate =
+          new Date(job.created_at);
+
+        return postedDate >= oneMonthAgo;
+      });
+
+    const latestJob =
+      [...recentJobs].sort(
+        (a, b) =>
+          new Date(b.created_at) -
+          new Date(a.created_at)
+      )[0];
+
+    // ===================================================
+    // TIDAK ADA LOWONGAN TERBARU
+    // ===================================================
+
+    if (!latestJob) {
+
+      featuredJob.innerHTML = `
+        <div
+          style="
+            text-align:center;
+            padding:30px 15px;
+          "
+        >
+
+          <div
+            style="
+              font-size:42px;
+              margin-bottom:10px;
+            "
+          >
+            🔎
+          </div>
+
+          <h3
+            style="
+              margin:0 0 8px;
+            "
+          >
+            ${
+              language === "en"
+                ? "No Recent Jobs"
+                : "Belum Ada Lowongan Terbaru"
+            }
+          </h3>
+
+          <p
+            style="
+              margin:0;
+              color:#64748b;
+            "
+          >
+            ${
+              language === "en"
+                ? "There are no jobs posted within the last month."
+                : "Belum ada lowongan yang dipasang dalam 1 bulan terakhir."
+            }
+          </p>
+
+        </div>
+      `;
+
+    } else {
+
+      // =================================================
+      // KARTU BIRU
+      // MEMAKAI latestJob DARI displayJobs YANG SAMA
+      // =================================================
+
+      const originalIndex =
+        jobs.findIndex(
+          job =>
+            job.id === latestJob.id
+        );
+
+      featuredJob.innerHTML = `
+        <div
+          class="featured-job-card"
+          style="
+            background:linear-gradient(
+              145deg,
+              #123b6d 0%,
+              #0b2b50 100%
+            );
+            color:#fff;
+            border-radius:22px;
+            padding:24px;
+            text-align:left;
+            box-shadow:
+              0 14px 35px
+              rgba(18,59,109,.28);
+            border:
+              1px solid
+              rgba(255,255,255,.12);
+            position:relative;
+            overflow:hidden;
+          "
+        >
+
+          <div
+            style="
+              position:absolute;
+              width:150px;
+              height:150px;
+              border-radius:50%;
+              background:
+                rgba(255,255,255,.06);
+              right:-65px;
+              top:-65px;
+            "
+          ></div>
+
+          <div
+            style="
+              position:relative;
+              z-index:1;
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              gap:10px;
+              margin-bottom:20px;
+            "
+          >
+
+            <span
+              style="
+                background:
+                  rgba(255,255,255,.14);
+                padding:7px 11px;
+                border-radius:999px;
+                font-size:11px;
+                font-weight:700;
+                letter-spacing:.5px;
+              "
+            >
+              ✦ ${
+                language === "en"
+                  ? "LATEST JOB"
+                  : "LOWONGAN TERBARU"
+              }
+            </span>
+
+            <span
+              style="
+                background:
+                  rgba(255,255,255,.09);
+                padding:7px 10px;
+                border-radius:999px;
+                font-size:11px;
+                color:#dbeafe;
+              "
+            >
+              ${latestJob.type || ""}
+            </span>
+
+          </div>
+
+          <div
+            style="
+              position:relative;
+              z-index:1;
+              width:56px;
+              height:56px;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              border-radius:16px;
+              background:
+                rgba(255,255,255,.13);
+              font-size:24px;
+              margin-bottom:15px;
+            "
+          >
+            ${latestJob.initials || "💼"}
+          </div>
+
+          <div
+            style="
+              position:relative;
+              z-index:1;
+            "
+          >
+
+            <h3
+              style="
+                margin:0 0 6px;
+                font-size:23px;
+                line-height:1.25;
+                color:#fff;
+              "
+            >
+              ${latestJob.title || ""}
+            </h3>
+
+            <p
+              style="
+                margin:0 0 16px;
+                font-size:14px;
+                font-weight:600;
+                color:
+                  rgba(255,255,255,.78);
+              "
+            >
+              ${latestJob.company || ""}
+            </p>
+
+            <div
+              style="
+                font-size:12px;
+                color:
+                  rgba(255,255,255,.65);
+                margin-bottom:14px;
+              "
+            >
+              ${
+                latestJob.created_at
+                  ? (
+                      language === "en"
+
+                        ? `Posted ${new Date(
+                            latestJob.created_at
+                          ).toLocaleString(
+                            "en-US",
+                            {
+                              day:"numeric",
+                              month:"long",
+                              year:"numeric",
+                              hour:"2-digit",
+                              minute:"2-digit"
+                            }
+                          )}`
+
+                        : `Diposting ${new Date(
+                            latestJob.created_at
+                          ).toLocaleString(
+                            "id-ID",
+                            {
+                              day:"numeric",
+                              month:"long",
+                              year:"numeric",
+                              hour:"2-digit",
+                              minute:"2-digit"
+                            }
+                          )}`
+                    )
+
+                  : ""
+              }
+            </div>
+
+            <div
+              style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:7px;
+                margin-bottom:14px;
+              "
+            >
+
+              <span
+                style="
+                  background:
+                    rgba(255,255,255,.09);
+                  padding:7px 9px;
+                  border-radius:8px;
+                  font-size:12px;
+                  color:#e8f1fb;
+                "
+              >
+                📍 ${latestJob.location || ""}
+              </span>
+
+              <span
+                style="
+                  background:
+                    rgba(255,255,255,.09);
+                  padding:7px 9px;
+                  border-radius:8px;
+                  font-size:12px;
+                  color:#e8f1fb;
+                "
+              >
+                ▣ ${latestJob.category || ""}
+              </span>
+
+            </div>
+
+            <div
+              style="
+                font-size:14px;
+                font-weight:700;
+                color:#fff;
+                margin-bottom:12px;
+              "
+            >
+              💰 ${
+                latestJob.salary ||
+                (
+                  language === "en"
+                    ? "Salary according to company policy"
+                    : "Gaji sesuai ketentuan perusahaan"
+                )
+              }
+            </div>
+
+            <p
+              style="
+                margin:0 0 20px;
+                font-size:13px;
+                line-height:1.65;
+                color:
+                  rgba(255,255,255,.72);
+                display:-webkit-box;
+                -webkit-line-clamp:3;
+                -webkit-box-orient:vertical;
+                overflow:hidden;
+              "
+            >
+              ${
+                latestJob.description ||
+                (
+                  language === "en"
+                    ? "Discover this career opportunity and join this company."
+                    : "Temukan peluang karier ini dan bergabung bersama perusahaan."
+                )
+              }
+            </p>
+
+            <div
+              style="
+                display:flex;
+                gap:9px;
+              "
+            >
+
+              <button
+                type="button"
+                class="featured-details-btn"
+                data-details="${originalIndex}"
+                style="
+                  flex:1;
+                  min-height:44px;
+                  border-radius:11px;
+                  border:
+                    1px solid
+                    rgba(255,255,255,.22);
+                  background:
+                    rgba(255,255,255,.10);
+                  color:#fff;
+                  font-size:13px;
+                  font-weight:700;
+                  cursor:pointer;
+                "
+              >
+                ${
+                  language === "en"
+                    ? "View Details"
+                    : "Lihat Detail"
+                }
+              </button>
+
+              <button
+                type="button"
+                class="featured-apply-btn"
+                data-apply="${originalIndex}"
+                style="
+                  flex:1;
+                  min-height:44px;
+                  border-radius:11px;
+                  border:1px solid #fff;
+                  background:#fff;
+                  color:#123b6d;
+                  font-size:13px;
+                  font-weight:700;
+                  cursor:pointer;
+                "
+              >
+                ${
+                  language === "en"
+                    ? "Apply →"
+                    : "Lamar →"
+                }
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+  }
+
+  // =====================================================
+  // KEMBALIKAN DATA FINAL
+  // =====================================================
+
+  return displayJobs;
 }
-let hasSearched = false;
 
 async function filterJobs() {
   const q = keyword.value.trim().toLowerCase();
