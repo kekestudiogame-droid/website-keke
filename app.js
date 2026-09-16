@@ -9406,7 +9406,11 @@ try {
 
 }
 
-alert("✅ Lowongan berhasil dikirim dan sudah tampil di Kerjiva.");
+alert(
+  language === "en"
+    ? "✅ Job posting has been submitted and is now live on Kerjiva."
+    : "✅ Lowongan berhasil dikirim dan sudah tampil di Kerjiva."
+);
 
     document
       .getElementById("postJobFormContainer")
