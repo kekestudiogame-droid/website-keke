@@ -2681,7 +2681,7 @@ function openJobDetails(idx) {
     .getElementById("jobDetailModal")
     .classList.remove("hidden");
 }
-```
+
 
 // =====================================================
 // KLIK DARI DAFTAR LOWONGAN
