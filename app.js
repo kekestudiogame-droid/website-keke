@@ -206,9 +206,9 @@ const latestJob = [...recentJobs].sort((a, b) => {
               hour: "2-digit",
               minute: "2-digit"
             })}`
-      )
-    : ""}
-</div>
+              )
+            : ""}
+          </div>
 
           <div style="
             display:flex;
@@ -286,7 +286,7 @@ const latestJob = [...recentJobs].sort((a, b) => {
             <button
               type="button"
               class="featured-details-btn"
-              data-details="${jobs.indexOf(latestJob)}"
+              data-details="${displayJobs.indexOf(latestJob)}"
               style="
                 flex:1;
                 min-height:44px;
@@ -309,7 +309,7 @@ const latestJob = [...recentJobs].sort((a, b) => {
             <button
               type="button"
               class="featured-apply-btn"
-              data-apply="${jobs.indexOf(latestJob)}"
+              data-apply="${displayJobs.indexOf(latestJob)}"
               style="
                 flex:1;
                 min-height:44px;
