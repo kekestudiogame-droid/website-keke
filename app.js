@@ -2540,7 +2540,7 @@ async function submitApplicationWithDocuments(
   }
 }
 
-```js
+
 // =====================================================
 // HANDLER DETAIL LOWONGAN
 // Membaca terjemahan langsung dari database
