@@ -62,6 +62,9 @@ const recentJobs = jobs.filter(job => {
 
   return postedDate >= oneMonthAgo;
 });
+    if (localStorage.getItem("siteLanguage") === "id") {
+     window.jobTranslationCache?.clear();
+    }
 
 const latestJob = [...recentJobs].sort((a, b) => {
   const dateA = new Date(a.created_at || a.createdAt);
