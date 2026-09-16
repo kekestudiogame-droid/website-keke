@@ -170,7 +170,7 @@ const latestJob = [...recentJobs].sort((a, b) => {
             line-height:1.25;
             color:#fff;
           ">
-            latestJob.title
+          ${latestJob.title}
           </h3>
 
           <p style="
