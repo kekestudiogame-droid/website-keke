@@ -1170,10 +1170,10 @@ async function renderJobs(list = jobs) {
         job.id ||
         `${job.title}-${job.company}-${job.location}`;
 
-      const translatedJob =
+     const translatedJob =
          window.jobTranslationCache.get(
-          String(cacheKey)
-        );
+         cacheKey
+         );
 
       return translatedJob
         ? {
@@ -2700,10 +2700,10 @@ function openJobDetails(idx) {
     originalJob.id ||
     `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
 
- const translatedJob =
+  const translatedJob =
     window.jobTranslationCache?.get(
-      String(cacheKey)
-    );
+    cacheKey
+   );
 
   // Gunakan hasil terjemahan Gemini hanya ketika EN
   const job =
