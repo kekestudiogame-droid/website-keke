@@ -9203,7 +9203,7 @@ try {
       const translated =
         translationResult.jobs[0];
 
-      await fetch(
+          const saveTranslationResponse = await fetch(
         `${SUPABASE_URL}jobs?id=eq.${newJob.id}`,
         {
           method: "PATCH",
@@ -9215,37 +9215,61 @@ try {
           },
           body: JSON.stringify({
             title_en:
-              translated.title || null,
+              translated.title_en ||
+              translated.title ||
+              null,
 
             description_en:
-              translated.description || null,
+              translated.description_en ||
+              translated.description ||
+              null,
 
             requirements_en:
-              translated.requirements || null,
+              translated.requirements_en ||
+              translated.requirements ||
+              null,
 
             job_type_en:
-              translated.type || null,
+              translated.job_type_en ||
+              translated.type ||
+              null,
 
             category_en:
-              translated.category || null,
+              translated.category_en ||
+              translated.category ||
+              null,
 
             salary_en:
-              translated.salary || null,
+              translated.salary_en ||
+              translated.salary ||
+              null,
 
             experience_en:
-              translated.experience || null,
+              translated.experience_en ||
+              translated.experience ||
+              null,
 
             education_en:
-              translated.education || null
+              translated.education_en ||
+              translated.education ||
+              null
           })
         }
       );
 
+      if (!saveTranslationResponse.ok) {
+        const saveError =
+          await saveTranslationResponse.text();
+
+        throw new Error(
+          `Gagal menyimpan terjemahan ke database: ${saveError}`
+        );
+      }
+
       console.log(
-        "Terjemahan English berhasil disimpan:",
+        "Terjemahan English berhasil disimpan ke database:",
         newJob.id
       );
-
     } else {
 
       console.warn(
