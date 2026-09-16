@@ -9664,7 +9664,8 @@ menuBtn.addEventListener("click", (e) => {
 });
   }
 
-document.addEventListener("DOMContentLoaded", () => {
+function setupAuthButtons() {
+
   const loginBtn = document.getElementById("loginBtn");
   const registerBtn = document.getElementById("registerBtn");
   const closeModal = document.getElementById("closeModal");
@@ -9673,47 +9674,96 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalText = document.getElementById("modalText");
   const authForm = document.getElementById("authForm");
 
- if (loginBtn) {
-  loginBtn.addEventListener("click", () => {
-    authModal.classList.remove("hidden");
 
-  const language = "id";
+  if (loginBtn) {
 
-modalTitle.textContent = "Masuk";
-modalText.textContent =
-  localStorage.getItem("siteLanguage") === "en"
-    ? "Log in to your account"
-    : "Masuk ke akun Anda";
-    authForm.dataset.mode = "login";
-  });
-}
+    loginBtn.addEventListener("click", () => {
 
-     if (registerBtn) {
-       registerBtn.addEventListener("click", () => {
-       authModal.classList.remove("hidden");
-       modalTitle.textContent =
-       localStorage.getItem("siteLanguage") === "en"
-        ? "Register"
-        : "Daftar";
+      if (authModal) {
+        authModal.classList.remove("hidden");
+      }
 
-       modalText.textContent =
-       localStorage.getItem("siteLanguage") === "en"
-        ? "Create a new account"
-        : "Buat akun baru";
+      if (modalTitle) {
+        modalTitle.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Log in"
+            : "Masuk";
+      }
 
-    authForm.dataset.mode = "register";
-  });
-}
+      if (modalText) {
+        modalText.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Log in to your account"
+            : "Masuk ke akun Anda";
+      }
+
+      if (authForm) {
+        authForm.dataset.mode = "login";
+      }
+
+    });
+
+  }
+
+
+  if (registerBtn) {
+
+    registerBtn.addEventListener("click", () => {
+
+      if (authModal) {
+        authModal.classList.remove("hidden");
+      }
+
+      if (modalTitle) {
+        modalTitle.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Register"
+            : "Daftar";
+      }
+
+      if (modalText) {
+        modalText.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Create a new account"
+            : "Buat akun baru";
+      }
+
+      if (authForm) {
+        authForm.dataset.mode = "register";
+      }
+
+    });
+
+  }
+
 
   if (closeModal) {
+
     closeModal.addEventListener("click", () => {
-      authModal.classList.add("hidden");
+
+      if (authModal) {
+        authModal.classList.add("hidden");
+      }
+
     });
+
   }
-});
+
+}
 
 
+if (document.readyState === "loading") {
 
+  document.addEventListener(
+    "DOMContentLoaded",
+    setupAuthButtons
+  );
+
+} else {
+
+  setupAuthButtons();
+
+}
 async function showIncomingApplications() {
   const userData = localStorage.getItem("cariKerjakuUser");
   const accessToken = localStorage.getItem("cariKerjakuAccessToken");
