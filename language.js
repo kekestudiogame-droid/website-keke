@@ -136,6 +136,12 @@
 "Kelola informasi profil dan akun Kerjiva.":
   "Manage your Kerjiva profile and account information.",
 
+"Kota":
+  "City",
+
+"Pengalaman":
+  "Experience",
+
 "Buka":
   "Open",
 
