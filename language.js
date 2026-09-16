@@ -1387,31 +1387,49 @@ Array.from(
     }
 
 
-    /* =====================================================
-       BODY
-       ===================================================== */
+  /* =====================================================
+   BODY
+   ===================================================== */
 
-    if (document.body) {
+if (document.body) {
 
-      translateElement(
-        document.body,
-        language
-      );
+  /*
+   * Terjemahkan halaman umum.
+   *
+   * Area lowongan dikecualikan karena:
+   * - #featuredJob
+   * - #jobsGrid
+   *
+   * sudah dikelola sepenuhnya oleh renderJobs()
+   * menggunakan displayJobs final.
+   */
 
-      document
-        .querySelectorAll("body *")
-        .forEach(function (element) {
+  const pageElements =
+    document.body.querySelectorAll(
+      "body > *:not(#featuredJob):not(#jobsGrid)"
+    );
 
-          translateElement(
-            element,
-            language
-          );
+  pageElements.forEach(function (element) {
 
-        });
+    translateElement(
+      element,
+      language
+    );
 
-    }
+    element
+      .querySelectorAll("*")
+      .forEach(function (child) {
 
+        translateElement(
+          child,
+          language
+        );
 
+      });
+
+  });
+
+}
     /* =====================================================
        SAVE LANGUAGE
        ===================================================== */
