@@ -68,6 +68,11 @@ const latestJob = [...recentJobs].sort((a, b) => {
   const dateB = new Date(b.created_at || b.createdAt);
   return dateB - dateA;
 })[0];
+    console.log(
+  "FEATURED DEBUG:",
+  localStorage.getItem("siteLanguage"),
+  latestJob
+);
     if (!latestJob) {
   featuredJob.innerHTML = `
     <div style="text-align:center;padding:30px 15px;">
