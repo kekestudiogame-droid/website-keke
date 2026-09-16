@@ -2700,8 +2700,10 @@ function openJobDetails(idx) {
     originalJob.id ||
     `${originalJob.title}-${originalJob.company}-${originalJob.location}`;
 
-  const translatedJob =
-    window.jobTranslationCache?.get(cacheKey);
+ const translatedJob =
+    window.jobTranslationCache?.get(
+      String(cacheKey)
+    );
 
   // Gunakan hasil terjemahan Gemini hanya ketika EN
   const job =
