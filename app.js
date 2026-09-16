@@ -9269,15 +9269,144 @@ async function publishNewJob() {
       }
     );
 
-    const result = await response.json();
+   const result = await response.json();
 
-    if (!response.ok) {
-      throw new Error(
-        result.message || result.error || "Gagal mengirim lowongan."
+if (!response.ok) {
+  throw new Error(
+    result.message || result.error || "Gagal mengirim lowongan."
+  );
+}
+
+// =====================================================
+// TERJEMAHAN ENGLISH — SATU KALI SAAT LOWONGAN DIBUAT
+// Hasil disimpan permanen di tabel jobs
+// =====================================================
+
+try {
+  const newJob = Array.isArray(result)
+    ? result[0]
+    : result;
+
+  if (newJob?.id) {
+
+    const translationResponse = await fetch(
+      "https://ksqrimmecpriyepsuclc.supabase.co/functions/v1/translate-job",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_KEY
+        },
+        body: JSON.stringify({
+          jobs: [
+            {
+              id: newJob.id,
+              title: newJob.title || title,
+              company:
+                newJob.company ||
+                newJob.company_name ||
+                "Perusahaan",
+              location:
+                newJob.city ||
+                city,
+              type:
+                newJob.job_type ||
+                jobType,
+              category:
+                newJob.category ||
+                category,
+              salary:
+                newJob.salary ||
+                salary,
+              description:
+                newJob.description ||
+                description,
+              requirements:
+                newJob.requirements ||
+                requirements
+            }
+          ]
+        })
+      }
+    );
+
+    const translationResult =
+      await translationResponse.json();
+
+    if (
+      translationResponse.ok &&
+      translationResult?.success &&
+      Array.isArray(translationResult.jobs) &&
+      translationResult.jobs[0]
+    ) {
+
+      const translated =
+        translationResult.jobs[0];
+
+      await fetch(
+        `${SUPABASE_URL}jobs?id=eq.${newJob.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`,
+            "apikey": SUPABASE_KEY,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            title_en:
+              translated.title || null,
+
+            description_en:
+              translated.description || null,
+
+            requirements_en:
+              translated.requirements || null,
+
+            job_type_en:
+              translated.type || null,
+
+            category_en:
+              translated.category || null,
+
+            salary_en:
+              translated.salary || null,
+
+            experience_en:
+              translated.experience || null,
+
+            education_en:
+              translated.education || null
+          })
+        }
       );
+
+      console.log(
+        "Terjemahan English berhasil disimpan:",
+        newJob.id
+      );
+
+    } else {
+
+      console.warn(
+        "Terjemahan English gagal. Lowongan tetap tersimpan.",
+        translationResult
+      );
+
     }
 
- alert("✅ Lowongan berhasil dikirim dan sudah tampil di Kerjiva.");
+  }
+
+} catch (translationError) {
+
+  console.warn(
+    "Gagal menyimpan terjemahan English:",
+    translationError
+  );
+
+}
+
+alert("✅ Lowongan berhasil dikirim dan sudah tampil di Kerjiva.");
 
     document
       .getElementById("postJobFormContainer")
