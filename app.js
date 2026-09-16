@@ -1171,8 +1171,8 @@ async function renderJobs(list = jobs) {
         `${job.title}-${job.company}-${job.location}`;
 
       const translatedJob =
-        window.jobTranslationCache.get(
-          cacheKey
+         window.jobTranslationCache.get(
+          String(cacheKey)
         );
 
       return translatedJob
