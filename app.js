@@ -165,11 +165,7 @@ const latestJob = [...recentJobs].sort((a, b) => {
             line-height:1.25;
             color:#fff;
           ">
-         ${
-            localStorage.getItem("siteLanguage") === "en"
-            ? (window.jobTranslationCache?.get(latestJob.id)?.title || latestJob.title)
-            : latestJob.title
-            }
+       ${displayJobs.find(job => job.id === latestJob.id)?.title || latestJob.title}
           </h3>
 
           <p style="
