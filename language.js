@@ -1458,9 +1458,13 @@ if (document.body) {
 
       }
 
-      translatePage(
+           translatePage(
         language
       );
+
+      if (typeof window.renderJobs === "function") {
+        window.renderJobs();
+      }
 
     };
    window.translateElement = translateElement;
