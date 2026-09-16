@@ -43,302 +43,420 @@ async function loadJobsFromDatabase() {
         .toUpperCase()
     }));
 
-await renderJobs(jobs);
+// =====================================================
+// TENTUKAN DATA SESUAI BAHASA SEKARANG
+// =====================================================
 
-// Tampilkan lowongan terbaru di kotak biru saat halaman pertama dibuka
-if (!hasSearched && jobs.length > 0) {
-  const featuredJob = document.querySelector("#featuredJob");
+const language = localStorage.getItem("siteLanguage") || "id";
+
+let displayJobs = jobs;
+
+// Jika English, gunakan hasil terjemahan yang sudah ada di cache
+if (language === "en" && window.jobTranslationCache) {
+  displayJobs = jobs.map(job => {
+    const cacheKey =
+      job.id ||
+      `${job.title}-${job.company}-${job.location}`;
+
+    const translatedJob =
+      window.jobTranslationCache.get(cacheKey);
+
+    return translatedJob
+      ? { ...job, ...translatedJob }
+      : job;
+  });
+}
+
+
+// =====================================================
+// TAMPILKAN DAFTAR LOWONGAN
+// =====================================================
+
+await renderJobs(displayJobs);
+
+
+// =====================================================
+// TAMPILKAN LOWONGAN TERBARU DI KARTU BIRU
+// Menggunakan displayJobs yang SAMA dengan daftar bawah
+// =====================================================
+
+if (!hasSearched && displayJobs.length > 0) {
+
+  const featuredJob =
+    document.querySelector("#featuredJob");
 
   if (featuredJob) {
-const now = new Date();
 
-const recentJobs = jobs.filter(job => {
-  const postedDate = new Date(job.created_at || job.createdAt || 0);
+    const now = new Date();
 
-  if (!job.created_at && !job.createdAt) return false;
+    const recentJobs = displayJobs.filter(job => {
 
-  const oneMonthAgo = new Date(now);
-  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      const postedDate =
+        new Date(job.created_at || job.createdAt || 0);
 
-  return postedDate >= oneMonthAgo;
-});
-  
-const latestJob = [...recentJobs].sort((a, b) => {
-  const dateA = new Date(a.created_at || a.createdAt);
-  const dateB = new Date(b.created_at || b.createdAt);
-  return dateB - dateA;
-})[0];
+      if (!job.created_at && !job.createdAt) {
+        return false;
+      }
+
+      const oneMonthAgo = new Date(now);
+      oneMonthAgo.setMonth(
+        oneMonthAgo.getMonth() - 1
+      );
+
+      return postedDate >= oneMonthAgo;
+    });
+
+
+    const latestJob =
+      [...recentJobs].sort((a, b) => {
+
+        const dateA =
+          new Date(a.created_at || a.createdAt);
+
+        const dateB =
+          new Date(b.created_at || b.createdAt);
+
+        return dateB - dateA;
+
+      })[0];
+
+
     console.log(
-  "FEATURED DEBUG:",
-  localStorage.getItem("siteLanguage"),
-  latestJob
-);
+      "FEATURED DEBUG:",
+      language,
+      latestJob
+    );
+
+
+    // =====================================================
+    // JIKA TIDAK ADA LOWONGAN TERBARU
+    // =====================================================
+
     if (!latestJob) {
-  featuredJob.innerHTML = `
-    <div style="text-align:center;padding:30px 15px;">
-      <div style="font-size:42px;margin-bottom:10px;">🔎</div>
-      <h3 style="margin:0 0 8px;">
-        ${localStorage.getItem("siteLanguage") === "en"
-          ? "No Recent Jobs"
-          : "Belum Ada Lowongan Terbaru"}
-      </h3>
-      <p style="margin:0;color:#64748b;">
-        ${localStorage.getItem("siteLanguage") === "en"
-          ? "There are no jobs posted within the last month."
-          : "Belum ada lowongan yang dipasang dalam 1 bulan terakhir."}
-      </p>
-       </div>
-       `;
-      } else {
 
-    featuredJob.innerHTML = `
-      <div class="featured-job-card" style="
-        background:linear-gradient(145deg,#123b6d 0%,#0b2b50 100%);
-        color:#fff;
-        border-radius:22px;
-        padding:24px;
-        text-align:left;
-        box-shadow:0 14px 35px rgba(18,59,109,.28);
-        border:1px solid rgba(255,255,255,.12);
-        position:relative;
-        overflow:hidden;
-      ">
-        <div style="
-          position:absolute;
-          width:150px;
-          height:150px;
-          border-radius:50%;
-          background:rgba(255,255,255,.06);
-          right:-65px;
-          top:-65px;
-        "></div>
+      featuredJob.innerHTML = `
+        <div style="text-align:center;padding:30px 15px;">
 
-        <div style="
-          position:relative;
-          z-index:1;
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          gap:10px;
-          margin-bottom:20px;
-        ">
-          <span style="
-            background:rgba(255,255,255,.14);
-            padding:7px 11px;
-            border-radius:999px;
-            font-size:11px;
-            font-weight:700;
-            letter-spacing:.5px;
-          ">
-            ✦ ${localStorage.getItem("siteLanguage") === "en"
-              ? "LATEST JOB"
-              : "LOWONGAN TERBARU"}
-          </span>
+          <div style="font-size:42px;margin-bottom:10px;">
+            🔎
+          </div>
 
-          <span style="
-            background:rgba(255,255,255,.09);
-            padding:7px 10px;
-            border-radius:999px;
-            font-size:11px;
-            color:#dbeafe;
-          ">
-            ${latestJob.type || "Full-time"}
-          </span>
-        </div>
-
-        <div style="
-          position:relative;
-          z-index:1;
-          width:56px;
-          height:56px;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          border-radius:16px;
-          background:rgba(255,255,255,.13);
-          font-size:24px;
-          margin-bottom:15px;
-        ">
-          ${latestJob.initials || "💼"}
-        </div>
-
-        <div style="position:relative;z-index:1;">
-
-          <h3 style="
-            margin:0 0 6px;
-            font-size:23px;
-            line-height:1.25;
-            color:#fff;
-          ">
-          ${latestJob.title}
+          <h3 style="margin:0 0 8px;">
+            ${
+              language === "en"
+                ? "No Recent Jobs"
+                : "Belum Ada Lowongan Terbaru"
+            }
           </h3>
 
-          <p style="
-            margin:0 0 16px;
-            font-size:14px;
-            font-weight:600;
-            color:rgba(255,255,255,.78);
-          ">
-           ${
-             localStorage.getItem("siteLanguage") === "en"
-             ? (window.jobTranslationCache?.get(latestJob.id)?.company || latestJob.company)
-             : latestJob.company
-             }
+          <p style="margin:0;color:#64748b;">
+            ${
+              language === "en"
+                ? "There are no jobs posted within the last month."
+                : "Belum ada lowongan yang dipasang dalam 1 bulan terakhir."
+            }
           </p>
+
+        </div>
+      `;
+
+    } else {
+
+
+      // =====================================================
+      // KARTU BIRU
+      // latestJob SUDAH berasal dari displayJobs
+      // Jadi ID dan EN selalu mengikuti daftar bawah
+      // =====================================================
+
+      featuredJob.innerHTML = `
+        <div class="featured-job-card" style="
+          background:linear-gradient(
+            145deg,
+            #123b6d 0%,
+            #0b2b50 100%
+          );
+          color:#fff;
+          border-radius:22px;
+          padding:24px;
+          text-align:left;
+          box-shadow:0 14px 35px rgba(18,59,109,.28);
+          border:1px solid rgba(255,255,255,.12);
+          position:relative;
+          overflow:hidden;
+        ">
+
           <div style="
+            position:absolute;
+            width:150px;
+            height:150px;
+            border-radius:50%;
+            background:rgba(255,255,255,.06);
+            right:-65px;
+            top:-65px;
+          "></div>
+
+
+          <div style="
+            position:relative;
+            z-index:1;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+            margin-bottom:20px;
+          ">
+
+            <span style="
+              background:rgba(255,255,255,.14);
+              padding:7px 11px;
+              border-radius:999px;
+              font-size:11px;
+              font-weight:700;
+              letter-spacing:.5px;
+            ">
+              ✦ ${
+                language === "en"
+                  ? "LATEST JOB"
+                  : "LOWONGAN TERBARU"
+              }
+            </span>
+
+
+            <span style="
+              background:rgba(255,255,255,.09);
+              padding:7px 10px;
+              border-radius:999px;
+              font-size:11px;
+              color:#dbeafe;
+            ">
+              ${latestJob.type || "Full-time"}
+            </span>
+
+          </div>
+
+
+          <div style="
+            position:relative;
+            z-index:1;
+            width:56px;
+            height:56px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:16px;
+            background:rgba(255,255,255,.13);
+            font-size:24px;
+            margin-bottom:15px;
+          ">
+            ${latestJob.initials || "💼"}
+          </div>
+
+
+          <div style="
+            position:relative;
+            z-index:1;
+          ">
+
+            <h3 style="
+              margin:0 0 6px;
+              font-size:23px;
+              line-height:1.25;
+              color:#fff;
+            ">
+              ${latestJob.title || ""}
+            </h3>
+
+
+            <p style="
+              margin:0 0 16px;
+              font-size:14px;
+              font-weight:600;
+              color:rgba(255,255,255,.78);
+            ">
+              ${latestJob.company || ""}
+            </p>
+
+
+            <div style="
               font-size:12px;
               color:rgba(255,255,255,.65);
               margin-bottom:14px;
-              ">
-              ${latestJob.created_at
-              ? (
-              localStorage.getItem("siteLanguage") === "en"
-          ? `Posted ${new Date(latestJob.created_at).toLocaleString("en-US", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}`
-          : `Diposting ${new Date(latestJob.created_at).toLocaleString("id-ID", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}`
-              )
-            : ""}
-          </div>
-
-          <div style="
-            display:flex;
-            flex-wrap:wrap;
-            gap:7px;
-            margin-bottom:14px;
-          ">
-            <span style="
-              background:rgba(255,255,255,.09);
-              padding:7px 9px;
-              border-radius:8px;
-              font-size:12px;
-              color:#e8f1fb;
             ">
-            📍 ${
-                localStorage.getItem("siteLanguage") === "en"
-                ? (window.jobTranslationCache?.get(latestJob.id)?.location || latestJob.location)
-                : latestJob.location
-                 }
-            </span>
+              ${
+                latestJob.created_at
+                  ? (
+                      language === "en"
 
-            <span style="
-              background:rgba(255,255,255,.09);
-              padding:7px 9px;
-              border-radius:8px;
-              font-size:12px;
-              color:#e8f1fb;
-            ">
-           ▣ ${
-               localStorage.getItem("siteLanguage") === "en"
-               ? (window.jobTranslationCache?.get(latestJob.id)?.category || latestJob.category)
-                : latestJob.category
-                }
-            </span>
-          </div>
+                        ? `Posted ${new Date(
+                            latestJob.created_at
+                          ).toLocaleString(
+                            "en-US",
+                            {
+                              day:"numeric",
+                              month:"long",
+                              year:"numeric",
+                              hour:"2-digit",
+                              minute:"2-digit"
+                            }
+                          )}`
 
-          <div style="
-            font-size:14px;
-            font-weight:700;
-            color:#fff;
-            margin-bottom:12px;
-          ">
-            💰 ${latestJob.salary ||
-              (localStorage.getItem("siteLanguage") === "en"
-                ? "Salary according to company policy"
-                : "Gaji sesuai ketentuan perusahaan")}
-          </div>
+                        : `Diposting ${new Date(
+                            latestJob.created_at
+                          ).toLocaleString(
+                            "id-ID",
+                            {
+                              day:"numeric",
+                              month:"long",
+                              year:"numeric",
+                              hour:"2-digit",
+                              minute:"2-digit"
+                            }
+                          )}`
+                    )
 
-          <p style="
-            margin:0 0 20px;
-            font-size:13px;
-            line-height:1.65;
-            color:rgba(255,255,255,.72);
-            display:-webkit-box;
-            -webkit-line-clamp:3;
-            -webkit-box-orient:vertical;
-            overflow:hidden;
-          ">
-         ${
-           localStorage.getItem("siteLanguage") === "en"
-            ? (
-            window.jobTranslationCache?.get(latestJob.id)?.description ||
-            latestJob.description ||
-            "Discover this career opportunity and join this company."
-            )
-           : (
-            latestJob.description ||
-             "Temukan peluang karier ini dan bergabung bersama perusahaan."
-             )
-             }
-          </p>
-
-          <div style="display:flex;gap:9px;">
-
-            <button
-              type="button"
-              class="featured-details-btn"
-             data-details="${jobs.indexOf(latestJob)}"
-              style="
-                flex:1;
-                min-height:44px;
-                border-radius:11px;
-                border:1px solid rgba(255,255,255,.22);
-                background:rgba(255,255,255,.10);
-                color:#fff;
-                font-size:13px;
-                font-weight:700;
-                cursor:pointer;
-              "
-            >
-            ${
-              localStorage.getItem("siteLanguage") === "en"
-               ? "View Details"
-                : "Lihat Detail"
+                  : ""
               }
-            </button>
+            </div>
 
-            <button
-              type="button"
-              class="featured-apply-btn"
-              data-apply="${jobs.indexOf(latestJob)}"
-              style="
-                flex:1;
-                min-height:44px;
-                border-radius:11px;
-                border:1px solid #fff;
-                background:#fff;
-                color:#123b6d;
-                font-size:13px;
-                font-weight:700;
-                cursor:pointer;
-              "
-            >
-         ${
-           localStorage.getItem("siteLanguage") === "en"
-           ? "Apply →"
-           : "Lamar →"
-            }
-            </button>
+
+            <div style="
+              display:flex;
+              flex-wrap:wrap;
+              gap:7px;
+              margin-bottom:14px;
+            ">
+
+              <span style="
+                background:rgba(255,255,255,.09);
+                padding:7px 9px;
+                border-radius:8px;
+                font-size:12px;
+                color:#e8f1fb;
+              ">
+                📍 ${latestJob.location || ""}
+              </span>
+
+
+              <span style="
+                background:rgba(255,255,255,.09);
+                padding:7px 9px;
+                border-radius:8px;
+                font-size:12px;
+                color:#e8f1fb;
+              ">
+                ▣ ${latestJob.category || ""}
+              </span>
+
+            </div>
+
+
+            <div style="
+              font-size:14px;
+              font-weight:700;
+              color:#fff;
+              margin-bottom:12px;
+            ">
+              💰 ${
+                latestJob.salary ||
+                (
+                  language === "en"
+                    ? "Salary according to company policy"
+                    : "Gaji sesuai ketentuan perusahaan"
+                )
+              }
+            </div>
+
+
+            <p style="
+              margin:0 0 20px;
+              font-size:13px;
+              line-height:1.65;
+              color:rgba(255,255,255,.72);
+              display:-webkit-box;
+              -webkit-line-clamp:3;
+              -webkit-box-orient:vertical;
+              overflow:hidden;
+            ">
+              ${
+                latestJob.description ||
+                (
+                  language === "en"
+                    ? "Discover this career opportunity and join this company."
+                    : "Temukan peluang karier ini dan bergabung bersama perusahaan."
+                )
+              }
+            </p>
+
+
+            <div style="
+              display:flex;
+              gap:9px;
+            ">
+
+              <button
+                type="button"
+                class="featured-details-btn"
+                data-details="${jobs.findIndex(
+                  job => job.id === latestJob.id
+                )}"
+                style="
+                  flex:1;
+                  min-height:44px;
+                  border-radius:11px;
+                  border:1px solid rgba(255,255,255,.22);
+                  background:rgba(255,255,255,.10);
+                  color:#fff;
+                  font-size:13px;
+                  font-weight:700;
+                  cursor:pointer;
+                "
+              >
+                ${
+                  language === "en"
+                    ? "View Details"
+                    : "Lihat Detail"
+                }
+              </button>
+
+
+              <button
+                type="button"
+                class="featured-apply-btn"
+                data-apply="${jobs.findIndex(
+                  job => job.id === latestJob.id
+                )}"
+                style="
+                  flex:1;
+                  min-height:44px;
+                  border-radius:11px;
+                  border:1px solid #fff;
+                  background:#fff;
+                  color:#123b6d;
+                  font-size:13px;
+                  font-weight:700;
+                  cursor:pointer;
+                "
+              >
+                ${
+                  language === "en"
+                    ? "Apply →"
+                    : "Lamar →"
+                }
+              </button>
+
+            </div>
 
           </div>
 
         </div>
-      </div>
       `;
-  }
-}
-}
 
+    }
+
+  }
+
+}
 console.log("LOWONGAN DARI DATABASE:", jobs);
     
   } catch (error) {
