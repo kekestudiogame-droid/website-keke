@@ -6742,12 +6742,17 @@ async function showCompanyDashboard() {
         box-shadow:0 3px 12px rgba(0,0,0,.15);
       ">
         <div>
-         <div style="
-          font-size:24px;
-          font-weight:bold;
-          ">
-          Kerjiva
-         </div>
+       <img
+         src="kerjiva.png"
+         alt="Kerjiva"
+         style="
+         width:230px;
+         height:auto;
+         display:block;
+         background:#fff;
+         border-radius:6px;
+         "
+        >
         <div style="
          font-size:13px;
          opacity:.85;
