@@ -446,12 +446,12 @@ async function loadNotifications() {
 
   if (!list) return;
 
-  const userData =
-    localStorage.getItem("cariKerjakuUser");
-
-  const accessToken =
-    localStorage.getItem("cariKerjakuAccessToken");
-
+     const userData =
+       localStorage.getItem("kerjivaUser");
+  
+const accessToken =
+  localStorage.getItem("kerjivaAccessToken");
+  
   if (!userData || !accessToken) {
 
     list.innerHTML = `
