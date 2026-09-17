@@ -6599,7 +6599,7 @@ async function deleteInterview(interviewId) {
 
   try {
 
-    const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+ const accessToken = localStorage.getItem("kerjivaAccessToken");
 
     if (!accessToken) {
       alert(
@@ -10472,8 +10472,7 @@ ${localStorage.getItem("siteLanguage") === "en" ? "Reject Applicant" : "Tolak Pe
 }
 async function viewApplicantDocument(filePath, documentName) {
   console.log("FILE PATH YANG DIMINTA:", filePath);
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
+const accessToken = localStorage.getItem("kerjivaAccessToken");
   if (!accessToken) {
     showNotification("companySessionNotFound");
     return;
