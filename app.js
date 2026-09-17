@@ -3013,15 +3013,15 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
       document.querySelector("#switchAuth").textContent = "Daftar";
 
     } else {
-      localStorage.setItem(
-        "cariKerjakuAccessToken",
+    localStorage.setItem(
+       "kerjivaAccessToken",
         data.access_token || ""
-      );
+        );
 
-      localStorage.setItem(
-        "cariKerjakuUser",
-        JSON.stringify(data.user || {})
-      );
+     localStorage.setItem(
+        "kerjivaUser",
+         JSON.stringify(data.user || {})
+         );
 
      if (isCompany) {
   const companyResponse = await fetch(`${SUPABASE_URL}companies`, {
@@ -6220,10 +6220,9 @@ status.textContent = "CV berhasil diupload.";
 }
 // ================= LAMARAN SAYA =================
 async function showMyApplications() {
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const language = localStorage.getItem("siteLanguage") || "id";
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
+ const userData = localStorage.getItem("kerjivaUser");
+ const language = localStorage.getItem("siteLanguage") || "id";
+ const accessToken = localStorage.getItem("kerjivaAccessToken");
 if (!userData || !accessToken) {
   showNotification("loginRequired");
   return;
@@ -6383,8 +6382,8 @@ if (!userData || !accessToken) {
 // ================= UNDANGAN INTERVIEW =================
 
 async function loadInterviewInvitations() {
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  const userData = localStorage.getItem("kerjivaUser");
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
     return;
