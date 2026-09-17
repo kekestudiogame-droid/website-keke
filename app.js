@@ -1190,7 +1190,7 @@ if (
         color:#94a3b8;
         margin-bottom:10px;
       ">
-        ADVERTISEMENT
+      ADVERTISEMENT — SLOT 2
       </div>
 
       <div style="
@@ -1206,7 +1206,7 @@ if (
         color:#94a3b8;
         font-size:14px;
       ">
-        Ruang Iklan Kerjiva
+     Ruang Iklan Kerjiva — HASIL PENCARIAN
       </div>
     `;
 
