@@ -74,7 +74,7 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
-      <!-- PROMO PASANG LOKER -->
+    <!-- PROMO PASANG LOKER -->
 <div style="
   margin-top:-50px;
   margin-left:auto;
@@ -88,50 +88,120 @@
   overflow:hidden;
 ">
 
+  <!-- PASANG LOKER -->
   <div style="
     font-size:24px;
     font-weight:900;
     letter-spacing:1px;
     color:#123b6d;
     text-transform:uppercase;
-    text-shadow:0 0 10px rgba(37,99,235,.18);
     position:relative;
     overflow:hidden;
+    text-shadow:
+      0 0 4px rgba(37,99,235,.15),
+      0 0 12px rgba(37,99,235,.12);
+    animation:kerjivaTextGlow 3s ease-in-out infinite;
   ">
+
     PASANG LOKER
 
+    <!-- Kilatan cahaya -->
     <span style="
       position:absolute;
-      top:0;
-      left:-80px;
-      width:45px;
-      height:100%;
+      top:-10%;
+      left:-70px;
+      width:38px;
+      height:120%;
       background:linear-gradient(
         90deg,
         transparent,
-        rgba(255,255,255,.85),
+        rgba(255,255,255,.95),
         transparent
       );
       transform:skewX(-20deg);
-      animation:kerjivaLightSweep 3.5s ease-in-out infinite;
+      animation:kerjivaLightSweep 3s ease-in-out infinite;
+      pointer-events:none;
     "></span>
+
   </div>
 
+  <!-- GRATIS -->
   <div style="
     margin-top:6px;
-    font-size:17px;
-    font-weight:800;
-    letter-spacing:2px;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:2.5px;
     color:#f97316;
+    text-transform:uppercase;
     text-shadow:
-      0 0 6px rgba(249,115,22,.35),
-      0 0 14px rgba(249,115,22,.18);
+      0 0 5px rgba(249,115,22,.35),
+      0 0 12px rgba(249,115,22,.28),
+      0 0 20px rgba(249,115,22,.15);
+    animation:kerjivaGratisPulse 1.8s ease-in-out infinite;
   ">
     GRATIS
   </div>
 
 </div>
-    
+
+<style>
+@keyframes kerjivaLightSweep {
+  0% {
+    left:-70px;
+    opacity:0;
+  }
+
+  15% {
+    opacity:1;
+  }
+
+  55% {
+    left:calc(100% + 20px);
+    opacity:1;
+  }
+
+  70% {
+    left:calc(100% + 20px);
+    opacity:0;
+  }
+
+  100% {
+    left:calc(100% + 20px);
+    opacity:0;
+  }
+}
+
+@keyframes kerjivaTextGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 4px rgba(37,99,235,.12),
+      0 0 10px rgba(37,99,235,.08);
+  }
+
+  50% {
+    text-shadow:
+      0 0 6px rgba(37,99,235,.25),
+      0 0 16px rgba(37,99,235,.18);
+  }
+}
+
+@keyframes kerjivaGratisPulse {
+  0%, 100% {
+    transform:scale(1);
+    text-shadow:
+      0 0 5px rgba(249,115,22,.30),
+      0 0 12px rgba(249,115,22,.20);
+  }
+
+  50% {
+    transform:scale(1.06);
+    text-shadow:
+      0 0 7px rgba(249,115,22,.55),
+      0 0 18px rgba(249,115,22,.38),
+      0 0 28px rgba(249,115,22,.18);
+  }
+}
+</style>
 <p class="eyebrow" data-i18n="heroEyebrow">PLATFORM KARIER INDONESIA</p>
 
 <h1 data-i18n="heroTitle">
