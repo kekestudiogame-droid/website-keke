@@ -9143,6 +9143,35 @@ async function publishNewJob() {
   }
 
   const user = JSON.parse(userData);
+  // =====================================================
+// AMBIL NAMA PERUSAHAAN DARI PROFIL PERUSAHAAN
+// =====================================================
+
+const companyResponse = await fetch(
+  `${SUPABASE_URL}companies?user_id=eq.${user.id}&select=company_name`,
+  {
+    method: "GET",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${accessToken}`
+    }
+  }
+);
+
+if (!companyResponse.ok) {
+  throw new Error("Gagal mengambil profil perusahaan.");
+}
+
+const companyData = await companyResponse.json();
+
+const companyName =
+  companyData[0]?.company_name?.trim() || "";
+
+if (!companyName) {
+  throw new Error(
+    "Nama perusahaan belum tersedia di Profil Perusahaan."
+  );
+}
 
   const language = localStorage.getItem("siteLanguage") || "id";
 
@@ -9170,6 +9199,7 @@ async function publishNewJob() {
           city,
           description,
           user_id: user.id,
+          company_name: companyName,
           category,
           job_type: jobType,
           salary,
