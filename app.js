@@ -8324,96 +8324,112 @@ async function showMyJobs() {
                   </p>
                 </div>
               `
-              : jobs.map(job => `
-                <div style="
-                  background:white;
-                  padding:22px;
-                  margin-bottom:16px;
-                  border-radius:14px;
-                  border:1px solid #e5eaf1;
-                ">
+             : jobs.map(job => {
 
-                  <h2 style="
-                    margin:0;
-                    color:#123b6d;
-                  ">
-                    ${job.title || "Tanpa Judul"}
-                  </h2>
+    const language = localStorage.getItem("siteLanguage") || "id";
 
-                  <div style="
-                    margin-top:10px;
-                    color:#64748b;
-                  ">
-                    📍 ${job.city || "-"}
-                  </div>
+    const displayTitle =
+      language === "en"
+        ? (job.title_en || job.title || "Untitled Job")
+        : (job.title || "Tanpa Judul");
 
-                  <p style="
-                    margin-top:14px;
-                    color:#475569;
-                  ">
-                    ${job.description || "-"}
-                  </p>
-                <div style="
-  display:flex;
-  gap:10px;
-  margin-top:18px;
-  flex-wrap:wrap;
-">
+    const displayDescription =
+      language === "en"
+        ? (job.description_en || job.description || "-")
+        : (job.description || "-");
 
-  <button
-    onclick="editMyJob('${job.id}')"
-    style="
-      padding:10px 18px;
-      background:#123b6d;
-      color:white;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:bold;
-    "
-  >
-    ✏️ Edit
-  </button>
+    return `
+      <div style="
+        background:white;
+        padding:22px;
+        margin-bottom:16px;
+        border-radius:14px;
+        border:1px solid #e5eaf1;
+      ">
 
-  ${
-    job.status === "draft"
-      ? `
-        <button
-          onclick="publishMyJob('${job.id}')"
-          style="
-            padding:10px 18px;
-            background:#16805c;
-            color:white;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-            font-weight:bold;
-          "
-        >
-          🚀 Kirim
-        </button>
-      `
-      : ""
-  }
+        <h2 style="
+          margin:0;
+          color:#123b6d;
+        ">
+          ${displayTitle}
+        </h2>
 
-             <button
-              onclick="deleteMyJob('${job.id}')"
-              style="
+        <div style="
+          margin-top:10px;
+          color:#64748b;
+        ">
+          📍 ${job.city || "-"}
+        </div>
+
+        <p style="
+          margin-top:14px;
+          color:#475569;
+        ">
+          ${displayDescription}
+        </p>
+
+        <div style="
+          display:flex;
+          gap:10px;
+          margin-top:18px;
+          flex-wrap:wrap;
+        ">
+
+          <button
+            onclick="editMyJob('${job.id}')"
+            style="
+              padding:10px 18px;
+              background:#123b6d;
+              color:white;
+              border:none;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            ✏️ Edit
+          </button>
+
+          ${
+            job.status === "draft"
+              ? `
+                <button
+                  onclick="publishMyJob('${job.id}')"
+                  style="
+                    padding:10px 18px;
+                    background:#16805c;
+                    color:white;
+                    border:none;
+                    border-radius:8px;
+                    cursor:pointer;
+                    font-weight:bold;
+                  "
+                >
+                  🚀 Kirim
+                </button>
+              `
+              : ""
+          }
+
+          <button
+            onclick="deleteMyJob('${job.id}')"
+            style="
               padding:10px 18px;
               background:#dc2626;
-               color:white;
-               border:none;
-               border-radius:8px;
-               cursor:pointer;
-               font-weight:bold;
-               "
-               >
-                  🗑️ Hapus
-                </button>
+              color:white;
+              border:none;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            🗑️ Hapus
+          </button>
 
-                </div>
-                </div>
-              `).join("")
+        </div>
+      </div>
+    `;
+  }).join("")
           }
 
         </div>
