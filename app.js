@@ -2133,9 +2133,9 @@ function openModal(title, text){
 }
 
 async function submitApplication(job){
-const accessToken = localStorage.getItem("cariKerjakuAccessToken"); 
+const accessToken = localStorage.getItem("kerjivaAccessToken");
 
-  const userData = localStorage.getItem("cariKerjakuUser");
+const userData = localStorage.getItem("kerjivaUser");
 
   if (!accessToken || !userData) {
     openModal(
@@ -2152,8 +2152,8 @@ const accessToken = localStorage.getItem("cariKerjakuAccessToken");
   try {
     user = JSON.parse(userData);
   } catch {
-    localStorage.removeItem("cariKerjakuUser");
-    localStorage.removeItem("cariKerjakuAccessToken");
+  localStorage.removeItem("kerjivaUser");
+  localStorage.removeItem("kerjivaAccessToken");
 
     openModal(
       "Masuk",
@@ -2855,8 +2855,8 @@ if (menuLogout) {
       console.error("Logout error:", error);
     }
 
-    localStorage.removeItem("cariKerjakuUser");
-    localStorage.removeItem("cariKerjakuAccessToken");
+ localStorage.removeItem("kerjivaUser");
+ localStorage.removeItem("kerjivaAccessToken");
 
     window.location.reload();
   });
@@ -3071,8 +3071,8 @@ showNotification("loginSuccess");
   async function showJobseekerDashboard() {
   const language = localStorage.getItem("siteLanguage") || "id";
 
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+const userData = localStorage.getItem("kerjivaUser");
+const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
     alert(
@@ -3927,8 +3927,8 @@ if (uploadWorkLetterBtn && workLetterFileInput && workLetterStatus) {
       return;
     }
 
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
+  const token = localStorage.getItem("kerjivaAccessToken");
+  const userData = localStorage.getItem("kerjivaUser");
 
     if (!token || !userData) {
       workLetterStatus.textContent =
@@ -4204,8 +4204,8 @@ if (uploadEducationBtn && educationFileInput && educationStatus) {
       return;
     }
 
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
+      const token = localStorage.getItem("kerjivaAccessToken");
+      const userData = localStorage.getItem("kerjivaUser");
 
     if (!token || !userData) {
       educationStatus.textContent =
@@ -4487,8 +4487,8 @@ if (uploadOtherDocumentBtn && otherDocumentFileInput && otherDocumentStatus) {
       return;
     }
 
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
+ const token = localStorage.getItem("kerjivaAccessToken");
+ const userData = localStorage.getItem("kerjivaUser");
 
     if (!token || !userData) {
       otherDocumentStatus.textContent =
@@ -4770,8 +4770,8 @@ if (uploadKtpBtn && ktpFileInput && ktpStatus) {
       return;
     }
 
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
+   const token = localStorage.getItem("kerjivaAccessToken");
+   const userData = localStorage.getItem("kerjivaUser");
 
     if (!token || !userData) {
       ktpStatus.textContent =
@@ -5050,8 +5050,8 @@ if (uploadSimABtn && simAFileInput && simAStatus) {
       return;
     }
 
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
+  const token = localStorage.getItem("kerjivaAccessToken");
+  const userData = localStorage.getItem("kerjivaUser");
 
     if (!token || !userData) {
       simAStatus.textContent =
@@ -5191,8 +5191,8 @@ if (uploadSimCBtn && simCFileInput && simCStatus) {
       return;
     }
 
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
+  const token = localStorage.getItem("kerjivaAccessToken");
+  const userData = localStorage.getItem("kerjivaUser");
 
     if (!token || !userData) {
       simCStatus.textContent =
@@ -5608,9 +5608,9 @@ if (uploadResumeBtn && resumeFileInput && resumeStatus) {
       return;
     }
 
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
-
+   const token = localStorage.getItem("kerjivaAccessToken");
+   const userData = localStorage.getItem("kerjivaUser");
+    
     if (!token || !userData) {
       resumeStatus.textContent =
         currentLanguage === "en"
@@ -6051,8 +6051,8 @@ ${
   status.textContent = "Ukuran CV maksimal 5 MB.";
   return;
     }
-    const token = localStorage.getItem("cariKerjakuAccessToken");
-    const userData = localStorage.getItem("cariKerjakuUser");
+    const token = localStorage.getItem("kerjivaAccessToken");
+    const userData = localStorage.getItem("kerjivaUser");
 
     if (!token || !userData) {
       status.textContent = "Silakan login terlebih dahulu.";
@@ -7007,6 +7007,7 @@ async function showCompanyDashboard() {
 
  document.body.innerHTML = "";
  document.body.appendChild(dashboard);
+  
  translateCompanyDashboard();
 const companyHeaderName = document.getElementById("companyHeaderName");
 const userDataHeader = localStorage.getItem("cariKerjakuUser");
@@ -7040,9 +7041,9 @@ if (companyHeaderName && userDataHeader && accessTokenHeader) {
     console.error("Gagal mengambil nama perusahaan:", error);
   }
 }
-    const userData = localStorage.getItem("cariKerjakuUser");
-    const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
+  const userData = localStorage.getItem("kerjivaUser");
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
+  
     if (userData && accessToken) {
      try {
     const user = JSON.parse(userData);
@@ -7114,8 +7115,9 @@ const displayDate = date
   );
   return;
 }
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  
+const userData = localStorage.getItem("kerjivaUser");
+const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
    showNotification("companySessionNotFound");
@@ -7349,6 +7351,7 @@ function confirmAcceptApplicant(userId) {
 }
   async function rejectApplicant(userId, jobId) {
   const confirmReject = confirm(
+    
   localStorage.getItem("siteLanguage") === "en"
     ? "Are you sure you want to reject this applicant?"
     : "Apakah Anda yakin ingin menolak pelamar ini?"
@@ -7377,8 +7380,8 @@ function confirmAcceptApplicant(userId) {
   return;
 }
 
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+   const userData = localStorage.getItem("kerjivaUser");
+   const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
    showNotification("companySessionNotFound");
@@ -7464,6 +7467,7 @@ function confirmAcceptApplicant(userId) {
   } catch (error) {
     console.error("Gagal menolak pelamar:", error);
   alert(
+    
   localStorage.getItem("siteLanguage") === "en"
     ? "Failed to reject applicant."
     : "Gagal menolak pelamar."
@@ -7473,8 +7477,8 @@ function confirmAcceptApplicant(userId) {
 // ================= PROFIL PERUSAHAAN =================
 
 async function showCompanyProfile() {
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+const userData = localStorage.getItem("kerjivaUser");
+const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
   showNotification("companySessionNotFound");
@@ -7732,8 +7736,8 @@ if (window.setLanguage) {
 // ================= EDIT PROFIL PERUSAHAAN =================
 
 async function editCompanyProfile() {
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+const userData = localStorage.getItem("kerjivaUser");
+const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
     showNotification("companySessionNotFound");
@@ -8012,8 +8016,8 @@ async function editCompanyProfile() {
 
 async function saveCompanyProfile(companyId) {
 
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+ const userData = localStorage.getItem("kerjivaUser");
+ const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
     showNotification("companySessionNotFound");
@@ -8095,9 +8099,9 @@ const response = await fetch(
 // ================= LOWONGAN SAYA =================
 
 async function showMyJobs() {
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
+  const userData = localStorage.getItem("kerjivaUser");
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
+  
   if (!userData || !accessToken) {
   showNotification("companySessionNotFound");
     return;
@@ -8345,7 +8349,7 @@ if (myJobsBrand) {
 }
 
 async function publishMyJob(jobId) {
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!accessToken) {
     showNotification("companySessionNotFound");
@@ -8401,7 +8405,7 @@ async function publishMyJob(jobId) {
 
 window.publishMyJob = publishMyJob;
 async function editMyJob(jobId) {
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!accessToken) {
     showNotification("companySessionNotFound");
@@ -8627,7 +8631,7 @@ async function editMyJob(jobId) {
 }
 
 async function saveEditedJob(jobId) {
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!accessToken) {
     showNotification("companySessionNotFound");
@@ -8717,8 +8721,9 @@ async function saveEditedJob(jobId) {
 
 window.editMyJob = editMyJob;
 window.saveEditedJob = saveEditedJob;
+
 async function deleteMyJob(jobId) {
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+ const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!accessToken) {
     showNotification("companySessionNotFound");
@@ -8911,14 +8916,14 @@ function translateMyJobs(page) {
   });
 }
 function companyLogout() {
-  localStorage.removeItem("cariKerjakuUser");
-  localStorage.removeItem("cariKerjakuAccessToken");
+localStorage.removeItem("kerjivaUser");
+localStorage.removeItem("kerjivaAccessToken");
   location.reload();
 }
 
 function showPostJobForm() {
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+   const userData = localStorage.getItem("kerjivaUser");
+   const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
     showNotification("companySessionNotFound");
@@ -9134,8 +9139,8 @@ async function publishNewJob() {
     return;
   }
 
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+ const userData = localStorage.getItem("kerjivaUser");
+ const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
     showNotification("companySessionNotFound");
@@ -9406,8 +9411,8 @@ async function submitJobPost() {
     return;
   }
 
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+    const userData = localStorage.getItem("kerjivaUser");
+    const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!userData || !accessToken) {
     showNotification("companySessionNotFound");
@@ -9795,9 +9800,8 @@ if (document.readyState === "loading") {
 
 }
 async function showIncomingApplications() {
-  const userData = localStorage.getItem("cariKerjakuUser");
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
+ const userData = localStorage.getItem("kerjivaUser");
+ const accessToken = localStorage.getItem("kerjivaAccessToken");
   if (!userData || !accessToken) {
     showNotification("companySessionNotFound");
     return;
@@ -10035,7 +10039,7 @@ for (const app of myApplications) {
 // ================= DETAIL PROFIL PELAMAR =================
 
   async function showApplicantDetail(userId, jobId, applicationId) {
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
+    const accessToken = localStorage.getItem("kerjivaAccessToken");
 
   if (!accessToken) {
    showNotification("companySessionNotFound");
@@ -10530,10 +10534,9 @@ async function viewApplicantDocument(filePath, documentName) {
 // ================= PROFIL DIRI PENCARI KERJA =================
 
 async function showJobseekerProfile() {
-  const userData = localStorage.getItem("cariKerjakuUser");
+  const userData = localStorage.getItem("kerjivaUser");
   const language = localStorage.getItem("siteLanguage") || "id";
-  const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
   if (!userData) {
     alert(
       language === "en"
@@ -11071,8 +11074,7 @@ if (cvDisplay) {
   if (saveButton) {
     saveButton.addEventListener("click", async () => {
 
-      const accessToken = localStorage.getItem("cariKerjakuAccessToken");
-
+     const accessToken = localStorage.getItem("kerjivaAccessToken");
       if (!accessToken) {
         alert(
           language === "en"
