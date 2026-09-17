@@ -529,7 +529,7 @@ footer{border-top:1px solid var(--line)}
   max-width: 100%;
   text-align: center;
 
-  animation: kerjivaPromoFade 4s ease-in-out infinite;
+ animation: kerjivaPromoFade 3s ease-in-out infinite;
 }
 
 .kerjiva-promo-title {
