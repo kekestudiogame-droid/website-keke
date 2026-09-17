@@ -7008,9 +7008,10 @@ async function showCompanyDashboard() {
  document.body.appendChild(dashboard);
   
  translateCompanyDashboard();
+  
 const companyHeaderName = document.getElementById("companyHeaderName");
-const userDataHeader = localStorage.getItem("cariKerjakuUser");
-const accessTokenHeader = localStorage.getItem("cariKerjakuAccessToken");
+  const userDataHeader = localStorage.getItem("kerjivaUser");
+  const accessTokenHeader = localStorage.getItem("kerjivaAccessToken");
 
 if (companyHeaderName && userDataHeader && accessTokenHeader) {
   try {
