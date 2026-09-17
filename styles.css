@@ -514,3 +514,140 @@ footer{border-top:1px solid var(--line)}
     width: 100%;
   }
 }
+/* ================================
+   PROMO PASANG LOKER GRATIS
+   ================================ */
+
+.kerjiva-promo {
+  margin-top: -50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+  line-height: 1;
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  text-align: center;
+
+  animation: kerjivaPromoFade 4s ease-in-out infinite;
+}
+
+.kerjiva-promo-title {
+  position: relative;
+  overflow: hidden;
+
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #123b6d;
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 6px rgba(37,99,235,.20),
+    0 0 14px rgba(37,99,235,.12);
+
+  animation: kerjivaTextGlow 2.2s ease-in-out infinite;
+}
+
+.kerjiva-promo-free {
+  margin-top: 6px;
+
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: #f97316;
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 6px rgba(249,115,22,.40),
+    0 0 14px rgba(249,115,22,.25),
+    0 0 22px rgba(249,115,22,.15);
+
+  animation: kerjivaGratisGlow 1.8s ease-in-out infinite;
+}
+
+.kerjiva-light {
+  position: absolute;
+  top: 0;
+  left: -70px;
+
+  width: 40px;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.95),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  animation: kerjivaLightSweep 3s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+@keyframes kerjivaPromoFade {
+  0%, 15% {
+    opacity: 0;
+  }
+
+  25%, 65% {
+    opacity: 1;
+  }
+
+  75%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes kerjivaLightSweep {
+  0%, 20% {
+    left: -70px;
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  60% {
+    left: calc(100% + 20px);
+    opacity: 1;
+  }
+
+  70%, 100% {
+    left: calc(100% + 20px);
+    opacity: 0;
+  }
+}
+
+@keyframes kerjivaTextGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 5px rgba(37,99,235,.15),
+      0 0 12px rgba(37,99,235,.10);
+  }
+
+  50% {
+    text-shadow:
+      0 0 7px rgba(37,99,235,.28),
+      0 0 18px rgba(37,99,235,.18);
+  }
+}
+
+@keyframes kerjivaGratisGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(249,115,22,.30),
+      0 0 14px rgba(249,115,22,.18);
+  }
+
+  50% {
+    text-shadow:
+      0 0 8px rgba(249,115,22,.55),
+      0 0 20px rgba(249,115,22,.35),
+      0 0 28px rgba(249,115,22,.18);
+  }
+}
