@@ -1660,11 +1660,32 @@ async function filterJobs() {
         .toLowerCase()
         .includes(q)
     ) &&
-    (
-      !loc ||
-      j.location.toLowerCase().includes(loc) ||
-      (loc === "indonesia" && j.location === "Remote")
-    )
+  (
+  !loc ||
+  (() => {
+    const normalizeLocation = (value) =>
+      (value || "")
+        .toLowerCase()
+        .trim()
+        .replace(/^kabupaten\s+/, "")
+        .replace(/^kota administrasi\s+/, "")
+        .replace(/^kota\s+/, "");
+
+    const normalizedSearchLocation =
+      normalizeLocation(loc);
+
+    const normalizedJobLocation =
+      normalizeLocation(j.location);
+
+    return (
+      normalizedJobLocation.includes(
+        normalizedSearchLocation
+      ) ||
+      (normalizedSearchLocation === "indonesia" &&
+        j.location === "Remote")
+    );
+  })()
+)
   );
 
   hasSearched = true;
