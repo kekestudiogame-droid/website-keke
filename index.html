@@ -488,10 +488,13 @@
  
 <script src="app.js"></script>
   <script>
+<script>
 (function () {
+
   const info = document.createElement("pre");
 
   info.id = "languageDebugInfo";
+
   info.style.cssText = `
     position: fixed;
     left: 10px;
@@ -509,16 +512,25 @@
     overflow: auto;
   `;
 
-  info.textContent =
-    "LANGUAGE DEBUG\n" +
-    "siteLanguage: " +
-    (localStorage.getItem("siteLanguage") || "NULL") +
-    "\nHTML lang: " +
-    document.documentElement.lang +
-    "\nURL: " +
-    location.href;
+  function updateDebug() {
+
+    info.textContent =
+      "LANGUAGE DEBUG\n" +
+      "Bahasa situs : " +
+      (localStorage.getItem("siteLanguage") || "NULL") +
+      "\nBahasa HTML : " +
+      document.documentElement.lang +
+      "\nURL : " +
+      location.href;
+
+  }
 
   document.body.appendChild(info);
+
+  updateDebug();
+
+  setInterval(updateDebug, 300);
+
 })();
 </script>
 
