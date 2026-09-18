@@ -487,6 +487,40 @@
   </div>
  
 <script src="app.js"></script>
+  <script>
+(function () {
+  const info = document.createElement("pre");
+
+  info.id = "languageDebugInfo";
+  info.style.cssText = `
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 999999;
+    background: white;
+    color: black;
+    border: 2px solid black;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    max-height: 45vh;
+    overflow: auto;
+  `;
+
+  info.textContent =
+    "LANGUAGE DEBUG\n" +
+    "siteLanguage: " +
+    (localStorage.getItem("siteLanguage") || "NULL") +
+    "\nHTML lang: " +
+    document.documentElement.lang +
+    "\nURL: " +
+    location.href;
+
+  document.body.appendChild(info);
+})();
+</script>
 
 <style>
   html.language-loading body {
