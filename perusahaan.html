@@ -382,108 +382,194 @@ function translateCompanyPage() {
   document.getElementById("statJobs").textContent = t.activeJobsLabel;
   document.getElementById("statApplications").textContent = t.applications;
 }
+
 async function loadCompanyStats() {
   try {
     const language = localStorage.getItem("siteLanguage") || "id";
-    const t = companyPageTranslations[language] || companyPageTranslations.id;
-    const [jobseekersRes, companiesRes, jobsRes, applicationsRes] = await Promise.all([
-      fetch(`${SUPABASE_URL}jobseeker_profiles?select=id`, {
-        headers: supabaseHeaders
-      }),
+    const t =
+      companyPageTranslations[language] ||
+      companyPageTranslations.id;
 
-      fetch(`${SUPABASE_URL}companies?select=id`, {
-        headers: supabaseHeaders
-      }),
+    const [
+      jobseekersRes,
+      jobsRes,
+      applicationsRes
+    ] = await Promise.all([
+      fetch(
+        `${SUPABASE_URL}jobseeker_profiles?select=id`,
+        {
+          headers: supabaseHeaders
+        }
+      ),
 
-      fetch(`${SUPABASE_URL}jobs?status=eq.published&select=id,company_name,city`, {
-        headers: supabaseHeaders
-      }),
+      fetch(
+        `${SUPABASE_URL}jobs?status=eq.published&select=id,company_name,city,user_id`,
+        {
+          headers: supabaseHeaders
+        }
+      ),
 
-      fetch(`${SUPABASE_URL}applications?select=id`, {
-        headers: supabaseHeaders
-      })
+      fetch(
+        `${SUPABASE_URL}applications?select=id`,
+        {
+          headers: supabaseHeaders
+        }
+      )
     ]);
 
-    if (!jobseekersRes.ok || !companiesRes.ok || !jobsRes.ok || !applicationsRes.ok) {
-      throw new Error("Gagal mengambil data statistik dari Supabase.");
+    if (
+      !jobseekersRes.ok ||
+      !jobsRes.ok ||
+      !applicationsRes.ok
+    ) {
+      throw new Error(
+        "Gagal mengambil data statistik dari Supabase."
+      );
     }
 
     const jobseekers = await jobseekersRes.json();
-    const companies = await companiesRes.json();
     const jobs = await jobsRes.json();
     const applications = await applicationsRes.json();
 
-    // Statistik
-    const statNumbers = document.querySelectorAll(".stat-number");
+    // ==========================================
+    // STATISTIK REALTIME
+    // ==========================================
 
-    if (statNumbers.length >= 4) {
-      statNumbers[0].textContent = jobseekers.length;
-      statNumbers[1].textContent = companies.length;
-      statNumbers[2].textContent = jobs.length;
-      statNumbers[3].textContent = applications.length;
+    const statNumbers =
+      document.querySelectorAll(".stat-number");
+
+    // Pencari Kerja
+    if (statNumbers[0]) {
+      statNumbers[0].textContent =
+        jobseekers.length;
     }
 
-    // Kelompokkan lowongan berdasarkan perusahaan
+    // Perusahaan yang benar-benar memiliki
+    // lowongan aktif/published
+    const companyIds = new Set();
+
+    jobs.forEach(job => {
+      if (job.user_id) {
+        companyIds.add(String(job.user_id));
+      }
+    });
+
+    if (statNumbers[1]) {
+      statNumbers[1].textContent =
+        companyIds.size;
+    }
+
+    // Lowongan Aktif
+    // Tetap menggunakan jumlah jobs published
+    if (statNumbers[2]) {
+      statNumbers[2].textContent =
+        jobs.length;
+    }
+
+    // Total Lamaran
+    if (statNumbers[3]) {
+      statNumbers[3].textContent =
+        applications.length;
+    }
+
+    // ==========================================
+    // DAFTAR PERUSAHAAN YANG MEMBUKA LOWONGAN
+    // ==========================================
+
     const companyMap = {};
 
     jobs.forEach(job => {
-      const name = (job.company_name || "Perusahaan").trim();
+      const name =
+        (job.company_name || "").trim();
 
-      if (!companyMap[name]) {
-        companyMap[name] = {
+      // Jangan tampilkan perusahaan generik
+      // jika nama perusahaan kosong
+      if (!name) {
+        return;
+      }
+
+      const companyKey =
+        job.user_id
+          ? String(job.user_id)
+          : name.toLowerCase();
+
+      if (!companyMap[companyKey]) {
+        companyMap[companyKey] = {
           name: name,
           city: job.city || "",
           jobs: 0
         };
       }
 
-      companyMap[name].jobs++;
+      companyMap[companyKey].jobs++;
     });
 
-    const companyList = Object.values(companyMap);
-    const companiesContainer = document.querySelector(".companies");
+    const companyList =
+      Object.values(companyMap);
 
-    if (!companiesContainer) return;
+    const companiesContainer =
+      document.querySelector(".companies");
+
+    if (!companiesContainer) {
+      return;
+    }
 
     if (companyList.length === 0) {
       companiesContainer.innerHTML = `
         <div class="empty">
-         ${t.empty}
+          ${t.empty}
         </div>
       `;
       return;
     }
 
-    companiesContainer.innerHTML = companyList.map(company => {
-      const initials = company.name
-        .split(/\s+/)
-        .filter(Boolean)
-        .slice(0, 2)
-        .map(word => word[0])
-        .join("")
-        .toUpperCase();
+    companiesContainer.innerHTML =
+      companyList.map(company => {
 
-      return `
-        <div class="company-card">
-          <div class="company-logo">${initials}</div>
+        const initials =
+          company.name
+            .split(/\s+/)
+            .filter(Boolean)
+            .slice(0, 2)
+            .map(word => word[0])
+            .join("")
+            .toUpperCase();
 
-          <h3>${company.name}</h3>
+        return `
+          <div class="company-card">
 
-         <div class="company-location">
-                ${company.city ? "📍 " + company.city : "📍 " + t.locationUnavailable}
+            <div class="company-logo">
+              ${initials}
+            </div>
+
+            <h3>
+              ${company.name}
+            </h3>
+
+            <div class="company-location">
+              ${
+                company.city
+                  ? "📍 " + company.city
+                  : "📍 " + t.locationUnavailable
+              }
+            </div>
+
+            <span class="company-jobs">
+              ${company.jobs} ${t.activeJobs}
+            </span>
+
           </div>
-
-          <span class="company-jobs">
-           ${company.jobs} ${t.activeJobs}
-          </span>
-        </div>
-      `;
-    }).join("");
+        `;
+      }).join("");
 
   } catch (error) {
-    console.error("Gagal memuat statistik perusahaan:", error);
+    console.error(
+      "Gagal memuat statistik perusahaan:",
+      error
+    );
   }
 }
+
 translateCompanyPage();
 document.addEventListener("DOMContentLoaded", loadCompanyStats);
 </script>
