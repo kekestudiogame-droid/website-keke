@@ -7177,16 +7177,36 @@ if (companyHeaderName && userDataHeader && accessTokenHeader) {
 if (applicationsResponse.ok) {
   const applications = await applicationsResponse.json();
 
- const myApplications = applications.filter(
-  app => myJobIds.includes(Number(app.job_id))
-);
+  const myApplications = applications.filter(
+    app => myJobIds.includes(Number(app.job_id))
+  );
+
+  // Total Pelamar
   if (totalApplicants) {
     totalApplicants.textContent = myApplications.length;
   }
+
+  // Lamaran Baru = lamaran dalam 1 bulan terakhir
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+  const newApplications = myApplications.filter(app => {
+    if (!app.created_at) return false;
+
+    return new Date(app.created_at) >= oneMonthAgo;
+  });
+
+  const newApplicationsElement =
+    document.getElementById("companyNewApplications");
+
+  if (newApplicationsElement) {
+    newApplicationsElement.textContent = newApplications.length;
+  }
 }
-        if (totalJobs) {
-          totalJobs.textContent = jobs.length;
-        }
+
+if (totalJobs) {
+  totalJobs.textContent = jobs.length;
+}
         const activeJobs = jobs.filter(
   job => job.status === "published"
 );
