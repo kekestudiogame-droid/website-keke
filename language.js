@@ -1628,25 +1628,26 @@ function setupLanguageButtons() {
   /* =========================================================
      INITIALIZE
      ========================================================= */
+function initializeLanguage() {
 
-  function initializeLanguage() {
+  const savedLanguage =
+    localStorage.getItem(
+      LANGUAGE_KEY
+    ) || "id";
 
-    const savedLanguage =
-      localStorage.getItem(
-        LANGUAGE_KEY
-      ) || "id";
+  window.setLanguage(
+    savedLanguage
+  );
 
+  // Tampilkan halaman setelah bahasa selesai diterapkan
+  document.documentElement.classList.remove(
+    "language-loading"
+  );
 
-    window.setLanguage(
-      savedLanguage
-    );
+  // startLanguageObserver();
+  setupLanguageButtons();
 
-
-   // startLanguageObserver();
-    setupLanguageButtons();
-
-  }
-
+}
 
   if (
     document.readyState ===
