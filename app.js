@@ -6935,14 +6935,17 @@ async function showCompanyDashboard() {
               Lowongan Aktif
             </div>
 
-            <div style="
+             <div
+              id="companyActiveJobs"
+              style="
               font-size:30px;
               font-weight:bold;
               margin-top:8px;
               color:#16805c;
-            ">
-              0
-            </div>
+              "
+              >
+                0
+          </div>
           </div>
 
           <div style="
@@ -6980,14 +6983,17 @@ async function showCompanyDashboard() {
               Lamaran Baru
             </div>
 
-            <div style="
+             <div
+              id="companyNewApplications"
+              style="
               font-size:30px;
               font-weight:bold;
               margin-top:8px;
               color:#ea580c;
-            ">
+               "
+              >
               0
-            </div>
+          </div>
           </div>
 
         </div>
@@ -7140,7 +7146,7 @@ if (companyHeaderName && userDataHeader && accessTokenHeader) {
 
     if (user.id) {
       const response = await fetch(
-        `${SUPABASE_URL}jobs?user_id=eq.${user.id}&select=id`,
+      `${SUPABASE_URL}jobs?user_id=eq.${user.id}&select=id,status`,
         {
           method: "GET",
           headers: {
@@ -7181,6 +7187,15 @@ if (applicationsResponse.ok) {
         if (totalJobs) {
           totalJobs.textContent = jobs.length;
         }
+        const activeJobs = jobs.filter(
+  job => job.status === "published"
+);
+
+const activeJobsElement = document.getElementById("companyActiveJobs");
+
+if (activeJobsElement) {
+  activeJobsElement.textContent = activeJobs.length;
+}
       }
     }
   } catch (error) {
