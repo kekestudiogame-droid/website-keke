@@ -390,61 +390,47 @@ async function loadCompanyStats() {
       companyPageTranslations[language] ||
       companyPageTranslations.id;
 
-    const [
-      jobseekersRes,
-      jobsRes,
-      applicationsRes
-    ] = await Promise.all([
-      
-     fetch(
-        `${SUPABASE_URL}jobseeker_profiles?select=id`,
-      {
-    headers: {
-      ...supabaseHeaders,
-      "Prefer": "count=exact"
-       }
-      }
-     ),
-      
-      fetch(
-        `${SUPABASE_URL}jobs?status=eq.published&select=id,company_name,city,user_id`,
-        {
-          headers: supabaseHeaders
-        }
-      ),
+  const [
+  statsRes,
+  jobsRes
+] = await Promise.all([
 
-    fetch(
-  `${SUPABASE_URL}applications?select=id`,
-  {
-    headers: {
-      ...supabaseHeaders,
-      "Prefer": "count=exact"
+  fetch(
+    `${SUPABASE_URL}rpc/get_public_stats`,
+    {
+      method: "POST",
+      headers: {
+        ...supabaseHeaders,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({})
     }
-  }
-)
-    ]);
+  ),
 
-    if (
-      !jobseekersRes.ok ||
-      !jobsRes.ok ||
-      !applicationsRes.ok
-    ) {
-      throw new Error(
-        "Gagal mengambil data statistik dari Supabase."
-      );
+  fetch(
+    `${SUPABASE_URL}jobs?status=eq.published&select=id,company_name,city,user_id`,
+    {
+      headers: supabaseHeaders
     }
+  )
 
-   const jobseekersCount =
-      Number(
-         jobseekersRes.headers.get("Content-Range")?.split("/")[1]
-        ) || 0;
+]);
+  
+  if (!statsRes.ok || !jobsRes.ok) {
+  throw new Error(
+    "Gagal mengambil data statistik dari Supabase."
+  );
+}
 
-   const jobs = await jobsRes.json();
+const publicStats = await statsRes.json();
 
-   const applicationsCount =
-      Number(
-         applicationsRes.headers.get("Content-Range")?.split("/")[1]
-        ) || 0;
+const jobs = await jobsRes.json();
+
+const jobseekersCount =
+  Number(publicStats.jobseekers) || 0;
+
+const applicationsCount =
+  Number(publicStats.applications) || 0;
 
     // ==========================================
     // STATISTIK REALTIME
