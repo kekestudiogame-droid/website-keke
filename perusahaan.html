@@ -395,13 +395,17 @@ async function loadCompanyStats() {
       jobsRes,
       applicationsRes
     ] = await Promise.all([
-      fetch(
+      
+     fetch(
         `${SUPABASE_URL}jobseeker_profiles?select=id`,
-        {
-          headers: supabaseHeaders
-        }
-      ),
-
+      {
+    headers: {
+      ...supabaseHeaders,
+      "Prefer": "count=exact"
+       }
+      }
+     ),
+      
       fetch(
         `${SUPABASE_URL}jobs?status=eq.published&select=id,company_name,city,user_id`,
         {
@@ -409,12 +413,15 @@ async function loadCompanyStats() {
         }
       ),
 
-      fetch(
-        `${SUPABASE_URL}applications?select=id`,
-        {
-          headers: supabaseHeaders
-        }
-      )
+    fetch(
+  `${SUPABASE_URL}applications?select=id`,
+  {
+    headers: {
+      ...supabaseHeaders,
+      "Prefer": "count=exact"
+    }
+  }
+)
     ]);
 
     if (
@@ -427,9 +434,17 @@ async function loadCompanyStats() {
       );
     }
 
-    const jobseekers = await jobseekersRes.json();
-    const jobs = await jobsRes.json();
-    const applications = await applicationsRes.json();
+   const jobseekersCount =
+      Number(
+         jobseekersRes.headers.get("Content-Range")?.split("/")[1]
+        ) || 0;
+
+   const jobs = await jobsRes.json();
+
+   const applicationsCount =
+      Number(
+         applicationsRes.headers.get("Content-Range")?.split("/")[1]
+        ) || 0;
 
     // ==========================================
     // STATISTIK REALTIME
@@ -440,8 +455,8 @@ async function loadCompanyStats() {
 
     // Pencari Kerja
     if (statNumbers[0]) {
-      statNumbers[0].textContent =
-        jobseekers.length;
+       statNumbers[0].textContent =
+       jobseekersCount;
     }
 
     // Perusahaan yang benar-benar memiliki
@@ -469,7 +484,7 @@ async function loadCompanyStats() {
     // Total Lamaran
     if (statNumbers[3]) {
       statNumbers[3].textContent =
-        applications.length;
+      applicationsCount;
     }
 
     // ==========================================
