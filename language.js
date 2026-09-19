@@ -731,6 +731,12 @@
     "Kata Sandi":
       "Password",
 
+  "Nama Depan":
+    "First Name",
+
+  "Nama Belakang":
+     "Last Name",
+
     "Nama Lengkap":
       "Full Name",
 
