@@ -2181,18 +2181,89 @@ const jobseekerFields = document.querySelector("#jobseekerFields");
 
 if (companyAccountBtn) {
   companyAccountBtn.addEventListener("click", () => {
+
+    const isEnglish =
+      localStorage.getItem("siteLanguage") === "en";
+
+    // ==================================================
+    // MODE MASUK
+    // ==================================================
+
+    if (!isRegister) {
+
+      isCompany = true;
+
+      // Tetap tampilkan pilihan jenis akun
+      const accountType =
+        document.querySelector("#accountType");
+
+      if (accountType) {
+        accountType.style.display = "block";
+      }
+
+      // Sembunyikan semua field pendaftaran
+      if (companyFields) {
+        companyFields.style.display = "none";
+      }
+
+      if (jobseekerFields) {
+        jobseekerFields.style.display = "none";
+      }
+
+      const confirmPasswordField =
+        document.querySelector("#confirmPasswordField");
+
+      if (confirmPasswordField) {
+        confirmPasswordField.style.display = "none";
+      }
+
+      // Tetap mode MASUK
+      modalTitle.textContent =
+        isEnglish
+          ? "Log In"
+          : "Masuk";
+
+      modalText.textContent =
+        isEnglish
+          ? "Enter your email and password to log in."
+          : "Masukkan email dan password untuk masuk.";
+
+      return;
+    }
+
+
+    // ==================================================
+    // MODE DAFTAR
+    // ==================================================
+
     isCompany = true;
 
     if (companyFields) {
       companyFields.style.display = "block";
     }
-    
+
     if (jobseekerFields) {
-       jobseekerFields.style.display = "none";
+      jobseekerFields.style.display = "none";
     }
 
-    modalTitle.textContent = "Daftar Perusahaan";
-    modalText.textContent = "Buat akun perusahaan untuk memasang lowongan.";
+    // Konfirmasi password TETAP tampil
+    const confirmPasswordField =
+      document.querySelector("#confirmPasswordField");
+
+    if (confirmPasswordField) {
+      confirmPasswordField.style.display = "block";
+    }
+
+    modalTitle.textContent =
+      isEnglish
+        ? "Register Company"
+        : "Daftar Perusahaan";
+
+    modalText.textContent =
+      isEnglish
+        ? "Create a company account to post job vacancies."
+        : "Buat akun perusahaan untuk memasang lowongan.";
+
   });
 }
 
