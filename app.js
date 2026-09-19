@@ -2186,6 +2186,10 @@ if (companyAccountBtn) {
     if (companyFields) {
       companyFields.style.display = "block";
     }
+    
+    if (jobseekerFields) {
+       jobseekerFields.style.display = "none";
+    }
 
     modalTitle.textContent = "Daftar Perusahaan";
     modalText.textContent = "Buat akun perusahaan untuk memasang lowongan.";
