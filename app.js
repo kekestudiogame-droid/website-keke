@@ -2957,23 +2957,84 @@ if (menuLogout) {
 if (loginBtn) {
   loginBtn.addEventListener("click", () => {
     isRegister = false;
+    isCompany = false;
 
     if (modalTitle) {
-      modalTitle.textContent = "Masuk";
+      modalTitle.textContent =
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Log In"
+          : "Masuk";
     }
 
     if (modalText) {
-      modalText.textContent = "Masukkan email dan password untuk masuk.";
+      modalText.textContent =
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Enter your email and password to log in."
+          : "Masukkan email dan password untuk masuk.";
     }
+
+    // ================= SEMBUNYIKAN FIELD PENDAFTARAN =================
+
+    const accountType = document.querySelector("#accountType");
+
+    if (accountType) {
+      accountType.style.display = "none";
+    }
+
+    const jobseekerFields =
+      document.querySelector("#jobseekerFields");
+
+    if (jobseekerFields) {
+      jobseekerFields.style.display = "none";
+    }
+
+    const companyFields =
+      document.querySelector("#companyFields");
+
+    if (companyFields) {
+      companyFields.style.display = "none";
+    }
+
+    const confirmPasswordField =
+      document.querySelector("#confirmPasswordField");
+
+    if (confirmPasswordField) {
+      confirmPasswordField.style.display = "none";
+    }
+
+    // ================= TOMBOL =================
+
+    const submitButton =
+      authForm?.querySelector('button[type="submit"]');
+
+    if (submitButton) {
+      submitButton.textContent =
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Log In"
+          : "Masuk";
+    }
+
+    const switchAuth =
+      document.querySelector("#switchAuth");
+
+    if (switchAuth) {
+      switchAuth.textContent =
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Sign Up"
+          : "Daftar";
+    }
+
+    // ================= TAMPILKAN FORM =================
 
     if (authForm) {
       authForm.classList.remove("hidden");
     }
 
-    const switchAuth = document.querySelector(".switch-auth");
+    const switchAuthContainer =
+      document.querySelector(".switch-auth");
 
-    if (switchAuth) {
-      switchAuth.classList.remove("hidden");
+    if (switchAuthContainer) {
+      switchAuthContainer.classList.remove("hidden");
     }
 
     if (modal) {
@@ -2981,7 +3042,6 @@ if (loginBtn) {
     }
   });
 }
-
 if (registerBtn) {
   registerBtn.addEventListener("click", () => {
     isRegister = true;
