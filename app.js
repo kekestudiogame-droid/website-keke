@@ -2197,6 +2197,61 @@ if (companyAccountBtn) {
 }
 
 jobseekerAccountBtn.addEventListener("click", () => {
+
+  const isEnglish =
+    localStorage.getItem("siteLanguage") === "en";
+
+  // ==================================================
+  // MODE MASUK
+  // ==================================================
+
+  if (!isRegister) {
+
+    isCompany = false;
+
+    // Tetap tampilkan pilihan jenis akun
+    const accountType =
+      document.querySelector("#accountType");
+
+    if (accountType) {
+      accountType.style.display = "block";
+    }
+
+    // Sembunyikan field pendaftaran
+    if (companyFields) {
+      companyFields.style.display = "none";
+    }
+
+    if (jobseekerFields) {
+      jobseekerFields.style.display = "none";
+    }
+
+    const confirmPasswordField =
+      document.querySelector("#confirmPasswordField");
+
+    if (confirmPasswordField) {
+      confirmPasswordField.style.display = "none";
+    }
+
+    // Tetap mode MASUK
+    modalTitle.textContent =
+      isEnglish
+        ? "Log In"
+        : "Masuk";
+
+    modalText.textContent =
+      isEnglish
+        ? "Enter your email and password to log in."
+        : "Masukkan email dan password untuk masuk.";
+
+    return;
+  }
+
+
+  // ==================================================
+  // MODE DAFTAR
+  // ==================================================
+
   isCompany = false;
 
   if (companyFields) {
@@ -2206,25 +2261,25 @@ jobseekerAccountBtn.addEventListener("click", () => {
   if (jobseekerFields) {
     jobseekerFields.style.display = "block";
   }
+
   const confirmPasswordField =
     document.querySelector("#confirmPasswordField");
 
   if (confirmPasswordField) {
-     confirmPasswordField.style.display = "block";
+    confirmPasswordField.style.display = "block";
   }
 
   modalTitle.textContent =
-  localStorage.getItem("siteLanguage") === "en"
-    ? "Register Job Seeker"
-    : "Daftar Pencari Kerja";
-  
-  modalText.textContent =
-  localStorage.getItem("siteLanguage") === "en"
-    ? "Create a job seeker account to find and apply for jobs."
-    : "Buat akun pencari kerja untuk menemukan dan melamar pekerjaan.";
-  
-  });
+    isEnglish
+      ? "Register Job Seeker"
+      : "Daftar Pencari Kerja";
 
+  modalText.textContent =
+    isEnglish
+      ? "Create a job seeker account to find and apply for jobs."
+      : "Buat akun pencari kerja untuk menemukan dan melamar pekerjaan.";
+
+});
 function openModal(title, text){
   modalTitle.textContent = title;
   modalText.textContent = text;
