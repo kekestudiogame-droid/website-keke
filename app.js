@@ -8185,10 +8185,9 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
     return;
   }
 
-  if (!user.id) {
-    alert("ID pengguna tidak ditemukan.");
-    return;
-  }
+ if (!user.id) {
+  showNotification("userIdNotFound");
+}
 
   try {
     const response = await fetch(
