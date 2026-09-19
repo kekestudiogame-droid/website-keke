@@ -2202,6 +2202,12 @@ jobseekerAccountBtn.addEventListener("click", () => {
   if (jobseekerFields) {
     jobseekerFields.style.display = "block";
   }
+  const confirmPasswordField =
+    document.querySelector("#confirmPasswordField");
+
+  if (confirmPasswordField) {
+     confirmPasswordField.style.display = "block";
+  }
 
   modalTitle.textContent =
   localStorage.getItem("siteLanguage") === "en"
