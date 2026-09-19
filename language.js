@@ -1098,11 +1098,9 @@ if (
      TRANSLATE ELEMENT
      ========================================================= */
 
-  function translateElement(element, language) {
-
-  function translateElement(element, language) {
-
-    if (!element) return;
+     function translateElement(element, language) {
+        
+       if (!element) return;
          /* =====================================================
        PROTEKSI CATEGORY OPTION
        ===================================================== */
