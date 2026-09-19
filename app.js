@@ -2993,18 +2993,28 @@ if (loginBtn) {
 
     // ================= SEMBUNYIKAN FIELD PENDAFTARAN =================
 
-    const accountType = document.querySelector("#accountType");
+  const accountType = document.querySelector("#accountType");
 
-    if (accountType) {
-      accountType.style.display = "none";
-    }
+if (accountType) {
+  accountType.style.display = "block";
+}
 
-    const jobseekerFields =
-      document.querySelector("#jobseekerFields");
+const accountTypeLabel =
+  document.querySelector("#accountTypeLabel");
 
-    if (jobseekerFields) {
-      jobseekerFields.style.display = "none";
-    }
+if (accountTypeLabel) {
+  accountTypeLabel.textContent =
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Log in as:"
+      : "Masuk sebagai:";
+}
+
+const jobseekerFields =
+  document.querySelector("#jobseekerFields");
+
+if (jobseekerFields) {
+  jobseekerFields.style.display = "none";
+}
   
     const companyFields =
       document.querySelector("#companyFields");
