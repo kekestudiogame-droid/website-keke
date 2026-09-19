@@ -2177,6 +2177,7 @@ let isCompany = false;
 const companyAccountBtn = document.querySelector("#companyAccount");
 const jobseekerAccountBtn = document.querySelector("#jobseekerAccount");
 const companyFields = document.querySelector("#companyFields");
+const jobseekerFields = document.querySelector("#jobseekerFields");
 
 if (companyAccountBtn) {
   companyAccountBtn.addEventListener("click", () => {
@@ -2193,8 +2194,19 @@ if (companyAccountBtn) {
 
 jobseekerAccountBtn.addEventListener("click", () => {
   isCompany = false;
-  companyFields.style.display = "none";
+
+  if (companyFields) {
+    companyFields.style.display = "none";
+  }
+
+  if (jobseekerFields) {
+    jobseekerFields.style.display = "block";
+  }
+
+  modalTitle.textContent = "Daftar Pencari Kerja";
+  modalText.textContent = "Buat akun pencari kerja untuk menemukan dan melamar pekerjaan.";
 });
+
 function openModal(title, text){
   modalTitle.textContent = title;
   modalText.textContent = text;
