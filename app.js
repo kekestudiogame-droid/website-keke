@@ -9102,11 +9102,7 @@ async function publishMyJob(jobId) {
   } catch (error) {
     console.error("Gagal mengirim lowongan:", error);
 
-    alert(
-      language === "en"
-        ? "Failed to submit the job posting."
-        : "Gagal mengirim lowongan."
-    );
+  showNotification("jobsFailed");
   }
 }
 
