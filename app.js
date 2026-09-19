@@ -2204,8 +2204,11 @@ jobseekerAccountBtn.addEventListener("click", () => {
   }
 
   modalTitle.textContent = "Daftar Pencari Kerja";
-  modalText.textContent = "Buat akun pencari kerja untuk menemukan dan melamar pekerjaan.";
-});
+  modalText.textContent =
+  localStorage.getItem("siteLanguage") === "en"
+    ? "Create a job seeker account to find and apply for jobs."
+    : "Buat akun pencari kerja untuk menemukan dan melamar pekerjaan.";
+  });
 
 function openModal(title, text){
   modalTitle.textContent = title;
