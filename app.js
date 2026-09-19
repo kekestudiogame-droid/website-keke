@@ -2987,7 +2987,7 @@ if (loginBtn) {
     if (jobseekerFields) {
       jobseekerFields.style.display = "none";
     }
-
+  
     const companyFields =
       document.querySelector("#companyFields");
 
@@ -3042,6 +3042,7 @@ if (loginBtn) {
     }
   });
 }
+
 if (registerBtn) {
   registerBtn.addEventListener("click", () => {
     isRegister = true;
@@ -3079,8 +3080,8 @@ if (registerBtn) {
       document.querySelector("#jobseekerFields");
 
     if (jobseekerFields) {
-      jobseekerFields.style.display = "block";
-    }
+       jobseekerFields.style.display = "none";
+      }
 
     // ================= FIELD PERUSAHAAN =================
 
@@ -3097,7 +3098,7 @@ if (registerBtn) {
       document.querySelector("#confirmPasswordField");
 
     if (confirmPasswordField) {
-      confirmPasswordField.style.display = "block";
+       confirmPasswordField.style.display = "none";
     }
 
     // ================= TOMBOL =================
