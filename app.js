@@ -11173,7 +11173,7 @@ ${localStorage.getItem("siteLanguage") === "en" ? "Reject Applicant" : "Tolak Pe
 
     console.error("Gagal mengambil detail profil pelamar:", error);
 
-    alert("Gagal mengambil profil pelamar.");
+   showNotification("applicationLoadFailed");
   }
 }
 async function viewApplicantDocument(filePath, documentName) {
