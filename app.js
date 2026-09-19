@@ -3516,10 +3516,16 @@ if (!jobseekerCity) {
       // dari proses pendaftaran ke proses login.
       isCompany = false;
 
-      modalTitle.textContent = "Masuk";
+    const isEnglish =
+       localStorage.getItem("siteLanguage") === "en";
 
-      modalText.textContent =
-        "Masukkan email dan password untuk masuk.";
+    modalTitle.textContent =
+        isEnglish ? "Log In" : "Masuk";
+
+    modalText.textContent =
+        isEnglish
+        ? "Enter your email and password to log in."
+        : "Masukkan email dan password untuk masuk.";
 
       // Sembunyikan pilihan jenis akun
       const accountType =
@@ -3546,6 +3552,7 @@ if (!jobseekerCity) {
       }
 
       // Sembunyikan konfirmasi password
+      
       const confirmPasswordField =
         document.querySelector("#confirmPasswordField");
 
@@ -3570,6 +3577,7 @@ if (!jobseekerCity) {
       }
 
       // Tombol submit menjadi Masuk
+      
       const submitButton =
         authForm.querySelector('button[type="submit"]');
 
@@ -3637,6 +3645,7 @@ if (!jobseekerCity) {
           await profileCheck.json();
 
         // Jika belum ada profil, buat sekarang.
+        
         if (!existingProfiles.length) {
 
           const profileResponse = await fetch(
@@ -3677,6 +3686,7 @@ if (!jobseekerCity) {
       }
 
       // Masuk dashboard pencari kerja
+      
       modal.classList.add("hidden");
 
       showJobseekerDashboard();
