@@ -3569,11 +3569,13 @@ if (!jobseekerCity) {
       }
 
       // Tombol switch kembali ke Daftar
+      
       const switchAuth =
         document.querySelector("#switchAuth");
 
       if (switchAuth) {
-        switchAuth.textContent = "Daftar";
+         switchAuth.textContent =
+         isEnglish ? "Sign Up" : "Daftar";
       }
 
       // Tombol submit menjadi Masuk
@@ -3581,10 +3583,10 @@ if (!jobseekerCity) {
       const submitButton =
         authForm.querySelector('button[type="submit"]');
 
-      if (submitButton) {
-        submitButton.textContent = "Masuk";
+     if (submitButton) {
+        submitButton.textContent =
+        isEnglish ? "Log In" : "Masuk";
       }
-
       return;
     }
 
