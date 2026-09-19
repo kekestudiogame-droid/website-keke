@@ -450,32 +450,184 @@
 </footer>
 
 
-  <div class="modal hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-card">
-      <button class="modal-close" id="closeModal" aria-label="Tutup">×</button>
+<div class="modal hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+
+    <button class="modal-close" id="closeModal" aria-label="Tutup">×</button>
+
     <p class="eyebrow">KERJIVA</p>
-      <h2 id="modalTitle">Masuk</h2>
-      <p id="modalText">Prototype akun. Backend akan dihubungkan pada tahap berikutnya.</p>
-    <div class="account-type">
-  <p>Daftar sebagai:</p>
-  <button type="button" id="jobseekerAccount">Pencari Kerja</button>
-  <button type="button" id="companyAccount">Perusahaan</button>
-</div>
-      <form id="authForm">
-    <div id="companyFields" class="company-fields" style="display:none;">
-  <label>Nama Perusahaan<input id="companyName" type="text" placeholder="Nama perusahaan"></label>
-  <label>No. HP<input id="companyPhone" type="tel" placeholder="08xxxxxxxxxx"></label>
-  <label>Website<input id="companyWebsite" type="url" placeholder="https://contoh.com"></label>
-  <label>Kota<input id="companyCity" type="text" placeholder="Jakarta"></label>
-  <label>Alamat<input id="companyAddress" type="text" placeholder="Alamat perusahaan"></label>
-</div>
-        <label>Email<input id="email" type="email" required placeholder="nama@email.com"></label>
-        <label>Password<input id="password" type="password" required minlength="6" placeholder="Minimal 6 karakter"></label>
-        <button class="btn btn-primary full" type="submit">Lanjut</button>
-      </form>
-      <p class="switch-auth">Belum punya akun? <button id="switchAuth" type="button">Daftar</button></p>
+
+    <h2 id="modalTitle">Masuk</h2>
+
+    <p id="modalText">
+      Masukkan email dan password untuk masuk.
+    </p>
+
+    <!-- PILIHAN JENIS AKUN -->
+    <div class="account-type" id="accountType">
+      <p>Daftar sebagai:</p>
+
+      <button type="button" id="jobseekerAccount">
+        Pencari Kerja
+      </button>
+
+      <button type="button" id="companyAccount">
+        Perusahaan
+      </button>
     </div>
+
+    <form id="authForm">
+
+      <!-- DATA PENCARI KERJA -->
+      <div id="jobseekerFields" style="display:none;">
+
+        <label>
+          Nama Depan
+          <input
+            id="firstName"
+            type="text"
+            placeholder="Nama depan"
+            autocomplete="given-name"
+          >
+        </label>
+
+        <label>
+          Nama Belakang
+          <input
+            id="lastName"
+            type="text"
+            placeholder="Nama belakang"
+            autocomplete="family-name"
+          >
+        </label>
+
+        <label>
+          Telepon
+          <input
+            id="jobseekerPhone"
+            type="tel"
+            placeholder="08xxxxxxxxxx"
+            autocomplete="tel"
+          >
+        </label>
+
+        <label>
+          Kota
+          <input
+            id="jobseekerCity"
+            type="text"
+            placeholder="Jakarta"
+            autocomplete="address-level2"
+          >
+        </label>
+
+      </div>
+
+      <!-- DATA PERUSAHAAN -->
+      <div id="companyFields" class="company-fields" style="display:none;">
+
+        <label>
+          Nama Perusahaan
+          <input
+            id="companyName"
+            type="text"
+            placeholder="Nama perusahaan"
+          >
+        </label>
+
+        <label>
+          No. HP
+          <input
+            id="companyPhone"
+            type="tel"
+            placeholder="08xxxxxxxxxx"
+          >
+        </label>
+
+        <label>
+          Website
+          <input
+            id="companyWebsite"
+            type="url"
+            placeholder="https://contoh.com"
+          >
+        </label>
+
+        <label>
+          Kota
+          <input
+            id="companyCity"
+            type="text"
+            placeholder="Jakarta"
+          >
+        </label>
+
+        <label>
+          Alamat
+          <input
+            id="companyAddress"
+            type="text"
+            placeholder="Alamat perusahaan"
+          >
+        </label>
+
+      </div>
+
+      <!-- EMAIL -->
+      <label>
+        Email
+        <input
+          id="email"
+          type="email"
+          required
+          placeholder="nama@email.com"
+          autocomplete="email"
+        >
+      </label>
+
+      <!-- PASSWORD -->
+      <label>
+        Password
+        <input
+          id="password"
+          type="password"
+          required
+          minlength="6"
+          placeholder="Minimal 6 karakter"
+          autocomplete="new-password"
+        >
+      </label>
+
+      <!-- KONFIRMASI PASSWORD -->
+      <div id="confirmPasswordField" style="display:none;">
+
+        <label>
+          Konfirmasi Password
+          <input
+            id="confirmPassword"
+            type="password"
+            minlength="6"
+            placeholder="Ulangi password"
+            autocomplete="new-password"
+          >
+        </label>
+
+      </div>
+
+      <button class="btn btn-primary full" type="submit">
+        Lanjut
+      </button>
+
+    </form>
+
+    <p class="switch-auth">
+      Belum punya akun?
+      <button id="switchAuth" type="button">Daftar</button>
+    </p>
+
   </div>
+</div>
+
   <div class="modal hidden" id="jobDetailModal" role="dialog" aria-modal="true">
     <div class="job-detail-card">
 
