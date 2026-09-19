@@ -3035,6 +3035,7 @@ document.querySelector("#jobDetailModal").addEventListener("click", e => {
     jobDetailModal.classList.add("hidden");
   }
 });
+
 authForm.addEventListener("submit", async e => {
   e.preventDefault();
 
@@ -3043,31 +3044,127 @@ authForm.addEventListener("submit", async e => {
 
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-const companyName = document.querySelector("#companyName")?.value.trim() || "";
-const companyPhone = document.querySelector("#companyPhone")?.value.trim() || "";
-const companyWebsite = document.querySelector("#companyWebsite")?.value.trim() || "";
-const companyCity = document.querySelector("#companyCity")?.value.trim() || "";
-const companyAddress = document.querySelector("#companyAddress")?.value.trim() || "";
+
+  // ================= DATA PENCARI KERJA =================
+  const firstName =
+    document.querySelector("#firstName")?.value.trim() || "";
+
+  const lastName =
+    document.querySelector("#lastName")?.value.trim() || "";
+
+  const jobseekerPhone =
+    document.querySelector("#jobseekerPhone")?.value.trim() || "";
+
+  const jobseekerCity =
+    document.querySelector("#jobseekerCity")?.value.trim() || "";
+
+  const confirmPassword =
+    document.querySelector("#confirmPassword")?.value || "";
+
+  // ================= DATA PERUSAHAAN =================
+  const companyName =
+    document.querySelector("#companyName")?.value.trim() || "";
+
+  const companyPhone =
+    document.querySelector("#companyPhone")?.value.trim() || "";
+
+  const companyWebsite =
+    document.querySelector("#companyWebsite")?.value.trim() || "";
+
+  const companyCity =
+    document.querySelector("#companyCity")?.value.trim() || "";
+
+  const companyAddress =
+    document.querySelector("#companyAddress")?.value.trim() || "";
+
   const authUrl = SUPABASE_URL.replace(
     "/rest/v1/",
     "/auth/v1/"
   );
 
   try {
+
+    // ==================================================
+    // VALIDASI SAAT DAFTAR
+    // ==================================================
+    if (isRegister) {
+
+      if (isCompany === false) {
+
+        if (!firstName || !lastName) {
+          showNotification(
+            "invalidAccount",
+            " Nama depan dan nama belakang wajib diisi."
+          );
+          return;
+        }
+
+        if (!jobseekerPhone) {
+          showNotification(
+            "invalidAccount",
+            " Nomor telepon wajib diisi."
+          );
+          return;
+        }
+
+        if (!jobseekerCity) {
+          showNotification(
+            "invalidAccount",
+            " Kota wajib diisi."
+          );
+          return;
+        }
+
+      }
+
+      if (password !== confirmPassword) {
+        showNotification(
+          "invalidAccount",
+          " Konfirmasi password tidak sama."
+        );
+        return;
+      }
+    }
+
+    // ==================================================
+    // SUPABASE AUTH
+    // ==================================================
     const response = await fetch(
       isRegister
         ? `${authUrl}/signup`
         : `${authUrl}/token?grant_type=password`,
       {
         method: "POST",
+
         headers: {
           apikey: SUPABASE_KEY,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          email,
-          password
-        })
+
+        body: JSON.stringify(
+          isRegister
+            ? {
+                email,
+                password,
+
+                data: isCompany
+                  ? {
+                      account_type: "company"
+                    }
+                  : {
+                      account_type: "jobseeker",
+                      first_name: firstName,
+                      last_name: lastName,
+                      full_name: `${firstName} ${lastName}`.trim(),
+                      phone: jobseekerPhone,
+                      city: jobseekerCity
+                    }
+              }
+            : {
+                email,
+                password
+              }
+        )
       }
     );
 
@@ -3082,66 +3179,217 @@ const companyAddress = document.querySelector("#companyAddress")?.value.trim() |
       );
     }
 
+    // ==================================================
+    // PENDAFTARAN
+    // ==================================================
     if (isRegister) {
-  showNotification("registrationSuccess");
 
-  isRegister = false;
+      // ------------------------------------------------
+      // PENDAFTARAN PENCARI KERJA
+      // ------------------------------------------------
+      if (!isCompany && data.user?.id) {
+
+        // Jika signup langsung menghasilkan access token,
+        // kita bisa langsung membuat profil.
+        if (data.access_token) {
+
+          const profileResponse = await fetch(
+            `${SUPABASE_URL}jobseeker_profiles`,
+            {
+              method: "POST",
+
+              headers: {
+                apikey: SUPABASE_KEY,
+                Authorization: `Bearer ${data.access_token}`,
+                "Content-Type": "application/json",
+                Prefer: "return=minimal"
+              },
+
+              body: JSON.stringify({
+                id: data.user.id,
+                full_name: `${firstName} ${lastName}`.trim(),
+                phone: jobseekerPhone,
+                city: jobseekerCity
+              })
+            }
+          );
+
+          if (!profileResponse.ok) {
+            const profileError =
+              await profileResponse.text();
+
+            throw new Error(profileError);
+          }
+        }
+      }
+
+      // ------------------------------------------------
+      // SELESAI DAFTAR
+      // ------------------------------------------------
+      showNotification("registrationSuccess");
+
+      isRegister = false;
+
       modalTitle.textContent = "Masuk";
+
       modalText.textContent =
         "Masukkan email dan password untuk masuk.";
 
-      document.querySelector("#switchAuth").textContent = "Daftar";
+      document.querySelector("#switchAuth").textContent =
+        "Daftar";
 
-    } else {
-    localStorage.setItem(
-       "kerjivaAccessToken",
-        data.access_token || ""
-        );
-
-     localStorage.setItem(
-        "kerjivaUser",
-         JSON.stringify(data.user || {})
-         );
-
-     if (isCompany) {
-  const companyResponse = await fetch(`${SUPABASE_URL}companies`, {
-    method: "POST",
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${data.access_token}`,
-      "Content-Type": "application/json"
-    },
-  body: JSON.stringify({
-  user_id: data.user?.id,
-  company_name: companyName,
-  email: email,
-  phone: companyPhone,
-  website: companyWebsite,
-  city: companyCity,
-  address: companyAddress
-  })
-  });
-
-  if (!companyResponse.ok) {
-    const companyError = await companyResponse.text();
-    throw new Error(companyError);
-  }
-      const language = localStorage.getItem("siteLanguage") || "id";
-        showNotification("loginSuccess");
-
-showCompanyDashboard();
-return;
-       
-}
-   modal.classList.add("hidden");
-showJobseekerDashboard();
-
-const language = localStorage.getItem("siteLanguage") || "id";
-showNotification("loginSuccess");
+      return;
     }
 
+    // ==================================================
+    // LOGIN
+    // ==================================================
+
+    localStorage.setItem(
+      "kerjivaAccessToken",
+      data.access_token || ""
+    );
+
+    localStorage.setItem(
+      "kerjivaUser",
+      JSON.stringify(data.user || {})
+    );
+
+    // ==================================================
+    // PERUSAHAAN
+    // ==================================================
+    if (isCompany) {
+
+      const companyResponse = await fetch(
+        `${SUPABASE_URL}companies`,
+        {
+          method: "POST",
+
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${data.access_token}`,
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            user_id: data.user?.id,
+            company_name: companyName,
+            email: email,
+            phone: companyPhone,
+            website: companyWebsite,
+            city: companyCity,
+            address: companyAddress
+          })
+        }
+      );
+
+      if (!companyResponse.ok) {
+        const companyError =
+          await companyResponse.text();
+
+        throw new Error(companyError);
+      }
+
+      showNotification("loginSuccess");
+
+      showCompanyDashboard();
+
+      return;
+    }
+
+    // ==================================================
+    // PENCARI KERJA
+    // ==================================================
+
+    // Cek apakah profil pencari kerja sudah ada.
+    // Ini juga menangani akun yang sebelumnya mendaftar
+    // ketika email confirmation aktif.
+    if (data.user?.id && data.user?.user_metadata) {
+
+      const metadata = data.user.user_metadata;
+
+      if (metadata.account_type === "jobseeker") {
+
+        const profileCheck = await fetch(
+          `${SUPABASE_URL}jobseeker_profiles?id=eq.${data.user.id}&select=id`,
+          {
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${data.access_token}`
+            }
+          }
+        );
+
+        if (!profileCheck.ok) {
+          throw new Error(
+            await profileCheck.text()
+          );
+        }
+
+        const existingProfiles =
+          await profileCheck.json();
+
+        // Jika belum ada profil, buat sekarang.
+        if (!existingProfiles.length) {
+
+          const profileResponse = await fetch(
+            `${SUPABASE_URL}jobseeker_profiles`,
+            {
+              method: "POST",
+
+              headers: {
+                apikey: SUPABASE_KEY,
+                Authorization: `Bearer ${data.access_token}`,
+                "Content-Type": "application/json",
+                Prefer: "return=minimal"
+              },
+
+              body: JSON.stringify({
+                id: data.user.id,
+
+                full_name:
+                  metadata.full_name || "",
+
+                phone:
+                  metadata.phone || "",
+
+                city:
+                  metadata.city || ""
+              })
+            }
+          );
+
+          if (!profileResponse.ok) {
+            const profileError =
+              await profileResponse.text();
+
+            throw new Error(profileError);
+          }
+        }
+      }
+    }
+
+    // ==================================================
+    // MASUK KE DASHBOARD PENCARI KERJA
+    // ==================================================
+
+    modal.classList.add("hidden");
+
+    showJobseekerDashboard();
+
+    showNotification("loginSuccess");
+
   } catch (error) {
-   showNotification("invalidAccount", " " + error.message);
+
+    console.error(
+      "AUTH ERROR:",
+      error
+    );
+
+    showNotification(
+      "invalidAccount",
+      " " + error.message
+    );
   }
 });
 
