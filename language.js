@@ -1021,56 +1021,77 @@
     }
 
 
-    /* =====================================================
-       EN → ID
-       ===================================================== */
+ /* =====================================================
+   EN → ID
+   ===================================================== */
 
-    const trimmed = value.trim();
+const trimmed = value.trim();
 
-    if (
-      EN_TO_ID[trimmed]
-    ) {
+/*
+ * Jika teks sudah merupakan teks asli Bahasa Indonesia,
+ * jangan diterjemahkan kembali.
+ *
+ * Ini mencegah:
+ * "Nomor Telepon" → "Tidakmor Telepon"
+ * "No. HP" → "Tidak. HP"
+ */
+if (
+  GLOBAL_TRANSLATIONS[trimmed]
+) {
 
-      const translated =
-        EN_TO_ID[trimmed];
+  const leading =
+    value.match(/^\s*/)?.[0] || "";
 
-      const leading =
-        value.match(/^\s*/)?.[0] || "";
+   const trailing =
+    value.match(/\s*$/)?.[0] || "";
 
-      const trailing =
-        value.match(/\s*$/)?.[0] || "";
+   return (
+    leading +
+    trimmed +
+    trailing
+    );
+   }
 
-      return (
-        leading +
-        translated +
-        trailing
-      );
+if (
+   EN_TO_ID[trimmed]
+  ) {
 
-    }
+  const translated =
+    EN_TO_ID[trimmed];
 
+  const leading =
+    value.match(/^\s*/)?.[0] || "";
+
+    const trailing =
+     value.match(/\s*$/)?.[0] || "";
+
+    return (
+    leading +
+    translated +
+    trailing
+  );
+
+   }
 
     Object.keys(EN_TO_ID)
-      .sort(function (a, b) {
-        return b.length - a.length;
-      })
-      .forEach(function (enText) {
+   .sort(function (a, b) {
+    return b.length - a.length;
+  })
+  .forEach(function (enText) {
 
-        const idText =
-          EN_TO_ID[enText];
+    const idText =
+      EN_TO_ID[enText];
 
-        if (!enText || !idText) {
-          return;
-        }
+    if (!enText || !idText) {
+      return;
+    }
 
-        value =
-          value.split(enText).join(idText);
+    value =
+      value.split(enText).join(idText);
 
-      });
+  });
 
     return value;
-  }
-
-
   /* =========================================================
      TRANSLATE ELEMENT
      ========================================================= */
