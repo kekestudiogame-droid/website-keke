@@ -8439,12 +8439,12 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
   try {
     user = JSON.parse(userData);
   } catch {
-    alert("Data akun tidak valid. Silakan login kembali.");
+  showNotification("invalidAccount");
     return;
   }
 
   if (!user.id) {
-    alert("ID pengguna tidak ditemukan.");
+  showNotification("userIdNotFound");
     return;
   }
 
