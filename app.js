@@ -3356,40 +3356,48 @@ authForm.addEventListener("submit", async e => {
 
       if (!isCompany) {
 
-        if (!firstName || !lastName) {
-          showNotification(
-            "invalidAccount",
-            " Nama depan dan nama belakang wajib diisi."
-          );
-          return;
-        }
+      if (!firstName || !lastName) {
+  showNotification(
+    "invalidAccount",
+    localStorage.getItem("siteLanguage") === "en"
+      ? " First Name and Last Name are required."
+      : " Nama depan dan nama belakang wajib diisi."
+  );
+  return;
+}
 
-        if (!jobseekerPhone) {
-          showNotification(
-            "invalidAccount",
-            " Nomor telepon wajib diisi."
-          );
-          return;
-        }
+if (!jobseekerPhone) {
+  showNotification(
+    "invalidAccount",
+    localStorage.getItem("siteLanguage") === "en"
+      ? " Phone number is required."
+      : " Nomor telepon wajib diisi."
+  );
+  return;
+}
 
-        if (!jobseekerCity) {
-          showNotification(
-            "invalidAccount",
-            " Kota wajib diisi."
-          );
-          return;
-        }
+if (!jobseekerCity) {
+  showNotification(
+    "invalidAccount",
+    localStorage.getItem("siteLanguage") === "en"
+      ? " City is required."
+      : " Kota wajib diisi."
+  );
+  return;
+}
       }
 
       // ---------------- PASSWORD ----------------
 
-      if (password !== confirmPassword) {
+     if (password !== confirmPassword) {
         showNotification(
-          "invalidAccount",
-          " Konfirmasi password tidak sama."
-        );
-        return;
-      }
+       "invalidAccount",
+         localStorage.getItem("siteLanguage") === "en"
+         ? " Password confirmation does not match."
+      : " Konfirmasi password tidak sama."
+       );
+   return;
+}
     }
 
     // ==================================================
