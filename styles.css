@@ -544,7 +544,7 @@ footer{border-top:1px solid var(--line)}
     0 0 6px rgba(37,99,235,.20),
     0 0 14px rgba(37,99,235,.12);
 
-  animation: kerjivaTextGlow 2.2s ease-in-out infinite;
+ animation: kerjivaPromoTextFade 3s ease-in-out infinite;
 }
 
 .kerjiva-promo-free {
@@ -561,7 +561,20 @@ footer{border-top:1px solid var(--line)}
     0 0 14px rgba(249,115,22,.25),
     0 0 22px rgba(249,115,22,.15);
 
-  animation: kerjivaGratisGlow 1.8s ease-in-out infinite;
+ animation: kerjivaPromoTextFade 3s ease-in-out infinite;
+}
+@keyframes kerjivaPromoTextFade {
+  0%, 15% {
+    opacity: 0;
+  }
+
+  25%, 65% {
+    opacity: 1;
+  }
+
+  75%, 100% {
+    opacity: 0;
+  }
 }
 
 .kerjiva-light {
