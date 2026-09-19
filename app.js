@@ -3099,9 +3099,26 @@ authForm.addEventListener("submit", async e => {
     // ==================================================
     // VALIDASI SAAT DAFTAR
     // ==================================================
+
     if (isRegister) {
 
-      if (isCompany === false) {
+      // Harus memilih jenis akun
+      if (
+        document.querySelector("#accountType") &&
+        !isCompany &&
+        !document.querySelector("#jobseekerFields")?.style.display
+          .includes("block")
+      ) {
+        showNotification(
+          "invalidAccount",
+          " Silakan pilih jenis akun terlebih dahulu."
+        );
+        return;
+      }
+
+      // ---------------- PENCARI KERJA ----------------
+
+      if (!isCompany) {
 
         if (!firstName || !lastName) {
           showNotification(
@@ -3126,8 +3143,9 @@ authForm.addEventListener("submit", async e => {
           );
           return;
         }
-
       }
+
+      // ---------------- PASSWORD ----------------
 
       if (password !== confirmPassword) {
         showNotification(
@@ -3141,6 +3159,7 @@ authForm.addEventListener("submit", async e => {
     // ==================================================
     // SUPABASE AUTH
     // ==================================================
+
     const response = await fetch(
       isRegister
         ? `${authUrl}/signup`
@@ -3167,7 +3186,8 @@ authForm.addEventListener("submit", async e => {
                       account_type: "jobseeker",
                       first_name: firstName,
                       last_name: lastName,
-                      full_name: `${firstName} ${lastName}`.trim(),
+                      full_name:
+                        `${firstName} ${lastName}`.trim(),
                       phone: jobseekerPhone,
                       city: jobseekerCity
                     }
@@ -3194,15 +3214,17 @@ authForm.addEventListener("submit", async e => {
     // ==================================================
     // PENDAFTARAN
     // ==================================================
+
     if (isRegister) {
 
       // ------------------------------------------------
-      // PENDAFTARAN PENCARI KERJA
+      // PENCARI KERJA
       // ------------------------------------------------
+
       if (!isCompany && data.user?.id) {
 
-        // Jika signup langsung menghasilkan access token,
-        // kita bisa langsung membuat profil.
+        // Jika signup langsung menghasilkan token,
+        // buat profil sekarang.
         if (data.access_token) {
 
           const profileResponse = await fetch(
@@ -3212,14 +3234,16 @@ authForm.addEventListener("submit", async e => {
 
               headers: {
                 apikey: SUPABASE_KEY,
-                Authorization: `Bearer ${data.access_token}`,
+                Authorization:
+                  `Bearer ${data.access_token}`,
                 "Content-Type": "application/json",
                 Prefer: "return=minimal"
               },
 
               body: JSON.stringify({
                 id: data.user.id,
-                full_name: `${firstName} ${lastName}`.trim(),
+                full_name:
+                  `${firstName} ${lastName}`.trim(),
                 phone: jobseekerPhone,
                 city: jobseekerCity
               })
@@ -3238,17 +3262,76 @@ authForm.addEventListener("submit", async e => {
       // ------------------------------------------------
       // SELESAI DAFTAR
       // ------------------------------------------------
+
       showNotification("registrationSuccess");
 
+      // Kembali ke MODE MASUK
       isRegister = false;
+
+      // Penting: jangan membawa status perusahaan
+      // dari proses pendaftaran ke proses login.
+      isCompany = false;
 
       modalTitle.textContent = "Masuk";
 
       modalText.textContent =
         "Masukkan email dan password untuk masuk.";
 
-      document.querySelector("#switchAuth").textContent =
-        "Daftar";
+      // Sembunyikan pilihan jenis akun
+      const accountType =
+        document.querySelector("#accountType");
+
+      if (accountType) {
+        accountType.style.display = "none";
+      }
+
+      // Sembunyikan field pencari kerja
+      const jobseekerFields =
+        document.querySelector("#jobseekerFields");
+
+      if (jobseekerFields) {
+        jobseekerFields.style.display = "none";
+      }
+
+      // Sembunyikan field perusahaan
+      const companyFields =
+        document.querySelector("#companyFields");
+
+      if (companyFields) {
+        companyFields.style.display = "none";
+      }
+
+      // Sembunyikan konfirmasi password
+      const confirmPasswordField =
+        document.querySelector("#confirmPasswordField");
+
+      if (confirmPasswordField) {
+        confirmPasswordField.style.display = "none";
+      }
+
+      // Bersihkan konfirmasi password
+      const confirmPasswordInput =
+        document.querySelector("#confirmPassword");
+
+      if (confirmPasswordInput) {
+        confirmPasswordInput.value = "";
+      }
+
+      // Tombol switch kembali ke Daftar
+      const switchAuth =
+        document.querySelector("#switchAuth");
+
+      if (switchAuth) {
+        switchAuth.textContent = "Daftar";
+      }
+
+      // Tombol submit menjadi Masuk
+      const submitButton =
+        authForm.querySelector('button[type="submit"]');
+
+      if (submitButton) {
+        submitButton.textContent = "Masuk";
+      }
 
       return;
     }
@@ -3268,66 +3351,34 @@ authForm.addEventListener("submit", async e => {
     );
 
     // ==================================================
-    // PERUSAHAAN
+    // CEK JENIS AKUN DARI USER METADATA
     // ==================================================
-    if (isCompany) {
 
-      const companyResponse = await fetch(
-        `${SUPABASE_URL}companies`,
-        {
-          method: "POST",
+    const metadata =
+      data.user?.user_metadata || {};
 
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${data.access_token}`,
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-            user_id: data.user?.id,
-            company_name: companyName,
-            email: email,
-            phone: companyPhone,
-            website: companyWebsite,
-            city: companyCity,
-            address: companyAddress
-          })
-        }
-      );
-
-      if (!companyResponse.ok) {
-        const companyError =
-          await companyResponse.text();
-
-        throw new Error(companyError);
-      }
-
-      showNotification("loginSuccess");
-
-      showCompanyDashboard();
-
-      return;
-    }
+    const accountType =
+      metadata.account_type || "jobseeker";
 
     // ==================================================
     // PENCARI KERJA
     // ==================================================
 
-    // Cek apakah profil pencari kerja sudah ada.
-    // Ini juga menangani akun yang sebelumnya mendaftar
-    // ketika email confirmation aktif.
-    if (data.user?.id && data.user?.user_metadata) {
+    if (accountType === "jobseeker") {
 
-      const metadata = data.user.user_metadata;
+      // Cek apakah profil pencari kerja sudah ada.
+      // Ini juga menangani akun yang dibuat ketika
+      // email confirmation masih aktif.
 
-      if (metadata.account_type === "jobseeker") {
+      if (data.user?.id) {
 
         const profileCheck = await fetch(
           `${SUPABASE_URL}jobseeker_profiles?id=eq.${data.user.id}&select=id`,
           {
             headers: {
               apikey: SUPABASE_KEY,
-              Authorization: `Bearer ${data.access_token}`
+              Authorization:
+                `Bearer ${data.access_token}`
             }
           }
         );
@@ -3351,7 +3402,8 @@ authForm.addEventListener("submit", async e => {
 
               headers: {
                 apikey: SUPABASE_KEY,
-                Authorization: `Bearer ${data.access_token}`,
+                Authorization:
+                  `Bearer ${data.access_token}`,
                 "Content-Type": "application/json",
                 Prefer: "return=minimal"
               },
@@ -3379,17 +3431,27 @@ authForm.addEventListener("submit", async e => {
           }
         }
       }
+
+      // Masuk dashboard pencari kerja
+      modal.classList.add("hidden");
+
+      showJobseekerDashboard();
+
+      showNotification("loginSuccess");
+
+      return;
     }
 
     // ==================================================
-    // MASUK KE DASHBOARD PENCARI KERJA
+    // AKUN PERUSAHAAN
     // ==================================================
+    // Untuk sekarang belum kita utak-atik alur perusahaan.
+    // Nanti setelah pencari kerja selesai dites,
+    // kita rapikan alur perusahaan secara terpisah.
 
-    modal.classList.add("hidden");
-
-    showJobseekerDashboard();
-
-    showNotification("loginSuccess");
+    throw new Error(
+      "Jenis akun belum dapat diproses."
+    );
 
   } catch (error) {
 
