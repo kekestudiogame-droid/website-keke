@@ -10165,7 +10165,10 @@ async function submitJobPost() {
     showMyJobs();
 
     } catch (error) {
-    alert("Gagal menyimpan lowongan: " + error.message);
+      showNotification(
+     "jobsFailed",
+      " " + error.message
+    );
   }
 }
 function translateCompanyDashboard() {
