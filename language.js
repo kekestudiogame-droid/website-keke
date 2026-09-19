@@ -1073,28 +1073,32 @@ if (
 
    }
 
-    Object.keys(EN_TO_ID)
-   .sort(function (a, b) {
-    return b.length - a.length;
-  })
-  .forEach(function (enText) {
+     Object.keys(EN_TO_ID)
+      .sort(function (a, b) {
+        return b.length - a.length;
+      })
+      .forEach(function (enText) {
 
-    const idText =
-      EN_TO_ID[enText];
+        const idText =
+          EN_TO_ID[enText];
 
-    if (!enText || !idText) {
-      return;
-    }
+        if (!enText || !idText) {
+          return;
+        }
 
-    value =
-      value.split(enText).join(idText);
+        value =
+          value.split(enText).join(idText);
 
-  });
+      });
 
     return value;
+  }
+
   /* =========================================================
      TRANSLATE ELEMENT
      ========================================================= */
+
+  function translateElement(element, language) {
 
   function translateElement(element, language) {
 
