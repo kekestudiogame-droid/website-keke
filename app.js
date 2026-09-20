@@ -988,47 +988,64 @@ if (list.length === 0 && hasSearched) {
   const language =
     localStorage.getItem("siteLanguage") || "id";
 
-  const emptySearch =
-    document.createElement("div");
+  const featuredJob =
+    document.querySelector("#featuredJob");
 
-  emptySearch.className =
-    "kerjiva-empty-search";
+  if (featuredJob) {
 
-  emptySearch.innerHTML = `
+    featuredJob.classList.remove("hidden");
 
-    <div class="kerjiva-empty-search-icon">
-      🔎
-    </div>
+    featuredJob.innerHTML = `
 
-    <h2>
-      ${
-        language === "en"
-          ? "No Jobs Available"
-          : "Belum Ada Lowongan"
-      }
-    </h2>
+      <div style="
+        font-size:44px;
+        margin-bottom:12px;
+      ">
+        🔎
+      </div>
 
-    <p>
-      ${
-        language === "en"
-          ? "There are no real job openings available for this search."
-          : "Belum ada lowongan nyata yang tersedia untuk pencarian ini."
-      }
-    </p>
+      <h3 style="
+        margin:0 0 10px;
+        font-size:22px;
+        color:#ffffff;
+      ">
+        ${
+          language === "en"
+            ? "No Jobs Available"
+            : "Belum Ada Lowongan"
+        }
+      </h3>
 
-    <div class="kerjiva-empty-search-hint">
-      ${
-        language === "en"
-          ? "Please try another job type or city."
-          : "Silakan coba jenis pekerjaan atau kota lainnya."
-      }
-    </div>
+      <p style="
+        margin:0;
+        color:rgba(255,255,255,.88);
+        line-height:1.6;
+        max-width:300px;
+      ">
+        ${
+          language === "en"
+            ? "There are no real job openings available for this search."
+            : "Belum ada lowongan nyata yang tersedia untuk pencarian ini."
+        }
+      </p>
 
-  `;
+      <p style="
+        margin:10px 0 0;
+        color:rgba(255,255,255,.72);
+        font-size:13px;
+        line-height:1.5;
+        max-width:300px;
+      ">
+        ${
+          language === "en"
+            ? "Please try another job type or city."
+            : "Silakan coba jenis pekerjaan atau kota lainnya."
+        }
+      </p>
 
-  jobsGrid.appendChild(emptySearch);
+    `;
+  }
 }
-
 // =====================================================
 // TERJEMAHAN ENGLISH DARI DATABASE
 // HANYA MEMBACA HASIL TERJEMAHAN YANG SUDAH DISIMPAN
