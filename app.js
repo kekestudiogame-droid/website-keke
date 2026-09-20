@@ -1717,9 +1717,19 @@ async function filterJobs() {
     (cat === "all" || j.category === cat) &&
     (
       !q ||
-      `${j.title} ${j.company} ${j.category} ${j.description || ""}`
-        .toLowerCase()
-        .includes(q)
+     [
+  j.title,
+  j.title_en,
+  j.company,
+  j.category,
+  j.category_en,
+  j.description,
+  j.description_en
+]
+  .filter(Boolean)
+  .join(" ")
+  .toLowerCase()
+  .includes(q)
     ) &&
   (
   !loc ||
