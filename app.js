@@ -1285,10 +1285,14 @@ if (
       "#featuredJob"
     );
 
-  if (
-    featuredJob &&
-    !hasSearched
-  ) {
+     if (
+      featuredJob
+      ) {
+       
+       if (hasSearched && displayJobs.length > 0) {
+          featuredJob.classList.remove("hidden");
+          featuredJob.classList.remove("empty-search");
+         }
 
     const now = new Date();
 
@@ -1312,9 +1316,11 @@ if (
         return postedDate >= oneMonthAgo;
       });
 
-    const latestJob =
-      [...recentJobs].sort(
-        (a, b) =>
+       const latestJob =
+           hasSearched
+           ? displayJobs[0]
+           : [...recentJobs].sort(
+           (a, b) =>
           new Date(b.created_at) -
           new Date(a.created_at)
       )[0];
@@ -1788,17 +1794,7 @@ async function filterJobs() {
 
   await renderJobs(filtered);
 
-  const featuredJob =
-    document.querySelector("#featuredJob");
-
-  if (featuredJob) {
-    if (filtered.length > 0) {
-      featuredJob.innerHTML = "";
-      featuredJob.classList.add("hidden");
-    } else {
-      featuredJob.classList.remove("hidden");
-    }
-  }
+ 
 
   document.querySelector("#jobs").scrollIntoView({
     behavior: "smooth"
