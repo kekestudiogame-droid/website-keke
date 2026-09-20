@@ -1713,75 +1713,97 @@ async function filterJobs() {
   const loc = locationInput.value.trim().toLowerCase();
   const cat = categoryFilter.value;
 
-  const filtered = jobs.filter(j =>
-    (cat === "all" || j.category === cat) &&
-    (
+  const searchWords = q
+    .split(/\s+/)
+    .filter(Boolean);
+
+  const normalizeLocation = (value) =>
+    (value || "")
+      .toLowerCase()
+      .trim()
+      .replace(/^kabupaten\s+/, "")
+      .replace(/^kota administrasi\s+/, "")
+      .replace(/^kota\s+/, "");
+
+  const normalizedSearchLocation =
+    normalizeLocation(loc);
+
+  const filtered = jobs.filter(j => {
+
+    const categoryMatch =
+      cat === "all" ||
+      j.category === cat ||
+      j.category_en === cat;
+
+    const searchableText = [
+      j.title,
+      j.title_en,
+      j.company,
+      j.category,
+      j.category_en,
+      j.description,
+      j.description_en,
+      j.requirements,
+      j.requirements_en,
+      j.job_type,
+      j.job_type_en,
+      j.type,
+      j.salary,
+      j.salary_en,
+      j.experience,
+      j.experience_en,
+      j.education,
+      j.education_en,
+      j.location
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+    const keywordMatch =
       !q ||
-     [
-  j.title,
-  j.title_en,
-  j.company,
-  j.category,
-  j.category_en,
-  j.description,
-  j.description_en
-]
-  .filter(Boolean)
-  .join(" ")
-  .toLowerCase()
-  .includes(q)
-    ) &&
-  (
-  !loc ||
-  (() => {
-    const normalizeLocation = (value) =>
-      (value || "")
-        .toLowerCase()
-        .trim()
-        .replace(/^kabupaten\s+/, "")
-        .replace(/^kota administrasi\s+/, "")
-        .replace(/^kota\s+/, "");
+      searchWords.every(word =>
+        searchableText.includes(word)
+      );
 
-    const normalizedSearchLocation =
-      normalizeLocation(loc);
-
-    const normalizedJobLocation =
+    const jobLocation =
       normalizeLocation(j.location);
 
+    const locationMatch =
+      !loc ||
+      jobLocation.includes(normalizedSearchLocation) ||
+      (
+        normalizedSearchLocation === "indonesia" &&
+        (j.location || "").toLowerCase() === "remote"
+      );
+
     return (
-      normalizedJobLocation.includes(
-        normalizedSearchLocation
-      ) ||
-      (normalizedSearchLocation === "indonesia" &&
-        j.location === "Remote")
+      categoryMatch &&
+      keywordMatch &&
+      locationMatch
     );
-  })()
-)
-  );
+  });
 
   hasSearched = true;
 
   await renderJobs(filtered);
 
- const featuredJob =
-  document.querySelector("#featuredJob");
+  const featuredJob =
+    document.querySelector("#featuredJob");
 
-if (featuredJob) {
-
-  if (filtered.length > 0) {
-    featuredJob.innerHTML = "";
-    featuredJob.classList.add("hidden");
-  } else {
-    featuredJob.classList.remove("hidden");
+  if (featuredJob) {
+    if (filtered.length > 0) {
+      featuredJob.innerHTML = "";
+      featuredJob.classList.add("hidden");
+    } else {
+      featuredJob.classList.remove("hidden");
+    }
   }
-
-}
 
   document.querySelector("#jobs").scrollIntoView({
     behavior: "smooth"
   });
 }
-
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
   hasSearched = true;
