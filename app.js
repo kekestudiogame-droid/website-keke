@@ -991,12 +991,13 @@ if (list.length === 0 && hasSearched) {
   const featuredJob =
     document.querySelector("#featuredJob");
 
-  if (featuredJob) {
+if (featuredJob) {
 
-    featuredJob.classList.remove("hidden");
+      featuredJob.classList.remove("hidden");
+      featuredJob.classList.add("empty-search");
 
-    featuredJob.innerHTML = `
-
+      featuredJob.innerHTML = `
+      
       <div style="
         font-size:44px;
         margin-bottom:12px;
