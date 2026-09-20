@@ -3660,9 +3660,8 @@ if (!jobseekerCity) {
       // ------------------------------------------------
       // SELESAI DAFTAR
       // ------------------------------------------------
-
-      showNotification("registrationSuccess");
-
+         showRegistrationNotification();
+     
       // Kembali ke MODE MASUK
       isRegister = false;
 
