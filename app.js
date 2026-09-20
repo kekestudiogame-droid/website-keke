@@ -1752,12 +1752,19 @@ async function filterJobs() {
 
   await renderJobs(filtered);
 
-  const featuredJob = document.querySelector("#featuredJob");
+ const featuredJob =
+  document.querySelector("#featuredJob");
 
-  if (featuredJob) {
+if (featuredJob) {
+
+  if (filtered.length > 0) {
     featuredJob.innerHTML = "";
     featuredJob.classList.add("hidden");
+  } else {
+    featuredJob.classList.remove("hidden");
   }
+
+}
 
   document.querySelector("#jobs").scrollIntoView({
     behavior: "smooth"
