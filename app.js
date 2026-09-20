@@ -3875,6 +3875,93 @@ if (!jobseekerCity) {
     );
   }
 });
+// ==================================================
+// NOTIFIKASI PENDAFTARAN BERHASIL
+// ==================================================
+
+function showRegistrationNotification() {
+
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  const isEnglish =
+    language === "en";
+
+  const oldNotification =
+    document.querySelector(
+      "#kerjivaRegistrationNotification"
+    );
+
+  if (oldNotification) {
+    oldNotification.remove();
+  }
+
+  const notification =
+    document.createElement("div");
+
+  notification.id =
+    "kerjivaRegistrationNotification";
+
+  notification.className =
+    "kerjiva-registration-notification";
+
+  notification.innerHTML = `
+
+    <div class="kerjiva-registration-icon">
+      ✓
+    </div>
+
+    <div class="kerjiva-registration-content">
+
+      <div class="kerjiva-registration-title">
+        ${
+          isEnglish
+            ? "Registration Successful!"
+            : "Pendaftaran Berhasil!"
+        }
+      </div>
+
+      <div class="kerjiva-registration-message">
+        ${
+          isEnglish
+            ? "Your account has been created.<br>Please log in to continue."
+            : "Akun Anda berhasil dibuat.<br>Silakan masuk untuk melanjutkan."
+        }
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="kerjiva-registration-ok"
+    >
+      OK
+    </button>
+
+  `;
+
+  document.body.appendChild(notification);
+
+  requestAnimationFrame(() => {
+    notification.classList.add("show");
+  });
+
+  const okButton =
+    notification.querySelector(
+      ".kerjiva-registration-ok"
+    );
+
+  okButton.addEventListener("click", () => {
+
+    notification.classList.remove("show");
+
+    setTimeout(() => {
+      notification.remove();
+    }, 250);
+
+  });
+
+}
 
 
 // ================= DASHBOARD PENCARI KERJA =================
