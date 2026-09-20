@@ -2470,10 +2470,17 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
 const userData = localStorage.getItem("kerjivaUser");
 
   if (!accessToken || !userData) {
-    openModal(
-      "Masuk",
-      "Silakan masuk terlebih dahulu sebelum melamar pekerjaan."
-    );
+   const language =
+     localStorage.getItem("siteLanguage") || "id";
+
+     openModal(
+      language === "en"
+    ? "Login"
+    : "Masuk",
+  language === "en"
+    ? "Please log in first before applying for this job."
+    : "Silakan masuk terlebih dahulu sebelum melamar pekerjaan."
+);
     authForm.classList.remove("hidden");
     document.querySelector(".switch-auth").classList.remove("hidden");
     return;
@@ -2487,10 +2494,17 @@ const userData = localStorage.getItem("kerjivaUser");
   localStorage.removeItem("kerjivaUser");
   localStorage.removeItem("kerjivaAccessToken");
 
-    openModal(
-      "Masuk",
-      "Sesi login tidak valid. Silakan masuk kembali."
-    );
+  const language =
+  localStorage.getItem("siteLanguage") || "id";
+
+  openModal(
+  language === "en"
+    ? "Login"
+    : "Masuk",
+  language === "en"
+    ? "Your login session is invalid. Please log in again."
+    : "Sesi login tidak valid. Silakan masuk kembali."
+);
     return;
   }
 
