@@ -979,12 +979,55 @@ async function renderJobs(list = jobs) {
     jobCount.textContent = list.length;
   }
 
-  if (emptyState) {
-    emptyState.classList.toggle(
-      "hidden",
-      list.length !== 0
-    );
-  }
+ // =====================================================
+// EMPTY STATE HASIL PENCARIAN
+// =====================================================
+
+if (list.length === 0 && hasSearched) {
+
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  const emptySearch =
+    document.createElement("div");
+
+  emptySearch.className =
+    "kerjiva-empty-search";
+
+  emptySearch.innerHTML = `
+
+    <div class="kerjiva-empty-search-icon">
+      🔎
+    </div>
+
+    <h2>
+      ${
+        language === "en"
+          ? "No Jobs Available"
+          : "Belum Ada Lowongan"
+      }
+    </h2>
+
+    <p>
+      ${
+        language === "en"
+          ? "There are no real job openings available for this search."
+          : "Belum ada lowongan nyata yang tersedia untuk pencarian ini."
+      }
+    </p>
+
+    <div class="kerjiva-empty-search-hint">
+      ${
+        language === "en"
+          ? "Please try another job type or city."
+          : "Silakan coba jenis pekerjaan atau kota lainnya."
+      }
+    </div>
+
+  `;
+
+  jobsGrid.appendChild(emptySearch);
+}
 
 // =====================================================
 // TERJEMAHAN ENGLISH DARI DATABASE
