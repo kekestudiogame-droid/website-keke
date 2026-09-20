@@ -510,12 +510,13 @@ footer{border-top:1px solid var(--line)}
     align-items: center;
   }
 
- #featuredJob {
-  width: 100%;
+  #featuredJob {
+    width: 100%;
+  }
 }
-  #featuredJob.empty-search {
+
+#featuredJob.empty-search {
   background: linear-gradient(135deg, #123b6d, #1d5fa7);
-}
 }
 /* ================================
    PROMO PASANG LOKER GRATIS
