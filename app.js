@@ -1006,17 +1006,17 @@ if (list.length === 0 && hasSearched) {
         🔎
       </div>
 
-      <h3 style="
-        margin:0 0 10px;
-        font-size:22px;
-        color:#ffffff;
-      ">
-        ${
-          language === "en"
-            ? "No Jobs Available"
-            : "Belum Ada Lowongan"
-        }
-      </h3>
+    <h3 style="
+         margin:0 0 10px;
+         font-size:22px;
+         color:#ffffff;
+        ">
+         ${
+         language === "en"
+          ? `No Jobs Available for "${searchText || locationText}"`
+          : `Belum Ada Lowongan ${searchText || locationText}`
+          }
+     </h3>
 
       <p style="
         margin:0;
