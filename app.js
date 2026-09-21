@@ -979,7 +979,7 @@ async function renderJobs(list = jobs) {
     jobCount.textContent = list.length;
   }
 
- // =====================================================
+// =====================================================
 // EMPTY STATE HASIL PENCARIAN
 // =====================================================
 
@@ -991,62 +991,181 @@ if (list.length === 0 && hasSearched) {
   const featuredJob =
     document.querySelector("#featuredJob");
 
-if (featuredJob) {
+  if (featuredJob) {
 
-      featuredJob.classList.remove("hidden");
-      featuredJob.classList.add("empty-search");
+    featuredJob.classList.remove("hidden");
+    featuredJob.classList.add("empty-search");
 
-      featuredJob.innerHTML = `
-      
-      <div style="
-        font-size:44px;
-        margin-bottom:12px;
-      ">
-        🔎
+    featuredJob.innerHTML = `
+      <div
+        style="
+          background:
+            linear-gradient(
+              145deg,
+              #123b6d 0%,
+              #0b2b50 100%
+            );
+          color:#fff;
+          border-radius:22px;
+          padding:30px 24px;
+          text-align:center;
+          box-shadow:
+            0 14px 35px
+            rgba(18,59,109,.25);
+          border:
+            1px solid
+            rgba(255,255,255,.12);
+          position:relative;
+          overflow:hidden;
+        "
+      >
+
+        <!-- DEKORASI -->
+        <div
+          style="
+            position:absolute;
+            width:170px;
+            height:170px;
+            border-radius:50%;
+            background:
+              rgba(255,255,255,.045);
+            right:-80px;
+            top:-80px;
+          "
+        ></div>
+
+        <div
+          style="
+            position:absolute;
+            width:120px;
+            height:120px;
+            border-radius:50%;
+            background:
+              rgba(255,255,255,.035);
+            left:-65px;
+            bottom:-65px;
+          "
+        ></div>
+
+        <!-- IKON -->
+        <div
+          style="
+            position:relative;
+            z-index:1;
+            width:64px;
+            height:64px;
+            margin:0 auto 18px;
+            border-radius:18px;
+            background:
+              rgba(255,255,255,.11);
+            border:
+              1px solid
+              rgba(255,255,255,.12);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:29px;
+            box-shadow:
+              0 8px 20px
+              rgba(0,0,0,.12);
+          "
+        >
+          🔎
+        </div>
+
+        <!-- JUDUL -->
+        <h3
+          style="
+            position:relative;
+            z-index:1;
+            margin:0 0 9px;
+            font-size:22px;
+            line-height:1.3;
+            color:#fff;
+            font-weight:800;
+          "
+        >
+          ${
+            language === "en"
+              ? "No Jobs Found"
+              : "Lowongan Tidak Ditemukan"
+          }
+        </h3>
+
+        <!-- PESAN UTAMA -->
+        <p
+          style="
+            position:relative;
+            z-index:1;
+            margin:0 auto;
+            max-width:310px;
+            color:
+              rgba(255,255,255,.86);
+            font-size:13px;
+            line-height:1.65;
+          "
+        >
+          ${
+            language === "en"
+              ? "We couldn't find a job matching your search."
+              : "Kami belum menemukan lowongan yang sesuai dengan pencarian Anda."
+          }
+        </p>
+
+        <!-- PETUNJUK -->
+        <div
+          style="
+            position:relative;
+            z-index:1;
+            margin:18px auto 0;
+            padding:11px 13px;
+            max-width:290px;
+            border-radius:12px;
+            background:
+              rgba(255,255,255,.07);
+            border:
+              1px solid
+              rgba(255,255,255,.09);
+            color:
+              rgba(255,255,255,.70);
+            font-size:12px;
+            line-height:1.55;
+          "
+        >
+          ${
+            language === "en"
+              ? "Try a different job title, keyword, or city."
+              : "Coba kata kunci, posisi pekerjaan, atau kota lainnya."
+          }
+        </div>
+
+        <!-- STATUS -->
+        <div
+          style="
+            position:relative;
+            z-index:1;
+            margin-top:18px;
+            font-size:11px;
+            font-weight:700;
+            letter-spacing:.7px;
+            text-transform:uppercase;
+            color:
+              rgba(255,255,255,.48);
+          "
+        >
+          ${
+            language === "en"
+              ? "Kerjiva Job Search"
+              : "Pencarian Lowongan Kerjiva"
+          }
+        </div>
+
       </div>
-
-      <h3 style="
-        margin:0 0 10px;
-        font-size:22px;
-        color:#ffffff;
-      ">
-        ${
-          language === "en"
-            ? "No Jobs Available"
-            : "Belum Ada Lowongan"
-        }
-      </h3>
-
-      <p style="
-        margin:0;
-        color:rgba(255,255,255,.88);
-        line-height:1.6;
-        max-width:300px;
-      ">
-        ${
-          language === "en"
-            ? "There are no real job openings available for this search."
-            : "Belum ada lowongan nyata yang tersedia untuk pencarian ini."
-        }
-      </p>
-
-      <p style="
-        margin:10px 0 0;
-        color:rgba(255,255,255,.72);
-        font-size:13px;
-        line-height:1.5;
-        max-width:300px;
-      ">
-        ${
-          language === "en"
-            ? "Please try another job type or city."
-            : "Silakan coba jenis pekerjaan atau kota lainnya."
-        }
-      </p>
-
     `;
   }
 }
+
+
 // =====================================================
 // TERJEMAHAN ENGLISH DARI DATABASE
 // HANYA MEMBACA HASIL TERJEMAHAN YANG SUDAH DISIMPAN
