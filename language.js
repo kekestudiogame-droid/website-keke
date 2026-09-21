@@ -1491,9 +1491,29 @@ if (document.body) {
         language
       );
 
-      if (typeof window.renderJobs === "function") {
-        window.renderJobs();
-      }
+    if (typeof window.filterJobs === "function") {
+
+  const keywordInput =
+    document.getElementById("keyword");
+
+  const locationInput =
+    document.getElementById("location");
+
+  const categoryFilter =
+    document.getElementById("categoryFilter");
+
+  const hasSearch =
+    (keywordInput && keywordInput.value.trim()) ||
+    (locationInput && locationInput.value.trim()) ||
+    (categoryFilter && categoryFilter.value !== "all");
+
+  if (hasSearch) {
+    window.filterJobs();
+  } else if (typeof window.renderJobs === "function") {
+    window.renderJobs();
+  }
+
+}
 
     };
    window.translateElement = translateElement;
