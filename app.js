@@ -1023,11 +1023,11 @@ if (list.length === 0 && hasSearched) {
         line-height:1.6;
         max-width:300px;
       ">
-        ${
-          language === "en"
-            ? "There are no real job openings available for this search."
-            : "Belum ada lowongan nyata yang tersedia untuk pencarian ini."
-        }
+       ${
+         language === "en"
+         ? `There are no real job openings available for "${searchText || locationText}".`
+         : `Belum ada lowongan nyata yang tersedia untuk "${searchText || locationText}".`
+         }
       </p>
 
       <p style="
