@@ -991,7 +991,7 @@ if (list.length === 0 && hasSearched) {
   const featuredJob =
     document.querySelector("#featuredJob");
 
-  if (featuredJob) {
+    if (!latestJob && !hasSearched) {
 
     featuredJob.classList.remove("hidden");
     featuredJob.classList.add("empty-search");
@@ -1495,7 +1495,7 @@ if (
         </div>
       `;
 
-    } else {
+     } else if (latestJob) {
 
       // =================================================
       // KARTU BIRU
