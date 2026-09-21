@@ -3139,6 +3139,37 @@ const menuSettings = document.querySelector("#menuSettings");
 const menuLogout = document.querySelector("#menuLogout");
 const menuHome = document.querySelector("#menuHome");
 
+const menuJobs = document.querySelector("#menuJobs");
+const menuHow = document.querySelector("#menuHow");
+const menuAbout = document.querySelector("#menuAbout");
+const menuContact = document.querySelector("#menuContact");
+
+if (menuJobs) {
+  menuJobs.onclick = function () {
+    window.location.href = "index.html#jobs";
+  };
+}
+
+if (menuHow) {
+  menuHow.onclick = function () {
+    window.location.href = "index.html#how";
+  };
+}
+
+if (menuAbout) {
+  menuAbout.onclick = function () {
+    window.location.href = "tentang.html";
+  };
+}
+
+if (menuContact) {
+  menuContact.onclick = function () {
+    window.location.href = "kontak.html";
+  };
+}
+
+
+
 if (menuCompanies) {
   menuCompanies.onclick = function () {
     window.location.href = "perusahaan.html";
