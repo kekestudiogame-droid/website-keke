@@ -1286,10 +1286,19 @@ if (
     document.querySelector(
       "#featuredJob"
     );
+  const searchText =
+  keyword.value.trim();
 
-     if (
-      featuredJob
-      ) {
+const locationText =
+  locationInput.value.trim();
+
+  if (
+  featuredJob &&
+  (
+    !hasSearched ||
+    displayJobs.length > 0
+  )
+) {
        
        if (hasSearched && displayJobs.length > 0) {
           featuredJob.classList.remove("hidden");
