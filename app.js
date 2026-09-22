@@ -1110,7 +1110,13 @@ if (
   // TAMPILKAN DAFTAR LOWONGAN
   // =====================================================
 
-  displayJobs.forEach((job, i) => {
+ displayJobs.forEach((job, i) => {
+
+    const originalIndex =
+      jobs.findIndex(
+        originalJob =>
+          originalJob.id === job.id
+      );
 
     const card =
       document.createElement("article");
@@ -1195,7 +1201,7 @@ if (
 
       <div class="job-actions">
 
-        <button data-details="${i}">
+      <button data-details="${originalIndex}">
           ${
             language === "en"
               ? "View Details"
@@ -1203,7 +1209,7 @@ if (
           }
         </button>
 
-        <button data-apply="${i}">
+       <button data-apply="${originalIndex}">
           ${
             language === "en"
               ? "Apply →"
