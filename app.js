@@ -1868,22 +1868,26 @@ async function filterJobs() {
     );
   });
 
-  hasSearched = true;
+hasSearched = true;
 
-  await renderJobs(filtered);
+// Beri waktu indikator pencarian terlihat
+await new Promise(resolve =>
+  setTimeout(resolve, 700)
+);
 
-  // =====================================================
-  // KEMBALIKAN OPACITY SETELAH HASIL MUNCUL
-  // =====================================================
+await renderJobs(filtered);
 
-  if (jobsGridElement) {
-    jobsGridElement.style.opacity = "1";
-  }
+// =====================================================
+// KEMBALIKAN OPACITY SETELAH HASIL MUNCUL
+// =====================================================
 
-  document.querySelector("#jobs").scrollIntoView({
-    behavior: "smooth"
-  });
+if (jobsGridElement) {
+  jobsGridElement.style.opacity = "1";
 }
+
+document.querySelector("#jobs").scrollIntoView({
+  behavior: "smooth"
+});
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
   hasSearched = true;
