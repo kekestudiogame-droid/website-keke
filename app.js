@@ -1734,6 +1734,69 @@ async function filterJobs() {
   const loc = locationInput.value.trim().toLowerCase();
   const cat = categoryFilter.value;
 
+  // =====================================================
+  // INDIKATOR PROSES PENCARIAN
+  // =====================================================
+
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  const featuredJobElement =
+    document.querySelector("#featuredJob");
+
+  const jobsGridElement =
+    document.querySelector("#jobsGrid");
+
+  const loadingHTML = `
+    <div
+      style="
+        text-align:center;
+        padding:28px 15px;
+      "
+    >
+
+      <div
+        style="
+          font-size:27px;
+          line-height:1;
+          margin-bottom:9px;
+          animation: kerjivaHourglass 1.2s ease-in-out infinite;
+        "
+      >
+        ⏳
+      </div>
+
+      <div
+        style="
+          font-size:14px;
+          font-weight:600;
+          color:#64748b;
+        "
+      >
+        ${
+          language === "en"
+            ? "Searching for jobs..."
+            : "Mencari lowongan..."
+        }
+      </div>
+
+    </div>
+  `;
+
+  if (featuredJobElement) {
+    featuredJobElement.innerHTML = loadingHTML;
+  }
+
+  if (jobsGridElement) {
+    jobsGridElement.style.opacity = "0.35";
+    jobsGridElement.style.transition =
+      "opacity .25s ease";
+  }
+
+  // =====================================================
+  // PROSES PENCARIAN
+  // =====================================================
+
   const searchWords = q
     .split(/\s+/)
     .filter(Boolean);
@@ -1809,7 +1872,13 @@ async function filterJobs() {
 
   await renderJobs(filtered);
 
- 
+  // =====================================================
+  // KEMBALIKAN OPACITY SETELAH HASIL MUNCUL
+  // =====================================================
+
+  if (jobsGridElement) {
+    jobsGridElement.style.opacity = "1";
+  }
 
   document.querySelector("#jobs").scrollIntoView({
     behavior: "smooth"
