@@ -1888,6 +1888,8 @@ if (jobsGridElement) {
 document.querySelector("#jobs").scrollIntoView({
   behavior: "smooth"
 });
+
+}
 document.querySelector("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
   hasSearched = true;
