@@ -1,0 +1,17 @@
+{
+  "name": "Kerjiva",
+  "short_name": "Kerjiva",
+  "description": "Platform karier Indonesia untuk pencari kerja dan perusahaan.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#123b6d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./kerjiva.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
