@@ -1345,60 +1345,59 @@ const locationText =
     // TIDAK ADA LOWONGAN TERBARU
     // ===================================================
 
-    if (!latestJob) {
+  if (!latestJob) {
 
-      featuredJob.innerHTML = `
-        <div
-          style="
-            text-align:center;
-            padding:30px 15px;
-          "
-        >
+  featuredJob.innerHTML = `
+    <div
+      style="
+        text-align:center;
+        padding:30px 15px;
+      "
+    >
 
-          <div
-            style="
-              font-size:42px;
-              margin-bottom:10px;
-            "
-          >
-            🔎
-          </div>
+      <div
+        style="
+          font-size:42px;
+          margin-bottom:10px;
+        "
+      >
+        🚀
+      </div>
 
-          <h3
-            style="
-              margin:0 0 8px;
-            "
-          >
-            ${
-              language === "en"
-                ? "No Recent Jobs"
-                : "Belum Ada Lowongan Terbaru"
-            }
-          </h3>
+      <h3
+        style="
+          margin:0 0 8px;
+        "
+      >
+        ${
+          language === "en"
+            ? "NEWLY LAUNCHED"
+            : "BARU LAUNCHING"
+        }
+      </h3>
 
-          <p
-            style="
-              margin:0;
-              color:#64748b;
-            "
-          >
-            ${
-              language === "en"
-                ? "There are no jobs posted within the last month."
-                : "Belum ada lowongan yang dipasang dalam 1 bulan terakhir."
-            }
-          </p>
+      <p
+        style="
+          margin:0;
+          color:#64748b;
+        "
+      >
+        ${
+          language === "en"
+            ? "Kerjiva is ready to connect job seekers with companies."
+            : "Kerjiva siap menghubungkan pencari kerja dengan perusahaan."
+        }
+      </p>
 
-        </div>
-      `;
+    </div>
+  `;
 
-    } else {
+} else {
 
-      // =================================================
-      // KARTU BIRU
-      // MEMAKAI latestJob DARI displayJobs YANG SAMA
-      // =================================================
-
+// =================================================
+// KARTU BIRU
+// MEMAKAI latestJob DARI displayJobs YANG SAMA
+// =================================================
       const originalIndex =
         jobs.findIndex(
           job =>
