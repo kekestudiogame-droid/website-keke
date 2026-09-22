@@ -1741,8 +1741,8 @@ async function filterJobs() {
   const language =
     localStorage.getItem("siteLanguage") || "id";
 
-  const featuredJobElement =
-    document.querySelector("#featuredJob");
+const searchFeaturedJobElement =
+  document.querySelector("#featuredJob");
 
   const jobsGridElement =
     document.querySelector("#jobsGrid");
@@ -1783,9 +1783,9 @@ async function filterJobs() {
     </div>
   `;
 
-  if (featuredJobElement) {
-    featuredJobElement.innerHTML = loadingHTML;
-  }
+if (searchFeaturedJobElement) {
+  searchFeaturedJobElement.innerHTML = loadingHTML;
+}
 
   if (jobsGridElement) {
     jobsGridElement.style.opacity = "0.35";
