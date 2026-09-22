@@ -1048,6 +1048,22 @@ async function sendChatbotMessage() {
 </script>
 
 <script src="language.js"></script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .then(() => {
+        console.log("Kerjiva Service Worker aktif");
+      })
+      .catch(error => {
+        console.error(
+          "Kerjiva Service Worker gagal:",
+          error
+        );
+      });
+  });
+}
+</script>
 </body>
 </html>
