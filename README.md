@@ -1,32 +1,85 @@
-# Cari Kerjaku ID
+# Kerjiva
 
-Prototype web publik untuk platform pencarian kerja Indonesia.
+**Platform karier Indonesia untuk pencari kerja dan perusahaan.**
 
-## Isi saat ini
-- Landing page
-- Pencarian lowongan
-- Filter kategori
-- Contoh lowongan
-- Modal login/daftar prototype
-- Responsif untuk desktop dan mobile
-- Siap dipasang sebagai static site
+Kerjiva membantu pencari kerja menemukan lowongan yang relevan dan membantu perusahaan mempublikasikan lowongan serta mengelola lamaran.
 
-## Jalankan lokal
-Tidak membutuhkan backend. Buka `index.html` di browser.
+## Fitur
 
-## Deploy gratis
-Repository ini dapat dihubungkan ke Cloudflare Pages atau GitHub Pages.
+* Pencarian lowongan pekerjaan
+* Filter kategori dan lokasi
+* Dukungan bahasa Indonesia dan English
+* Detail lowongan pekerjaan
+* Pendaftaran dan login pengguna
+* Dashboard Pencari Kerja
+* Dashboard Perusahaan
+* Profil pencari kerja
+* Lamaran pekerjaan
+* Upload CV dan dokumen
+* Pengelolaan lowongan perusahaan
+* Pengelolaan lamaran masuk
+* Statistik publik
+* Responsive untuk desktop dan mobile
+* PWA dan dukungan instalasi sebagai aplikasi
+* Persiapan Android release
 
-## Tahap berikutnya
-1. Backend/API
-2. Database production
-3. Authentication
-4. Profil pencari kerja
-5. Dashboard perusahaan
-6. Lamaran pekerjaan
-7. Upload CV
-8. Admin/moderation
-9. Privacy Policy dan Terms
-10. PWA dan Android release
+## Teknologi
 
-> Jangan memasukkan password, API key, token, atau secret ke repository.
+* HTML
+* CSS
+* JavaScript
+* Supabase
+* GitHub Pages
+* Progressive Web App (PWA)
+
+## Struktur Data
+
+Kerjiva menggunakan Supabase untuk mendukung fitur utama seperti:
+
+* Lowongan pekerjaan
+* Perusahaan
+* Profil pencari kerja
+* Lamaran pekerjaan
+* Interview
+* Dokumen dan CV
+
+## PWA
+
+Kerjiva telah dilengkapi dengan:
+
+* `manifest.json`
+* Ikon aplikasi Kerjiva
+* `service-worker.js`
+* Dukungan instalasi dari browser
+* Persiapan untuk Android APK
+
+## Deployment
+
+Kerjiva dapat dijalankan sebagai static site dan di-deploy melalui GitHub Pages.
+
+## Keamanan
+
+Jangan memasukkan informasi sensitif ke repository, termasuk:
+
+* Password
+* Private API key
+* Access token
+* Secret key
+* Credential database
+* Informasi autentikasi lainnya
+
+Konfigurasi yang bersifat publik harus tetap mengikuti mekanisme keamanan dan Row Level Security (RLS) yang diterapkan pada backend.
+
+## Status Project
+
+Kerjiva sedang dalam tahap **persiapan rilis publik**.
+
+Tahapan berikutnya meliputi:
+
+* Pengujian PWA di perangkat mobile
+* Pembuatan dan pengujian APK
+* Pengujian Android
+* Backup data
+* Pembersihan data testing sebelum launch
+* Persiapan domain
+* Finalisasi rilis publik
