@@ -4702,7 +4702,11 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
               border-radius:12px;
               background:#f8fafc;
             ">
-              <strong>📑 ${currentLanguage === "en" ? "Work Experience Letter" : "Paklaring / Surat Pengalaman Kerja"}</strong>
+            <strong style="display:block;">
+                📑 ${currentLanguage === "en"
+                 ? "Work Experience Letter"
+                 : "Paklaring / Surat Pengalaman Kerja"}
+             </strong>
              <input
                 type="file"
                 id="workLetterFileInput"
