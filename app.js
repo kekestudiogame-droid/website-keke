@@ -4717,7 +4717,8 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
              <label
                 for="workLetterFileInput"
                 style="
-                display:inline-block;
+                display:block;
+                width:max-content;
                 margin-top:15px;
                 padding:11px 18px;
                 background:#e8eef7;
