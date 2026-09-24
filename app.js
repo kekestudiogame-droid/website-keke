@@ -7197,6 +7197,20 @@ ${
   const uploadBtn = document.querySelector("#uploadCvBtn");
   const fileInput = document.querySelector("#cvFileInput");
   const status = document.querySelector("#cvStatus");
+  const cvFileName = document.querySelector("#cvFileName");
+
+fileInput.addEventListener("change", () => {
+  const language = localStorage.getItem("siteLanguage") || "id";
+
+  if (fileInput.files.length > 0) {
+    cvFileName.textContent = fileInput.files[0].name;
+  } else {
+    cvFileName.textContent =
+      language === "en"
+        ? "No file chosen"
+        : "Tidak ada file yang dipilih";
+  }
+});
 
   uploadBtn.addEventListener("click", async () => {
     const file = fileInput.files[0];
