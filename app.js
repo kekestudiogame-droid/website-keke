@@ -3788,6 +3788,7 @@ if (!jobseekerCity) {
     // ==================================================
     // SUPABASE AUTH
     // ==================================================
+    console.log("AUTH MODE SEBELUM FETCH:", isRegister);
 
     const response = await fetch(
       isRegister
