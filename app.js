@@ -4539,18 +4539,48 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
       : "Upload CV dalam format PDF agar perusahaan dapat melihat profil dan pengalaman kerja kamu."}
   </div>
 
-  <input
-    type="file"
-    id="cvFileInput"
-    accept=".pdf,application/pdf"
-    style="
-      display:block;
-      margin-top:15px;
-      max-width:100%;
-    "
-  >
+ <input
+  type="file"
+  id="cvFileInput"
+  accept=".pdf,application/pdf"
+  style="display:none;"
+>
 
-  <button
+<label
+  for="cvFileInput"
+  style="
+    display:inline-block;
+    margin-top:15px;
+    padding:11px 18px;
+    background:#e8eef7;
+    color:#123b6d;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+  "
+>
+  ${localStorage.getItem("siteLanguage") === "en"
+    ? "Choose File"
+    : "Pilih File"}
+</label>
+<span
+  id="cvFileName"
+  style="
+    display:block;
+    margin-top:10px;
+    color:#64748b;
+    font-size:13px;
+  "
+>
+  ${localStorage.getItem("siteLanguage") === "en"
+    ? "No file chosen"
+    : "Tidak ada file yang dipilih"}
+</span>
+
+
+
+<button
     id="uploadCvBtn"
     style="
       margin-top:12px;
