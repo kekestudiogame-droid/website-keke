@@ -4802,16 +4802,45 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
                   ? "Upload education certificates or other supporting certificates."
                   : "Upload ijazah atau sertifikat pendukung lainnya."}
               </div>
-              <input
+           <input
   type="file"
   id="educationFileInput"
   accept=".pdf,application/pdf"
+  style="display:none;"
+>
+
+<label
+  for="educationFileInput"
   style="
-    display:block;
+    display:inline-block;
     margin-top:15px;
-    max-width:100%;
+    padding:11px 18px;
+    background:#e8eef7;
+    color:#123b6d;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
   "
 >
+  ${currentLanguage === "en"
+    ? "Choose File"
+    : "Pilih File"}
+</label>
+
+<span
+  id="educationFileName"
+  style="
+    display:block;
+    margin-top:10px;
+    color:#64748b;
+    font-size:13px;
+  "
+>
+  ${currentLanguage === "en"
+    ? "No file chosen"
+    : "Tidak ada file yang dipilih"}
+</span>
 
 <button
   id="uploadEducationBtn"
@@ -5409,6 +5438,20 @@ if (workLetterDisplay && userData && accessToken) {
 const uploadEducationBtn = document.querySelector("#uploadEducationBtn");
 const educationFileInput = document.querySelector("#educationFileInput");
 const educationStatus = document.querySelector("#educationStatus");
+    const educationFileName = document.querySelector("#educationFileName");
+
+if (educationFileName && educationFileInput) {
+  educationFileInput.addEventListener("change", () => {
+    if (educationFileInput.files.length > 0) {
+      educationFileName.textContent = educationFileInput.files[0].name;
+    } else {
+      educationFileName.textContent =
+        currentLanguage === "en"
+          ? "No file chosen"
+          : "Tidak ada file yang dipilih";
+    }
+  });
+}
 
 if (uploadEducationBtn && educationFileInput && educationStatus) {
 
