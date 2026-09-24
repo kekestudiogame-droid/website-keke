@@ -4082,17 +4082,25 @@ if (!jobseekerCity) {
       return;
     }
 
-    // ==================================================
-    // AKUN PERUSAHAAN
-    // ==================================================
-    // Untuk sekarang belum kita utak-atik alur perusahaan.
-    // Nanti setelah pencari kerja selesai dites,
-    // kita rapikan alur perusahaan secara terpisah.
+  // ==================================================
+// AKUN PERUSAHAAN
+// ==================================================
 
-    throw new Error(
-      "Jenis akun belum dapat diproses."
-    );
+if (accountType === "company") {
 
+  modal.classList.add("hidden");
+
+  showCompanyDashboard();
+
+  showNotification("loginSuccess");
+
+  return;
+}
+
+throw new Error(
+  "Jenis akun belum dapat diproses."
+);
+    
   } catch (error) {
 
     console.error(
