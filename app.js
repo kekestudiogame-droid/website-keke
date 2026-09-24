@@ -4986,16 +4986,45 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
       : "Upload foto atau scan KTP kamu."}
   </div>
 
-  <input
-    type="file"
-    id="ktpFileInput"
-    accept="image/jpeg,image/png"
-    style="
-      display:block;
-      margin-top:15px;
-      max-width:100%;
-    "
-  >
+<input
+  type="file"
+  id="ktpFileInput"
+  accept="image/jpeg,image/png"
+  style="display:none;"
+>
+
+<label
+  for="ktpFileInput"
+  style="
+    display:inline-block;
+    margin-top:15px;
+    padding:11px 18px;
+    background:#e8eef7;
+    color:#123b6d;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+  "
+>
+  ${currentLanguage === "en"
+    ? "Choose File"
+    : "Pilih File"}
+</label>
+
+<span
+  id="ktpFileName"
+  style="
+    display:block;
+    margin-top:10px;
+    color:#64748b;
+    font-size:13px;
+  "
+>
+  ${currentLanguage === "en"
+    ? "No file chosen"
+    : "Tidak ada file yang dipilih"}
+</span>
 
   <button
     id="uploadKtpBtn"
@@ -6061,6 +6090,20 @@ if (otherDocumentDisplay && userData && accessToken) {
 const uploadKtpBtn = document.querySelector("#uploadKtpBtn");
 const ktpFileInput = document.querySelector("#ktpFileInput");
 const ktpStatus = document.querySelector("#ktpStatus");
+    const ktpFileName = document.querySelector("#ktpFileName");
+
+if (ktpFileName && ktpFileInput) {
+  ktpFileInput.addEventListener("change", () => {
+    if (ktpFileInput.files.length > 0) {
+      ktpFileName.textContent = ktpFileInput.files[0].name;
+    } else {
+      ktpFileName.textContent =
+        currentLanguage === "en"
+          ? "No file chosen"
+          : "Tidak ada file yang dipilih";
+    }
+  });
+}
 
 if (uploadKtpBtn && ktpFileInput && ktpStatus) {
 
