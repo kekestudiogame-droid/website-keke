@@ -4626,16 +4626,45 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
       : "Upload daftar riwayat hidup atau resume kamu."}
   </div>
 
-  <input
-    type="file"
-    id="resumeFileInput"
-    accept=".pdf,application/pdf"
-    style="
-      display:block;
-      margin-top:15px;
-      max-width:100%;
-    "
-  >
+<input
+  type="file"
+  id="resumeFileInput"
+  accept=".pdf,application/pdf"
+  style="display:none;"
+>
+
+<label
+  for="resumeFileInput"
+  style="
+    display:inline-block;
+    margin-top:15px;
+    padding:11px 18px;
+    background:#e8eef7;
+    color:#123b6d;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+  "
+>
+  ${currentLanguage === "en"
+    ? "Choose File"
+    : "Pilih File"}
+</label>
+
+<span
+  id="resumeFileName"
+  style="
+    display:block;
+    margin-top:10px;
+    color:#64748b;
+    font-size:13px;
+  "
+>
+  ${currentLanguage === "en"
+    ? "No file chosen"
+    : "Tidak ada file yang dipilih"}
+</span>
 
   <button
     id="uploadResumeBtn"
@@ -6741,6 +6770,21 @@ if (simADisplay && userData && accessToken) {
 const uploadResumeBtn = document.querySelector("#uploadResumeBtn");
 const resumeFileInput = document.querySelector("#resumeFileInput");
 const resumeStatus = document.querySelector("#resumeStatus");
+    const resumeFileName = document.querySelector("#resumeFileName");
+
+if (resumeFileName && resumeFileInput) {
+  resumeFileInput.addEventListener("change", () => {
+    if (resumeFileInput.files.length > 0) {
+      resumeFileName.textContent = resumeFileInput.files[0].name;
+    } else {
+      resumeFileName.textContent =
+        currentLanguage === "en"
+          ? "No file chosen"
+          : "Tidak ada file yang dipilih";
+    }
+  });
+}
+    
 
 if (uploadResumeBtn && resumeFileInput && resumeStatus) {
 
