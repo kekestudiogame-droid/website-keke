@@ -7215,10 +7215,13 @@ fileInput.addEventListener("change", () => {
   uploadBtn.addEventListener("click", async () => {
     const file = fileInput.files[0];
 
-    if (!file) {
-      status.textContent = "Pilih file CV terlebih dahulu.";
-      return;
-    }
+  if (!file) {
+       status.textContent =
+       currentLanguage === "en"
+       ? "Please select a CV file first."
+       : "Pilih file CV terlebih dahulu.";
+  return;
+   }
    
     if (file.type !== "application/pdf") {
       status.textContent = "CV harus berupa file PDF.";
