@@ -5175,16 +5175,45 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
       : "Upload foto atau scan SIM C kamu."}
   </div>
 
-  <input
-    type="file"
-    id="simCFileInput"
-    accept="image/jpeg,image/png"
-    style="
-      display:block;
-      margin-top:15px;
-      max-width:100%;
-    "
-  >
+<input
+  type="file"
+  id="simCFileInput"
+  accept="image/jpeg,image/png"
+  style="display:none;"
+>
+
+<label
+  for="simCFileInput"
+  style="
+    display:inline-block;
+    margin-top:15px;
+    padding:11px 18px;
+    background:#e8eef7;
+    color:#123b6d;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+  "
+>
+  ${currentLanguage === "en"
+    ? "Choose File"
+    : "Pilih File"}
+</label>
+
+<span
+  id="simCFileName"
+  style="
+    display:block;
+    margin-top:10px;
+    color:#64748b;
+    font-size:13px;
+  "
+>
+  ${currentLanguage === "en"
+    ? "No file chosen"
+    : "Tidak ada file yang dipilih"}
+</span>
 
   <button
     id="uploadSimCBtn"
