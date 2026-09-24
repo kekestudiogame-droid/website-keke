@@ -4892,16 +4892,45 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
                   ? "Upload other documents that may support your application."
                   : "Upload dokumen lain yang mungkin mendukung lamaran kamu."}
               </div>
-              <input
+            <input
   type="file"
   id="otherDocumentFileInput"
   accept=".pdf,application/pdf"
+  style="display:none;"
+>
+
+<label
+  for="otherDocumentFileInput"
   style="
-    display:block;
+    display:inline-block;
     margin-top:15px;
-    max-width:100%;
+    padding:11px 18px;
+    background:#e8eef7;
+    color:#123b6d;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
   "
 >
+  ${currentLanguage === "en"
+    ? "Choose File"
+    : "Pilih File"}
+</label>
+
+<span
+  id="otherDocumentFileName"
+  style="
+    display:block;
+    margin-top:10px;
+    color:#64748b;
+    font-size:13px;
+  "
+>
+  ${currentLanguage === "en"
+    ? "No file chosen"
+    : "Tidak ada file yang dipilih"}
+</span>
 
 <button
   id="uploadOtherDocumentBtn"
@@ -5735,6 +5764,20 @@ if (educationDisplay && userData && accessToken) {
 const uploadOtherDocumentBtn = document.querySelector("#uploadOtherDocumentBtn");
 const otherDocumentFileInput = document.querySelector("#otherDocumentFileInput");
 const otherDocumentStatus = document.querySelector("#otherDocumentStatus");
+    const otherDocumentFileName = document.querySelector("#otherDocumentFileName");
+
+if (otherDocumentFileName && otherDocumentFileInput) {
+  otherDocumentFileInput.addEventListener("change", () => {
+    if (otherDocumentFileInput.files.length > 0) {
+      otherDocumentFileName.textContent = otherDocumentFileInput.files[0].name;
+    } else {
+      otherDocumentFileName.textContent =
+        currentLanguage === "en"
+          ? "No file chosen"
+          : "Tidak ada file yang dipilih";
+    }
+  });
+}
 
 if (uploadOtherDocumentBtn && otherDocumentFileInput && otherDocumentStatus) {
 
