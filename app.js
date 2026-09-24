@@ -4703,16 +4703,45 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
               background:#f8fafc;
             ">
               <strong>📑 ${currentLanguage === "en" ? "Work Experience Letter" : "Paklaring / Surat Pengalaman Kerja"}</strong>
-              <input
+             <input
                 type="file"
                 id="workLetterFileInput"
                 accept=".pdf,application/pdf"
-                 style="
-                 display:block;
+                style="display:none;"
+                 >
+
+             <label
+                for="workLetterFileInput"
+                style="
+                display:inline-block;
                 margin-top:15px;
-                max-width:100%;
+                padding:11px 18px;
+                background:#e8eef7;
+                color:#123b6d;
+                border-radius:8px;
+                cursor:pointer;
+                font-size:14px;
+                font-weight:bold;
                 "
                 >
+                ${currentLanguage === "en"
+                 ? "Choose File"
+                 : "Pilih File"}
+               </label>
+
+               <span
+               id="workLetterFileName"
+               style="
+               display:block;
+               margin-top:10px;
+               color:#64748b;
+               font-size:13px;
+               "
+               >
+               ${currentLanguage === "en"
+                  ? "No file chosen"
+                   : "Tidak ada file yang dipilih"}
+               </span>
 
                <button
                id="uploadWorkLetterBtn"
@@ -5089,6 +5118,20 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
 const uploadWorkLetterBtn = document.querySelector("#uploadWorkLetterBtn");
 const workLetterFileInput = document.querySelector("#workLetterFileInput");
 const workLetterStatus = document.querySelector("#workLetterStatus");
+    const workLetterFileName = document.querySelector("#workLetterFileName");
+
+if (workLetterFileName && workLetterFileInput) {
+  workLetterFileInput.addEventListener("change", () => {
+    if (workLetterFileInput.files.length > 0) {
+      workLetterFileName.textContent = workLetterFileInput.files[0].name;
+    } else {
+      workLetterFileName.textContent =
+        currentLanguage === "en"
+          ? "No file chosen"
+          : "Tidak ada file yang dipilih";
+    }
+  });
+}
 
 if (uploadWorkLetterBtn && workLetterFileInput && workLetterStatus) {
 
