@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -14,36 +15,41 @@
       color: #333;
     }
 
-    .container {
-      max-width: 700px;
-      margin: 40px auto;
-      background: white;
-      padding: 35px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
 
-    h1 {
-      color: #123b6d;
-      text-align: center;
-    }
+h1 {
+  color: #123b6d;
+  text-align: center;
+}
 
-    h2 {
-      color: #123b6d;
-      margin-top: 30px;
-    }
+h2 {
+  color: #123b6d;
+  margin-top: 30px;
+}
 
-    .contact-box {
-      text-align: center;
-      margin-top: 30px;
-      padding: 25px;
-      background: #f4f7fb;
-      border-radius: 10px;
-    }
+.contact-box {
+  text-align: center;
+  margin-top: 30px;
+  padding: 25px;
+  background: #f4f7fb;
+  border-radius: 10px;
+}
 
-    a {
-      color: #123b6d;
-    }
+a {
+  color: #123b6d;
+}
+
+.contact-item {
+  margin: 18px 0;
+}
+
   </style>
 </head>
 
@@ -55,7 +61,7 @@
 
 <p id="contactIntro">
   Jika Anda memiliki pertanyaan, membutuhkan bantuan, atau mengalami
-  kendala saat menggunakan Kerjiva,silakan menghubungi kami
+  kendala saat menggunakan Kerjiva, silakan menghubungi kami
   melalui kontak yang tersedia.
 </p>
 
@@ -64,29 +70,33 @@
   <h2 id="contactHeading">Kontak</h2>
 
   <p id="contactText1">
-    Untuk sementara, layanan Kerjiva dapat dihubungi melalui
-    nomor telepon resmi yang akan ditampilkan pada halaman ini.
-  </p>
-
-  <p id="contactText2">
     Untuk informasi dan bantuan, silakan hubungi Kerjiva melalui
-    nomor telepon resmi berikut:
+    nomor telepon atau email support resmi berikut:
   </p>
 
-  <p>
-    <strong>📞 087780181152</strong>
-  </p>
+  <div class="contact-item">
+    <p>
+      <strong id="phoneLabel">📞 Telepon:</strong>
+      <a href="tel:087798580473">087798580473</a>
+    </p>
+  </div>
+
+  <div class="contact-item">
+    <p>
+      <strong id="emailLabel">✉️ Email Support:</strong>
+      <a href="mailto:support@kerjiva.com">support@kerjiva.com</a>
+    </p>
+  </div>
 
 </div>
 
 <p style="margin-top:40px; text-align:center;">
- <a id="backLink" href="index.html">← Kembali ke Kerjiva</a>
+  <a id="backLink" href="index.html">← Kembali ke Kerjiva</a>
 </p>
 
 <p id="copyright" style="text-align:center;">
-© Kerjiva
+  © Kerjiva
 </p>
-
 
   </div>
 
@@ -98,29 +108,29 @@
       const translations = {
         id: {
           contactTitle: "Hubungi Kerjiva",
-        contactIntro:
-           "Jika Anda memiliki pertanyaan, membutuhkan bantuan, atau mengalami kendala saat menggunakan Kerjiva, silakan menghubungi kami melalui kontak yang tersedia.",
+          contactIntro:
+            "Jika Anda memiliki pertanyaan, membutuhkan bantuan, atau mengalami kendala saat menggunakan Kerjiva, silakan menghubungi kami melalui kontak yang tersedia.",
           contactHeading: "Kontak",
-         contactText1:
-            "Untuk sementara, layanan Kerjiva dapat dihubungi melalui nomor telepon resmi yang akan ditampilkan pada halaman ini.",
-         contactText2:
-            "Untuk informasi dan bantuan, silakan hubungi Kerjiva melalui nomor telepon resmi berikut:",
-         backLink: "← Kembali ke Kerjiva",
-        copyright: "© Kerjiva",
+          contactText1:
+            "Untuk informasi dan bantuan, silakan hubungi Kerjiva melalui nomor telepon atau email support resmi berikut:",
+          phoneLabel: "📞 Telepon:",
+          emailLabel: "✉️ Email Support:",
+          backLink: "← Kembali ke Kerjiva",
+          copyright: "© Kerjiva"
         },
 
         en: {
-            contactTitle: "Contact Kerjiva",
-            contactIntro:
-             "If you have any questions, need assistance, or experience any issues while using Kerjiva, please contact us through the available contact information.",
-            contactHeading: "Contact",
-            contactText1:
-              "For the time being, Kerjiva can be contacted through the official phone number provided on this page.",
-            contactText2:
-               "For information and assistance, please contact Kerjiva through the following official phone number:",
-            backLink: "← Back to Kerjiva",
-            copyright: "© Kerjiva"
-           }
+          contactTitle: "Contact Kerjiva",
+          contactIntro:
+            "If you have any questions, need assistance, or experience any issues while using Kerjiva, please contact us through the available contact information.",
+          contactHeading: "Contact",
+          contactText1:
+            "For information and assistance, please contact Kerjiva through the following official phone number or support email:",
+          phoneLabel: "📞 Phone:",
+          emailLabel: "✉️ Support Email:",
+          backLink: "← Back to Kerjiva",
+          copyright: "© Kerjiva"
+        }
       };
 
       const text = translations[language] || translations.id;
@@ -129,7 +139,8 @@
       document.getElementById("contactIntro").textContent = text.contactIntro;
       document.getElementById("contactHeading").textContent = text.contactHeading;
       document.getElementById("contactText1").textContent = text.contactText1;
-      document.getElementById("contactText2").textContent = text.contactText2;
+      document.getElementById("phoneLabel").textContent = text.phoneLabel;
+      document.getElementById("emailLabel").textContent = text.emailLabel;
       document.getElementById("backLink").textContent = text.backLink;
       document.getElementById("copyright").textContent = text.copyright;
     }
