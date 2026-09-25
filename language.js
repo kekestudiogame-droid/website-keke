@@ -997,6 +997,9 @@
         );
 
       }
+             if (EN_TO_ID[trimmed]) {
+        return value;
+      }
 
 
       Object.keys(GLOBAL_TRANSLATIONS)
