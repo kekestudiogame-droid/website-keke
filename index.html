@@ -713,6 +713,100 @@
   </button>
 
 </div>
+      <!-- FORM PASSWORD BARU -->
+<div id="resetPasswordForm" style="display:none;">
+
+  <label>
+    <span id="newPasswordLabel">Password Baru</span>
+
+    <div style="position:relative;width:100%;">
+      <input
+        id="newPassword"
+        type="password"
+        minlength="6"
+        placeholder="Minimal 6 karakter"
+        autocomplete="new-password"
+        style="
+          width:100%;
+          box-sizing:border-box;
+          padding-right:46px;
+        "
+      >
+
+      <button
+        type="button"
+        id="toggleNewPassword"
+        aria-label="Tampilkan password"
+        style="
+          position:absolute;
+          right:12px;
+          top:50%;
+          transform:translateY(-50%);
+          border:none;
+          background:none;
+          padding:4px;
+          font-size:19px;
+          cursor:pointer;
+          line-height:1;
+        "
+      >
+        👁️
+      </button>
+    </div>
+  </label>
+
+  <label>
+    <span id="confirmNewPasswordLabel">
+      Konfirmasi Password Baru
+    </span>
+
+    <div style="position:relative;width:100%;">
+      <input
+        id="confirmNewPassword"
+        type="password"
+        minlength="6"
+        placeholder="Ulangi password baru"
+        autocomplete="new-password"
+        style="
+          width:100%;
+          box-sizing:border-box;
+          padding-right:46px;
+        "
+      >
+
+      <button
+        type="button"
+        id="toggleConfirmNewPassword"
+        aria-label="Tampilkan password"
+        style="
+          position:absolute;
+          right:12px;
+          top:50%;
+          transform:translateY(-50%);
+          border:none;
+          background:none;
+          padding:4px;
+          font-size:19px;
+          cursor:pointer;
+          line-height:1;
+        "
+      >
+        👁️
+      </button>
+    </div>
+  </label>
+
+  <button
+    type="button"
+    class="btn btn-primary full"
+    id="saveNewPasswordBtn"
+  >
+    <span id="saveNewPasswordText">
+      Simpan Password Baru
+    </span>
+  </button>
+
+</div>
 
       <!-- KONFIRMASI PASSWORD -->
       <div id="confirmPasswordField" style="display:none;">
