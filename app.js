@@ -3567,19 +3567,81 @@ updateForgotPasswordText();
 const forgotPasswordBtn =
   document.querySelector("#forgotPasswordBtn");
 
-if (forgotPasswordBtn) {
+const forgotPasswordForm =
+  document.querySelector("#forgotPasswordForm");
+
+const authForm =
+  document.querySelector("#authForm");
+
+const confirmPasswordField =
+  document.querySelector("#confirmPasswordField");
+
+if (forgotPasswordBtn && forgotPasswordForm) {
+
   forgotPasswordBtn.addEventListener("click", () => {
 
-    const isEnglish =
-      localStorage.getItem("siteLanguage") === "en";
+    // Sembunyikan bagian login/register
+    const accountType =
+      document.querySelector("#accountType");
 
-    console.log(
-      isEnglish
-        ? "Forgot Password clicked"
-        : "Lupa Password diklik"
-    );
+    const jobseekerFields =
+      document.querySelector("#jobseekerFields");
+
+    const companyFields =
+      document.querySelector("#companyFields");
+
+    const switchAuth =
+      document.querySelector("#switchAuth");
+
+    if (accountType) {
+      accountType.style.display = "none";
+    }
+
+    if (jobseekerFields) {
+      jobseekerFields.style.display = "none";
+    }
+
+    if (companyFields) {
+      companyFields.style.display = "none";
+    }
+
+    if (confirmPasswordField) {
+      confirmPasswordField.style.display = "none";
+    }
+
+    if (switchAuth) {
+      switchAuth.parentElement.style.display = "none";
+    }
+
+    // Sembunyikan tombol submit utama
+    const submitButton =
+      authForm?.querySelector('button[type="submit"]');
+
+    if (submitButton) {
+      submitButton.style.display = "none";
+    }
+
+    // Tampilkan form lupa password
+    forgotPasswordForm.style.display = "block";
+
+    // Isi email otomatis dari form login jika ada
+    const loginEmail =
+      document.querySelector("#email");
+
+    const forgotEmail =
+      document.querySelector("#forgotPasswordEmail");
+
+    if (
+      loginEmail &&
+      forgotEmail &&
+      loginEmail.value.trim()
+    ) {
+      forgotEmail.value =
+        loginEmail.value.trim();
+    }
 
   });
+
 }
 
 document.querySelector("#switchAuth").addEventListener("click", () => {
