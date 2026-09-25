@@ -10897,9 +10897,11 @@ function translateMyJobs(page) {
     }
   });
 }
+
 function companyLogout() {
-localStorage.removeItem("kerjivaUser");
-localStorage.removeItem("kerjivaAccessToken");
+  localStorage.removeItem("kerjivaUser");
+  localStorage.removeItem("kerjivaAccessToken");
+  localStorage.removeItem("kerjivaActiveRole");
   location.reload();
 }
 
