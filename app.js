@@ -9190,25 +9190,52 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
             ${
   company.id
     ? `
-      <button
-        onclick="editCompanyProfile()"
-        style="
-          padding:12px 20px;
-          background:#123b6d;
-          color:white;
-          border:none;
-          border-radius:8px;
-          cursor:pointer;
-          font-weight:bold;
-          margin-top:15px;
-        "
-      >
-        ✏️ ${
-          localStorage.getItem("siteLanguage") === "en"
-            ? "Edit Profile"
-            : "Edit Profil"
-        }
-      </button>
+     <div style="
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+">
+
+  <button
+    onclick="editCompanyProfile()"
+    style="
+      padding:12px 20px;
+      background:#123b6d;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+    "
+  >
+    ✏️ ${
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Edit Profile"
+        : "Edit Profil"
+    }
+  </button>
+
+  <button
+    onclick="deleteCompanyProfile('${company.id}')"
+    style="
+      padding:12px 20px;
+      background:#dc2626;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+    "
+  >
+    🗑️ ${
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Delete Profile"
+        : "Hapus Profil"
+    }
+  </button>
+
+</div>
     `
     : `
       <button
@@ -9682,6 +9709,65 @@ const response = await fetch(
   } catch (error) {
 
     console.error("Gagal menyimpan profil perusahaan:", error);
+
+    showNotification(
+      "companyProfileFailed",
+      " " + error.message
+    );
+  }
+}
+async function deleteCompanyProfile(companyId) {
+  const userData = localStorage.getItem("kerjivaUser");
+  const accessToken = localStorage.getItem("kerjivaAccessToken");
+
+  if (!userData || !accessToken) {
+    showNotification("companySessionNotFound");
+    return;
+  }
+
+  const language =
+    localStorage.getItem("siteLanguage") || "id";
+
+  const confirmed = confirm(
+    language === "en"
+      ? "Are you sure you want to delete your company profile?"
+      : "Yakin ingin menghapus profil perusahaan?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const user = JSON.parse(userData);
+
+    const response = await fetch(
+      `${SUPABASE_URL}companies?id=eq.${companyId}&user_id=eq.${user.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`,
+          Prefer: "return=minimal"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    alert(
+      language === "en"
+        ? "Company profile deleted successfully."
+        : "Profil perusahaan berhasil dihapus."
+    );
+
+    await showCompanyProfile();
+
+  } catch (error) {
+    console.error(
+      "Gagal menghapus profil perusahaan:",
+      error
+    );
 
     showNotification(
       "companyProfileFailed",
