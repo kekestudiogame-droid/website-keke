@@ -3989,13 +3989,12 @@ modalText.textContent =
     ? "Enter your email and password to log in."
     : "Masukkan email dan password untuk masuk.";
 
-const accountType =
+const accountTypeElement =
   document.querySelector("#accountType");
 
-if (accountType) {
-  accountType.style.display = "none";
+if (accountTypeElement) {
+  accountTypeElement.style.display = "none";
 }
-
 const jobseekerFields =
   document.querySelector("#jobseekerFields");
 
