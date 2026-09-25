@@ -603,18 +603,49 @@
         >
       </label>
 
-      <!-- PASSWORD -->
-      <label>
-        Password
-        <input
-          id="password"
-          type="password"
-          required
-          minlength="6"
-          placeholder="Minimal 6 karakter"
-          autocomplete="new-password"
-        >
-      </label>
+    <!-- PASSWORD -->
+<label>
+  <span id="passwordLabel">Password</span>
+
+  <div style="
+    position:relative;
+    width:100%;
+  ">
+    <input
+      id="password"
+      type="password"
+      required
+      minlength="6"
+      placeholder="Minimal 6 karakter"
+      autocomplete="new-password"
+      style="
+        width:100%;
+        box-sizing:border-box;
+        padding-right:46px;
+      "
+    >
+
+    <button
+      type="button"
+      id="togglePassword"
+      aria-label="Tampilkan password"
+      style="
+        position:absolute;
+        right:12px;
+        top:50%;
+        transform:translateY(-50%);
+        border:none;
+        background:none;
+        padding:4px;
+        font-size:19px;
+        cursor:pointer;
+        line-height:1;
+      "
+    >
+      👁️
+    </button>
+  </div>
+</label>
       
       <!-- LUPA PASSWORD -->
 <div id="forgotPasswordWrapper" style="
