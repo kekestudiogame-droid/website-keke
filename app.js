@@ -3540,6 +3540,28 @@ if (forgotPasswordWrapper) {
     }
   });
 }
+
+
+// ================= LUPA PASSWORD =================
+
+const forgotPasswordBtn =
+  document.querySelector("#forgotPasswordBtn");
+
+if (forgotPasswordBtn) {
+  forgotPasswordBtn.addEventListener("click", () => {
+
+    const isEnglish =
+      localStorage.getItem("siteLanguage") === "en";
+
+    console.log(
+      isEnglish
+        ? "Forgot Password clicked"
+        : "Lupa Password diklik"
+    );
+
+  });
+}
+
 document.querySelector("#switchAuth").addEventListener("click", () => {
   isRegister = !isRegister;
 
