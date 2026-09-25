@@ -4055,105 +4055,98 @@ return;
       JSON.stringify(data.user || {})
     );
 
-    // ==================================================
-    // CEK JENIS AKUN DARI USER METADATA
-    // ==================================================
-
-    const metadata =
-      data.user?.user_metadata || {};
-
-    const accountType =
-      metadata.account_type || "jobseeker";
-
-    // ==================================================
-    // PENCARI KERJA
-    // ==================================================
-
-    if (accountType === "jobseeker") {
-
-      // Cek apakah profil pencari kerja sudah ada.
-      // Ini juga menangani akun yang dibuat ketika
-      // email confirmation masih aktif.
-
-      if (data.user?.id) {
-
-        const profileCheck = await fetch(
-          `${SUPABASE_URL}jobseeker_profiles?id=eq.${data.user.id}&select=id`,
-          {
-            headers: {
-              apikey: SUPABASE_KEY,
-              Authorization:
-                `Bearer ${data.access_token}`
-            }
-          }
-        );
-
-        if (!profileCheck.ok) {
-          throw new Error(
-            await profileCheck.text()
-          );
-        }
-
-        const existingProfiles =
-          await profileCheck.json();
-
-        // Jika belum ada profil, buat sekarang.
-        
-        if (!existingProfiles.length) {
-
-          const profileResponse = await fetch(
-            `${SUPABASE_URL}jobseeker_profiles`,
-            {
-              method: "POST",
-
-              headers: {
-                apikey: SUPABASE_KEY,
-                Authorization:
-                  `Bearer ${data.access_token}`,
-                "Content-Type": "application/json",
-                Prefer: "return=minimal"
-              },
-
-              body: JSON.stringify({
-                id: data.user.id,
-
-                full_name:
-                  metadata.full_name || "",
-
-                phone:
-                  metadata.phone || "",
-
-                city:
-                  metadata.city || ""
-              })
-            }
-          );
-
-          if (!profileResponse.ok) {
-            const profileError =
-              await profileResponse.text();
-
-            throw new Error(profileError);
-          }
-        }
-      }
-
-      // Masuk dashboard pencari kerja
-      
-      modal.classList.add("hidden");
-
-      showJobseekerDashboard();
-
-      showNotification("loginSuccess");
-
-      return;
-    }
-
   // ==================================================
-// AKUN PERUSAHAAN
+// CEK ROLE YANG DIPILIH SAAT LOGIN
 // ==================================================
 
-if (accountType === "company") {
+const metadata =
+  data.user?.user_metadata || {};
+
+const selectedRole =
+  isCompany ? "company" : "jobseeker";
+
+localStorage.setItem(
+  "kerjivaActiveRole",
+  selectedRole
+);
+
+// ==================================================
+// PENCARI KERJA
+// ==================================================
+
+if (!isCompany) {
+
+  // Pastikan profil pencari kerja tersedia
+  if (data.user?.id) {
+
+    const profileCheck = await fetch(
+      `${SUPABASE_URL}jobseeker_profiles?id=eq.${data.user.id}&select=id`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization:
+            `Bearer ${data.access_token}`
+        }
+      }
+    );
+
+    if (!profileCheck.ok) {
+      throw new Error(
+        await profileCheck.text()
+      );
+    }
+
+    const existingProfiles =
+      await profileCheck.json();
+
+    if (!existingProfiles.length) {
+
+      const profileResponse = await fetch(
+        `${SUPABASE_URL}jobseeker_profiles`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization:
+              `Bearer ${data.access_token}`,
+            "Content-Type": "application/json",
+            Prefer: "return=minimal"
+          },
+          body: JSON.stringify({
+            id: data.user.id,
+            full_name:
+              metadata.full_name || "",
+            phone:
+              metadata.phone || "",
+            city:
+              metadata.city || ""
+          })
+        }
+      );
+
+      if (!profileResponse.ok) {
+        const profileError =
+          await profileResponse.text();
+
+        throw new Error(profileError);
+      }
+    }
+  }
+
+  modal.classList.add("hidden");
+
+  showJobseekerDashboard();
+
+  showNotification("loginSuccess");
+
+  return;
+}
+
+// ==================================================
+// PERUSAHAAN
+// ==================================================
+
+if (isCompany) {
 
   modal.classList.add("hidden");
 
@@ -4164,6 +4157,10 @@ if (accountType === "company") {
   return;
 }
 
+throw new Error(
+  "Jenis akun belum dapat diproses."
+);
+    
 throw new Error(
   "Jenis akun belum dapat diproses."
 );
