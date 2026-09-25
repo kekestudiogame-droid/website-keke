@@ -9092,6 +9092,238 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
     const profile = document.createElement("div");
 
     profile.id = "companyProfile";
+    if (!company.id) {
+  profile.innerHTML = `
+    <div style="
+      min-height:100vh;
+      background:#f4f7fb;
+      font-family:Arial,sans-serif;
+      color:#1f2937;
+    ">
+
+      <div style="
+        background:#123b6d;
+        color:white;
+        padding:20px 30px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+      ">
+        <div>
+          <div style="
+            font-size:24px;
+            font-weight:bold;
+          ">
+            <span id="newCompanyProfileBrand">Kerjiva</span>
+          </div>
+
+          <div style="
+            font-size:13px;
+            opacity:.85;
+            margin-top:4px;
+          ">
+            Profil Perusahaan
+          </div>
+        </div>
+
+        <button
+          onclick="showCompanyDashboard()"
+          style="
+            background:rgba(255,255,255,.12);
+            color:white;
+            border:1px solid rgba(255,255,255,.3);
+            padding:10px 18px;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+          "
+        >
+          ← Dashboard
+        </button>
+      </div>
+
+      <div style="
+        max-width:900px;
+        margin:auto;
+        padding:35px 25px;
+      ">
+
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:16px;
+          border:1px solid #e5eaf1;
+          box-shadow:0 3px 15px rgba(15,23,42,.07);
+        ">
+
+          <h1 style="
+            margin:0 0 25px 0;
+            color:#172b4d;
+            font-size:28px;
+          ">
+            ${
+              localStorage.getItem("siteLanguage") === "en"
+                ? "Company Profile"
+                : "Profil Perusahaan"
+            }
+          </h1>
+
+          <label style="font-weight:bold;">
+            ${
+              localStorage.getItem("siteLanguage") === "en"
+                ? "Company Name"
+                : "Nama Perusahaan"
+            }
+          </label>
+
+          <input
+            id="editCompanyName"
+            placeholder="${
+              localStorage.getItem("siteLanguage") === "en"
+                ? "Company Name"
+                : "Nama Perusahaan"
+            }"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:13px;
+              margin:7px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              font-size:15px;
+            "
+          >
+
+          <label style="font-weight:bold;">📧 Email</label>
+
+          <input
+            value="${company.email || user.email || ""}"
+            disabled
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:13px;
+              margin:7px 0 18px;
+              border:1px solid #e5eaf1;
+              border-radius:8px;
+              font-size:15px;
+              background:#f1f5f9;
+            "
+          >
+
+          <label style="font-weight:bold;">📞 ${
+            localStorage.getItem("siteLanguage") === "en"
+              ? "Phone"
+              : "Telepon"
+          }</label>
+
+          <input
+            id="editCompanyPhone"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:13px;
+              margin:7px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              font-size:15px;
+            "
+          >
+
+          <label style="font-weight:bold;">🌐 ${
+            localStorage.getItem("siteLanguage") === "en"
+              ? "Website"
+              : "Website"
+          }</label>
+
+          <input
+            id="editCompanyWebsite"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:13px;
+              margin:7px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              font-size:15px;
+            "
+          >
+
+          <label style="font-weight:bold;">📍 ${
+            localStorage.getItem("siteLanguage") === "en"
+              ? "City"
+              : "Kota"
+          }</label>
+
+          <input
+            id="editCompanyCity"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:13px;
+              margin:7px 0 18px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              font-size:15px;
+            "
+          >
+
+          <label style="font-weight:bold;">🏠 ${
+            localStorage.getItem("siteLanguage") === "en"
+              ? "Address"
+              : "Alamat"
+          }</label>
+
+          <textarea
+            id="editCompanyAddress"
+            rows="4"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:13px;
+              margin:7px 0 25px;
+              border:1px solid #dbe3ec;
+              border-radius:8px;
+              font-size:15px;
+              resize:vertical;
+            "
+          ></textarea>
+
+          <button
+            onclick="saveCompanyProfile(null)"
+            style="
+              padding:12px 22px;
+              background:#123b6d;
+              color:white;
+              border:none;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            💾 ${
+              localStorage.getItem("siteLanguage") === "en"
+                ? "Save Profile"
+                : "Simpan Profil"
+            }
+          </button>
+
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.innerHTML = "";
+  document.body.appendChild(profile);
+
+  if (window.setLanguage) {
+    window.setLanguage(
+      localStorage.getItem("siteLanguage") || "id"
+    );
+  }
+
+  return;
+}
 
     profile.innerHTML = `
       <div style="
