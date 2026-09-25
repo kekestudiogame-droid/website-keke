@@ -1003,12 +1003,13 @@
               if (trimmed.includes("Save Profile")) {
                    return value;
                 }
-             if (
+              if (
                   trimmed.includes("Edit Profile") ||
-                  trimmed.includes("Delete Profile")
-                ) {
+                  trimmed.includes("Delete Profile") ||
+                  trimmed.includes("Edit Company Profile")
+                  ) {
                     return value;
-                }
+                   }
 
 
       Object.keys(GLOBAL_TRANSLATIONS)
