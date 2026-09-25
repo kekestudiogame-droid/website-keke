@@ -3570,9 +3570,6 @@ const forgotPasswordBtn =
 const forgotPasswordForm =
   document.querySelector("#forgotPasswordForm");
 
-const authForm =
-  document.querySelector("#authForm");
-
 const confirmPasswordField =
   document.querySelector("#confirmPasswordField");
 
