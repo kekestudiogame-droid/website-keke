@@ -9077,17 +9077,18 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
       throw new Error(errorText);
     }
 
-    const companies = await response.json();
+  const companies = await response.json();
 
-    if (!companies.length) {
-      showNotification("profileNotFound");
-      return;
-    }
-
-   const company = companies.find(
-    c => c.id === "009267ea-f6cd-4527-b7ce-43d124a84369"
-    );
-
+  const company = companies[0] || {
+  id: null,
+  user_id: user.id,
+  company_name: "",
+  email: "",
+  phone: "",
+  website: "",
+  city: "",
+  address: ""
+};
     const profile = document.createElement("div");
 
     profile.id = "companyProfile";
