@@ -11519,17 +11519,20 @@ for (const app of myApplications) {
 
             ? `
 
-              <div style="
-                background:white;
-                padding:30px;
-                border-radius:14px;
-                border:1px solid #e5eaf1;
-              ">
+             <div style="
+               background:white;
+               padding:30px;
+               border-radius:14px;
+               border:1px solid #e5eaf1;
+               ">
 
-                Belum ada lamaran masuk.
+                ${
+               localStorage.getItem("siteLanguage") === "en"
+                ? "No incoming applications yet."
+                : "Belum ada lamaran masuk."
+                }
 
-              </div>
-
+               </div>
             `
 
             : myApplications.map(app => `
