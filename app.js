@@ -9187,21 +9187,51 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
             ">
               Profil perusahaan Anda
             </p>
-              <button
-              onclick="editCompanyProfile()"
-              style="
-              padding:12px 20px;
-              background:#123b6d;
-              color:white;
-              border:none;
-              border-radius:8px;
-              cursor:pointer;
-              font-weight:bold;
-              margin-top:15px;
-            "
-            >
-            ✏️ Edit Profil
-            </button>
+            ${
+  company.id
+    ? `
+      <button
+        onclick="editCompanyProfile()"
+        style="
+          padding:12px 20px;
+          background:#123b6d;
+          color:white;
+          border:none;
+          border-radius:8px;
+          cursor:pointer;
+          font-weight:bold;
+          margin-top:15px;
+        "
+      >
+        ✏️ ${
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Edit Profile"
+            : "Edit Profil"
+        }
+      </button>
+    `
+    : `
+      <button
+        onclick="saveCompanyProfile(null)"
+        style="
+          padding:12px 20px;
+          background:#123b6d;
+          color:white;
+          border:none;
+          border-radius:8px;
+          cursor:pointer;
+          font-weight:bold;
+          margin-top:15px;
+        "
+      >
+        💾 ${
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Save Profile"
+            : "Simpan Profil"
+        }
+      </button>
+    `
+}
 
             <div style="
               display:grid;
@@ -9614,24 +9644,28 @@ console.log("COMPANY ID YANG DIUPDATE:", companyId);
 console.log("USER DATA:", userData);
 
 const response = await fetch(
-  `${SUPABASE_URL}companies?id=eq.${companyId}&user_id=eq.${user.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-           Prefer: "return=representation"
-        },
-        body: JSON.stringify({
-          company_name: companyName,
-          phone: phone,
-          website: website,
-          city: city,
-          address: address
-        })
-      }
-    );
+  companyId
+    ? `${SUPABASE_URL}companies?id=eq.${companyId}&user_id=eq.${user.id}`
+    : `${SUPABASE_URL}companies`,
+  {
+    method: companyId ? "PATCH" : "POST",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      Prefer: "return=representation"
+    },
+    body: JSON.stringify({
+      user_id: user.id,
+      company_name: companyName,
+      email: user.email || "",
+      phone: phone,
+      website: website,
+      city: city,
+      address: address
+    })
+  }
+);
 
     if (!response.ok) {
       const errorText = await response.text();
