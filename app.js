@@ -13209,8 +13209,8 @@ if (togglePassword && passwordInput) {
     passwordInput.type =
       isHidden ? "text" : "password";
 
-    togglePassword.textContent =
-      isHidden ? "🙈" : "👁️";
+  togglePassword.textContent =
+  isHidden ? "👁️" : "👁️‍🗨️";
 
     togglePassword.setAttribute(
       "aria-label",
