@@ -8280,7 +8280,24 @@ function translateMyJobs(page) {
 }
  // ================= DASHBOARD PERUSAHAAN =================
 window.submitJobPost = submitJobPost;
+
 async function showCompanyDashboard() {
+  
+    const activeRole =
+    localStorage.getItem("kerjivaActiveRole");
+
+  if (activeRole !== "company") {
+    const isEnglish =
+      localStorage.getItem("siteLanguage") === "en";
+
+    alert(
+      isEnglish
+        ? "Please log out first, then log in as a Company."
+        : "Silakan logout terlebih dahulu, lalu login sebagai Perusahaan."
+    );
+
+    return;
+  }
   const dashboard = document.createElement("div");
 
   dashboard.id = "companyDashboard";
