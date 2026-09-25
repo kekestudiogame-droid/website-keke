@@ -602,6 +602,9 @@
 
     "Profil perusahaan Anda":
       "Your company profile",
+     
+     "Edit Profil Perusahaan":
+        "Edit Company Profile",
 
     "Nama Perusahaan":
       "Company Name",
