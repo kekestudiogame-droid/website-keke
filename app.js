@@ -4270,6 +4270,22 @@ function showRegistrationNotification() {
 // ================= DASHBOARD PENCARI KERJA =================
 
   async function showJobseekerDashboard() {
+    
+      const activeRole =
+    localStorage.getItem("kerjivaActiveRole");
+
+  if (activeRole !== "jobseeker") {
+    const isEnglish =
+      localStorage.getItem("siteLanguage") === "en";
+
+    alert(
+      isEnglish
+        ? "Please log out first, then log in as a Job Seeker."
+        : "Silakan logout terlebih dahulu, lalu login sebagai Pencari Kerja."
+    );
+
+    return;
+  }
   const language = localStorage.getItem("siteLanguage") || "id";
 
 const userData = localStorage.getItem("kerjivaUser");
