@@ -3640,6 +3640,109 @@ if (forgotPasswordBtn && forgotPasswordForm) {
   });
 
 }
+// ================= KIRIM LINK RESET PASSWORD =================
+
+const sendResetPasswordBtn =
+  document.querySelector("#sendResetPasswordBtn");
+
+if (sendResetPasswordBtn) {
+
+  sendResetPasswordBtn.addEventListener("click", async () => {
+
+    const forgotEmail =
+      document.querySelector("#forgotPasswordEmail");
+
+    const email =
+      forgotEmail?.value.trim();
+
+    const isEnglish =
+      localStorage.getItem("siteLanguage") === "en";
+
+    if (!email) {
+
+      alert(
+        isEnglish
+          ? "Please enter your email address."
+          : "Silakan masukkan alamat email."
+      );
+
+      return;
+    }
+
+    sendResetPasswordBtn.disabled = true;
+
+    const originalText =
+      sendResetPasswordBtn.textContent;
+
+    sendResetPasswordBtn.textContent =
+      isEnglish
+        ? "Sending..."
+        : "Mengirim...";
+
+    try {
+
+      const authUrl =
+        SUPABASE_URL.replace("/rest/v1/", "/auth/v1/");
+
+      const response = await fetch(
+        `${authUrl}/recover`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email: email,
+            redirect_to: "https://kerjiva.com/"
+          })
+        }
+      );
+
+      if (!response.ok) {
+
+        const errorText =
+          await response.text();
+
+        console.error(
+          "RESET PASSWORD ERROR:",
+          errorText
+        );
+
+        throw new Error(errorText);
+      }
+
+      alert(
+        isEnglish
+          ? "Password reset link has been sent. Please check your email."
+          : "Link reset password telah dikirim. Silakan cek email Anda."
+      );
+
+    } catch (error) {
+
+      console.error(
+        "RESET PASSWORD ERROR:",
+        error
+      );
+
+      alert(
+        isEnglish
+          ? "Failed to send password reset link."
+          : "Gagal mengirim link reset password."
+      );
+
+    } finally {
+
+      sendResetPasswordBtn.disabled = false;
+
+      sendResetPasswordBtn.textContent =
+        originalText;
+
+    }
+
+  });
+
+}
 
 document.querySelector("#switchAuth").addEventListener("click", () => {
   isRegister = !isRegister;
