@@ -998,8 +998,11 @@
 
       }
              if (EN_TO_ID[trimmed]) {
-        return value;
-      }
+                  return value;
+               }
+              if (trimmed.includes("Save Profile")) {
+                   return value;
+                }
 
 
       Object.keys(GLOBAL_TRANSLATIONS)
