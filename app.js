@@ -3421,6 +3421,7 @@ if (jobseekerFields) {
     if (switchAuthContainer) {
       switchAuthContainer.classList.remove("hidden");
     }
+  
 
     // ================= LUPA PASSWORD =================
 
@@ -13190,6 +13191,35 @@ if (cvDisplay) {
       }
     });
   }
+}
+// ================= LIHAT PASSWORD =================
+
+const togglePassword =
+  document.querySelector("#togglePassword");
+
+const passwordInput =
+  document.querySelector("#password");
+
+if (togglePassword && passwordInput) {
+  togglePassword.addEventListener("click", () => {
+
+    const isHidden =
+      passwordInput.type === "password";
+
+    passwordInput.type =
+      isHidden ? "text" : "password";
+
+    togglePassword.textContent =
+      isHidden ? "🙈" : "👁️";
+
+    togglePassword.setAttribute(
+      "aria-label",
+      isHidden
+        ? "Sembunyikan password"
+        : "Tampilkan password"
+    );
+
+  });
 }
 
 
