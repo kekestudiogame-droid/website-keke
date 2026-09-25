@@ -3540,7 +3540,17 @@ if (forgotPasswordWrapper) {
     }
   });
 }
+// ================= TEKS LUPA PASSWORD =================
 
+const forgotPasswordText =
+  document.querySelector("#forgotPasswordText");
+
+if (forgotPasswordText) {
+  forgotPasswordText.textContent =
+    localStorage.getItem("siteLanguage") === "en"
+      ? "Forgot Password?"
+      : "Lupa Password?";
+}
 
 // ================= LUPA PASSWORD =================
 
