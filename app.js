@@ -3422,7 +3422,15 @@ if (jobseekerFields) {
       switchAuthContainer.classList.remove("hidden");
     }
 
-    if (modal) {
+    // ================= LUPA PASSWORD =================
+
+const forgotPasswordWrapper =
+  document.querySelector("#forgotPasswordWrapper");
+
+if (forgotPasswordWrapper) {
+  forgotPasswordWrapper.style.display = "block";
+}
+     if (modal) {
       modal.classList.remove("hidden");
     }
   });
@@ -3505,6 +3513,14 @@ if (registerBtn) {
         ? "Log In"
         : "Masuk";
     }
+    // ================= SEMBUNYIKAN LUPA PASSWORD =================
+
+const forgotPasswordWrapper =
+  document.querySelector("#forgotPasswordWrapper");
+
+if (forgotPasswordWrapper) {
+  forgotPasswordWrapper.style.display = "none";
+}
 
     // ================= TAMPILKAN FORM =================
 
