@@ -3494,27 +3494,29 @@ if (registerBtn) {
        confirmPasswordField.style.display = "none";
     }
 
-    // ================= TOMBOL =================
+ // ================= TOMBOL =================
 
-    const submitButton =
-      authForm?.querySelector('button[type="submit"]');
+const submitButton =
+  authForm?.querySelector('button[type="submit"]');
 
-    if (submitButton) {
-      submitButton.textContent = isEnglish
-        ? "Sign Up"
-        : "Daftar";
-    }
+if (submitButton) {
+  submitButton.textContent = isEnglish
+    ? "Sign Up"
+    : "Daftar";
+}
 
-    const switchAuth =
-      document.querySelector("#switchAuth");
+const switchAuth =
+  document.querySelector("#switchAuth");
 
-    if (switchAuth) {
-      switchAuth.textContent = isEnglish
-        ? "Log In"
-        : "Masuk";
-    }
-    // ================= SEMBUNYIKAN LUPA PASSWORD =================
+if (switchAuth) {
+  switchAuth.textContent = isEnglish
+    ? "Log In"
+    : "Masuk";
+}
 
+updateForgotPasswordText();
+
+// ================= SEMBUNYIKAN LUPA PASSWORD =================
 const forgotPasswordWrapper =
   document.querySelector("#forgotPasswordWrapper");
 
@@ -3542,15 +3544,22 @@ if (forgotPasswordWrapper) {
 }
 // ================= TEKS LUPA PASSWORD =================
 
-const forgotPasswordText =
-  document.querySelector("#forgotPasswordText");
+function updateForgotPasswordText() {
+  const forgotPasswordText =
+    document.querySelector("#forgotPasswordText");
 
-if (forgotPasswordText) {
+  if (!forgotPasswordText) return;
+
+  const isEnglish =
+    localStorage.getItem("siteLanguage") === "en";
+
   forgotPasswordText.textContent =
-    localStorage.getItem("siteLanguage") === "en"
+    isEnglish
       ? "Forgot Password?"
       : "Lupa Password?";
 }
+
+updateForgotPasswordText();
 
 // ================= LUPA PASSWORD =================
 
