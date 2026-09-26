@@ -3884,6 +3884,90 @@ if (forgotBtn && forgotForm) {
   });
 
 }
+  // ================= KIRIM LINK RESET PASSWORD =================
+
+const sendResetPasswordBtn =
+  document.querySelector("#sendResetPasswordBtn");
+
+if (sendResetPasswordBtn) {
+
+  sendResetPasswordBtn.addEventListener("click", async () => {
+
+    const forgotEmail =
+      document.querySelector("#forgotPasswordEmail");
+
+    const email =
+      forgotEmail?.value.trim();
+
+    if (!email) {
+      alert(
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Please enter your email address."
+          : "Silakan masukkan alamat email."
+      );
+      return;
+    }
+
+    sendResetPasswordBtn.disabled = true;
+
+    const originalText =
+      sendResetPasswordBtn.textContent;
+
+    sendResetPasswordBtn.textContent =
+      localStorage.getItem("siteLanguage") === "en"
+        ? "Sending..."
+        : "Mengirim...";
+
+    try {
+
+      const { error } =
+        await supabaseAuth.auth.resetPasswordForEmail(
+          email,
+          {
+            redirectTo: "https://kerjiva.com/"
+          }
+        );
+
+      if (error) {
+        console.error("RESET PASSWORD ERROR:", error);
+
+        alert(
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Failed to send reset link: " + error.message
+            : "Gagal mengirim link reset password: " + error.message
+        );
+
+        return;
+      }
+
+      alert(
+        localStorage.getItem("siteLanguage") === "en"
+          ? "Reset password link has been sent to your email."
+          : "Link reset password sudah dikirim ke email Anda."
+      );
+
+    } catch (error) {
+
+      console.error("RESET PASSWORD ERROR:", error);
+
+      alert(
+        localStorage.getItem("siteLanguage") === "en"
+          ? "An error occurred while sending the reset link."
+          : "Terjadi kesalahan saat mengirim link reset password."
+      );
+
+    } finally {
+
+      sendResetPasswordBtn.disabled = false;
+
+      sendResetPasswordBtn.textContent =
+        originalText;
+
+    }
+
+  });
+
+}
 
 
 authForm.addEventListener("submit", async e => {
