@@ -13391,16 +13391,16 @@ if (togglePassword && passwordInput) {
 }
 // ================= CEK RECOVERY PASSWORD =================
 
-const recoveryParams =
-  new URLSearchParams(window.location.search);
+supabaseAuth.auth.getSession().then(({ data, error }) => {
 
-const recoveryType =
-  recoveryParams.get("type");
+  console.log("RECOVERY CHECK:", data.session, error);
 
-if (recoveryType === "recovery") {
+  if (data.session) {
 
-  console.log("PASSWORD RECOVERY TERDETEKSI");
+    console.log("PASSWORD RECOVERY TERDETEKSI");
 
-  showResetPasswordForm();
+    showResetPasswordForm();
 
-}
+  }
+
+});
