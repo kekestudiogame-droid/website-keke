@@ -3356,8 +3356,9 @@ if (menuLogout) {
       console.error("Logout error:", error);
     }
 
- localStorage.removeItem("kerjivaUser");
- localStorage.removeItem("kerjivaAccessToken");
+localStorage.removeItem("kerjivaUser");
+localStorage.removeItem("kerjivaAccessToken");
+localStorage.removeItem("kerjivaActiveRole");
 
     window.location.reload();
   });
