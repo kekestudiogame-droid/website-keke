@@ -13464,6 +13464,81 @@ if (togglePassword && passwordInput) {
 
   });
 }
+  // ================= TAMPILKAN FORM PASSWORD BARU =================
+
+function showResetPasswordForm() {
+
+  const authModal =
+    document.querySelector("#authModal");
+
+  const forgotForm =
+    document.querySelector("#forgotPasswordForm");
+
+  const resetForm =
+    document.querySelector("#resetPasswordForm");
+
+  const forgotWrapper =
+    document.querySelector("#forgotPasswordWrapper");
+
+  const accountType =
+    document.querySelector("#accountType");
+
+  const jobseekerFields =
+    document.querySelector("#jobseekerFields");
+
+  const companyFields =
+    document.querySelector("#companyFields");
+
+  const confirmPasswordField =
+    document.querySelector("#confirmPasswordField");
+
+  const switchAuth =
+    document.querySelector("#switchAuth")?.parentElement;
+
+  const mainSubmit =
+    authForm?.querySelector('button[type="submit"]');
+
+  if (authModal) {
+    authModal.style.display = "flex";
+  }
+
+  if (forgotWrapper) {
+    forgotWrapper.style.display = "none";
+  }
+
+  if (forgotForm) {
+    forgotForm.style.display = "none";
+  }
+
+  if (resetForm) {
+    resetForm.style.display = "block";
+  }
+
+  if (accountType) {
+    accountType.style.display = "none";
+  }
+
+  if (jobseekerFields) {
+    jobseekerFields.style.display = "none";
+  }
+
+  if (companyFields) {
+    companyFields.style.display = "none";
+  }
+
+  if (confirmPasswordField) {
+    confirmPasswordField.style.display = "none";
+  }
+
+  if (switchAuth) {
+    switchAuth.style.display = "none";
+  }
+
+  if (mainSubmit) {
+    mainSubmit.style.display = "none";
+  }
+
+}
 // ================= CEK PASSWORD RECOVERY =================
 
 supabaseAuth.auth.onAuthStateChange((event, session) => {
