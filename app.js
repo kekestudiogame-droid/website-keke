@@ -3521,7 +3521,7 @@ if (registerBtn) {
        confirmPasswordField.style.display = "none";
     }
 
- // ================= TOMBOL =================
+// ================= TOMBOL =================
 
 const submitButton =
   authForm?.querySelector('button[type="submit"]');
@@ -3544,6 +3544,7 @@ if (switchAuth) {
 updateForgotPasswordText();
 
 // ================= SEMBUNYIKAN LUPA PASSWORD =================
+
 const forgotPasswordWrapper =
   document.querySelector("#forgotPasswordWrapper");
 
@@ -3551,24 +3552,23 @@ if (forgotPasswordWrapper) {
   forgotPasswordWrapper.style.display = "none";
 }
 
-    // ================= TAMPILKAN FORM =================
+// ================= TAMPILKAN FORM =================
 
-    if (authForm) {
-      authForm.classList.remove("hidden");
-    }
-
-    const switchAuthContainer =
-      document.querySelector(".switch-auth");
-
-    if (switchAuthContainer) {
-      switchAuthContainer.classList.remove("hidden");
-    }
-
-    if (modal) {
-      modal.classList.remove("hidden");
-    }
-  });
+if (authForm) {
+  authForm.classList.remove("hidden");
 }
+
+const switchAuthContainer =
+  document.querySelector(".switch-auth");
+
+if (switchAuthContainer) {
+  switchAuthContainer.classList.remove("hidden");
+}
+
+if (modal) {
+  modal.classList.remove("hidden");
+}
+
 // ================= TEKS LUPA PASSWORD =================
 
 function updateForgotPasswordText() {
@@ -3596,58 +3596,54 @@ const forgotPasswordBtn =
 const forgotPasswordForm =
   document.querySelector("#forgotPasswordForm");
 
-const confirmPasswordField =
+const forgotConfirmPasswordField =
   document.querySelector("#confirmPasswordField");
 
 if (forgotPasswordBtn && forgotPasswordForm) {
 
   forgotPasswordBtn.addEventListener("click", () => {
 
-    // Sembunyikan bagian login/register
-    const accountType =
+    const forgotAccountType =
       document.querySelector("#accountType");
 
-    const jobseekerFields =
+    const forgotJobseekerFields =
       document.querySelector("#jobseekerFields");
 
-    const companyFields =
+    const forgotCompanyFields =
       document.querySelector("#companyFields");
 
-    const switchAuth =
+    const forgotSwitchAuth =
       document.querySelector("#switchAuth");
 
-    if (accountType) {
-      accountType.style.display = "none";
+    if (forgotAccountType) {
+      forgotAccountType.style.display = "none";
     }
 
-    if (jobseekerFields) {
-      jobseekerFields.style.display = "none";
+    if (forgotJobseekerFields) {
+      forgotJobseekerFields.style.display = "none";
     }
 
-    if (companyFields) {
-      companyFields.style.display = "none";
+    if (forgotCompanyFields) {
+      forgotCompanyFields.style.display = "none";
     }
 
-    if (confirmPasswordField) {
-      confirmPasswordField.style.display = "none";
+    if (forgotConfirmPasswordField) {
+      forgotConfirmPasswordField.style.display = "none";
     }
 
-    if (switchAuth) {
-      switchAuth.parentElement.style.display = "none";
+    if (forgotSwitchAuth) {
+      forgotSwitchAuth.parentElement.style.display = "none";
     }
 
-    // Sembunyikan tombol submit utama
-    const submitButton =
+    const forgotSubmitButton =
       authForm?.querySelector('button[type="submit"]');
 
-    if (submitButton) {
-      submitButton.style.display = "none";
+    if (forgotSubmitButton) {
+      forgotSubmitButton.style.display = "none";
     }
 
-    // Tampilkan form lupa password
     forgotPasswordForm.style.display = "block";
 
-    // Isi email otomatis dari form login jika ada
     const loginEmail =
       document.querySelector("#email");
 
@@ -3667,72 +3663,75 @@ if (forgotPasswordBtn && forgotPasswordForm) {
 
 }
 
-  // ================= MODE DAFTAR =================
+// ================= MODE DAFTAR =================
 
-  if (isRegister) {
-    isCompany = false;
+if (isRegister) {
 
-    modalTitle.textContent = isEnglish
+  isCompany = false;
+
+  modalTitle.textContent = isEnglish
+    ? "Sign Up"
+    : "Daftar";
+
+  modalText.textContent = isEnglish
+    ? "Create an account to start applying for jobs."
+    : "Buat akun untuk mulai melamar pekerjaan.";
+
+  const registerAccountType =
+    document.querySelector("#accountType");
+
+  if (registerAccountType) {
+    registerAccountType.style.display = "block";
+  }
+
+  const registerJobseekerFields =
+    document.querySelector("#jobseekerFields");
+
+  if (registerJobseekerFields) {
+    registerJobseekerFields.style.display = "none";
+  }
+
+  const registerCompanyFields =
+    document.querySelector("#companyFields");
+
+  if (registerCompanyFields) {
+    registerCompanyFields.style.display = "none";
+  }
+
+  const registerConfirmPasswordField =
+    document.querySelector("#confirmPasswordField");
+
+  if (registerConfirmPasswordField) {
+    registerConfirmPasswordField.style.display = "none";
+  }
+
+  const registerSubmitButton =
+    authForm?.querySelector('button[type="submit"]');
+
+  if (registerSubmitButton) {
+    registerSubmitButton.textContent = isEnglish
       ? "Sign Up"
       : "Daftar";
+    registerSubmitButton.style.display = "";
+  }
 
-    modalText.textContent = isEnglish
-      ? "Create an account to start applying for jobs."
-      : "Buat akun untuk mulai melamar pekerjaan.";
+  const registerSwitchAuth =
+    document.querySelector("#switchAuth");
 
-    // Tampilkan pilihan jenis akun
-    const accountType =
-      document.querySelector("#accountType");
-
-    if (accountType) {
-      accountType.style.display = "block";
-    }
-
- // Sembunyikan field pencari kerja
-// sampai user memilih jenis akun
-const jobseekerFields =
-  document.querySelector("#jobseekerFields");
-
-if (jobseekerFields) {
-  jobseekerFields.style.display = "none";
-}
-
-    // Sembunyikan perusahaan
-    const companyFields =
-      document.querySelector("#companyFields");
-
-    if (companyFields) {
-      companyFields.style.display = "none";
-    }
-
- // Sembunyikan konfirmasi password
-// sampai user memilih jenis akun
-const confirmPasswordField =
-  document.querySelector("#confirmPasswordField");
-
-if (confirmPasswordField) {
-  confirmPasswordField.style.display = "none";
-}
-
-    // Tombol submit
-    const submitButton =
-      authForm?.querySelector('button[type="submit"]');
-
-    if (submitButton) {
-      submitButton.textContent = isEnglish
-        ? "Sign Up"
-        : "Daftar";
-    }
-
-    // Tombol switch
-    document.querySelector("#switchAuth").textContent =
+  if (registerSwitchAuth) {
+    registerSwitchAuth.textContent =
       isEnglish
         ? "Log In"
         : "Masuk";
 
+    registerSwitchAuth.parentElement.style.display = "";
   }
 
-  // ================= MODE MASUK =================
+}
+
+// ================= MODE MASUK =================
+
+if (!isRegister) {
 
   isCompany = false;
 
@@ -3744,55 +3743,62 @@ if (confirmPasswordField) {
     ? "Enter your email and password to log in."
     : "Masukkan email dan password untuk masuk.";
 
-  // Sembunyikan pilihan jenis akun
-  const accountType =
+  const loginAccountType =
     document.querySelector("#accountType");
 
-  if (accountType) {
-    accountType.style.display = "none";
+  if (loginAccountType) {
+    loginAccountType.style.display = "none";
   }
 
-  // Sembunyikan field pencari kerja
-  const jobseekerFields =
+  const loginJobseekerFields =
     document.querySelector("#jobseekerFields");
 
-  if (jobseekerFields) {
-    jobseekerFields.style.display = "none";
+  if (loginJobseekerFields) {
+    loginJobseekerFields.style.display = "none";
   }
 
-  // Sembunyikan field perusahaan
-  const companyFields =
+  const loginCompanyFields =
     document.querySelector("#companyFields");
 
-  if (companyFields) {
-    companyFields.style.display = "none";
+  if (loginCompanyFields) {
+    loginCompanyFields.style.display = "none";
   }
 
-  // Sembunyikan konfirmasi password
-  const confirmPasswordField =
+  const loginConfirmPasswordField =
     document.querySelector("#confirmPasswordField");
 
-  if (confirmPasswordField) {
-    confirmPasswordField.style.display = "none";
+  if (loginConfirmPasswordField) {
+    loginConfirmPasswordField.style.display = "none";
   }
 
-  // Tombol submit
-  const submitButton =
+  const loginSubmitButton =
     authForm?.querySelector('button[type="submit"]');
 
-  if (submitButton) {
-    submitButton.textContent = isEnglish
+  if (loginSubmitButton) {
+    loginSubmitButton.textContent = isEnglish
       ? "Log In"
       : "Masuk";
+
+    loginSubmitButton.style.display = "";
   }
 
-  // Tombol switch
-  document.querySelector("#switchAuth").textContent =
-    isEnglish
-      ? "Sign Up"
-      : "Daftar";
-});
+  const loginSwitchAuth =
+    document.querySelector("#switchAuth");
 
+  if (loginSwitchAuth) {
+    loginSwitchAuth.textContent =
+      isEnglish
+        ? "Sign Up"
+        : "Daftar";
+
+    loginSwitchAuth.parentElement.style.display = "";
+  }
+
+  if (forgotPasswordWrapper) {
+    forgotPasswordWrapper.style.display = "block";
+  }
+
+}
 document.querySelector("#closeJobDetail").addEventListener("click", () => {
   document.querySelector("#jobDetailModal").classList.add("hidden");
 });
