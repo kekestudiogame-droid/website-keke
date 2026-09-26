@@ -8,7 +8,7 @@ const supabaseAuth =
     SUPABASE_KEY,
     {
       auth: {
-        flowType: "pkce",
+      flowType: "implicit",
         detectSessionInUrl: true,
         persistSession: true,
         autoRefreshToken: true
