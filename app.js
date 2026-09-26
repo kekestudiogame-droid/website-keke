@@ -3707,35 +3707,21 @@ if (sendResetPasswordBtn) {
 
     try {
 
-     const authUrl =
-         SUPABASE_URL.replace("/rest/v1/", "/auth/v1").replace(/\/+$/, "");
-      
-      const response = await fetch(
-        `${authUrl}/recover`,
-        {
-          method: "POST",
-          headers: {
-            apikey: SUPABASE_KEY,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: email,
-            redirect_to: "https://kerjiva.com/"
-          })
-        }
-      );
-
-      if (!response.ok) {
-
-        const errorText =
-          await response.text();
-
-        console.error(
-          "RESET PASSWORD ERROR:",
-          errorText
+      const { error } =
+        await supabaseAuth.auth.resetPasswordForEmail(
+          email,
+          {
+            redirectTo: "https://kerjiva.com/"
+          }
         );
 
-        throw new Error(errorText);
+      if (error) {
+        console.error(
+          "RESET PASSWORD ERROR:",
+          error
+        );
+
+        throw error;
       }
 
       alert(
@@ -3769,12 +3755,6 @@ if (sendResetPasswordBtn) {
   });
 
 }
-
-document.querySelector("#switchAuth").addEventListener("click", () => {
-  isRegister = !isRegister;
-
-  const isEnglish =
-    localStorage.getItem("siteLanguage") === "en";
 
   // ================= MODE DAFTAR =================
 
