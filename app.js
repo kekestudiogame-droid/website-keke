@@ -5,7 +5,15 @@ const SUPABASE_KEY = "sb_publishable_xvPQL9oniSRwZoqmSc5W4A_NS9ldWIL";
 const supabaseAuth =
   window.supabase.createClient(
     SUPABASE_URL.replace("/rest/v1/", ""),
-    SUPABASE_KEY
+    SUPABASE_KEY,
+    {
+      auth: {
+        flowType: "pkce",
+        detectSessionInUrl: true,
+        persistSession: true,
+        autoRefreshToken: true
+      }
+    }
   );
 
 supabaseAuth.auth.onAuthStateChange(
