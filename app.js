@@ -13702,14 +13702,30 @@ const { error } =
         return;
       }
 
-      alert(
-        language === "en"
-          ? "Password has been successfully changed."
-          : "Password berhasil diubah."
-      );
+    alert(
+  language === "en"
+    ? "Password has been successfully changed."
+    : "Password berhasil diubah."
+);
 
-      document.querySelector("#newPassword").value = "";
-      document.querySelector("#confirmNewPassword").value = "";
+document.querySelector("#newPassword").value = "";
+document.querySelector("#confirmNewPassword").value = "";
+
+// Tutup form reset password
+const resetForm =
+  document.querySelector("#resetPasswordForm");
+
+const authModal =
+  document.querySelector("#authModal");
+
+if (resetForm) {
+  resetForm.style.display = "none";
+}
+
+if (authModal) {
+  authModal.classList.add("hidden");
+  authModal.style.display = "none";
+}
 
     } catch (error) {
 
