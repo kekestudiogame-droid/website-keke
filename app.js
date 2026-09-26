@@ -3307,49 +3307,97 @@ if (menuHome) {
 }
 if (menuJobseeker) {
   menuJobseeker.onclick = function () {
+    const userData =
+      localStorage.getItem("kerjivaUser");
+
     const activeRole =
       localStorage.getItem("kerjivaActiveRole");
 
-    if (activeRole !== "jobseeker") {
-      const isEnglish =
-        localStorage.getItem("siteLanguage") === "en";
+    // BELUM LOGIN
+    if (!userData || !activeRole) {
+      isRegister = false;
+      isCompany = false;
 
-      alert(
-        isEnglish
-          ? "Please log out first, then log in as a Job Seeker."
-          : "Silakan logout terlebih dahulu, lalu login sebagai Pencari Kerja."
-      );
+      if (modalTitle) {
+        modalTitle.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Log In"
+            : "Masuk";
+      }
+
+      if (typeof openAuthModal === "function") {
+        openAuthModal();
+      }
 
       return;
     }
 
-    if (typeof showJobseekerDashboard === "function") {
-      showJobseekerDashboard();
+    // SUDAH LOGIN SEBAGAI PENCAri KERJA
+    if (activeRole === "jobseeker") {
+      if (typeof showJobseekerDashboard === "function") {
+        showJobseekerDashboard();
+      }
+
+      return;
     }
+
+    // LOGIN SEBAGAI PERUSAHAAN
+    const isEnglish =
+      localStorage.getItem("siteLanguage") === "en";
+
+    alert(
+      isEnglish
+        ? "Please log out first, then log in as a Job Seeker."
+        : "Silakan logout terlebih dahulu, lalu login sebagai Pencari Kerja."
+    );
   };
 }
 
 if (menuCompany) {
   menuCompany.onclick = function () {
+    const userData =
+      localStorage.getItem("kerjivaUser");
+
     const activeRole =
       localStorage.getItem("kerjivaActiveRole");
 
-    if (activeRole !== "company") {
-      const isEnglish =
-        localStorage.getItem("siteLanguage") === "en";
+    // BELUM LOGIN
+    if (!userData || !activeRole) {
+      isRegister = false;
+      isCompany = true;
 
-      alert(
-        isEnglish
-          ? "Please log out first, then log in as a Company."
-          : "Silakan logout terlebih dahulu, lalu login sebagai Perusahaan."
-      );
+      if (modalTitle) {
+        modalTitle.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Log In"
+            : "Masuk";
+      }
+
+      if (typeof openAuthModal === "function") {
+        openAuthModal();
+      }
 
       return;
     }
 
-    if (typeof showCompanyDashboard === "function") {
-      showCompanyDashboard();
+    // SUDAH LOGIN SEBAGAI PERUSAHAAN
+    if (activeRole === "company") {
+      if (typeof showCompanyDashboard === "function") {
+        showCompanyDashboard();
+      }
+
+      return;
     }
+
+    // LOGIN SEBAGAI PENCAri KERJA
+    const isEnglish =
+      localStorage.getItem("siteLanguage") === "en";
+
+    alert(
+      isEnglish
+        ? "Please log out first, then log in as a Company."
+        : "Silakan logout terlebih dahulu, lalu login sebagai Perusahaan."
+    );
   };
 }
 if (menuHelp) {
