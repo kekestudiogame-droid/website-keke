@@ -13383,91 +13383,18 @@ if (togglePassword && passwordInput) {
 
   });
 }
-// ================= DETEKSI PASSWORD RECOVERY =================
+// ================= CEK RECOVERY PASSWORD =================
 
-function showResetPasswordForm() {
+const recoveryParams =
+  new URLSearchParams(window.location.search);
 
-  const resetPasswordForm =
-    document.querySelector("#resetPasswordForm");
+const recoveryType =
+  recoveryParams.get("type");
 
-  const forgotPasswordForm =
-    document.querySelector("#forgotPasswordForm");
+if (recoveryType === "recovery") {
 
-  const accountType =
-    document.querySelector("#accountType");
+  console.log("PASSWORD RECOVERY TERDETEKSI");
 
-  const jobseekerFields =
-    document.querySelector("#jobseekerFields");
-
-  const companyFields =
-    document.querySelector("#companyFields");
-
-  const confirmPasswordField =
-    document.querySelector("#confirmPasswordField");
-
-  const switchAuth =
-    document.querySelector("#switchAuth");
-
-  const submitButton =
-    document.querySelector('#authForm button[type="submit"]');
-
-  const forgotPasswordWrapper =
-    document.querySelector("#forgotPasswordWrapper");
-
-  if (!resetPasswordForm) return;
-
-  // Sembunyikan form login
-  if (accountType) {
-    accountType.style.display = "none";
-  }
-
-  if (jobseekerFields) {
-    jobseekerFields.style.display = "none";
-  }
-
-  if (companyFields) {
-    companyFields.style.display = "none";
-  }
-
-  if (confirmPasswordField) {
-    confirmPasswordField.style.display = "none";
-  }
-
-  if (forgotPasswordForm) {
-    forgotPasswordForm.style.display = "none";
-  }
-
-  if (forgotPasswordWrapper) {
-    forgotPasswordWrapper.style.display = "none";
-  }
-
-  if (switchAuth?.parentElement) {
-    switchAuth.parentElement.style.display = "none";
-  }
-
-  if (submitButton) {
-    submitButton.style.display = "none";
-  }
-
-  // Tampilkan form password baru
-  resetPasswordForm.style.display = "block";
-
-  console.log("PASSWORD RECOVERY MODE AKTIF");
-}
-
-
-// Deteksi parameter recovery dari URL
-const recoveryHash =
-  window.location.hash;
-
-if (
-  recoveryHash &&
-  (
-    recoveryHash.includes("type=recovery") ||
-    recoveryHash.includes("access_token=")
-  )
-) {
   showResetPasswordForm();
+
 }
-
-
