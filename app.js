@@ -13499,8 +13499,9 @@ function showResetPasswordForm() {
     authForm?.querySelector('button[type="submit"]');
 
   if (authModal) {
-    authModal.style.display = "flex";
-  }
+      authModal.classList.remove("hidden");
+      authModal.style.display = "flex";
+   }
 
   if (forgotWrapper) {
     forgotWrapper.style.display = "none";
