@@ -3318,15 +3318,38 @@ if (menuJobseeker) {
       isRegister = false;
       isCompany = false;
 
+      const authModal =
+        document.getElementById("authModal");
+
+      const modalTitle =
+        document.getElementById("modalTitle");
+
+      const modalText =
+        document.getElementById("modalText");
+
+      const authForm =
+        document.getElementById("authForm");
+
+      if (authModal) {
+        authModal.classList.remove("hidden");
+      }
+
       if (modalTitle) {
         modalTitle.textContent =
           localStorage.getItem("siteLanguage") === "en"
-            ? "Log In"
+            ? "Log in"
             : "Masuk";
       }
 
-      if (typeof openAuthModal === "function") {
-        openAuthModal();
+      if (modalText) {
+        modalText.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Log in to your account"
+            : "Masuk ke akun Anda";
+      }
+
+      if (authForm) {
+        authForm.dataset.mode = "login";
       }
 
       return;
@@ -3366,15 +3389,38 @@ if (menuCompany) {
       isRegister = false;
       isCompany = true;
 
+      const authModal =
+        document.getElementById("authModal");
+
+      const modalTitle =
+        document.getElementById("modalTitle");
+
+      const modalText =
+        document.getElementById("modalText");
+
+      const authForm =
+        document.getElementById("authForm");
+
+      if (authModal) {
+        authModal.classList.remove("hidden");
+      }
+
       if (modalTitle) {
         modalTitle.textContent =
           localStorage.getItem("siteLanguage") === "en"
-            ? "Log In"
+            ? "Log in"
             : "Masuk";
       }
 
-      if (typeof openAuthModal === "function") {
-        openAuthModal();
+      if (modalText) {
+        modalText.textContent =
+          localStorage.getItem("siteLanguage") === "en"
+            ? "Log in to your account"
+            : "Masuk ke akun Anda";
+      }
+
+      if (authForm) {
+        authForm.dataset.mode = "login";
       }
 
       return;
