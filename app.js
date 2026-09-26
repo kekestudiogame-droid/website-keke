@@ -4467,10 +4467,7 @@ if (isCompany) {
   return;
 }
 
-throw new Error(
-  "Jenis akun belum dapat diproses."
-);
-    
+
 throw new Error(
   "Jenis akun belum dapat diproses."
 );
