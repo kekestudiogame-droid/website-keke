@@ -3799,6 +3799,7 @@ if (!isRegister) {
   }
 
 }
+    });
 document.querySelector("#closeJobDetail").addEventListener("click", () => {
   document.querySelector("#jobDetailModal").classList.add("hidden");
 });
