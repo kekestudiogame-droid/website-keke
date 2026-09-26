@@ -4636,7 +4636,7 @@ function showRegistrationNotification() {
 
 // ================= DASHBOARD PENCARI KERJA =================
 
-  async function showJobseekerDashboard() {
+ window.showJobseekerDashboard = async function () {
     
       const activeRole =
     localStorage.getItem("kerjivaActiveRole");
