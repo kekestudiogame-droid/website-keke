@@ -13391,16 +13391,20 @@ if (togglePassword && passwordInput) {
 }
 // ================= CEK RECOVERY PASSWORD =================
 
-supabaseAuth.auth.getSession().then(({ data, error }) => {
+if (typeof supabaseAuth !== "undefined") {
 
-  console.log("RECOVERY CHECK:", data.session, error);
+  supabaseAuth.auth.getSession().then(({ data, error }) => {
 
-  if (data.session) {
+    console.log("RECOVERY CHECK:", data.session, error);
 
-    console.log("PASSWORD RECOVERY TERDETEKSI");
+    if (data && data.session) {
 
-    showResetPasswordForm();
+      console.log("PASSWORD RECOVERY TERDETEKSI");
 
-  }
+      showResetPasswordForm();
 
-});
+    }
+
+  });
+
+}
