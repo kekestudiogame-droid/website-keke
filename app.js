@@ -3924,7 +3924,7 @@ if (sendResetPasswordBtn) {
         await supabaseAuth.auth.resetPasswordForEmail(
           email,
           {
-            redirectTo: "https://kerjiva.com/"
+          redirectTo: "https://kerjiva.com/?reset=password"
           }
         );
 
