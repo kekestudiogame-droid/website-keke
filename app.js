@@ -13464,24 +13464,23 @@ if (togglePassword && passwordInput) {
 
   });
 }
-// ================= CEK RECOVERY PASSWORD =================
+// ================= CEK PASSWORD RECOVERY =================
 
-if (typeof supabaseAuth !== "undefined") {
+supabaseAuth.auth.onAuthStateChange((event, session) => {
 
-  supabaseAuth.auth.getSession().then(({ data, error }) => {
+  console.log("AUTH EVENT:", event);
 
-    console.log("RECOVERY CHECK:", data.session, error);
+  if (event === "PASSWORD_RECOVERY" && session) {
 
-    if (data && data.session) {
+    console.log(
+      "PASSWORD RECOVERY TERDETEKSI",
+      session
+    );
 
-      console.log("PASSWORD RECOVERY TERDETEKSI");
+    showResetPasswordForm();
 
-      showResetPasswordForm();
-
-    }
-
-  });
-
-}
   }
+
+});
+
   
