@@ -13539,6 +13539,18 @@ function showResetPasswordForm() {
   }
 
 }
+  // ================= DETEKSI RESET PASSWORD =================
+
+const resetPasswordParam =
+  new URLSearchParams(window.location.search).get("reset");
+
+if (resetPasswordParam === "password") {
+
+  console.log("RESET PASSWORD URL TERDETEKSI");
+
+  showResetPasswordForm();
+
+}
 // ================= CEK PASSWORD RECOVERY =================
 
 supabaseAuth.auth.onAuthStateChange((event, session) => {
