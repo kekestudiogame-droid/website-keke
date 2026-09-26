@@ -13464,6 +13464,56 @@ if (togglePassword && passwordInput) {
 
   });
 }
+  // ================= LIHAT PASSWORD BARU =================
+
+const toggleNewPassword =
+  document.querySelector("#toggleNewPassword");
+
+const newPasswordInput =
+  document.querySelector("#newPassword");
+
+if (toggleNewPassword && newPasswordInput) {
+
+  toggleNewPassword.addEventListener("click", () => {
+
+    const isHidden =
+      newPasswordInput.type === "password";
+
+    newPasswordInput.type =
+      isHidden ? "text" : "password";
+
+    toggleNewPassword.textContent =
+      isHidden ? "👁️" : "👁️‍🗨️";
+
+  });
+
+}
+
+const toggleConfirmNewPassword =
+  document.querySelector("#toggleConfirmNewPassword");
+
+const confirmNewPasswordInput =
+  document.querySelector("#confirmNewPassword");
+
+if (
+  toggleConfirmNewPassword &&
+  confirmNewPasswordInput
+) {
+
+  toggleConfirmNewPassword.addEventListener("click", () => {
+
+    const isHidden =
+      confirmNewPasswordInput.type === "password";
+
+    confirmNewPasswordInput.type =
+      isHidden ? "text" : "password";
+
+    toggleConfirmNewPassword.textContent =
+      isHidden ? "👁️" : "👁️‍🗨️";
+
+  });
+
+}
   // ================= TAMPILKAN FORM PASSWORD BARU =================
 
 function showResetPasswordForm() {
