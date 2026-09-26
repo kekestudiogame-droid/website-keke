@@ -3811,6 +3811,80 @@ document.querySelector("#jobDetailModal").addEventListener("click", e => {
     jobDetailModal.classList.add("hidden");
   }
 });
+  document.querySelector("#jobDetailModal").addEventListener("click", e => {
+  const jobDetailModal = document.querySelector("#jobDetailModal");
+
+  if (e.target === jobDetailModal) {
+    jobDetailModal.classList.add("hidden");
+  }
+});
+
+
+// ================= AKTIFKAN TOMBOL LUPA PASSWORD =================
+
+const forgotBtn =
+  document.querySelector("#forgotPasswordBtn");
+
+const forgotForm =
+  document.querySelector("#forgotPasswordForm");
+
+if (forgotBtn && forgotForm) {
+
+  forgotBtn.addEventListener("click", () => {
+
+    document.querySelector("#accountType")?.style.setProperty(
+      "display",
+      "none"
+    );
+
+    document.querySelector("#jobseekerFields")?.style.setProperty(
+      "display",
+      "none"
+    );
+
+    document.querySelector("#companyFields")?.style.setProperty(
+      "display",
+      "none"
+    );
+
+    document.querySelector("#confirmPasswordField")?.style.setProperty(
+      "display",
+      "none"
+    );
+
+    document.querySelector("#switchAuth")?.parentElement?.style.setProperty(
+      "display",
+      "none"
+    );
+
+    const mainSubmit =
+      authForm?.querySelector('button[type="submit"]');
+
+    if (mainSubmit) {
+      mainSubmit.style.display = "none";
+    }
+
+    forgotForm.style.display = "block";
+
+    const loginEmail =
+      document.querySelector("#email");
+
+    const forgotEmail =
+      document.querySelector("#forgotPasswordEmail");
+
+    if (
+      loginEmail &&
+      forgotEmail &&
+      loginEmail.value.trim()
+    ) {
+      forgotEmail.value =
+        loginEmail.value.trim();
+    }
+
+  });
+
+}
+
 
 authForm.addEventListener("submit", async e => {
   e.preventDefault();
