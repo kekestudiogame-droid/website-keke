@@ -3588,47 +3588,6 @@ function updateForgotPasswordText() {
 
     updateForgotPasswordText();
 
-// ================= TEKS PASSWORD BARU =================
-
-function updateResetPasswordText() {
-
-  const isEnglish =
-    localStorage.getItem("siteLanguage") === "en";
-
-  const newPasswordLabel =
-    document.querySelector("#newPasswordLabel");
-
-  const confirmNewPasswordLabel =
-    document.querySelector("#confirmNewPasswordLabel");
-
-  const saveNewPasswordText =
-    document.querySelector("#saveNewPasswordText");
-
-  if (newPasswordLabel) {
-    newPasswordLabel.textContent =
-      isEnglish
-        ? "New Password"
-        : "Password Baru";
-  }
-
-  if (confirmNewPasswordLabel) {
-    confirmNewPasswordLabel.textContent =
-      isEnglish
-        ? "Confirm New Password"
-        : "Konfirmasi Password Baru";
-  }
-
-  if (saveNewPasswordText) {
-    saveNewPasswordText.textContent =
-      isEnglish
-        ? "Save New Password"
-        : "Simpan Password Baru";
-  }
-
-}
-
-updateResetPasswordText();
-
 // ================= LUPA PASSWORD =================
 
 const forgotPasswordBtn =
