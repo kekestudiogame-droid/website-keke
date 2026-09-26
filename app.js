@@ -4020,8 +4020,10 @@ authForm.addEventListener("submit", async e => {
   const companyAddress =
     document.querySelector("#companyAddress")?.value.trim() || "";
 
-const authUrl = `${SUPABASE_URL.replace(/\/$/, "")}/auth/v1`;
-  );
+const authUrl = SUPABASE_URL.replace(
+  "/rest/v1/",
+  "/auth/v1/"
+   );
 
   try {
 
