@@ -13718,24 +13718,6 @@ if (resetPasswordParam === "password") {
   showResetPasswordForm();
 
 }
-// ================= CEK PASSWORD RECOVERY =================
-
-supabaseAuth.auth.onAuthStateChange((event, session) => {
-
-  console.log("AUTH EVENT:", event);
-
-  if (event === "PASSWORD_RECOVERY" && session) {
-
-    console.log(
-      "PASSWORD RECOVERY TERDETEKSI",
-      session
-    );
-
-    showResetPasswordForm();
-
-  }
-
-});
 
 }
 
