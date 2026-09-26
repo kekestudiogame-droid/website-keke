@@ -12889,7 +12889,7 @@ const accessToken = localStorage.getItem("kerjivaAccessToken");
 
 // ================= PROFIL DIRI PENCARI KERJA =================
 
-async function showJobseekerProfile() {
+  window.showJobseekerProfile = async function () {
   const userData = localStorage.getItem("kerjivaUser");
   const language = localStorage.getItem("siteLanguage") || "id";
   const accessToken = localStorage.getItem("kerjivaAccessToken");
