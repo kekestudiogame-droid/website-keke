@@ -3305,18 +3305,20 @@ if (menuHome) {
     window.location.href = "index.html";
   };
 }
-
 if (menuJobseeker) {
   menuJobseeker.onclick = function () {
-    const dashboard = document.querySelector("#jobseekerDashboard");
-    const mainMenu = document.querySelector("#mainMenu");
+    const activeRole =
+      localStorage.getItem("kerjivaActiveRole");
 
-    if (dashboard) {
-      dashboard.style.display = "block";
+    if (activeRole !== "jobseeker") {
+      const isEnglish =
+        localStorage.getItem("siteLanguage") === "en";
 
-      if (mainMenu) {
-        mainMenu.style.display = "none";
-      }
+      alert(
+        isEnglish
+          ? "Please log out first, then log in as a Job Seeker."
+          : "Silakan logout terlebih dahulu, lalu login sebagai Pencari Kerja."
+      );
 
       return;
     }
@@ -3328,18 +3330,28 @@ if (menuJobseeker) {
 }
 
 if (menuCompany) {
-  menuCompany.addEventListener("click", () => {
-    const dashboard = document.querySelector("#companyDashboard");
+  menuCompany.onclick = function () {
+    const activeRole =
+      localStorage.getItem("kerjivaActiveRole");
 
-    if (dashboard) {
-      dashboard.style.display = "block";
-      document.querySelector("#mainMenu").style.display = "none";
-    } else if (typeof showCompanyDashboard === "function") {
+    if (activeRole !== "company") {
+      const isEnglish =
+        localStorage.getItem("siteLanguage") === "en";
+
+      alert(
+        isEnglish
+          ? "Please log out first, then log in as a Company."
+          : "Silakan logout terlebih dahulu, lalu login sebagai Perusahaan."
+      );
+
+      return;
+    }
+
+    if (typeof showCompanyDashboard === "function") {
       showCompanyDashboard();
     }
-  });
+  };
 }
-
 if (menuHelp) {
   menuHelp.addEventListener("click", () => {
     window.location.href = "bantuan.html";
