@@ -13660,11 +13660,31 @@ if (saveNewPasswordBtn) {
         : "Menyimpan...";
 
     try {
+const { data: sessionData, error: sessionError } =
+  await supabaseAuth.auth.getSession();
 
-      const { error } =
-        await supabaseAuth.auth.updateUser({
-          password: newPassword
-        });
+if (sessionError) {
+  console.error(
+    "GET RECOVERY SESSION ERROR:",
+    sessionError
+  );
+}
+
+if (!sessionData?.session) {
+
+  alert(
+    language === "en"
+      ? "Recovery session is no longer available. Please request a new reset link."
+      : "Sesi pemulihan sudah tidak tersedia. Silakan minta link reset baru."
+  );
+
+  return;
+}
+
+const { error } =
+  await supabaseAuth.auth.updateUser({
+    password: newPassword
+  });
 
       if (error) {
 
