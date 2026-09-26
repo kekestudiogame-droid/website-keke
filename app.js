@@ -13590,6 +13590,122 @@ function showResetPasswordForm() {
   }
 
 }
+  // ================= SIMPAN PASSWORD BARU =================
+
+const saveNewPasswordBtn =
+  document.querySelector("#saveNewPasswordBtn");
+
+if (saveNewPasswordBtn) {
+
+  saveNewPasswordBtn.addEventListener("click", async () => {
+
+    const newPassword =
+      document.querySelector("#newPassword")?.value || "";
+
+    const confirmNewPassword =
+      document.querySelector("#confirmNewPassword")?.value || "";
+
+    const language =
+      localStorage.getItem("siteLanguage") || "id";
+
+    if (!newPassword || !confirmNewPassword) {
+
+      alert(
+        language === "en"
+          ? "Please fill in both password fields."
+          : "Silakan isi kedua kolom password."
+      );
+
+      return;
+    }
+
+    if (newPassword.length < 6) {
+
+      alert(
+        language === "en"
+          ? "Password must be at least 6 characters."
+          : "Password minimal 6 karakter."
+      );
+
+      return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+
+      alert(
+        language === "en"
+          ? "Passwords do not match."
+          : "Password tidak sama."
+      );
+
+      return;
+    }
+
+    saveNewPasswordBtn.disabled = true;
+
+    const originalText =
+      saveNewPasswordBtn.textContent;
+
+    saveNewPasswordBtn.textContent =
+      language === "en"
+        ? "Saving..."
+        : "Menyimpan...";
+
+    try {
+
+      const { error } =
+        await supabaseAuth.auth.updateUser({
+          password: newPassword
+        });
+
+      if (error) {
+
+        console.error(
+          "UPDATE PASSWORD ERROR:",
+          error
+        );
+
+        alert(
+          language === "en"
+            ? "Failed to save new password: " + error.message
+            : "Gagal menyimpan password baru: " + error.message
+        );
+
+        return;
+      }
+
+      alert(
+        language === "en"
+          ? "Password has been successfully changed."
+          : "Password berhasil diubah."
+      );
+
+      document.querySelector("#newPassword").value = "";
+      document.querySelector("#confirmNewPassword").value = "";
+
+    } catch (error) {
+
+      console.error(
+        "UPDATE PASSWORD ERROR:",
+        error
+      );
+
+      alert(
+        language === "en"
+          ? "An error occurred while changing the password."
+          : "Terjadi kesalahan saat mengubah password."
+      );
+
+    } finally {
+
+      saveNewPasswordBtn.disabled = false;
+      saveNewPasswordBtn.textContent = originalText;
+
+    }
+
+  });
+
+}
   // ================= DETEKSI RESET PASSWORD =================
 
 const resetPasswordParam =
