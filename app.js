@@ -3707,9 +3707,9 @@ if (sendResetPasswordBtn) {
 
     try {
 
-      const authUrl =
-        SUPABASE_URL.replace("/rest/v1/", "/auth/v1/");
-
+     const authUrl =
+         SUPABASE_URL.replace("/rest/v1/", "/auth/v1").replace(/\/+$/, "");
+      
       const response = await fetch(
         `${authUrl}/recover`,
         {
