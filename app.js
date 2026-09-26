@@ -3819,7 +3819,6 @@ if (confirmPasswordField) {
         ? "Log In"
         : "Masuk";
 
-    return;
   }
 
   // ================= MODE MASUK =================
