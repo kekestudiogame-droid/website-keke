@@ -733,6 +733,15 @@
 
     "Kata Sandi":
       "Password",
+     
+     "Password Baru":
+       "New Password",
+
+     "Konfirmasi Password Baru":
+        "Confirm New Password",
+
+     "Simpan Password Baru":
+         "Save New Password",
 
   "Nama Depan":
     "First Name",
